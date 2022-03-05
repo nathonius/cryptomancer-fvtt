@@ -48,7 +48,8 @@
     text-align: left;
     align-items: center;
     display: flex;
-    h3, h4 {
+    h3,
+    h4 {
       margin: 0;
       white-space: nowrap;
       overflow-x: hidden;
@@ -72,7 +73,9 @@
     align-items: center;
     padding: 0 2px; // to align with the header border
     border-bottom: 1px solid $c-faint;
-    &:last-child { border-bottom: none; }
+    &:last-child {
+      border-bottom: none;
+    }
     .item-name {
       color: $c-dark;
       .item-image {
@@ -113,7 +116,7 @@
   }
 }
 
-/* Example style for Boilerplate (can be removed if not needed) */
+/* Example style for Cryptomancer (can be removed if not needed) */
 .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;

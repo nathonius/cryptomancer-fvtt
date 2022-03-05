@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate",
+  "name": "cryptomancer",
   "version": "1.0.0",
-  "description": "CSS compiler for the Boilerplate system",
+  "description": "CSS compiler for the Cryptomancer system",
   "scripts": {
     "build": "gulp build",
     "compile": "gulp css",
@@ -17,7 +17,17 @@
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
-    "gulp-sass": "^4.1.0",
-    "gulp-sourcemaps": "^2.6.5"
+    "gulp-cli": "^2.3.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "sass": "^1.49.9"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.249.4",
+    "@types/gulp": "^4.0.9",
+    "@types/gulp-autoprefixer": "^0.0.33",
+    "@types/gulp-sass": "^5.0.0",
+    "@types/gulp-sourcemaps": "^0.0.35"
   }
 }
