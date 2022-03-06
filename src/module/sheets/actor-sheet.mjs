@@ -75,29 +75,20 @@ export class CryptomancerActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
-    // Handle skills.
-    for (let [k, v] of Object.entries(context.data.skills)) {
-      v.label = game.i18n.localize(`CRYPTOMANCER.Skill.${k}`) ?? k;
-      if (context.data.attributes[v.attribute].skills) {
-        context.data.attributes[v.attribute].skills.push(v);
-      } else {
-        context.data.attributes[v.attribute].skills = [v];
+    console.log(context);
+    // Handle labels.
+    for (let [coreKey, coreValue] of Object.entries(context.data.core)) {
+      coreValue.label = game.i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
+      for (let [attrKey, attrValue] of Object.entries(coreValue.attributes)) {
+        attrValue.label = game.i18n.localize(`CRYPTOMANCER.Attr.${attrKey}`);
+        if (attrValue.skills) {
+          for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
+            skillValue.label = game.i18n.localize(
+              `CRYPTOMANCER.Skill.${skillKey}`
+            );
+          }
+        }
       }
-    }
-
-    // Handle attributes.
-    for (let [k, v] of Object.entries(context.data.attributes)) {
-      v.label = game.i18n.localize(`CRYPTOMANCER.Attr.${k}`) ?? k;
-      if (context.data.core[v.core].attributes) {
-        context.data.core[v.core].attributes.push(v);
-      } else {
-        context.data.core[v.core].attributes = [v];
-      }
-    }
-
-    // Handle core.
-    for (let [k, v] of Object.entries(context.data.core)) {
-      v.label = game.i18n.localize(`CRYPTOMANCER.Core.${k}`) ?? k;
     }
   }
 
@@ -234,25 +225,31 @@ export class CryptomancerActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == "item") {
-        const itemId = element.closest(".item").dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
-    }
+    const rollCore = dataset.rollCore;
+    const rollAttribute = dataset.rollAttribute;
+    const rollSkill = dataset.rollSkill;
 
-    // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : "";
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
-        rollMode: game.settings.get("core", "rollMode"),
-      });
-      return roll;
-    }
+    this.document.rollAttribute(rollCore, rollAttribute, rollSkill);
+
+    // // Handle item rolls.
+    // if (dataset.rollType) {
+    //   if (dataset.rollType == "item") {
+    //     const itemId = element.closest(".item").dataset.itemId;
+    //     const item = this.actor.items.get(itemId);
+    //     if (item) return item.roll();
+    //   }
+    // }
+
+    // // Handle rolls that supply the formula directly.
+    // if (dataset.roll) {
+    //   let label = dataset.label ? `[ability] ${dataset.label}` : "";
+    //   let roll = new Roll(dataset.roll, this.actor.getRollData());
+    //   roll.toMessage({
+    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    //     flavor: label,
+    //     rollMode: game.settings.get("core", "rollMode"),
+    //   });
+    //   return roll;
+    // }
   }
 }

@@ -77,9 +77,110 @@
   <section class="sheet-body">
     {{!-- Owned Features Tab --}}
     <div class="tab features" data-group="primary" data-tab="features">
-      {{#each data.core as |core key|}} {{>
-      "systems/cryptomancer/templates/actor/parts/actor-core.html" core=core
-      key=key}} {{/each}}
+      <div class="core">
+        <h2>{{localize "CRYPTOMANCER.Core.speed"}}</h2>
+        <input
+          type="text"
+          name="data.core.speed.value"
+          value="{{data.core.speed.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.speed.attributes.agility.value"
+          value="{{data.core.speed.attributes.agility.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.speed.attributes.dexterity.value"
+          value="{{data.core.speed.attributes.dexterity.value}}"
+          data-dtype="Number"
+        />
+        <div class="attributes">
+          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.speed.attributes.agility}} {{>
+          "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.speed.attributes.dexterity}}
+        </div>
+      </div>
+      <div class="core">
+        <h2>{{localize "CRYPTOMANCER.Core.power"}}</h2>
+        <input
+          type="text"
+          name="data.core.power.value"
+          value="{{data.core.power.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.power.attributes.strength.value"
+          value="{{data.core.power.attributes.strength.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.power.attributes.endurance.value"
+          value="{{data.core.power.attributes.endurance.value}}"
+          data-dtype="Number"
+        />
+        <div class="attributes">
+          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.power.attributes.strength}}
+        </div>
+      </div>
+      <div class="core">
+        <h2>{{localize "CRYPTOMANCER.Core.wits"}}</h2>
+        <input
+          type="text"
+          name="data.core.wits.value"
+          value="{{data.core.wits.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.wits.attributes.knowledge.value"
+          value="{{data.core.wits.attributes.knowledge.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.wits.attributes.cunning.value"
+          value="{{data.core.wits.attributes.cunning.value}}"
+          data-dtype="Number"
+        />
+        <div class="attributes">
+          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.wits.attributes.knowledge}} {{>
+          "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.wits.attributes.cunning}}
+        </div>
+      </div>
+      <div class="core">
+        <h2>{{localize "CRYPTOMANCER.Core.resolve"}}</h2>
+        <input
+          type="text"
+          name="data.core.resolve.value"
+          value="{{data.core.resolve.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.resolve.attributes.presence.value"
+          value="{{data.core.resolve.attributes.presence.value}}"
+          data-dtype="Number"
+        />
+        <input
+          type="text"
+          name="data.core.resolve.attributes.willpower.value"
+          value="{{data.core.resolve.attributes.willpower.value}}"
+          data-dtype="Number"
+        />
+        <div class="attributes">
+          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          attr=data.core.resolve.attributes.presence}}
+        </div>
+      </div>
     </div>
 
     {{!-- Biography Tab --}}
