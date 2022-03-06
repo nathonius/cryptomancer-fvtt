@@ -1,4 +1,7 @@
-import { cryptoRoll } from "../cryptomancer-roll.mjs";
+// Foundry
+import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+
+import { cryptoRoll } from "../cryptomancer-roll";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -37,13 +40,12 @@ export class CryptomancerActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData) {
+  _prepareCharacterData(actorData: ActorData) {
     if (actorData.type !== "character") return;
 
     // Make modifications to data here. For example:
@@ -57,17 +59,6 @@ export class CryptomancerActor extends Actor {
   }
 
   /**
-   * Prepare NPC type specific data.
-   */
-  _prepareNpcData(actorData) {
-    if (actorData.type !== "npc") return;
-
-    // Make modifications to data here. For example:
-    const data = actorData.data;
-    data.xp = data.cr * data.cr * 100;
-  }
-
-  /**
    * Override getRollData() that's supplied to rolls.
    */
   getRollData() {
@@ -75,7 +66,6 @@ export class CryptomancerActor extends Actor {
 
     // Prepare character roll data.
     this._getCharacterRollData(data);
-    this._getNpcRollData(data);
 
     return data;
   }
@@ -83,7 +73,7 @@ export class CryptomancerActor extends Actor {
   /**
    * Prepare character roll data.
    */
-  _getCharacterRollData(data) {
+  _getCharacterRollData(data: object) {
     // if (this.data.type !== "character") return;
     // // Copy the ability scores to the top level, so that rolls can use
     // // formulas like `@str.mod + 4`.
@@ -98,17 +88,10 @@ export class CryptomancerActor extends Actor {
     // }
   }
 
-  /**
-   * Prepare NPC roll data.
-   */
-  _getNpcRollData(data) {
-    if (this.data.type !== "npc") return;
-
-    // Process additional NPC data here.
-  }
-
-  async rollAttribute(coreName, attributeName, skillName = "") {
-    const attribute = this.data.data.core[coreName].attributes[attributeName];
+  async rollAttribute(coreName: string, attributeName: string, skillName = "") {
+    const attribute = (this.data.data as any).core[coreName].attributes[
+      attributeName
+    ];
     const skill = skillName ? attribute.skills[skillName] : null;
     if (skill) {
       cryptoRoll(

@@ -1,7 +1,8 @@
+import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
-} from "../helpers/effects.mjs";
+} from "../helpers/effects";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -33,19 +34,24 @@ export class CryptomancerActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super.getData();
+    const context = await super.getData();
+    return this._getData(context);
+  }
 
+  _getData(
+    context: ActorSheet.Data<ActorSheet.Options>
+  ): ActorSheet.Data<ActorSheet.Options> {
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.data.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.data = actorData.data;
-    context.flags = actorData.flags;
+    (context as any).data = actorData.data;
+    (context as any).flags = actorData.flags;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
@@ -53,16 +59,13 @@ export class CryptomancerActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == "npc") {
-      this._prepareItems(context);
-    }
-
     // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
+    (context as any).rollData = (context as any).actor.getRollData();
 
     // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
+    (context as any).effects = prepareActiveEffectCategories(
+      Array.from(this.actor.effects)
+    );
 
     return context;
   }
@@ -74,7 +77,7 @@ export class CryptomancerActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
+  _prepareCharacterData(context: ActorData) {
     console.log(context);
     // Handle labels.
     for (let [coreKey, coreValue] of Object.entries(context.data.core)) {

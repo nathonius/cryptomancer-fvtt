@@ -1,5 +1,5 @@
 export async function cryptoRoll(
-  attributeDice,
+  attributeDice: number,
   attributeName = "",
   difficulty = "challenging",
   skillName = "",
@@ -19,21 +19,21 @@ export async function cryptoRoll(
 }
 
 async function showChatRollMessage(
-  roll,
-  attributeName,
-  difficulty,
-  skillName,
-  skillBreak,
-  skillPush
+  roll: Roll,
+  attributeName: string,
+  difficulty: string,
+  skillName: string,
+  skillBreak: boolean,
+  skillPush: boolean
 ) {
   const speaker = ChatMessage.getSpeaker();
   console.log(speaker);
   console.log(roll);
-  const attributeRoll = roll.terms[0].rolls[0];
-  const fateRoll = roll.terms[0].rolls[1];
+  const attributeRoll = (roll.terms[0] as PoolTerm).rolls[0];
+  const fateRoll = (roll.terms[0] as PoolTerm).rolls[1];
 
-  const attributeResults = attributeRoll.terms[0].results;
-  const fateResults = fateRoll.terms[0].results;
+  const attributeResults = (attributeRoll.terms[0] as DiceTerm).results;
+  const fateResults = (fateRoll.terms[0] as DiceTerm).results;
 
   let hit = 0;
   let botch = 0;
