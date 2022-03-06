@@ -1,0 +1,1 @@
+cp -r src/* /mnt/c/Users/Nathan/AppData/Local/FoundryVTT/Data/systems/cryptomancer

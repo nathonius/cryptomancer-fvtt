@@ -75,9 +75,29 @@ export class CryptomancerActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
-    // Handle ability scores.
-    for (let [k, v] of Object.entries(context.data.abilities)) {
-      v.label = game.i18n.localize(CONFIG.BOILERPLATE.abilities[k]) ?? k;
+    // Handle skills.
+    for (let [k, v] of Object.entries(context.data.skills)) {
+      v.label = game.i18n.localize(`CRYPTOMANCER.Skill.${k}`) ?? k;
+      if (context.data.attributes[v.attribute].skills) {
+        context.data.attributes[v.attribute].skills.push(v);
+      } else {
+        context.data.attributes[v.attribute].skills = [v];
+      }
+    }
+
+    // Handle attributes.
+    for (let [k, v] of Object.entries(context.data.attributes)) {
+      v.label = game.i18n.localize(`CRYPTOMANCER.Attr.${k}`) ?? k;
+      if (context.data.core[v.core].attributes) {
+        context.data.core[v.core].attributes.push(v);
+      } else {
+        context.data.core[v.core].attributes = [v];
+      }
+    }
+
+    // Handle core.
+    for (let [k, v] of Object.entries(context.data.core)) {
+      v.label = game.i18n.localize(`CRYPTOMANCER.Core.${k}`) ?? k;
     }
   }
 

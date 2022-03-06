@@ -1,0 +1,311 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "health": {
+          "value": 10,
+          "min": 0,
+          "max": 10
+        },
+        "power": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },
+        "biography": ""
+      }
+    },
+    "character": {
+      "core": {
+        "wits": {
+          "label": "Core.wits",
+          "min": 4,
+          "value": 6,
+          "max": 8
+        },
+        "resolve": {
+          "label": "Core.resolve",
+          "min": 4,
+          "value": 6,
+          "max": 8
+        },
+        "speed": {
+          "label": "Core.speed",
+          "min": 4,
+          "value": 6,
+          "max": 8
+        },
+        "power": {
+          "label": "Core.power",
+          "min": 4,
+          "value": 6,
+          "max": 8
+        }
+      },
+      "attributes": {
+        "knowledge": {
+          "label": "Attr.knowledge",
+          "core": "wits",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "cunning": {
+          "label": "Attr.cunning",
+          "core": "wits",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "presence": {
+          "label": "Attr.presence",
+          "core": "resolve",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "willpower": {
+          "label": "Attr.willpower",
+          "core": "resolve",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "agility": {
+          "label": "Attr.agility",
+          "core": "speed",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "dexterity": {
+          "label": "Attr.dexterity",
+          "core": "speed",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "strength": {
+          "label": "Attr.strength",
+          "core": "power",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        },
+        "endurance": {
+          "label": "Attr.endurance",
+          "core": "power",
+          "min": 1,
+          "value": 1,
+          "max": 5
+        }
+      },
+      "skills": {
+        "acrobatics": {
+          "label": "Skill.acrobatics",
+          "attribute": "agility",
+          "break": false,
+          "push": false
+        },
+        "athletics": {
+          "label": "Skill.athletics",
+          "attribute": "agility",
+          "break": false,
+          "push": false
+        },
+        "escapeArtistry": {
+          "label": "Skill.escapeArtistry",
+          "attribute": "agility",
+          "break": false,
+          "push": false
+        },
+        "stealth": {
+          "label": "Skill.stealth",
+          "attribute": "agility",
+          "break": false,
+          "push": false
+        },
+        "firedMissile": {
+          "label": "Skill.firedMissile",
+          "attribute": "dexterity",
+          "break": false,
+          "push": false
+        },
+        "lockPicking": {
+          "label": "Skill.lockPicking",
+          "attribute": "dexterity",
+          "break": false,
+          "push": false
+        },
+        "preciseMissile": {
+          "label": "Skill.preciseMissile",
+          "attribute": "dexterity",
+          "break": false,
+          "push": false
+        },
+        "sleightOfHand": {
+          "label": "Skill.sleightOfHand",
+          "attribute": "dexterity",
+          "break": false,
+          "push": false
+        },
+        "alchemy": {
+          "label": "Skill.alchemy",
+          "attribute": "knowledge",
+          "break": false,
+          "push": false
+        },
+        "craft": {
+          "label": "Skill.craft",
+          "attribute": "knowledge",
+          "break": false,
+          "push": false
+        },
+        "medicine": {
+          "label": "Skill.medicine",
+          "attribute": "knowledge",
+          "break": false,
+          "push": false
+        },
+        "query": {
+          "label": "Skill.query",
+          "attribute": "knowledge",
+          "break": false,
+          "push": false
+        },
+        "deception": {
+          "label": "Skill.deception",
+          "attribute": "cunning",
+          "break": false,
+          "push": false
+        },
+        "scrounge": {
+          "label": "Skill.scrounge",
+          "attribute": "cunning",
+          "break": false,
+          "push": false
+        },
+        "tracking": {
+          "label": "Skill.tracking",
+          "attribute": "cunning",
+          "break": false,
+          "push": false
+        },
+        "traps": {
+          "label": "Skill.traps",
+          "attribute": "cunning",
+          "break": false,
+          "push": false
+        },
+        "bruteMelee": {
+          "label": "Skill.bruteMelee",
+          "attribute": "strength",
+          "break": false,
+          "push": false
+        },
+        "featOfStrength": {
+          "label": "Skill.featOfStrength",
+          "attribute": "strength",
+          "break": false,
+          "push": false
+        },
+        "thrownMissile": {
+          "label": "Skill.thrownMissile",
+          "attribute": "strength",
+          "break": false,
+          "push": false
+        },
+        "unarmedMelee": {
+          "label": "Skill.unarmedMelee",
+          "attribute": "strength",
+          "break": false,
+          "push": false
+        },
+        "beastKen": {
+          "label": "Skill.beastKen",
+          "attribute": "presence",
+          "break": false,
+          "push": false
+        },
+        "charm": {
+          "label": "Skill.charm",
+          "attribute": "presence",
+          "break": false,
+          "push": false
+        },
+        "menace": {
+          "label": "Skill.menace",
+          "attribute": "presence",
+          "break": false,
+          "push": false
+        },
+        "performance": {
+          "label": "Skill.performance",
+          "attribute": "presence",
+          "break": false,
+          "push": false
+        }
+      },
+      "biography": {
+        "race": "",
+        "trueName": "",
+        "pronouns": "",
+        "build": "",
+        "eyes": "",
+        "hair": "",
+        "skin": "",
+        "desires": "",
+        "fears": "",
+        "tendsTo": "",
+        "usedTo": ""
+      },
+      "gear": {
+        "weapon": {
+          "rules": "",
+          "qualities": ""
+        },
+        "outfit": {
+          "rules": "",
+          "qualities": ""
+        }
+      },
+      "healthPoints": {
+        "value": 10,
+        "max": 30
+      },
+      "manaPoints": {
+        "value": 10,
+        "max": 30
+      },
+      "upgradePoints": {
+        "value": 0
+      }
+    },
+    "npc": {
+      "templates": ["base"],
+      "cr": 0
+    }
+  },
+  "Item": {
+    "types": ["item", "feature", "spell"],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "item": {
+      "templates": ["base"],
+      "quantity": 1,
+      "weight": 0,
+      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+    },
+    "feature": {
+      "templates": ["base"]
+    },
+    "spell": {
+      "templates": ["base"],
+      "spellLevel": 1
+    }
+  }
+}

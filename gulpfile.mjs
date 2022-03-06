@@ -15,7 +15,7 @@ function handleError(err) {
   this.emit("end");
 }
 
-const SYSTEM_SCSS = ["scss/**/*.scss"];
+const SYSTEM_SCSS = ["src/scss/**/*.scss"];
 function compileScss() {
   // Configure options for sass output. For example, 'expanded' or 'nested'
   let options = {
@@ -29,7 +29,7 @@ function compileScss() {
         cascade: false,
       })
     )
-    .pipe(gulp.dest("./css"));
+    .pipe(gulp.dest("./src/css"));
 }
 const css = gulp.series(compileScss);
 

@@ -1,0 +1,37 @@
+<div class="core">
+  <h2>{{core.label}}</h2>
+  <div class="triad">
+    <div class="core-rank">
+      <input
+        type="text"
+        name="data.core.{{key}}.value"
+        value="{{core.value}}"
+        data-dtype="Number"
+      />
+    </div>
+    {{#each this.attributes}}
+    <div class="attr-rank">
+      <input
+        type="text"
+        name="data.core.{{key}}.value"
+        value="{{core.value}}"
+        data-dtype="Number"
+      />
+      {{core.attributes.[0].value}}
+    </div>
+    {{/each}}
+    <div class="attr-rank">{{core.attributes.[1].value}}</div>
+  </div>
+  <div class="skills">
+    {{#each this.attributes}}
+    <div class="attribute">
+      <h3>{{this.label}}</h3>
+      {{#each this.skills}}
+      <div class="skill">
+        <span>{{this.label}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</div>
