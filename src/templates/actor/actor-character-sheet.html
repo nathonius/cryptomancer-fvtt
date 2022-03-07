@@ -19,42 +19,42 @@
       </h1>
       <div class="resources grid grid-3col">
         <div class="resource flex-group-center">
-          <label for="actorData.health.value" class="resource-label"
+          <label for="data.data.health.value" class="resource-label"
             >Health Points</label
           >
           <div class="resource-content flexrow flex-center flex-between">
             <input
               type="text"
-              name="actorData.healthPoints.value"
-              value="{{actorData.healthPoints.value}}"
+              name="data.data.healthPoints.value"
+              value="{{data.data.healthPoints.value}}"
               data-dtype="Number"
             />
             <span> / </span>
             <input
               type="text"
-              name="actorData.healthPoints.max"
-              value="{{actorData.healthPoints.max}}"
+              name="data.data.healthPoints.max"
+              value="{{data.data.healthPoints.max}}"
               data-dtype="Number"
             />
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="actorData.manaPoints.value" class="resource-label"
+          <label for="data.data.manaPoints.value" class="resource-label"
             >Mana Points</label
           >
           <div class="resource-content flexrow flex-center flex-between">
             <input
               type="text"
-              name="actorData.manaPoints.value"
-              value="{{actorData.manaPoints.value}}"
+              name="data.data.manaPoints.value"
+              value="{{data.data.manaPoints.value}}"
               data-dtype="Number"
             />
             <span> / </span>
             <input
               type="text"
-              name="actorData.manaPoints.max"
-              value="{{actorData.manaPoints.max}}"
+              name="data.data.manaPoints.max"
+              value="{{data.data.manaPoints.max}}"
               data-dtype="Number"
             />
           </div>
@@ -81,104 +81,104 @@
         <h2>{{localize "CRYPTOMANCER.Core.speed"}}</h2>
         <input
           type="text"
-          name="actorData.core.speed.value"
-          value="{{actorData.core.speed.value}}"
+          name="data.data.core.speed.value"
+          value="{{data.data.core.speed.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.speed.attributes.agility.value"
-          value="{{actorData.core.speed.attributes.agility.value}}"
+          name="data.data.core.speed.attributes.agility.value"
+          value="{{data.data.core.speed.attributes.agility.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.speed.attributes.dexterity.value"
-          value="{{actorData.core.speed.attributes.dexterity.value}}"
+          name="data.data.core.speed.attributes.dexterity.value"
+          value="{{data.data.core.speed.attributes.dexterity.value}}"
           data-dtype="Number"
         />
         <div class="attributes">
           {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.speed.attributes.agility}} {{>
+          attr=data.data.core.speed.attributes.agility}} {{>
           "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.speed.attributes.dexterity}}
+          attr=data.data.core.speed.attributes.dexterity}}
         </div>
       </div>
       <div class="core">
         <h2>{{localize "CRYPTOMANCER.Core.power"}}</h2>
         <input
           type="text"
-          name="actorData.core.power.value"
-          value="{{actorData.core.power.value}}"
+          name="data.data.core.power.value"
+          value="{{data.data.core.power.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.power.attributes.strength.value"
-          value="{{actorData.core.power.attributes.strength.value}}"
+          name="data.data.core.power.attributes.strength.value"
+          value="{{data.data.core.power.attributes.strength.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.power.attributes.endurance.value"
-          value="{{actorData.core.power.attributes.endurance.value}}"
+          name="data.data.core.power.attributes.endurance.value"
+          value="{{data.data.core.power.attributes.endurance.value}}"
           data-dtype="Number"
         />
         <div class="attributes">
           {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.power.attributes.strength}}
+          attr=data.data.core.power.attributes.strength}}
         </div>
       </div>
       <div class="core">
         <h2>{{localize "CRYPTOMANCER.Core.wits"}}</h2>
         <input
           type="text"
-          name="actorData.core.wits.value"
-          value="{{actorData.core.wits.value}}"
+          name="data.data.core.wits.value"
+          value="{{data.data.core.wits.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.wits.attributes.knowledge.value"
-          value="{{actorData.core.wits.attributes.knowledge.value}}"
+          name="data.data.core.wits.attributes.knowledge.value"
+          value="{{data.data.core.wits.attributes.knowledge.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.wits.attributes.cunning.value"
-          value="{{actorData.core.wits.attributes.cunning.value}}"
+          name="data.data.core.wits.attributes.cunning.value"
+          value="{{data.data.core.wits.attributes.cunning.value}}"
           data-dtype="Number"
         />
         <div class="attributes">
           {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.wits.attributes.knowledge}} {{>
+          attr=data.data.core.wits.attributes.knowledge}} {{>
           "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.wits.attributes.cunning}}
+          attr=data.data.core.wits.attributes.cunning}}
         </div>
       </div>
       <div class="core">
         <h2>{{localize "CRYPTOMANCER.Core.resolve"}}</h2>
         <input
           type="text"
-          name="actorData.core.resolve.value"
-          value="{{actorData.core.resolve.value}}"
+          name="data.data.core.resolve.value"
+          value="{{data.data.core.resolve.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.resolve.attributes.presence.value"
-          value="{{actorData.core.resolve.attributes.presence.value}}"
+          name="data.data.core.resolve.attributes.presence.value"
+          value="{{data.data.core.resolve.attributes.presence.value}}"
           data-dtype="Number"
         />
         <input
           type="text"
-          name="actorData.core.resolve.attributes.willpower.value"
-          value="{{actorData.core.resolve.attributes.willpower.value}}"
+          name="data.data.core.resolve.attributes.willpower.value"
+          value="{{data.data.core.resolve.attributes.willpower.value}}"
           data-dtype="Number"
         />
         <div class="attributes">
           {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=actorData.core.resolve.attributes.presence}}
+          attr=data.data.core.resolve.attributes.presence}}
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@
     <div class="tab biography" data-group="primary" data-tab="description">
       <!-- {{!-- If you want TinyMCE editors to output inline rolls when rendered,
       you need to pass the actor's roll data to the rollData property. --}}
-      {{editor content=data.biography target="data.biography" rollData=rollData
+      {{editor content=data.data.biography target="data.data.biography" rollData=rollData
       button=true owner=owner editable=editable}} -->
     </div>
 

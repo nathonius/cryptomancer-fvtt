@@ -27,8 +27,6 @@ async function showChatRollMessage(
   skillPush: boolean
 ) {
   const speaker = ChatMessage.getSpeaker();
-  console.log(speaker);
-  console.log(roll);
   const attributeRoll = (roll.terms[0] as PoolTerm).rolls[0];
   const fateRoll = (roll.terms[0] as PoolTerm).rolls[1];
 
@@ -48,7 +46,6 @@ async function showChatRollMessage(
     if (result.result === 1) {
       botch += 1;
     } else if (skillPush && result.result === 10) {
-      console.log("SKILL PUSH");
       hit += 2;
     } else if (result.result >= threshold) {
       hit += 1;
@@ -64,8 +61,6 @@ async function showChatRollMessage(
   });
 
   if (skillBreak && botch > 0) {
-    console.log("SKILL BREAK");
     botch -= 1;
   }
-  console.log(`HIT: ${hit}; BOTCH: ${botch}; TOTAL: ${hit - botch}`);
 }

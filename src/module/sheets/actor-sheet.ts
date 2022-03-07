@@ -1,13 +1,13 @@
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { CoreAlt } from "../../interfaces/cryptomancer";
+import { Character, CoreAlt } from "../../interfaces/cryptomancer";
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
-} from "../helpers/effects";
-import { getGame } from "../util";
+} from "../helpers/effects.js";
+import { getGame } from "../util.js";
 
 type AugmentedData = ActorSheet.Data & {
-  actorData: ActorData;
+  actorData: ActorData["data"];
   actorFlags: Record<string, unknown>;
   rollData: object;
   gear: ActorSheetItem[];
@@ -22,6 +22,8 @@ export class CryptomancerActorSheet extends ActorSheet<
   ActorSheet.Options,
   AugmentedData
 > {
+  private _data!: AugmentedData;
+
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -44,14 +46,6 @@ export class CryptomancerActorSheet extends ActorSheet<
     return `systems/cryptomancer/templates/actor/actor-${this.actor.data.type}-sheet.html`;
   }
 
-  get actorData(): ActorData {
-    return this.actor.data;
-  }
-
-  get actorFlags(): Record<string, unknown> {
-    return this.actorData.flags;
-  }
-
   /* -------------------------------------------- */
 
   /** @override */
@@ -61,19 +55,16 @@ export class CryptomancerActorSheet extends ActorSheet<
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = await super.getData();
-    return this.augmentContext(context);
+    const augmented = this.augmentContext(context);
+    this._data = augmented;
+    return augmented;
   }
 
   private augmentContext(context: AugmentedData): AugmentedData {
-    // Use a safe clone of the actor data for further operations.
-    const actorData = this.actor.data.toObject(false);
-
-    // Add the actor's data to context.data for easier access, as well as flags.
-    context.actorData = this.actorData;
-    context.actorFlags = this.actorFlags;
+    // context.data = { ...context.data, ...this.actor.data.toObject(false) };
 
     // Prepare character data and items.
-    if (actorData.type == "character") {
+    if (context.data.type == "character") {
       this._prepareItems(context);
       this._prepareCharacterData(context);
     }
@@ -98,9 +89,7 @@ export class CryptomancerActorSheet extends ActorSheet<
    */
   _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
-    for (let [coreKey, coreValue] of Object.entries(
-      context.actorData.data.core
-    )) {
+    for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
       coreValue.label = getGame().i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
       for (let [attrKey, attrValue] of Object.entries(
         (coreValue as CoreAlt).attributes
