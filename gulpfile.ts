@@ -1,7 +1,10 @@
-import gulp from "gulp";
+import * as gulp from "gulp";
 import prefix from "gulp-autoprefixer";
 import dartSass from "sass";
 import gulpSass from "gulp-sass";
+import ts from "gulp-typescript";
+
+const tsProject = ts.createProject("tsconfig.json");
 
 const sass = gulpSass(dartSass);
 
@@ -10,26 +13,22 @@ const sass = gulpSass(dartSass);
 /* ----------------------------------------- */
 
 // Small error handler helper function.
-function handleError(err) {
+function handleError(err: any) {
   console.log(err.toString());
-  this.emit("end");
+  gulp.emit("end");
 }
 
 const SYSTEM_SCSS = ["src/scss/**/*.scss"];
 function compileScss() {
-  // Configure options for sass output. For example, 'expanded' or 'nested'
-  let options = {
-    outputStyle: "expanded",
-  };
   return gulp
     .src(SYSTEM_SCSS)
-    .pipe(sass(options).on("error", handleError))
+    .pipe(sass({ outputStyle: "expanded" }).on("error", handleError))
     .pipe(
       prefix({
         cascade: false,
       })
     )
-    .pipe(gulp.dest("./src/css"));
+    .pipe(gulp.dest("./dist/css"));
 }
 const css = gulp.series(compileScss);
 
@@ -41,10 +40,23 @@ function watchUpdates() {
   gulp.watch(SYSTEM_SCSS, css);
 }
 
+// Build ts
+gulp.task("scripts", function () {
+  const tsResult = gulp
+    .src("src/**/*.ts") // or tsProject.src()
+    .pipe(tsProject());
+
+  return tsResult.js.pipe(gulp.dest("dist"));
+});
+
+gulp.task("copy", () => {
+  return gulp.src("src/**/*{.m?js,.md,.json,.html}").pipe(gulp.dest("dist"));
+});
+
 /* ----------------------------------------- */
 /*  Export Tasks
 /* ----------------------------------------- */
 
 gulp.task("default", gulp.series(compileScss, watchUpdates));
-gulp.task("build", gulp.series(compileScss));
+gulp.task("build", gulp.series(compileScss, "scripts", "copy"));
 gulp.task("css", css);

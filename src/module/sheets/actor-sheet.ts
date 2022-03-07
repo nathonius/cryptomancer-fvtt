@@ -1,13 +1,27 @@
+import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
+import { CoreAlt } from "../../interfaces/cryptomancer";
 import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
-} from "../helpers/effects.mjs";
+} from "../helpers/effects";
+import { getGame } from "../util";
+
+type AugmentedData = ActorSheet.Data & {
+  actorData: ActorData;
+  actorFlags: Record<string, unknown>;
+  rollData: object;
+  gear: ActorSheetItem[];
+  features: ActorSheetItem[];
+};
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class CryptomancerActorSheet extends ActorSheet {
+export class CryptomancerActorSheet extends ActorSheet<
+  ActorSheet.Options,
+  AugmentedData
+> {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -30,22 +44,33 @@ export class CryptomancerActorSheet extends ActorSheet {
     return `systems/cryptomancer/templates/actor/actor-${this.actor.data.type}-sheet.html`;
   }
 
+  get actorData(): ActorData {
+    return this.actor.data;
+  }
+
+  get actorFlags(): Record<string, unknown> {
+    return this.actorData.flags;
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super.getData();
+    const context = await super.getData();
+    return this.augmentContext(context);
+  }
 
+  private augmentContext(context: AugmentedData): AugmentedData {
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.data.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.data = actorData.data;
-    context.flags = actorData.flags;
+    context.actorData = this.actorData;
+    context.actorFlags = this.actorFlags;
 
     // Prepare character data and items.
     if (actorData.type == "character") {
@@ -53,16 +78,13 @@ export class CryptomancerActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == "npc") {
-      this._prepareItems(context);
-    }
-
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
+    // // Prepare active effects
+    // context.effects = prepareActiveEffectCategories(
+    //   Array.from(this.actor.effects)
+    // );
 
     return context;
   }
@@ -74,16 +96,21 @@ export class CryptomancerActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
-    console.log(context);
+  _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
-    for (let [coreKey, coreValue] of Object.entries(context.data.core)) {
-      coreValue.label = game.i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
-      for (let [attrKey, attrValue] of Object.entries(coreValue.attributes)) {
-        attrValue.label = game.i18n.localize(`CRYPTOMANCER.Attr.${attrKey}`);
+    for (let [coreKey, coreValue] of Object.entries(
+      context.actorData.data.core
+    )) {
+      coreValue.label = getGame().i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
+      for (let [attrKey, attrValue] of Object.entries(
+        (coreValue as CoreAlt).attributes
+      )) {
+        attrValue.label = getGame().i18n.localize(
+          `CRYPTOMANCER.Attr.${attrKey}`
+        );
         if (attrValue.skills) {
           for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
-            skillValue.label = game.i18n.localize(
+            skillValue.label = getGame().i18n.localize(
               `CRYPTOMANCER.Skill.${skillKey}`
             );
           }
@@ -99,26 +126,14 @@ export class CryptomancerActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareItems(context) {
+  _prepareItems(context: AugmentedData) {
     // Initialize containers.
-    const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
+    const gear: ActorSheetItem[] = [];
+    const features: ActorSheetItem[] = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
+      i.img = i.img || CONST.DEFAULT_TOKEN;
       // Append to gear.
       if (i.type === "item") {
         gear.push(i);
@@ -127,31 +142,26 @@ export class CryptomancerActorSheet extends ActorSheet {
       else if (i.type === "feature") {
         features.push(i);
       }
-      // Append to spells.
-      else if (i.type === "spell") {
-        if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
-        }
-      }
     }
 
     // Assign and return
     context.gear = gear;
     context.features = features;
-    context.spells = spells;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
+  activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
 
     // Render the item sheet for viewing/editing prior to the editable check.
-    html.find(".item-edit").click((ev) => {
+    html.find(".item-edit").on("click", (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
+      if (item && item.sheet) {
+        item.sheet.render(true);
+      }
     });
 
     // -------------------------------------------------------------
@@ -159,30 +169,32 @@ export class CryptomancerActorSheet extends ActorSheet {
     if (!this.isEditable) return;
 
     // Add Inventory Item
-    html.find(".item-create").click(this._onItemCreate.bind(this));
+    html.find(".item-create").on("click", this._onItemCreate.bind(this));
 
     // Delete Inventory Item
-    html.find(".item-delete").click((ev) => {
+    html.find(".item-delete").on("click", (ev) => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
+      if (item) {
+        item.delete();
+        li.slideUp(200, () => this.render(false));
+      }
     });
 
     // Active Effect management
     html
       .find(".effect-control")
-      .click((ev) => onManageActiveEffect(ev, this.actor));
+      .on("click", (ev) => onManageActiveEffect(ev, this.actor));
 
     // Rollable abilities.
-    html.find(".rollable").click(this._onRoll.bind(this));
+    html.find(".rollable").on("click", this._onRoll.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
-      let handler = (ev) => this._onDragStart(ev);
+      let handler = (ev: DragEvent) => this._onDragStart(ev);
       html.find("li.item").each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
-        li.setAttribute("draggable", true);
+        li.setAttribute("draggable", "true");
         li.addEventListener("dragstart", handler, false);
       });
     }
@@ -193,7 +205,7 @@ export class CryptomancerActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  async _onItemCreate(event) {
+  async _onItemCreate(event: JQuery.ClickEvent) {
     event.preventDefault();
     const header = event.currentTarget;
     // Get the type of item to create.
@@ -220,7 +232,7 @@ export class CryptomancerActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onRoll(event) {
+  _onRoll(event: JQuery.ClickEvent) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;

@@ -1,1 +1,1 @@
-cp -r src/* /mnt/c/Users/Nathan/AppData/Local/FoundryVTT/Data/systems/cryptomancer
+cp -r dist/* /mnt/c/Users/Nathan/AppData/Local/FoundryVTT/Data/systems/cryptomancer

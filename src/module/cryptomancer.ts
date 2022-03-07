@@ -1,12 +1,13 @@
+// Foundry
+import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
+
 // Import document classes.
-import { CryptomancerActor } from "./documents/actor.mjs";
-import { CryptomancerItem } from "./documents/item.mjs";
+import { CryptomancerActor } from "./documents/actor";
 // Import sheet classes.
-import { CryptomancerActorSheet } from "./sheets/actor-sheet.mjs";
-import { CryptomancerItemSheet } from "./sheets/item-sheet.mjs";
+import { CryptomancerActorSheet } from "./sheets/actor-sheet";
 // Import helper/utility classes and constants.
-import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
-import { BOILERPLATE } from "./helpers/config.mjs";
+import { preloadHandlebarsTemplates } from "./helpers/templates";
+// import { BOILERPLATE } from "./helpers/config.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -15,14 +16,13 @@ import { BOILERPLATE } from "./helpers/config.mjs";
 Hooks.once("init", async function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
-  game.cryptomancer = {
+  (game as any).cryptomancer = {
     CryptomancerActor,
-    CryptomancerItem,
     rollItemMacro,
   };
 
   // Add custom constants for configuration.
-  CONFIG.BOILERPLATE = BOILERPLATE;
+  // CONFIG.BOILERPLATE = BOILERPLATE;
 
   /**
    * Set an initiative formula for the system
@@ -35,17 +35,16 @@ Hooks.once("init", async function () {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = CryptomancerActor;
-  CONFIG.Item.documentClass = CryptomancerItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
     makeDefault: true,
   });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    makeDefault: true,
-  });
+  // Items.unregisterSheet("core", ItemSheet);
+  // Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+  //   makeDefault: true,
+  // });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -90,18 +89,18 @@ Hooks.once("ready", async function () {
  * @param {number} slot     The hotbar slot to use
  * @returns {Promise}
  */
-async function createItemMacro(data, slot) {
-  if (data.type !== "Item") return;
+async function createItemMacro(data: DropData<Macro>, slot: number) {
+  if ((data as any).type !== "Item") return;
   if (!("data" in data))
-    return ui.notifications.warn(
+    return ui?.notifications?.warn(
       "You can only create macro buttons for owned Items"
     );
   const item = data.data;
 
   // Create the macro command
   const command = `game.cryptomancer.rollItemMacro("${item.name}");`;
-  let macro = game.macros.find(
-    (m) => m.name === item.name && m.command === command
+  let macro = (game as any).macros.find(
+    (m: any) => m.name === item.name && m.command === command
   );
   if (!macro) {
     macro = await Macro.create({
@@ -112,7 +111,7 @@ async function createItemMacro(data, slot) {
       flags: { "cryptomancer.itemMacro": true },
     });
   }
-  game.user.assignHotbarMacro(macro, slot);
+  (game as any).user.assignHotbarMacro(macro, slot);
   return false;
 }
 
@@ -122,14 +121,16 @@ async function createItemMacro(data, slot) {
  * @param {string} itemName
  * @return {Promise}
  */
-function rollItemMacro(itemName) {
+function rollItemMacro(itemName: string) {
   const speaker = ChatMessage.getSpeaker();
   let actor;
-  if (speaker.token) actor = game.actors.tokens[speaker.token];
-  if (!actor) actor = game.actors.get(speaker.actor);
-  const item = actor ? actor.items.find((i) => i.name === itemName) : null;
+  if (speaker.token) actor = (game as any).actors.tokens[speaker.token];
+  if (!actor) actor = (game as any).actors.get(speaker.actor);
+  const item = actor
+    ? actor.items.find((i: Item) => i.name === itemName)
+    : null;
   if (!item)
-    return ui.notifications.warn(
+    return ui?.notifications?.warn(
       `Your controlled Actor does not have an item named ${itemName}`
     );
 
