@@ -3,7 +3,6 @@ import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/fo
 
 // Import document classes.
 import { CryptomancerActor } from "./documents/actor";
-import { CryptomancerItem } from "./documents/item";
 // Import sheet classes.
 import { CryptomancerActorSheet } from "./sheets/actor-sheet";
 // Import helper/utility classes and constants.
@@ -19,7 +18,6 @@ Hooks.once("init", async function () {
   // accessible in global contexts.
   (game as any).cryptomancer = {
     CryptomancerActor,
-    CryptomancerItem,
     rollItemMacro,
   };
 
@@ -37,7 +35,6 @@ Hooks.once("init", async function () {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = CryptomancerActor;
-  CONFIG.Item.documentClass = CryptomancerItem;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

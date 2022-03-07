@@ -105,12 +105,20 @@ export interface Core {
   max: number;
 }
 
+export interface CoreAlt extends Core {
+  attributes: Record<string, AttributeAlt>;
+}
+
 export interface Attribute {
   label: string;
   core: string;
   min: number;
   value: number;
   max: number;
+}
+
+export interface AttributeAlt extends Attribute {
+  skills: Record<string, Skill>;
 }
 
 export interface Skill {

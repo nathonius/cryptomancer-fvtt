@@ -3,7 +3,10 @@
  * @param {MouseEvent} event      The left-click event on the effect control
  * @param {Actor|Item} owner      The owning document which manages this effect
  */
-export function onManageActiveEffect(event: MouseEvent, owner: Actor | Item) {
+export function onManageActiveEffect(
+  event: JQuery.ClickEvent,
+  owner: Actor | Item
+) {
   event.preventDefault();
   const a = event.currentTarget as HTMLAnchorElement;
   const li = a.closest("li")!;
