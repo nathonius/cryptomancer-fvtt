@@ -1,10 +1,6 @@
-import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { Character, CoreAlt } from "../../interfaces/cryptomancer";
-import {
-  onManageActiveEffect,
-  prepareActiveEffectCategories,
-} from "../helpers/effects.js";
-import { getGame } from "../util.js";
+import { CoreAlt } from "../interfaces/cryptomancer";
+import { onManageActiveEffect } from "../helpers/effects.js";
+import { getGame } from "../helpers/util.js";
 
 type AugmentedData = ActorSheet.Data & {
   rollData: object;
@@ -26,7 +22,7 @@ export class CryptomancerActorSheet extends ActorSheet<
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
-      template: "systems/cryptomancer/templates/actor/actor-sheet.html",
+      template: "systems/cryptomancer/actor-sheet/actor-sheet.component.html",
       width: 600,
       height: 600,
       tabs: [
@@ -41,7 +37,7 @@ export class CryptomancerActorSheet extends ActorSheet<
 
   /** @override */
   get template() {
-    return `systems/cryptomancer/templates/actor/actor-${this.actor.data.type}-sheet.html`;
+    return `systems/cryptomancer/actor-sheet/actor-sheet-${this.actor.data.type}.component.html`;
   }
 
   /* -------------------------------------------- */
@@ -60,8 +56,6 @@ export class CryptomancerActorSheet extends ActorSheet<
   }
 
   private augmentContext(context: AugmentedData): AugmentedData {
-    // context.data = { ...context.data, ...this.actor.data.toObject(false) };
-
     // Prepare character data and items.
     if (context.data.type == "character") {
       this._prepareItems(context);

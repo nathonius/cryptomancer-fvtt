@@ -18,7 +18,7 @@ function handleError(err: any) {
   gulp.emit("end");
 }
 
-const SYSTEM_SCSS = ["src/scss/**/*.scss"];
+const SYSTEM_SCSS = ["src/cryptomancer.scss"];
 function compileScss() {
   return gulp
     .src(SYSTEM_SCSS)

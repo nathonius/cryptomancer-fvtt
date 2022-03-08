@@ -6,7 +6,7 @@
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "9",
   "author": "Asacolips",
-  "esmodules": ["module/cryptomancer.js"],
+  "esmodules": ["cryptomancer.js"],
   "styles": ["css/cryptomancer.css"],
   "scripts": [],
   "packs": [],

@@ -1,12 +1,12 @@
 import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
-import { ParsedRollResult } from "../interfaces/skill-check.interface.js";
+import { ParsedRollResult } from "./skill-check.interface.js";
 import {
   CheckDifficulty,
   CheckResult,
   DieResult,
   DieType,
-} from "./enums/skill-check.enum.js";
-import { getGame } from "./util.js";
+} from "./skill-check.enum.js";
+import { getGame } from "../helpers/util.js";
 
 export async function cryptoRoll(
   attributeDice: number,
@@ -52,9 +52,7 @@ async function showChatRollMessage(
   let hit = 0;
   let botch = 0;
 
-  console.log((attributeRoll.terms[0] as DiceTerm).results);
   (attributeRoll.terms[0] as DiceTerm).results.forEach((r) => {
-    console.log(r);
     const parsed: ParsedRollResult = {
       break: false,
       push: false,
@@ -80,12 +78,7 @@ async function showChatRollMessage(
   });
 
   // FUTURE NATHAN: THIS IS BUSTED, FOR SOME REASON THIS ARRAY IS EMPTY
-  console.log(fateRoll);
-  console.log(fateRoll.terms[0]);
-  console.log();
-  console.log((fateRoll.terms[0] as DiceTerm).results);
   (fateRoll.terms[0] as DiceTerm).results.forEach((r) => {
-    console.log(r);
     const parsed: ParsedRollResult = {
       break: false,
       push: false,
@@ -106,11 +99,9 @@ async function showChatRollMessage(
     rolls.fate.push(parsed);
   });
 
-  console.log(rolls);
-
   const checkResult = getRollResult(hit, botch);
   const resultTemplate = await renderTemplate(
-    "systems/cryptomancer/templates/cryptomancer-roll.html",
+    "systems/cryptomancer/skill-check/cryptomancer-roll.html",
     { rolls, attributeName, skillName, difficulty, checkResult }
   );
 

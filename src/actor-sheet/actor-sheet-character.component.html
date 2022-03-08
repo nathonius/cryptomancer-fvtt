@@ -2,9 +2,9 @@
   <header class="sheet-header">
     <img
       class="profile-img"
-      src="{{actor.img}}"
+      src="{{ actor.img }}"
       data-edit="img"
-      title="{{actor.name}}"
+      title="{{ actor.name }}"
       height="100"
       width="100"
     />
@@ -13,7 +13,7 @@
         <input
           name="name"
           type="text"
-          value="{{actor.name}}"
+          value="{{ actor.name }}"
           placeholder="Name"
         />
       </h1>
@@ -26,14 +26,14 @@
             <input
               type="text"
               name="data.healthPoints.value"
-              value="{{data.data.healthPoints.value}}"
+              value="{{ data.data.healthPoints.value }}"
               data-dtype="Number"
             />
             <span> / </span>
             <input
               type="text"
               name="data.healthPoints.max"
-              value="{{data.data.healthPoints.max}}"
+              value="{{ data.data.healthPoints.max }}"
               data-dtype="Number"
             />
           </div>
@@ -47,14 +47,14 @@
             <input
               type="text"
               name="data.manaPoints.value"
-              value="{{data.data.manaPoints.value}}"
+              value="{{ data.data.manaPoints.value }}"
               data-dtype="Number"
             />
             <span> / </span>
             <input
               type="text"
               name="data.manaPoints.max"
-              value="{{data.data.manaPoints.max}}"
+              value="{{ data.data.manaPoints.max }}"
               data-dtype="Number"
             />
           </div>
@@ -82,25 +82,26 @@
         <input
           type="text"
           name="data.core.speed.value"
-          value="{{data.data.core.speed.value}}"
+          value="{{ data.data.core.speed.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.speed.attributes.agility.value"
-          value="{{data.data.core.speed.attributes.agility.value}}"
+          value="{{ data.data.core.speed.attributes.agility.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.speed.attributes.dexterity.value"
-          value="{{data.data.core.speed.attributes.dexterity.value}}"
+          value="{{ data.data.core.speed.attributes.dexterity.value }}"
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=data.data.core.speed.attributes.agility}} {{>
-          "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
+          attr=data.data.core.speed.attributes.agility}}
+          {{>
+          "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
           attr=data.data.core.speed.attributes.dexterity}}
         </div>
       </div>
@@ -109,23 +110,23 @@
         <input
           type="text"
           name="data.core.power.value"
-          value="{{data.data.core.power.value}}"
+          value="{{ data.data.core.power.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.power.attributes.strength.value"
-          value="{{data.data.core.power.attributes.strength.value}}"
+          value="{{ data.data.core.power.attributes.strength.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.power.attributes.endurance.value"
-          value="{{data.data.core.power.attributes.endurance.value}}"
+          value="{{ data.data.core.power.attributes.endurance.value }}"
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
           attr=data.data.core.power.attributes.strength}}
         </div>
       </div>
@@ -134,25 +135,26 @@
         <input
           type="text"
           name="data.core.wits.value"
-          value="{{data.data.core.wits.value}}"
+          value="{{ data.data.core.wits.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.wits.attributes.knowledge.value"
-          value="{{data.data.core.wits.attributes.knowledge.value}}"
+          value="{{ data.data.core.wits.attributes.knowledge.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.wits.attributes.cunning.value"
-          value="{{data.data.core.wits.attributes.cunning.value}}"
+          value="{{ data.data.core.wits.attributes.cunning.value }}"
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
-          attr=data.data.core.wits.attributes.knowledge}} {{>
-          "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
+          attr=data.data.core.wits.attributes.knowledge}}
+          {{>
+          "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
           attr=data.data.core.wits.attributes.cunning}}
         </div>
       </div>
@@ -161,23 +163,23 @@
         <input
           type="text"
           name="data.core.resolve.value"
-          value="{{data.data.core.resolve.value}}"
+          value="{{ data.data.core.resolve.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.resolve.attributes.presence.value"
-          value="{{data.data.core.resolve.attributes.presence.value}}"
+          value="{{ data.data.core.resolve.attributes.presence.value }}"
           data-dtype="Number"
         />
         <input
           type="text"
           name="data.core.resolve.attributes.willpower.value"
-          value="{{data.data.core.resolve.attributes.willpower.value}}"
+          value="{{ data.data.core.resolve.attributes.willpower.value }}"
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/templates/actor/parts/actor-attribute.html"
+          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
           attr=data.data.core.resolve.attributes.presence}}
         </div>
       </div>
@@ -193,17 +195,17 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
-      <!-- {{> "systems/cryptomancer/templates/actor/parts/actor-items.html"}} -->
+      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-items.html"}} -->
     </div>
 
     {{!-- Owned Spells Tab --}}
     <div class="tab spells" data-group="primary" data-tab="spells">
-      <!-- {{> "systems/cryptomancer/templates/actor/parts/actor-spells.html"}} -->
+      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-spells.html"}} -->
     </div>
 
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      <!-- {{> "systems/cryptomancer/templates/actor/parts/actor-effects.html"}} -->
+      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-effects.html"}} -->
     </div>
   </section>
 </form>
