@@ -50,7 +50,9 @@ gulp.task("scripts", function () {
 });
 
 gulp.task("copy", () => {
-  return gulp.src("src/**/*{.m?js,.md,.json,.html}").pipe(gulp.dest("dist"));
+  return gulp
+    .src("src/**/*{.m?js,.md,.json,.html,.png}")
+    .pipe(gulp.dest("dist"));
 });
 
 /* ----------------------------------------- */

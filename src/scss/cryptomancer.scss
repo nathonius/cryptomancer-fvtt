@@ -12,6 +12,8 @@
 @import "global/grid";
 @import "global/flex";
 
+@import "components/roll";
+
 /* Styles limited to cryptomancer sheets */
 .cryptomancer {
   @import "components/forms";

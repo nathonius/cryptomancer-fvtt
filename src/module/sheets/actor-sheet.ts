@@ -7,8 +7,6 @@ import {
 import { getGame } from "../util.js";
 
 type AugmentedData = ActorSheet.Data & {
-  actorData: ActorData["data"];
-  actorFlags: Record<string, unknown>;
   rollData: object;
   gear: ActorSheetItem[];
   features: ActorSheetItem[];
@@ -57,6 +55,7 @@ export class CryptomancerActorSheet extends ActorSheet<
     const context = await super.getData();
     const augmented = this.augmentContext(context);
     this._data = augmented;
+    console.log(augmented);
     return augmented;
   }
 
