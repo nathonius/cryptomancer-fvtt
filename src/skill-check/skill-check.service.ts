@@ -101,7 +101,7 @@ async function showChatRollMessage(
 
   const checkResult = getRollResult(hit, botch);
   const resultTemplate = await renderTemplate(
-    "systems/cryptomancer/skill-check/cryptomancer-roll.html",
+    "systems/cryptomancer/skill-check/skill-check.component.html",
     { rolls, attributeName, skillName, difficulty, checkResult }
   );
 

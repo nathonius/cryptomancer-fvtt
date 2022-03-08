@@ -11,5 +11,6 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/actor-sheet/parts/actor-spells.html",
     "systems/cryptomancer/actor-sheet/parts/actor-effects.html",
     "systems/cryptomancer/actor-sheet/parts/actor-attribute.html",
+    "systems/cryptomancer/skill-check/skill-check.component.html",
   ]);
 };

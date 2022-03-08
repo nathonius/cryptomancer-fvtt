@@ -7,7 +7,6 @@ import { CryptomancerActor } from "./actor/actor.component.js";
 import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.component.js";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.js";
-// import { BOILERPLATE } from "./helpers/config.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */

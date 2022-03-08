@@ -1,7 +1,7 @@
 // Foundry
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
 
-import { cryptoRoll } from "../skill-check/cryptomancer-roll.js";
+import { cryptoRoll } from "../skill-check/skill-check.service.js";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
