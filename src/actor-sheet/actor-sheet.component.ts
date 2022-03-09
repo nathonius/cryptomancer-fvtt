@@ -1,6 +1,6 @@
 import { CoreAlt } from "../interfaces/cryptomancer";
 import { onManageActiveEffect } from "../helpers/effects.js";
-import { getGame } from "../helpers/util.js";
+import { getGame } from "../shared/util.js";
 import { LocalizationService } from "../shared/localization.service";
 
 type AugmentedData = ActorSheet.Data & {

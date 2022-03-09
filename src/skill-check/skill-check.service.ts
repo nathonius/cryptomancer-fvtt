@@ -8,7 +8,7 @@ import {
   DieResult,
   DieType,
 } from "./skill-check.enum.js";
-import { getGame } from "../helpers/util.js";
+import { getGame } from "../shared/util.js";
 import { LocalizationService } from "../shared/localization.service.js";
 
 export class SkillCheckService {
@@ -136,10 +136,9 @@ export class SkillCheckService {
     if (["gmroll", "blindroll"].includes(rollMode)) {
       messageData.whisper = ChatMessage.getWhisperRecipients("GM");
     }
-    // const messageOptions = { rollMode };
     ChatMessage.create(messageData, {});
-    // CONFIG.ChatMessage.documentClass.create(messageData, {rollMode})
   }
+
   getDieResult(
     value: number,
     dieType: DieType,

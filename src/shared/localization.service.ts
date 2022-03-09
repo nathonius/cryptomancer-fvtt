@@ -1,4 +1,4 @@
-import { getGame } from "../helpers/util";
+import { getGame } from "./util";
 
 export class LocalizationService {
   /**
