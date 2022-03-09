@@ -288,14 +288,15 @@
       },
       "healthPoints": {
         "value": 10,
-        "max": 30
+        "max": 10
       },
       "manaPoints": {
         "min": 0,
         "value": 10,
-        "max": 30
+        "max": 10
       },
       "upgradePoints": {
+        "min": 0,
         "value": 0
       }
     },

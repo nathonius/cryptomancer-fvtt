@@ -1,4 +1,4 @@
-import { getGame } from "./util";
+import { getGame } from "./util.js";
 
 export class LocalizationService {
   /**
