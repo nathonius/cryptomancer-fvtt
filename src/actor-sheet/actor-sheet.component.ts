@@ -1,10 +1,7 @@
-import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { Character, CoreAlt } from "../../interfaces/cryptomancer";
-import {
-  onManageActiveEffect,
-  prepareActiveEffectCategories,
-} from "../helpers/effects.js";
-import { getGame } from "../util.js";
+import { CoreAlt } from "../interfaces/cryptomancer";
+import { onManageActiveEffect } from "../helpers/effects.js";
+import { getGame } from "../shared/util.js";
+import { LocalizationService } from "../shared/localization.service";
 
 type AugmentedData = ActorSheet.Data & {
   rollData: object;
@@ -20,13 +17,14 @@ export class CryptomancerActorSheet extends ActorSheet<
   ActorSheet.Options,
   AugmentedData
 > {
+  private readonly i18n = new LocalizationService();
   private _data!: AugmentedData;
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
-      template: "systems/cryptomancer/templates/actor/actor-sheet.html",
+      template: "systems/cryptomancer/actor-sheet/actor-sheet.component.html",
       width: 600,
       height: 600,
       tabs: [
@@ -41,7 +39,7 @@ export class CryptomancerActorSheet extends ActorSheet<
 
   /** @override */
   get template() {
-    return `systems/cryptomancer/templates/actor/actor-${this.actor.data.type}-sheet.html`;
+    return `systems/cryptomancer/actor-sheet/actor-sheet-${this.actor.data.type}.component.html`;
   }
 
   /* -------------------------------------------- */
@@ -60,8 +58,6 @@ export class CryptomancerActorSheet extends ActorSheet<
   }
 
   private augmentContext(context: AugmentedData): AugmentedData {
-    // context.data = { ...context.data, ...this.actor.data.toObject(false) };
-
     // Prepare character data and items.
     if (context.data.type == "character") {
       this._prepareItems(context);
@@ -89,18 +85,14 @@ export class CryptomancerActorSheet extends ActorSheet<
   _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
     for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
-      coreValue.label = getGame().i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
+      coreValue.label = this.i18n.l(`Core.${coreKey}`);
       for (let [attrKey, attrValue] of Object.entries(
         (coreValue as CoreAlt).attributes
       )) {
-        attrValue.label = getGame().i18n.localize(
-          `CRYPTOMANCER.Attr.${attrKey}`
-        );
+        attrValue.label = this.i18n.l(`Attr.${attrKey}`);
         if (attrValue.skills) {
           for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
-            skillValue.label = getGame().i18n.localize(
-              `CRYPTOMANCER.Skill.${skillKey}`
-            );
+            skillValue.label = this.i18n.l(`Skill.${skillKey}`);
           }
         }
       }

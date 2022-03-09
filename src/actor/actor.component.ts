@@ -1,13 +1,26 @@
 // Foundry
-import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { Context } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
+import {
+  ActorData,
+  ActorDataConstructorData,
+} from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
 
-import { cryptoRoll } from "../cryptomancer-roll.js";
+import { SkillCheckService } from "../skill-check/skill-check.service.js";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
  */
 export class CryptomancerActor extends Actor {
+  private readonly skillCheckService: SkillCheckService;
+  constructor(
+    data?: ActorDataConstructorData,
+    context?: Context<TokenDocument>
+  ) {
+    super(data, context);
+    this.skillCheckService = new SkillCheckService();
+  }
+
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -94,7 +107,7 @@ export class CryptomancerActor extends Actor {
     ];
     const skill = skillName ? attribute.skills[skillName] : null;
     if (skill) {
-      cryptoRoll(
+      this.skillCheckService.skillCheck(
         attribute.value,
         attributeName,
         undefined,
@@ -103,7 +116,7 @@ export class CryptomancerActor extends Actor {
         skill.push
       );
     } else {
-      cryptoRoll(attribute.value, attributeName);
+      this.skillCheckService.skillCheck(attribute.value, attributeName);
     }
   }
 }

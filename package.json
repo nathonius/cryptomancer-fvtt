@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "CSS compiler for the Cryptomancer system",
   "scripts": {
-    "build": "gulp build",
-    "compile": "gulp css",
-    "watch": "gulp",
-    "gulp": "gulp"
+    "build": "gulp",
+    "serve": "gulp serve",
+    "watch": "gulp watch"
   },
   "browserslist": [
     "last 3 versions"
@@ -24,10 +23,13 @@
   },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^9.249.4",
+    "@types/fs-extra": "^9.0.13",
     "@types/gulp": "^4.0.9",
     "@types/gulp-autoprefixer": "^0.0.33",
     "@types/gulp-sass": "^5.0.0",
     "@types/gulp-sourcemaps": "^0.0.35",
+    "dotenv": "^16.0.0",
+    "fs-extra": "^10.0.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "ts-node": "^10.7.0",
     "typescript": "^4.7.0-dev.20220306"

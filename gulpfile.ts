@@ -1,27 +1,25 @@
+import "dotenv/config";
 import * as gulp from "gulp";
 import prefix from "gulp-autoprefixer";
 import dartSass from "sass";
 import gulpSass from "gulp-sass";
 import ts from "gulp-typescript";
+import { join } from "path";
+import { copy, rm, mkdir, pathExists } from "fs-extra";
 
-const tsProject = ts.createProject("tsconfig.json");
+const FILE_GLOBS = {
+  SCSS: "src/cryptomancer.scss",
+  TS: "src/**/*.ts",
+  OTHER: "src/**/*{.md,.json,.html,.png}",
+};
 
-const sass = gulpSass(dartSass);
-
-/* ----------------------------------------- */
-/*  Compile Sass
-/* ----------------------------------------- */
-
-// Small error handler helper function.
-function handleError(err: any) {
-  console.log(err.toString());
-  gulp.emit("end");
-}
-
-const SYSTEM_SCSS = ["src/scss/**/*.scss"];
-function compileScss() {
+/**
+ * Build styles
+ */
+gulp.task("scss", () => {
+  const sass = gulpSass(dartSass);
   return gulp
-    .src(SYSTEM_SCSS)
+    .src(FILE_GLOBS.SCSS)
     .pipe(sass({ outputStyle: "expanded" }).on("error", handleError))
     .pipe(
       prefix({
@@ -29,36 +27,79 @@ function compileScss() {
       })
     )
     .pipe(gulp.dest("./dist/css"));
-}
-const css = gulp.series(compileScss);
+});
 
-/* ----------------------------------------- */
-/*  Watch Updates
-/* ----------------------------------------- */
-
-function watchUpdates() {
-  gulp.watch(SYSTEM_SCSS, css);
-}
-
-// Build ts
-gulp.task("scripts", function () {
-  const tsResult = gulp
-    .src("src/**/*.ts") // or tsProject.src()
-    .pipe(tsProject());
+/**
+ * Build ts
+ */
+gulp.task("tsc", () => {
+  const tsProject = ts.createProject("tsconfig.json");
+  const tsResult = gulp.src(FILE_GLOBS.TS).pipe(tsProject());
 
   return tsResult.js.pipe(gulp.dest("dist"));
 });
 
-gulp.task("copy", () => {
-  return gulp
-    .src("src/**/*{.m?js,.md,.json,.html,.png}")
-    .pipe(gulp.dest("dist"));
+/**
+ * Copy for build
+ */
+gulp.task("copy-build", () => {
+  return gulp.src(FILE_GLOBS.OTHER).pipe(gulp.dest("dist"));
+});
+
+/**
+ * Empty the dist folder
+ */
+gulp.task("clean-build", async () => {
+  await cleanDir("dist");
+});
+
+/**
+ * Copy to foundry folder
+ */
+gulp.task("copy-out", async () => {
+  if (process.env.OUT_DIR) {
+    // Empty the directory first
+    await cleanDir(process.env.OUT_DIR);
+    // Copy the files
+    await copyDir("dist", process.env.OUT_DIR);
+  } else {
+    console.log("Not copying to foundry folder, provide OUT_DIR in .env.");
+  }
 });
 
 /* ----------------------------------------- */
 /*  Export Tasks
 /* ----------------------------------------- */
 
-gulp.task("default", gulp.series(compileScss, watchUpdates));
-gulp.task("build", gulp.series(compileScss, "scripts", "copy"));
-gulp.task("css", css);
+gulp.task("build", gulp.series("clean-build", "scss", "tsc", "copy-build"));
+gulp.task("serve", gulp.series("build", "copy-out"));
+gulp.task("default", gulp.series("build"));
+gulp.task("watch", () => {
+  gulp.watch(
+    [FILE_GLOBS.TS, FILE_GLOBS.SCSS, FILE_GLOBS.OTHER],
+    gulp.series("serve")
+  );
+});
+
+/**
+ * Utility Functions
+ */
+
+function handleError(err: any): void {
+  console.log(err.toString());
+  gulp.emit("end");
+}
+
+async function copyDir(src: string, dest: string): Promise<void> {
+  if (!(await pathExists(dest))) {
+    await mkdir(dest);
+  }
+  await copy(src, dest, { recursive: true, overwrite: true });
+}
+
+async function cleanDir(path: string): Promise<void> {
+  if (await pathExists(path)) {
+    await rm(join(path), { recursive: true });
+    await mkdir(path);
+  }
+}
