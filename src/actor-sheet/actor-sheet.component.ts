@@ -1,6 +1,7 @@
 import { CoreAlt } from "../interfaces/cryptomancer";
 import { onManageActiveEffect } from "../helpers/effects.js";
 import { getGame } from "../helpers/util.js";
+import { LocalizationService } from "../shared/localization.service";
 
 type AugmentedData = ActorSheet.Data & {
   rollData: object;
@@ -16,6 +17,7 @@ export class CryptomancerActorSheet extends ActorSheet<
   ActorSheet.Options,
   AugmentedData
 > {
+  private readonly i18n = new LocalizationService();
   private _data!: AugmentedData;
 
   /** @override */
@@ -83,18 +85,14 @@ export class CryptomancerActorSheet extends ActorSheet<
   _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
     for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
-      coreValue.label = getGame().i18n.localize(`CRYPTOMANCER.Core.${coreKey}`);
+      coreValue.label = this.i18n.l(`Core.${coreKey}`);
       for (let [attrKey, attrValue] of Object.entries(
         (coreValue as CoreAlt).attributes
       )) {
-        attrValue.label = getGame().i18n.localize(
-          `CRYPTOMANCER.Attr.${attrKey}`
-        );
+        attrValue.label = this.i18n.l(`Attr.${attrKey}`);
         if (attrValue.skills) {
           for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
-            skillValue.label = getGame().i18n.localize(
-              `CRYPTOMANCER.Skill.${skillKey}`
-            );
+            skillValue.label = this.i18n.l(`Skill.${skillKey}`);
           }
         }
       }

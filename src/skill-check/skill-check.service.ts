@@ -2,13 +2,18 @@ import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/fo
 import { ParsedRollResult } from "./skill-check.interface.js";
 import {
   CheckDifficulty,
+  CheckDifficultyLabel,
   CheckResult,
+  CheckResultLabel,
   DieResult,
   DieType,
 } from "./skill-check.enum.js";
 import { getGame } from "../helpers/util.js";
+import { LocalizationService } from "../shared/localization.service.js";
 
 export class SkillCheckService {
+  private readonly i18n = new LocalizationService();
+
   async skillCheck(
     attributeDice: number,
     attributeName = "",
@@ -78,7 +83,6 @@ export class SkillCheckService {
       rolls.attribute.push(parsed);
     });
 
-    // FUTURE NATHAN: THIS IS BUSTED, FOR SOME REASON THIS ARRAY IS EMPTY
     (fateRoll.terms[0] as DiceTerm).results.forEach((r) => {
       const parsed: ParsedRollResult = {
         break: false,
@@ -101,9 +105,20 @@ export class SkillCheckService {
     });
 
     const checkResult = this.getRollResult(hit, botch);
+
+    // Get labels for chat message
+    const labels = {
+      attributeName: attributeName ? this.i18n.l(`Attr.${attributeName}`) : "",
+      skillName: skillName ? this.i18n.l(`Skill.${skillName}`) : "",
+      difficulty: this.i18n.l(
+        `CheckDifficulty.${CheckDifficultyLabel[difficulty]}`
+      ),
+      checkResult: this.i18n.l(`CheckResult.${CheckResultLabel[checkResult]}`),
+    };
+
     const resultTemplate = await renderTemplate(
       "systems/cryptomancer/skill-check/skill-check.component.html",
-      { rolls, attributeName, skillName, difficulty, checkResult }
+      { rolls, ...labels }
     );
 
     const messageData: ChatMessageDataConstructorData &

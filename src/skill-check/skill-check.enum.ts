@@ -4,6 +4,13 @@ export enum CheckDifficulty {
   Tough = 8,
 }
 
+// Mapping from number to string
+export const CheckDifficultyLabel = {
+  [CheckDifficulty.Trivial]: "trivial",
+  [CheckDifficulty.Challenging]: "challenging",
+  [CheckDifficulty.Tough]: "tough",
+};
+
 export enum CheckResult {
   DramaticFailure = -2,
   SolidFailure = -1,
@@ -13,6 +20,16 @@ export enum CheckResult {
   DramaticSuccess = 3,
 }
 
+//Mapping from number to string
+export const CheckResultLabel = {
+  [CheckResult.DramaticFailure]: "dramaticFailure",
+  [CheckResult.SolidFailure]: "solidFailure",
+  [CheckResult.AlmostHadIt]: "almostHadIt",
+  [CheckResult.JustBarely]: "justBarely",
+  [CheckResult.SolidSuccess]: "solidSuccess",
+  [CheckResult.DramaticSuccess]: "dramaticSuccess",
+};
+
 export enum DieResult {
   None = "none",
   Hit = "hit",
@@ -20,6 +37,6 @@ export enum DieResult {
 }
 
 export enum DieType {
-  Attribute,
-  Fate,
+  Attribute = "attribute",
+  Fate = "fate",
 }
