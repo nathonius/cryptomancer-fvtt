@@ -1,5 +1,8 @@
 .actor-sheet {
   header {
     display: flex;
+    .basic-bio {
+      flex-grow: 1;
+    }
   }
 }

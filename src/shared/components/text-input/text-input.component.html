@@ -1,0 +1,14 @@
+<!--
+  @Input label: string;
+  @Input placeholder: string;
+  @Input value: string | number;
+  @Input name: string;
+  @Input dType?: "Number" | undefined;
+  @Input className?: string;
+-->
+  <div class="crypt-text-input {{className}}">
+    <label for="{{name}}">
+      {{label}}
+    </label>
+    <input id="{{name}}" type="text" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" data-dtype="{{dType}}" />
+  </div>

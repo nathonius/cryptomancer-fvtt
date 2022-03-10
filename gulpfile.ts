@@ -9,6 +9,7 @@ import { copy, rm, mkdir, pathExists } from "fs-extra";
 
 const FILE_GLOBS = {
   SCSS: "src/cryptomancer.scss",
+  SCSSWatch: "src/**/*.scss",
   TS: "src/**/*.ts",
   OTHER: "src/**/*{.md,.json,.html,.png}",
 };
@@ -76,7 +77,7 @@ gulp.task("serve", gulp.series("build", "copy-out"));
 gulp.task("default", gulp.series("build"));
 gulp.task("watch", () => {
   gulp.watch(
-    [FILE_GLOBS.TS, FILE_GLOBS.SCSS, FILE_GLOBS.OTHER],
+    [FILE_GLOBS.TS, FILE_GLOBS.SCSSWatch, FILE_GLOBS.OTHER],
     gulp.series("serve")
   );
 });
