@@ -49,6 +49,13 @@
   "CRYPTOMANCER.DieResult.botch": "Botch",
   "CRYPTOMANCER.DieType.attribute": "Attribute",
   "CRYPTOMANCER.DieType.fate": "Fate",
+  "CRYPTOMANCER.healthPoints": "Health Points",
+  "CRYPTOMANCER.manaPoints": "Mana Points",
+  "CRYPTOMANCER.upgradePoints": "Upgrade Points",
+  "CRYPTOMANCER.Defense.dodge": "Dodge",
+  "CRYPTOMANCER.Defense.parry": "Parry",
+  "CRYPTOMANCER.Defense.takeCover": "Take Cover",
+  "CRYPTOMANCER.Defense.resist": "Resist",
 
   "CRYPTOMANCER.EffectCreate": "Create Effect",
   "CRYPTOMANCER.EffectToggle": "Toggle Effect",

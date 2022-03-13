@@ -1,0 +1,16 @@
+<!--
+  @Input label: string;
+  @Input value: string;
+  @Input desc: string;
+-->
+<div class="crypt-defense">
+  <div class="label">{{ label }}</div>
+  {{> "systems/cryptomancer/shared/components/core-input/core-input.component.html"
+  value=value
+  readonly=true
+  size="small"
+  }}
+  <div class="desc">
+    {{ desc }}
+  </div>
+</div>

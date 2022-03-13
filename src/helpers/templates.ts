@@ -8,6 +8,8 @@ export const preloadHandlebarsTemplates = async function () {
     // Actor partials.
     "systems/cryptomancer/actor-sheet/components/core-triad.component.html",
     "systems/cryptomancer/actor-sheet/components/skill-list.component.html",
+    "systems/cryptomancer/actor-sheet/components/resource-skill.component.html",
+    "systems/cryptomancer/actor-sheet/components/defense.component.html",
     "systems/cryptomancer/actor-sheet/parts/actor-features.html",
     "systems/cryptomancer/actor-sheet/parts/actor-items.html",
     "systems/cryptomancer/actor-sheet/parts/actor-spells.html",

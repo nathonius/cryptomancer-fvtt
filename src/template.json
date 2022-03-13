@@ -20,12 +20,14 @@
       "core": {
         "wits": {
           "label": "Core.wits",
+          "key": "wits",
           "min": 4,
           "value": 6,
           "max": 8,
           "attributes": {
             "knowledge": {
               "label": "Attr.knowledge",
+              "key": "knowledge",
               "core": "wits",
               "min": 1,
               "value": 1,
@@ -33,24 +35,28 @@
               "skills": {
                 "alchemy": {
                   "label": "Skill.alchemy",
+                  "key": "alchemy",
                   "attribute": "knowledge",
                   "break": false,
                   "push": false
                 },
                 "craft": {
                   "label": "Skill.craft",
+                  "key": "craft",
                   "attribute": "knowledge",
                   "break": false,
                   "push": false
                 },
                 "medicine": {
                   "label": "Skill.medicine",
+                  "key": "medicine",
                   "attribute": "knowledge",
                   "break": false,
                   "push": false
                 },
                 "query": {
                   "label": "Skill.query",
+                  "key": "query",
                   "attribute": "knowledge",
                   "break": false,
                   "push": false
@@ -59,6 +65,7 @@
             },
             "cunning": {
               "label": "Attr.cunning",
+              "key": "cunning",
               "core": "wits",
               "min": 1,
               "value": 1,
@@ -66,24 +73,28 @@
               "skills": {
                 "deception": {
                   "label": "Skill.deception",
+                  "key": "deception",
                   "attribute": "cunning",
                   "break": false,
                   "push": false
                 },
                 "scrounge": {
                   "label": "Skill.scrounge",
+                  "key": "scrounge",
                   "attribute": "cunning",
                   "break": false,
                   "push": false
                 },
                 "tracking": {
                   "label": "Skill.tracking",
+                  "key": "tracking",
                   "attribute": "cunning",
                   "break": false,
                   "push": false
                 },
                 "traps": {
                   "label": "Skill.traps",
+                  "key": "traps",
                   "attribute": "cunning",
                   "break": false,
                   "push": false
@@ -94,12 +105,14 @@
         },
         "resolve": {
           "label": "Core.resolve",
+          "key": "resolve",
           "min": 4,
           "value": 6,
           "max": 8,
           "attributes": {
             "presence": {
               "label": "Attr.presence",
+              "key": "presence",
               "core": "resolve",
               "min": 1,
               "value": 1,
@@ -107,24 +120,28 @@
               "skills": {
                 "beastKen": {
                   "label": "Skill.beastKen",
+                  "key": "beastKen",
                   "attribute": "presence",
                   "break": false,
                   "push": false
                 },
                 "charm": {
                   "label": "Skill.charm",
+                  "key": "charm",
                   "attribute": "presence",
                   "break": false,
                   "push": false
                 },
                 "menace": {
                   "label": "Skill.menace",
+                  "key": "menace",
                   "attribute": "presence",
                   "break": false,
                   "push": false
                 },
                 "performance": {
                   "label": "Skill.performance",
+                  "key": "performance",
                   "attribute": "presence",
                   "break": false,
                   "push": false
@@ -133,21 +150,26 @@
             },
             "willpower": {
               "label": "Attr.willpower",
+              "key": "willpower",
               "core": "resolve",
               "min": 1,
               "value": 1,
-              "max": 5
+              "max": 5,
+              "break": false,
+              "push": false
             }
           }
         },
         "speed": {
           "label": "Core.speed",
+          "key": "speed",
           "min": 4,
           "value": 6,
           "max": 8,
           "attributes": {
             "agility": {
               "label": "Attr.agility",
+              "key": "agility",
               "core": "speed",
               "min": 1,
               "value": 1,
@@ -155,24 +177,28 @@
               "skills": {
                 "acrobatics": {
                   "label": "Skill.acrobatics",
+                  "key": "acrobatics",
                   "attribute": "agility",
                   "break": false,
                   "push": false
                 },
                 "athletics": {
                   "label": "Skill.athletics",
+                  "key": "athletics",
                   "attribute": "agility",
                   "break": false,
                   "push": false
                 },
                 "escapeArtistry": {
                   "label": "Skill.escapeArtistry",
+                  "key": "escapeArtistry",
                   "attribute": "agility",
                   "break": false,
                   "push": false
                 },
                 "stealth": {
                   "label": "Skill.stealth",
+                  "key": "stealth",
                   "attribute": "agility",
                   "break": false,
                   "push": false
@@ -181,6 +207,7 @@
             },
             "dexterity": {
               "label": "Attr.dexterity",
+              "key": "dexterity",
               "core": "speed",
               "min": 1,
               "value": 1,
@@ -188,24 +215,28 @@
               "skills": {
                 "firedMissile": {
                   "label": "Skill.firedMissile",
+                  "key": "firedMissile",
                   "attribute": "dexterity",
                   "break": false,
                   "push": false
                 },
                 "lockPicking": {
                   "label": "Skill.lockPicking",
+                  "key": "lockPicking",
                   "attribute": "dexterity",
                   "break": false,
                   "push": false
                 },
                 "preciseMissile": {
                   "label": "Skill.preciseMissile",
+                  "key": "preciseMissile",
                   "attribute": "dexterity",
                   "break": false,
                   "push": false
                 },
                 "sleightOfHand": {
                   "label": "Skill.sleightOfHand",
+                  "key": "sleightOfHand",
                   "attribute": "dexterity",
                   "break": false,
                   "push": false
@@ -216,12 +247,14 @@
         },
         "power": {
           "label": "Core.power",
+          "key": "power",
           "min": 4,
           "value": 6,
           "max": 8,
           "attributes": {
             "strength": {
               "label": "Attr.strength",
+              "key": "strength",
               "core": "power",
               "min": 1,
               "value": 1,
@@ -229,24 +262,28 @@
               "skills": {
                 "bruteMelee": {
                   "label": "Skill.bruteMelee",
+                  "key": "bruteMelee",
                   "attribute": "strength",
                   "break": false,
                   "push": false
                 },
                 "featOfStrength": {
                   "label": "Skill.featOfStrength",
+                  "key": "featOfStrength",
                   "attribute": "strength",
                   "break": false,
                   "push": false
                 },
                 "thrownMissile": {
                   "label": "Skill.thrownMissile",
+                  "key": "thrownMissile",
                   "attribute": "strength",
                   "break": false,
                   "push": false
                 },
                 "unarmedMelee": {
                   "label": "Skill.unarmedMelee",
+                  "key": "unarmedMelee",
                   "attribute": "strength",
                   "break": false,
                   "push": false
@@ -255,10 +292,13 @@
             },
             "endurance": {
               "label": "Attr.endurance",
+              "key": "endurance",
               "core": "power",
               "min": 1,
               "value": 1,
-              "max": 5
+              "max": 5,
+              "break": false,
+              "push": false
             }
           }
         }
@@ -287,15 +327,21 @@
         }
       },
       "healthPoints": {
+        "label": "healthPoints",
+        "key": "healthPoints",
         "value": 10,
         "max": 10
       },
       "manaPoints": {
+        "label": "manaPoints",
+        "key": "manaPoints",
         "min": 0,
         "value": 10,
         "max": 10
       },
       "upgradePoints": {
+        "label": "upgradePoints",
+        "key": "upgradePoints",
         "min": 0,
         "value": 0
       }

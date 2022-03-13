@@ -3,6 +3,12 @@
     display: flex;
     .basic-bio {
       flex-grow: 1;
+      padding: 8px;
+    }
+    .defenses {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
   }
   .cores {

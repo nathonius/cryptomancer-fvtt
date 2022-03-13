@@ -85,20 +85,27 @@ export interface Character {
     usedTo: string;
   };
   healthPoints: {
+    label: string;
+    key: string;
     value: number;
     max: number;
   };
   manaPoints: {
+    label: string;
+    key: string;
     min: number;
     value: number;
     max: number;
   };
   upgradePoints: {
+    label: string;
+    key: string;
     value: number;
   };
 }
 
 export interface Core {
+  key: string;
   label: string;
   min: number;
   value: number;
@@ -110,6 +117,7 @@ export interface CoreAlt extends Core {
 }
 
 export interface Attribute {
+  key: string;
   label: string;
   core: string;
   min: number;
@@ -117,11 +125,17 @@ export interface Attribute {
   max: number;
 }
 
+export interface ResourceAttribute extends Attribute {
+  break: boolean;
+  push: boolean;
+}
+
 export interface AttributeAlt extends Attribute {
   skills: Record<string, Skill>;
 }
 
 export interface Skill {
+  key: string;
   label: string;
   attribute: string;
   break: boolean;

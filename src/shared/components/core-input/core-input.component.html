@@ -2,12 +2,14 @@
   @Input value: string | number;
   @Input name: string;
   @Input size: "small" | "large";
+  @Input readonly: boolean;
 -->
 <div class="crypt-core-input {{ size }}">
   <input
     type="text"
     value="{{ value }}"
     name="{{ name }}"
+    {{disabled readonly}}
     data-dtype="Number"
   />
 </div>

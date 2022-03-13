@@ -1,0 +1,23 @@
+.crypt-defense {
+  position: relative;
+  width: 160px;
+  height: 40px;
+  margin-bottom: 8px;
+
+  .label {
+    padding: 4px;
+    background-color: var(--color-bg-stripe);
+  }
+
+  .crypt-core-input {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  .desc {
+    margin-left: 4px;
+    color: var(--color-text-dark-inactive);
+    font-size: 12px;
+  }
+}

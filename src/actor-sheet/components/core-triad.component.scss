@@ -16,6 +16,10 @@
     &.attribute {
       position: relative;
       bottom: 0px;
+      cursor: pointer;
+      &:hover {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+      }
       &.left {
         left: 0px;
       }
