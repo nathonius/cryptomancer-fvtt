@@ -1,0 +1,25 @@
+.crypt-skill-list {
+  width: 150px;
+  .skill {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 4px;
+    background-color: var(--color-bg-light);
+    &:nth-child(even) {
+      background-color: var(--color-bg-stripe);
+    }
+  }
+
+  .skill-name {
+    cursor: pointer;
+    &:hover {
+      text-shadow: 0 0 8px var(--color-shadow-primary);
+    }
+  }
+
+  .toggles {
+    display: flex;
+    gap: 4px;
+    margin-left: 4px;
+  }
+}

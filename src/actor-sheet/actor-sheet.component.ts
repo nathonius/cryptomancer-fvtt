@@ -1,13 +1,7 @@
 import { CoreAlt } from "../interfaces/cryptomancer";
 import { onManageActiveEffect } from "../helpers/effects.js";
-import { getGame } from "../shared/util.js";
-import { LocalizationService } from "../shared/localization.service";
-
-type AugmentedData = ActorSheet.Data & {
-  rollData: object;
-  gear: ActorSheetItem[];
-  features: ActorSheetItem[];
-};
+import { LocalizationService } from "../shared/localization.service.js";
+import { AugmentedData } from "./actor-sheet.interface";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -25,8 +19,8 @@ export class CryptomancerActorSheet extends ActorSheet<
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
       template: "systems/cryptomancer/actor-sheet/actor-sheet.component.html",
-      width: 600,
-      height: 600,
+      width: 630,
+      height: 730,
       tabs: [
         {
           navSelector: ".sheet-tabs",
@@ -53,11 +47,16 @@ export class CryptomancerActorSheet extends ActorSheet<
     const context = await super.getData();
     const augmented = this.augmentContext(context);
     this._data = augmented;
-    console.log(augmented);
     return augmented;
   }
 
+  /**
+   * Add data that is specifically for rendering sheets, mainly
+   * inputs for partial components.
+   */
   private augmentContext(context: AugmentedData): AugmentedData {
+    console.log(context);
+
     // Prepare character data and items.
     if (context.data.type == "character") {
       this._prepareItems(context);
@@ -67,10 +66,7 @@ export class CryptomancerActorSheet extends ActorSheet<
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
-    // // Prepare active effects
-    // context.effects = prepareActiveEffectCategories(
-    //   Array.from(this.actor.effects)
-    // );
+    // Add core triad data
 
     return context;
   }
@@ -84,6 +80,18 @@ export class CryptomancerActorSheet extends ActorSheet<
    */
   _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
+    // Localize resources
+    context.data.data.healthPoints.label = this.i18n.l(
+      context.data.data.healthPoints.label
+    );
+    context.data.data.manaPoints.label = this.i18n.l(
+      context.data.data.manaPoints.label
+    );
+    context.data.data.upgradePoints.label = this.i18n.l(
+      context.data.data.upgradePoints.label
+    );
+
+    // Localize core, attribute, skill
     for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
       coreValue.label = this.i18n.l(`Core.${coreKey}`);
       for (let [attrKey, attrValue] of Object.entries(

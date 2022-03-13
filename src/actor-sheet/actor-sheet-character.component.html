@@ -1,3 +1,137 @@
+<form class="cryptomancer actor-sheet character" autocomplete="off">
+  <header>
+    <div class="avatar">
+      <img
+        src="{{ actor.img }}"
+        data-edit="img"
+        title="{{ actor.name }}"
+        height="180"
+        width="180"
+      />
+      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Race"
+      value=data.data.biography.race name="data.biography.race" placeholder="Race"}}
+    </div>
+    <div class="basic-bio">
+      <div>
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Common Name"
+        value=actor.name name="name" placeholder="Common Name"}}
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="True Name"
+        value=data.data.biography.trueName name="data.biography.trueName" placeholder="True Name"}}
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Pronouns"
+        value=data.data.biography.pronouns name="data.biography.pronouns" placeholder="Pronouns"}}
+      </div>
+      <div class="defenses">
+        <div class="defense">
+          {{> "systems/cryptomancer/actor-sheet/components/defense.component.html"
+          label="Dodge"
+          value=data.data.core.speed.value
+          desc="vs melee/missile"
+          }}
+        </div>
+        <div class="defense">
+          {{> "systems/cryptomancer/actor-sheet/components/defense.component.html"
+          label="Parry"
+          value=data.data.core.power.value
+          desc="vs melee"
+          }}
+        </div>
+        <div class="defense">
+          {{> "systems/cryptomancer/actor-sheet/components/defense.component.html"
+          label="Take Cover"
+          value=data.data.core.wits.value
+          desc="vs missile"
+          }}
+        </div>
+        <div class="defense">
+          {{> "systems/cryptomancer/actor-sheet/components/defense.component.html"
+          label="Resist"
+          value=data.data.core.resolve.value
+          desc="vs magic"
+          }}
+        </div>
+      </div>
+    </div>
+  </header>
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="features">Features</a>
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="spells">Spells</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+  <section class="sheet-body">
+    <div class="tab features" data-group="primary" data-tab="features">
+      <div class="cores">
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          core=data.data.core.speed
+          attrL=data.data.core.speed.attributes.agility
+          attrR=data.data.core.speed.attributes.dexterity
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.speed.attributes.agility
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.speed.attributes.dexterity
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          core=data.data.core.power
+          attrL=data.data.core.power.attributes.strength
+          attrR=data.data.core.power.attributes.endurance
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.power.attributes.strength
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/resource-skill.component.html"
+            attr=data.data.core.power.attributes.endurance
+            resource=data.data.healthPoints
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          core=data.data.core.wits
+          attrL=data.data.core.wits.attributes.knowledge
+          attrR=data.data.core.wits.attributes.cunning
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.wits.attributes.knowledge
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.wits.attributes.cunning
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          core=data.data.core.resolve
+          attrL=data.data.core.resolve.attributes.presence
+          attrR=data.data.core.resolve.attributes.willpower
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.resolve.attributes.presence
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/resource-skill.component.html"
+            attr=data.data.core.power.attributes.presence
+            resource=data.data.manaPoints
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </section>
+</form>
+<!-- 
 <form autocomplete="off">
   <header class="sheet-header">
     <img
@@ -98,11 +232,6 @@
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.speed.attributes.agility}}
-          {{>
-          "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.speed.attributes.dexterity}}
         </div>
       </div>
       <div class="core">
@@ -126,8 +255,6 @@
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.power.attributes.strength}}
         </div>
       </div>
       <div class="core">
@@ -151,11 +278,6 @@
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.wits.attributes.knowledge}}
-          {{>
-          "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.wits.attributes.cunning}}
         </div>
       </div>
       <div class="core">
@@ -179,33 +301,31 @@
           data-dtype="Number"
         />
         <div class="attributes">
-          {{> "systems/cryptomancer/actor-sheet/parts/actor-attribute.html"
-          attr=data.data.core.resolve.attributes.presence}}
         </div>
       </div>
-    </div>
+    </div> -->
 
-    {{!-- Biography Tab --}}
-    <div class="tab biography" data-group="primary" data-tab="description">
-      <!-- {{!-- If you want TinyMCE editors to output inline rolls when rendered,
+<!-- {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description"> -->
+<!-- {{!-- If you want TinyMCE editors to output inline rolls when rendered,
       you need to pass the actor's roll data to the rollData property. --}}
       {{editor content=data.data.biography target="data.data.biography" rollData=rollData
       button=true owner=owner editable=editable}} -->
-    </div>
+<!-- </div>
 
     {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items">
-      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-items.html"}} -->
-    </div>
+    <div class="tab items" data-group="primary" data-tab="items"> -->
+<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-items.html"}} -->
+<!-- </div>
 
     {{!-- Owned Spells Tab --}}
-    <div class="tab spells" data-group="primary" data-tab="spells">
-      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-spells.html"}} -->
-    </div>
+    <div class="tab spells" data-group="primary" data-tab="spells"> -->
+<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-spells.html"}} -->
+<!-- </div>
 
     {{!-- Active Effects Tab --}}
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      <!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-effects.html"}} -->
-    </div>
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects"> -->
+<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-effects.html"}} -->
+<!-- </div>
   </section>
-</form>
+</form> -->

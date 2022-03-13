@@ -1,0 +1,31 @@
+<!--
+@Input resource: {value: number, max: number, key: string, label: string}
+@Input attr: ResourceAttribute;
+-->
+
+<div class="crypt-resource-skill">
+  <div class="resource">
+    <span class="label">{{ resource.label }}</span>
+    <div class="inputs">
+      <input class="value" type="text" data-dtype="Number" name="{{concat "data." resource.key ".value"
+      }}" value="{{ resource.value }}">
+      <span class="slash">/</span>
+      <input class="max" type="text" data-dtype="Number" name="{{concat "data." resource.key ".max"
+      }}" value="{{ resource.max }}">
+    </div>
+  </div>
+  <div class="toggles">
+    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.component.html"
+    id=(concat "break-" resource.key)
+    value=attr.break
+    name=(concat "data.core." attr.core ".attributes." attr.key ".break")
+    placeholder="1"
+    }}
+    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.component.html"
+    id=(concat "push-" resource.key)
+    value=attr.push
+    name=(concat "data.core." attr.core ".attributes." attr.key ".push")
+    placeholder="10"
+    }}
+  </div>
+</div>

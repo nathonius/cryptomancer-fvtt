@@ -1,0 +1,16 @@
+.crypto-toggle-box {
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--color-border-dark);
+    color: var(--color-text-dark-inactive);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  input:checked ~ label {
+    background-color: var(--color-border-dark);
+  }
+}
