@@ -1,7 +1,7 @@
 {
   "name": "cryptomancer",
-  "version": "1.0.0",
-  "description": "CSS compiler for the Cryptomancer system",
+  "version": "0.1.0-alpha.0",
+  "description": "The Cryptomancer system for FoundryVTT!",
   "scripts": {
     "build": "gulp",
     "serve": "gulp serve",
@@ -10,9 +10,8 @@
   "browserslist": [
     "last 3 versions"
   ],
-  "author": "John Doe",
+  "author": "OfficerHalf",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
