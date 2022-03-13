@@ -1,0 +1,39 @@
+<!--
+  @Input valueCore: number;
+  @Input nameCore: string;
+  @Input labelCore: string;
+  @Input valueL: number;
+  @Input nameL: string;
+  @Input labelL: string;
+  @Input valueR: number;
+  @Input nameR: string;
+  @Input labelR: string;
+-->
+<div class="crypt-core-triad">
+  <div class="label core">{{labelCore}}</div>
+  <div class="triangle">
+    <svg viewbox="0 0 210 80">
+      <polygon points="105,25 190,60 20,60 105,25" class="triangle" />
+    </svg>
+  </div>
+  <div class="core-container core">
+    {{> "systems/cryptomancer/shared/components/core-input/core-input.component.html"
+    size="large"
+    name=nameCore
+    value=valueCore }}
+  </div>
+  <div class="core-container attribute left">
+    {{> "systems/cryptomancer/shared/components/core-input/core-input.component.html"
+    size="small"
+    name=nameL
+    value=valueL }}
+    <div class="label attribute left">{{labelL}}</div>
+  </div>
+  <div class="core-container attribute right">
+    {{> "systems/cryptomancer/shared/components/core-input/core-input.component.html"
+    size="small"
+    name=nameR
+    value=valueR }}
+    <div class="label attribute right">{{labelR}}</div>
+  </div>
+</div>

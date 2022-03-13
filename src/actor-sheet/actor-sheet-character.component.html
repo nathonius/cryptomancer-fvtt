@@ -1,91 +1,112 @@
 <form class="cryptomancer actor-sheet character" autocomplete="off">
   <header>
     <div class="avatar">
-      <img
-        src="{{ actor.img }}"
-        data-edit="img"
-        title="{{ actor.name }}"
-        height="180"
-        width="180"
-      />
-      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Race" value=data.data.biography.race name="data.biography.race" placeholder="Race" labelWidth="95px"}}
+      <img src="{{ actor.img }}" data-edit="img" title="{{ actor.name }}" height="180" width="180" />
+      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Race"
+      value=data.data.biography.race name="data.biography.race" placeholder="Race" labelWidth="95px"}}
     </div>
     <div class="basic-bio">
       <div>
-      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Common Name" value=actor.name name="name" placeholder="Common Name" labelWidth="95px"}}
-        {{!-- <input
-          type="text"
-          name="name"
-          value="{{ actor.name }}"
-          placeholder="Common Name"
-        /> --}}
-      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="True Name" value=data.data.biography.trueName name="data.biography.trueName" placeholder="True Name" labelWidth="95px"}}
-        {{!-- <input
-          type="text"
-          name="data.biography.trueName"
-          value="{{ data.data.biography.trueName }}"
-          placeholder="True Name"
-        /> --}}
-      {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Pronouns" value=data.data.biography.pronouns name="data.biography.pronouns" placeholder="Pronouns" labelWidth="95px"}}
-        {{!-- <input
-          type="text"
-          name="data.biography.pronouns"
-          value="{{ data.data.biography.pronouns }}"
-          placeholder="Pronouns"
-        /> --}}
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Common Name"
+        value=actor.name name="name" placeholder="Common Name" labelWidth="95px"}}
+        {{!--
+        <input type="text" name="name" value="{{ actor.name }}" placeholder="Common Name" />
+        --}}
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="True Name"
+        value=data.data.biography.trueName name="data.biography.trueName" placeholder="True Name" labelWidth="95px"}}
+        {{!--
+        <input type="text" name="data.biography.trueName" value="{{ data.data.biography.trueName }}"
+          placeholder="True Name" />
+        --}}
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.component.html" label="Pronouns"
+        value=data.data.biography.pronouns name="data.biography.pronouns" placeholder="Pronouns" labelWidth="95px"}}
+        {{!--
+        <input type="text" name="data.biography.pronouns" value="{{ data.data.biography.pronouns }}"
+          placeholder="Pronouns" />
+        --}}
       </div>
       <div>
         <div class="resource flex-group-center">
-          <label for="data.data.health.value" class="resource-label"
-            >Health Points</label
-          >
+          <label for="data.data.health.value" class="resource-label">Health Points</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input
-              type="text"
-              name="data.healthPoints.value"
-              value="{{ data.data.healthPoints.value }}"
-              data-dtype="Number"
-            />
+            <input type="text" name="data.healthPoints.value" value="{{ data.data.healthPoints.value }}"
+              data-dtype="Number" />
             <span> / </span>
-            <input
-              type="text"
-              name="data.healthPoints.max"
-              value="{{ data.data.healthPoints.max }}"
-              data-dtype="Number"
-            />
+            <input type="text" name="data.healthPoints.max" value="{{ data.data.healthPoints.max }}"
+              data-dtype="Number" />
           </div>
         </div>
         <div class="resource flex-group-center">
-          <label for="data.data.manaPoints.value" class="resource-label"
-            >Mana Points</label
-          >
+          <label for="data.data.manaPoints.value" class="resource-label">Mana Points</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input
-              type="text"
-              name="data.manaPoints.value"
-              value="{{ data.data.manaPoints.value }}"
-              data-dtype="Number"
-            />
+            <input type="text" name="data.manaPoints.value" value="{{ data.data.manaPoints.value }}"
+              data-dtype="Number" />
             <span> / </span>
-            <input
-              type="text"
-              name="data.manaPoints.max"
-              value="{{ data.data.manaPoints.max }}"
-              data-dtype="Number"
-            />
+            <input type="text" name="data.manaPoints.max" value="{{ data.data.manaPoints.max }}" data-dtype="Number" />
           </div>
         </div>
-        <input
-          type="text"
-          name="data.upgradePoints.value"
-          value="{{ data.data.upgradePoints.value }}"
-          placeholder="UPs"
-          data-dtype="Number"
-        />
+        <input type="text" name="data.upgradePoints.value" value="{{ data.data.upgradePoints.value }}" placeholder="UPs"
+          data-dtype="Number" />
       </div>
     </div>
   </header>
-  <section class="body"></section>
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="features">Features</a>
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="spells">Spells</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+  <section class="sheet-body">
+    <div class="tab features" data-group="primary" data-tab="features">
+      {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+      valueCore=data.data.core.speed.value
+      nameCore="data.core.speed.value"
+      labelCore="Speed"
+      valueL=data.data.core.speed.attributes.agility.value
+      nameL="data.core.speed.attributes.agility.value"
+      labelL="Agility"
+      valueR=data.data.core.speed.attributes.dexterity.value
+      nameR="data.core.speed.attributes.dexterity.value"
+      labelR="Dexterity"
+      }}
+      {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+      valueCore=data.data.core.power.value
+      nameCore="data.core.power.value"
+      labelCore="Power"
+      valueL=data.data.core.power.attributes.strength.value
+      nameL="data.core.power.attributes.strength.value"
+      labelL="Strength"
+      valueR=data.data.core.power.attributes.endurance.value
+      nameR="data.core.power.attributes.endurance.value"
+      labelR="Endurance"
+      }}
+      {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+      valueCore=data.data.core.wits.value
+      nameCore="data.core.wits.value"
+      labelCore="Wits"
+      valueL=data.data.core.wits.attributes.knowledge.value
+      nameL="data.core.wits.attributes.knowledge.value"
+      labelL="Knowledge"
+      valueR=data.data.core.wits.attributes.cunning.value
+      nameR="data.core.wits.attributes.cunning.value"
+      labelR="Cunning"
+      }}
+      {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+      valueCore=data.data.core.resolve.value
+      nameCore="data.core.resolve.value"
+      labelCore="Resolve"
+      valueL=data.data.core.resolve.attributes.presence.value
+      nameL="data.core.resolve.attributes.presence.value"
+      labelL="Presence"
+      valueR=data.data.core.resolve.attributes.willpower.value
+      nameR="data.core.resolve.attributes.willpower.value"
+      labelR="Willpower"
+      }}
+    </div>
+  </section>
 </form>
 <!-- 
 <form autocomplete="off">

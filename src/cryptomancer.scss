@@ -4,6 +4,7 @@
   --color-shadow-highlight: #00ffe1;
   --color-border-highlight-alt: #00eeff;
   --color-border-highlight: #00ffe1;
+  --color-bg-light: #ffffff;
 }
 
 @import "skill-check/skill-check.component";
@@ -11,5 +12,7 @@
 /* Styles limited to cryptomancer sheets */
 .cryptomancer {
   @import "actor-sheet/actor-sheet.component";
+  @import "actor-sheet/components/core-triad.component";
   @import "shared/components/text-input/text-input.component";
+  @import "shared/components/core-input/core-input.component";
 }

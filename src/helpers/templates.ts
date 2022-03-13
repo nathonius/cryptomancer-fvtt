@@ -6,6 +6,7 @@
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
+    "systems/cryptomancer/actor-sheet/components/core-triad.component.html",
     "systems/cryptomancer/actor-sheet/parts/actor-features.html",
     "systems/cryptomancer/actor-sheet/parts/actor-items.html",
     "systems/cryptomancer/actor-sheet/parts/actor-spells.html",
@@ -13,5 +14,6 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/actor-sheet/parts/actor-attribute.html",
     "systems/cryptomancer/skill-check/skill-check.component.html",
     "systems/cryptomancer/shared/components/text-input/text-input.component.html",
+    "systems/cryptomancer/shared/components/core-input/core-input.component.html",
   ]);
 };
