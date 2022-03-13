@@ -53,13 +53,6 @@ Hooks.once("init", async function () {
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
-Handlebars.registerHelper(
-  "skillName",
-  (coreKey: string, attrKey: string, skillKey: string, end: string) => {
-    return `data.core.${coreKey}.attributes.${attrKey}.skills.${skillKey}.${end}`;
-  }
-);
-
 // If you need to add Handlebars helpers, here are a few useful examples:
 Handlebars.registerHelper("concat", function () {
   var outStr = "";

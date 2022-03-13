@@ -106,6 +106,7 @@ export class CryptomancerActor extends Actor {
       attributeName
     ];
     const skill = skillName ? attribute.skills[skillName] : null;
+    console.log(skill);
     if (skill) {
       this.skillCheckService.skillCheck(
         attribute.value,

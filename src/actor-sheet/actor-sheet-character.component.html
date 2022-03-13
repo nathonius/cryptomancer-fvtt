@@ -61,75 +61,85 @@
   </nav>
   <section class="sheet-body">
     <div class="tab features" data-group="primary" data-tab="features">
-      <div class="core">
-        {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
-        valueCore=data.data.core.speed.value
-        nameCore="data.core.speed.value"
-        labelCore="Speed"
-        valueL=data.data.core.speed.attributes.agility.value
-        nameL="data.core.speed.attributes.agility.value"
-        labelL="Agility"
-        valueR=data.data.core.speed.attributes.dexterity.value
-        nameR="data.core.speed.attributes.dexterity.value"
-        labelR="Dexterity"
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.agility
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.dexterity
-        }}
-      </div>
-      <div class="core">
-        {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
-        valueCore=data.data.core.power.value
-        nameCore="data.core.power.value"
-        labelCore="Power"
-        valueL=data.data.core.power.attributes.strength.value
-        nameL="data.core.power.attributes.strength.value"
-        labelL="Strength"
-        valueR=data.data.core.power.attributes.endurance.value
-        nameR="data.core.power.attributes.endurance.value"
-        labelR="Endurance"
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.strength
-        }}
-      </div>
-      <div class="core">
-        {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
-        valueCore=data.data.core.wits.value
-        nameCore="data.core.wits.value"
-        labelCore="Wits"
-        valueL=data.data.core.wits.attributes.knowledge.value
-        nameL="data.core.wits.attributes.knowledge.value"
-        labelL="Knowledge"
-        valueR=data.data.core.wits.attributes.cunning.value
-        nameR="data.core.wits.attributes.cunning.value"
-        labelR="Cunning"
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.knowledge
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.cunning
-        }}
-      </div>
-      <div class="core">
-        {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
-        valueCore=data.data.core.resolve.value
-        nameCore="data.core.resolve.value"
-        labelCore="Resolve"
-        valueL=data.data.core.resolve.attributes.presence.value
-        nameL="data.core.resolve.attributes.presence.value"
-        labelL="Presence"
-        valueR=data.data.core.resolve.attributes.willpower.value
-        nameR="data.core.resolve.attributes.willpower.value"
-        labelR="Willpower"
-        }}
-        {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
-        attr=data.data.core.speed.attributes.presence
-        }}
+      <div class="cores">
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          valueCore=data.data.core.speed.value
+          nameCore="data.core.speed.value"
+          labelCore="Speed"
+          valueL=data.data.core.speed.attributes.agility.value
+          nameL="data.core.speed.attributes.agility.value"
+          labelL="Agility"
+          valueR=data.data.core.speed.attributes.dexterity.value
+          nameR="data.core.speed.attributes.dexterity.value"
+          labelR="Dexterity"
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.speed.attributes.agility
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.speed.attributes.dexterity
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          valueCore=data.data.core.power.value
+          nameCore="data.core.power.value"
+          labelCore="Power"
+          valueL=data.data.core.power.attributes.strength.value
+          nameL="data.core.power.attributes.strength.value"
+          labelL="Strength"
+          valueR=data.data.core.power.attributes.endurance.value
+          nameR="data.core.power.attributes.endurance.value"
+          labelR="Endurance"
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.power.attributes.strength
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          valueCore=data.data.core.wits.value
+          nameCore="data.core.wits.value"
+          labelCore="Wits"
+          valueL=data.data.core.wits.attributes.knowledge.value
+          nameL="data.core.wits.attributes.knowledge.value"
+          labelL="Knowledge"
+          valueR=data.data.core.wits.attributes.cunning.value
+          nameR="data.core.wits.attributes.cunning.value"
+          labelR="Cunning"
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.wits.attributes.knowledge
+            }}
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.wits.attributes.cunning
+            }}
+          </div>
+        </div>
+        <div class="core">
+          {{> "systems/cryptomancer/actor-sheet/components/core-triad.component.html"
+          valueCore=data.data.core.resolve.value
+          nameCore="data.core.resolve.value"
+          labelCore="Resolve"
+          valueL=data.data.core.resolve.attributes.presence.value
+          nameL="data.core.resolve.attributes.presence.value"
+          labelL="Presence"
+          valueR=data.data.core.resolve.attributes.willpower.value
+          nameR="data.core.resolve.attributes.willpower.value"
+          labelR="Willpower"
+          }}
+          <div class="skills">
+            {{> "systems/cryptomancer/actor-sheet/components/skill-list.component.html"
+            attr=data.data.core.resolve.attributes.presence
+            }}
+          </div>
+        </div>
       </div>
     </div>
     <div>

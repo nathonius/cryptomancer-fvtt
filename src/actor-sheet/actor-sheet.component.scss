@@ -5,4 +5,14 @@
       flex-grow: 1;
     }
   }
+  .cores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    .core {
+      .skills {
+        display: flex;
+      }
+    }
+  }
 }

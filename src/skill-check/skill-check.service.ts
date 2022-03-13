@@ -121,6 +121,8 @@ export class SkillCheckService {
       { rolls, ...labels }
     );
 
+    console.log(resultTemplate);
+
     const messageData: ChatMessageDataConstructorData &
       Record<string, unknown> = {
       user: getGame().user?.id,
