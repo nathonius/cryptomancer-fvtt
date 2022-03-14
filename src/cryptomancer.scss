@@ -31,9 +31,5 @@
 }
 
 @import "skill-check/skill-check.component";
-
-/* Styles limited to cryptomancer sheets */
-.cryptomancer {
-  @import "actor-sheet/actor-sheet.component";
-  @import "shared/components";
-}
+@import "actor-sheet/actor-sheet.component";
+@import "shared/components";
