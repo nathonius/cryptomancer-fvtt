@@ -27,7 +27,7 @@ gulp.task("scss", () => {
         cascade: false,
       })
     )
-    .pipe(gulp.dest("./dist/css"));
+    .pipe(gulp.dest("./dist"));
 });
 
 /**
