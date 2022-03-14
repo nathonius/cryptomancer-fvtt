@@ -31,15 +31,5 @@
 }
 
 @import "skill-check/skill-check.component";
-
-/* Styles limited to cryptomancer sheets */
-.cryptomancer {
-  @import "actor-sheet/actor-sheet.component";
-  @import "actor-sheet/components/core-triad.component";
-  @import "actor-sheet/components/skill-list.component";
-  @import "actor-sheet/components/resource-skill.component";
-  @import "actor-sheet/components/defense.component";
-  @import "shared/components/text-input/text-input.component";
-  @import "shared/components/core-input/core-input.component";
-  @import "shared/components/toggle-box/toggle-box.component";
-}
+@import "actor-sheet/actor-sheet.component";
+@import "shared/components";

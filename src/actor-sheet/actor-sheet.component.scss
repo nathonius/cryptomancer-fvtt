@@ -1,4 +1,9 @@
-.actor-sheet {
+@import "./components/core-triad.component";
+@import "./components/defense.component";
+@import "./components/resource-skill.component";
+@import "./components/skill-list.component.scss";
+
+.crypt-actor-sheet {
   header {
     display: flex;
     .basic-bio {
