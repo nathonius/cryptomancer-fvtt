@@ -1,1 +1,0 @@
-cp -r dist/* /mnt/c/Users/Nathan/AppData/Local/FoundryVTT/Data/systems/cryptomancer

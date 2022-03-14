@@ -7,7 +7,7 @@
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
   "esmodules": ["cryptomancer.js"],
-  "styles": ["css/cryptomancer.css"],
+  "styles": ["cryptomancer.css"],
   "scripts": [],
   "packs": [],
   "languages": [

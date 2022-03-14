@@ -6,7 +6,7 @@ import { CryptomancerActor } from "./actor/actor.component.js";
 // Import sheet classes.
 import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.component.js";
 // Import helper/utility classes and constants.
-import { preloadHandlebarsTemplates } from "./helpers/templates.js";
+import { preloadHandlebarsTemplates } from "./shared/templates.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */

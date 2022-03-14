@@ -1,3 +1,8 @@
+@import "./components/core-triad.component";
+@import "./components/defense.component";
+@import "./components/resource-skill.component";
+@import "./components/skill-list.component.scss";
+
 .actor-sheet {
   header {
     display: flex;

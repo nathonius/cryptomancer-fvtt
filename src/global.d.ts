@@ -1,5 +1,5 @@
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { Character } from "./interfaces/cryptomancer";
+import { Character } from "./shared/interfaces/cryptomancer";
 import { CryptomancerActor } from "./actor/actor.component";
 
 interface CharacterDataSource {

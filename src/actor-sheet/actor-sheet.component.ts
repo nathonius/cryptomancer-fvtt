@@ -1,5 +1,5 @@
-import { CoreAlt } from "../interfaces/cryptomancer";
-import { onManageActiveEffect } from "../helpers/effects.js";
+import { CoreAlt } from "../shared/interfaces/cryptomancer";
+import { onManageActiveEffect } from "../shared/effects.js";
 import { LocalizationService } from "../shared/localization.service.js";
 import { AugmentedData } from "./actor-sheet.interface";
 
