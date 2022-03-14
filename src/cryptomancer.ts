@@ -2,9 +2,9 @@
 import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
 // Import document classes.
-import { CryptomancerActor } from "./actor/actor.component.js";
+import { CryptomancerActor } from "./actor/actor.js";
 // Import sheet classes.
-import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.component.js";
+import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.js";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./shared/templates.js";
 
