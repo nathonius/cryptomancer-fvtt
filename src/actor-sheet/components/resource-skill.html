@@ -15,13 +15,13 @@
     </div>
   </div>
   <div class="toggles">
-    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.component.html"
+    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
     id=(concat "break-" resource.key)
     value=attr.break
     name=(concat "data.core." attr.core ".attributes." attr.key ".break")
     placeholder="1"
     }}
-    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.component.html"
+    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
     id=(concat "push-" resource.key)
     value=attr.push
     name=(concat "data.core." attr.core ".attributes." attr.key ".push")
