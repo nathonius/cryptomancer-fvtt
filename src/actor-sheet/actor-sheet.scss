@@ -6,9 +6,56 @@
 .crypt-actor-sheet {
   header {
     display: flex;
-    .basic-bio {
+    .bio {
       flex-grow: 1;
       padding: 8px;
+      .name {
+        display: flex;
+        gap: 4px;
+        .common-name {
+          flex-grow: 1;
+          &::after,
+          input {
+            font-size: 1.8rem;
+          }
+        }
+        .true-name {
+          min-width: 60px;
+          &::after,
+          input {
+            font-size: 1rem;
+          }
+        }
+        .pronouns {
+          min-width: 53px;
+          &::after,
+          input {
+            font-size: 1rem;
+          }
+        }
+        // font-size: 1rem;
+        // color: var(--color-text-light-heading);
+        // input {
+        //   border: 0;
+        //   background-color: transparent;
+        //   padding: 0;
+        // }
+        // .common-name {
+        //   font-size: 1.8rem;
+        //   color: var(--color-text-dark-header);
+        // }
+        // .true-name {
+        //   display: flex;
+        //   align-items: center;
+        //   input {
+        //     min-width: 110px;
+        //   }
+        // }
+        // .pronouns {
+        //   min-width: 60px;
+        //   font-size: 0.8rem;
+        // }
+      }
     }
     .defenses {
       display: flex;

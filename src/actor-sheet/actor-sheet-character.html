@@ -8,46 +8,109 @@
         height="180"
         width="180"
       />
-      {{> "systems/cryptomancer/shared/components/text-input/text-input.html" label="Race"
-      value=data.data.biography.race name="data.biography.race" placeholder="Race"}}
     </div>
-    <div class="basic-bio">
+    <div class="bio">
+      <div class="name">
+        <label
+          class="input-sizer stacked common-name"
+          data-value="{{actor.name}}"
+        >
+          <input
+            type="text"
+            oninput="this.parentNode.dataset.value = this.value"
+            size="1"
+            name="name"
+            value="{{actor.name}}"
+          />
+          <span>Common Name</span>
+        </label>
+        <label
+          class="input-sizer stacked true-name"
+          data-value="{{data.data.biography.trueName}}"
+        >
+          <input
+            type="text"
+            oninput="this.parentNode.dataset.value = this.value"
+            size="1"
+            name="data.biography.trueName"
+            placeholder="Barry"
+            value="{{data.data.biography.trueName}}"
+          />
+          <span>True Name</span>
+        </label>
+        <label
+          class="input-sizer stacked pronouns"
+          data-value="{{data.data.biography.pronouns}}"
+        >
+          <input
+            type="text"
+            oninput="this.parentNode.dataset.value = this.value"
+            size="1"
+            name="data.biography.pronouns"
+            placeholder="he/him"
+            value="{{data.data.biography.pronouns}}"
+          />
+          <span>Pronouns</span>
+        </label>
+        {{!--
+        <div>
+          <input
+            type="text"
+            class="common-name"
+            placeholder="Common Name"
+            name="name"
+            value="{{actor.name}}"
+          />
+        </div>
+        <span class="true-name">
+          (<input
+            type="text"
+            placeholder="True Name"
+            name="data.biography.trueName"
+            value="{{data.data.biography.trueName}}"
+          />)
+        </span>
+        <input
+          type="text"
+          class="pronouns"
+          placeholder="Pronouns"
+          name="data.biography.pronouns"
+          value="{{data.data.biography.pronouns}}"
+        />
+        --}}
+      </div>
+      <div class="race-pronouns">
+        {{> "systems/cryptomancer/shared/components/text-input/text-input.html"
+        label="Race" value=data.data.biography.race name="data.biography.race"
+        placeholder="Race"}}
+      </div>
       <div>
-        {{> "systems/cryptomancer/shared/components/text-input/text-input.html" label="Common Name"
-        value=actor.name name="name" placeholder="Common Name"}}
-        {{> "systems/cryptomancer/shared/components/text-input/text-input.html" label="True Name"
-        value=data.data.biography.trueName name="data.biography.trueName" placeholder="True Name"}}
-        {{> "systems/cryptomancer/shared/components/text-input/text-input.html" label="Pronouns"
-        value=data.data.biography.pronouns name="data.biography.pronouns" placeholder="Pronouns"}}
+        <input
+          class="upgrade-points"
+          type="text"
+          data-dtype="Number"
+          name="data.upgradePoints.value"
+          value="{{data.data.upgradePoints.value}}"
+        />
       </div>
       <div class="defenses">
         <div class="defense">
           {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Dodge"
-          value=data.data.core.speed.value
-          desc="vs melee/missile"
+          label="Dodge" value=data.data.core.speed.value desc="vs melee/missile"
           }}
         </div>
         <div class="defense">
           {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Parry"
-          value=data.data.core.power.value
-          desc="vs melee"
+          label="Parry" value=data.data.core.power.value desc="vs melee" }}
+        </div>
+        <div class="defense">
+          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
+          label="Take Cover" value=data.data.core.wits.value desc="vs missile"
           }}
         </div>
         <div class="defense">
           {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Take Cover"
-          value=data.data.core.wits.value
-          desc="vs missile"
-          }}
-        </div>
-        <div class="defense">
-          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Resist"
-          value=data.data.core.resolve.value
-          desc="vs magic"
-          }}
+          label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
         </div>
       </div>
     </div>
@@ -68,62 +131,50 @@
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.speed
           attrL=data.data.core.speed.attributes.agility
-          attrR=data.data.core.speed.attributes.dexterity
-          }}
+          attrR=data.data.core.speed.attributes.dexterity }}
           <div class="skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.speed.attributes.agility
-            }}
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.speed.attributes.dexterity
-            }}
+            attr=data.data.core.speed.attributes.agility }} {{>
+            "systems/cryptomancer/actor-sheet/components/skill-list.html"
+            attr=data.data.core.speed.attributes.dexterity }}
           </div>
         </div>
         <div class="core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.power
           attrL=data.data.core.power.attributes.strength
-          attrR=data.data.core.power.attributes.endurance
-          }}
+          attrR=data.data.core.power.attributes.endurance }}
           <div class="skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.power.attributes.strength
-            }}
-            {{> "systems/cryptomancer/actor-sheet/components/resource-skill.html"
+            attr=data.data.core.power.attributes.strength }} {{>
+            "systems/cryptomancer/actor-sheet/components/resource-skill.html"
             attr=data.data.core.power.attributes.endurance
-            resource=data.data.healthPoints
-            }}
+            resource=data.data.healthPoints }}
           </div>
         </div>
         <div class="core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.wits
           attrL=data.data.core.wits.attributes.knowledge
-          attrR=data.data.core.wits.attributes.cunning
-          }}
+          attrR=data.data.core.wits.attributes.cunning }}
           <div class="skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.wits.attributes.knowledge
-            }}
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.wits.attributes.cunning
-            }}
+            attr=data.data.core.wits.attributes.knowledge }} {{>
+            "systems/cryptomancer/actor-sheet/components/skill-list.html"
+            attr=data.data.core.wits.attributes.cunning }}
           </div>
         </div>
         <div class="core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.resolve
           attrL=data.data.core.resolve.attributes.presence
-          attrR=data.data.core.resolve.attributes.willpower
-          }}
+          attrR=data.data.core.resolve.attributes.willpower }}
           <div class="skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
-            attr=data.data.core.resolve.attributes.presence
-            }}
-            {{> "systems/cryptomancer/actor-sheet/components/resource-skill.html"
+            attr=data.data.core.resolve.attributes.presence }} {{>
+            "systems/cryptomancer/actor-sheet/components/resource-skill.html"
             attr=data.data.core.power.attributes.presence
-            resource=data.data.manaPoints
-            }}
+            resource=data.data.manaPoints }}
           </div>
         </div>
       </div>
