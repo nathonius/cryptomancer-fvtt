@@ -22,8 +22,9 @@
             name="name"
             value="{{actor.name}}"
           />
-          <span>Common Name</span>
+          <span class="label">Common Name</span>
         </label>
+        <div class="flex-spacer"></div>
         <label
           class="input-sizer stacked true-name"
           data-value="{{data.data.biography.trueName}}"
@@ -36,21 +37,21 @@
             placeholder="Barry"
             value="{{data.data.biography.trueName}}"
           />
-          <span>True Name</span>
+          <span class="label">True Name</span>
         </label>
         <label
-          class="input-sizer stacked pronouns"
-          data-value="{{data.data.biography.pronouns}}"
+          class="input-sizer stacked race"
+          data-value="{{data.data.biography.race}}"
         >
           <input
             type="text"
             oninput="this.parentNode.dataset.value = this.value"
             size="1"
-            name="data.biography.pronouns"
-            placeholder="he/him"
-            value="{{data.data.biography.pronouns}}"
+            name="data.biography.race"
+            placeholder="race"
+            value="{{data.data.biography.race}}"
           />
-          <span>Pronouns</span>
+          <span class="label">Race</span>
         </label>
         {{!--
         <div>
@@ -79,19 +80,46 @@
         />
         --}}
       </div>
-      <div class="race-pronouns">
-        {{> "systems/cryptomancer/shared/components/text-input/text-input.html"
-        label="Race" value=data.data.biography.race name="data.biography.race"
-        placeholder="Race"}}
-      </div>
-      <div>
-        <input
-          class="upgrade-points"
-          type="text"
-          data-dtype="Number"
-          name="data.upgradePoints.value"
-          value="{{data.data.upgradePoints.value}}"
-        />
+      <div class="pronouns-party">
+        <label
+          class="input-sizer stacked pronouns"
+          data-value="{{data.data.biography.pronouns}}"
+        >
+          <input
+            type="text"
+            oninput="this.parentNode.dataset.value = this.value"
+            size="1"
+            name="data.biography.pronouns"
+            placeholder="he/him"
+            value="{{data.data.biography.pronouns}}"
+          />
+          <span class="label">Pronouns</span>
+        </label>
+        <label
+          class="input-sizer stacked party-name"
+          data-value="{{data.data.biography.party}}"
+        >
+          <input
+            type="text"
+            oninput="this.parentNode.dataset.value = this.value"
+            size="1"
+            name="data.biography.party"
+            placeholder="Party"
+            value="{{data.data.biography.party}}"
+          />
+          <span class="label">Party Name</span>
+        </label>
+        <div class="flex-spacer"></div>
+        <div class="upgrade-points">
+          <span>UPs</span>
+          <input
+            class="upgrade-points"
+            type="text"
+            data-dtype="Number"
+            name="data.upgradePoints.value"
+            value="{{data.data.upgradePoints.value}}"
+          />
+        </div>
       </div>
       <div class="defenses">
         <div class="defense">
@@ -126,25 +154,25 @@
   </nav>
   <section class="sheet-body">
     <div class="tab features" data-group="primary" data-tab="features">
-      <div class="cores">
-        <div class="core">
+      <div class="sheet-cores">
+        <div class="sheet-core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.speed
           attrL=data.data.core.speed.attributes.agility
           attrR=data.data.core.speed.attributes.dexterity }}
-          <div class="skills">
+          <div class="sheet-skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.speed.attributes.agility }} {{>
             "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.speed.attributes.dexterity }}
           </div>
         </div>
-        <div class="core">
+        <div class="sheet-core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.power
           attrL=data.data.core.power.attributes.strength
           attrR=data.data.core.power.attributes.endurance }}
-          <div class="skills">
+          <div class="sheet-skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.power.attributes.strength }} {{>
             "systems/cryptomancer/actor-sheet/components/resource-skill.html"
@@ -152,24 +180,24 @@
             resource=data.data.healthPoints }}
           </div>
         </div>
-        <div class="core">
+        <div class="sheet-core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.wits
           attrL=data.data.core.wits.attributes.knowledge
           attrR=data.data.core.wits.attributes.cunning }}
-          <div class="skills">
+          <div class="sheet-skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.wits.attributes.knowledge }} {{>
             "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.wits.attributes.cunning }}
           </div>
         </div>
-        <div class="core">
+        <div class="sheet-core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.html"
           core=data.data.core.resolve
           attrL=data.data.core.resolve.attributes.presence
           attrR=data.data.core.resolve.attributes.willpower }}
-          <div class="skills">
+          <div class="sheet-skills">
             {{> "systems/cryptomancer/actor-sheet/components/skill-list.html"
             attr=data.data.core.resolve.attributes.presence }} {{>
             "systems/cryptomancer/actor-sheet/components/resource-skill.html"

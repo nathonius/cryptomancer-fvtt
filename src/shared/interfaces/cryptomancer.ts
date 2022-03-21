@@ -75,6 +75,7 @@ export interface Character {
     race: string;
     trueName: string;
     pronouns: string;
+    party: string;
     build: string;
     eyes: string;
     hair: string;

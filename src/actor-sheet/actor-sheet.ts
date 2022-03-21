@@ -19,8 +19,8 @@ export class CryptomancerActorSheet extends ActorSheet<
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
       template: "systems/cryptomancer/actor-sheet/actor-sheet.html",
-      width: 630,
-      height: 730,
+      width: 625,
+      height: 700,
       tabs: [
         {
           navSelector: ".sheet-tabs",

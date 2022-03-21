@@ -1,3 +1,10 @@
+/* Load fonts */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap");
+@font-face {
+  font-family: Atmospheric;
+  src: url(assets/font/aAtmospheric.otf);
+}
+
 /* Hide an element but keep it accessible */
 .visually-hidden {
   border: 0;
@@ -84,4 +91,9 @@ Example:
       outline: none;
     }
   }
+}
+
+/* Just a shortcut for flex-grow. */
+.flex-spacer {
+  flex-grow: 1;
 }

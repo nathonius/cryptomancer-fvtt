@@ -6,55 +6,53 @@
 .crypt-actor-sheet {
   header {
     display: flex;
+    gap: 8px;
     .bio {
       flex-grow: 1;
-      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       .name {
+        font-family: var(--font-accent);
         display: flex;
-        gap: 4px;
-        .common-name {
-          flex-grow: 1;
+        gap: 8px;
+        line-height: 0.9rem;
+        label {
+          min-width: 60px;
           &::after,
           input {
+            height: 40px;
             font-size: 1.8rem;
           }
+          .label {
+            text-transform: uppercase;
+          }
         }
-        .true-name {
+      }
+      .pronouns-party {
+        font-family: var(--font-accent);
+        display: flex;
+        gap: 8px;
+        line-height: 0.9rem;
+        label {
           min-width: 60px;
           &::after,
           input {
             font-size: 1rem;
           }
         }
-        .pronouns {
-          min-width: 53px;
-          &::after,
+        .upgrade-points {
+          display: flex;
+          align-items: center;
+          gap: 8px;
           input {
-            font-size: 1rem;
+            display: block;
+            text-align: center;
+            width: 60px;
+            height: 40px;
+            font-size: 24px;
           }
         }
-        // font-size: 1rem;
-        // color: var(--color-text-light-heading);
-        // input {
-        //   border: 0;
-        //   background-color: transparent;
-        //   padding: 0;
-        // }
-        // .common-name {
-        //   font-size: 1.8rem;
-        //   color: var(--color-text-dark-header);
-        // }
-        // .true-name {
-        //   display: flex;
-        //   align-items: center;
-        //   input {
-        //     min-width: 110px;
-        //   }
-        // }
-        // .pronouns {
-        //   min-width: 60px;
-        //   font-size: 0.8rem;
-        // }
       }
     }
     .defenses {
@@ -63,13 +61,16 @@
       justify-content: space-between;
     }
   }
-  .cores {
+  .sheet-cores {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    .core {
-      .skills {
+    justify-content: space-between;
+    .sheet-core {
+      width: 300px;
+      margin-bottom: 8px;
+      .sheet-skills {
         display: flex;
+        justify-content: end;
       }
     }
   }
