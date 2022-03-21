@@ -117,7 +117,7 @@ export class SkillCheckService {
     };
 
     const resultTemplate = await renderTemplate(
-      "systems/cryptomancer/skill-check/skill-check.component.html",
+      "systems/cryptomancer/skill-check/skill-check.html",
       { rolls, ...labels }
     );
 
