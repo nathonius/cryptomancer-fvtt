@@ -1,0 +1,99 @@
+/* Load fonts */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap");
+@font-face {
+  font-family: Atmospheric;
+  src: url(assets/font/aAtmospheric.otf);
+}
+
+/* Hide an element but keep it accessible */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+
+  // This works around a Chrome bug that can cause the tab to crash when large amounts of
+  // non-English text get wrapped: https://bugs.chromium.org/p/chromium/issues/detail?id=1201444
+  white-space: nowrap;
+
+  // Avoid browsers rendering the focus ring in some cases.
+  outline: 0;
+
+  // Avoid some cases where the browser will still render the native controls (see #9049).
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/*
+Auto-grow/auto-shrink inputs
+from: https://codepen.io/shshaw/pen/bGNJJBE
+Example:
+  <label class="input-sizer" data-value="{{value}}">
+    <span>DOB: </span>
+    <input type="text" onInput="this.parentNode.dataset.value = this.value" size="1" placeholder="5">
+  </label>
+*/
+.input-sizer {
+  display: inline-grid;
+  vertical-align: top;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  margin: 0;
+
+  &.stacked {
+    align-items: stretch;
+    span {
+      color: var(--color-text-dark-inactive);
+      font-size: 10px;
+      grid-area: 2 / 1;
+    }
+
+    &::after,
+    input,
+    textarea {
+      grid-area: 1 / 1;
+    }
+  }
+
+  &::after,
+  input,
+  textarea {
+    width: auto;
+    min-width: 1em;
+    grid-area: 1 / 2;
+    font: inherit;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    background: none;
+    appearance: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    border-radius: 0px;
+  }
+
+  &::after {
+    content: attr(data-value) " ";
+    visibility: hidden;
+    white-space: pre-wrap;
+  }
+
+  &:focus-within {
+    textarea:focus,
+    input:focus {
+      box-shadow: 0 0 5px var(--color-shadow-primary);
+      border-color: var(--color-border-dark-primary);
+      outline: none;
+    }
+  }
+}
+
+/* Just a shortcut for flex-grow. */
+.flex-spacer {
+  flex-grow: 1;
+}

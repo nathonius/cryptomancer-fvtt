@@ -1,12 +1,11 @@
 .crypt-core-triad {
-  width: 265px;
-  height: 100px;
-  margin: 10px;
+  width: 100%;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: end;
 
   .label {
+    font-family: var(--font-accent);
     &.core {
       position: absolute;
       left: 0px;
@@ -29,31 +28,39 @@
     }
   }
 
-  .triangle {
-    width: 210px;
-    position: absolute;
-    top: 0px;
-    polygon {
-      stroke: var(--color-border-dark);
-      stroke-width: 1;
-      fill: transparent;
-    }
-  }
-
-  .core-container {
-    position: absolute;
-
-    &.attribute {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &.left {
-        bottom: 5px;
-        left: 20px;
+  .triad-wrapper {
+    width: 265px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    right: 12px;
+    .triangle {
+      width: 210px;
+      position: absolute;
+      top: 0px;
+      polygon {
+        stroke: var(--color-border-dark);
+        stroke-width: 1;
+        fill: transparent;
       }
-      &.right {
-        bottom: 5px;
-        right: 20px;
+    }
+
+    .core-container {
+      position: absolute;
+
+      &.attribute {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &.left {
+          bottom: 5px;
+          left: 20px;
+        }
+        &.right {
+          bottom: 5px;
+          right: 20px;
+        }
       }
     }
   }

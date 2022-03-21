@@ -6,9 +6,54 @@
 .crypt-actor-sheet {
   header {
     display: flex;
-    .basic-bio {
+    gap: 8px;
+    .bio {
       flex-grow: 1;
-      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      .name {
+        font-family: var(--font-accent);
+        display: flex;
+        gap: 8px;
+        line-height: 0.9rem;
+        label {
+          min-width: 60px;
+          &::after,
+          input {
+            height: 40px;
+            font-size: 1.8rem;
+          }
+          .label {
+            text-transform: uppercase;
+          }
+        }
+      }
+      .pronouns-party {
+        font-family: var(--font-accent);
+        display: flex;
+        gap: 8px;
+        line-height: 0.9rem;
+        label {
+          min-width: 60px;
+          &::after,
+          input {
+            font-size: 1rem;
+          }
+        }
+        .upgrade-points {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          input {
+            display: block;
+            text-align: center;
+            width: 60px;
+            height: 40px;
+            font-size: 24px;
+          }
+        }
+      }
     }
     .defenses {
       display: flex;
@@ -16,13 +61,16 @@
       justify-content: space-between;
     }
   }
-  .cores {
+  .sheet-cores {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    .core {
-      .skills {
+    justify-content: space-between;
+    .sheet-core {
+      width: 300px;
+      margin-bottom: 8px;
+      .sheet-skills {
         display: flex;
+        justify-content: end;
       }
     }
   }
