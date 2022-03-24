@@ -122,23 +122,45 @@
         </div>
       </div>
       <div class="defenses">
-        <div class="defense">
-          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Dodge" value=data.data.core.speed.value desc="vs melee/missile"
-          }}
+        <div>
+          <div class="defense">
+            {{> "systems/cryptomancer/actor-sheet/components/defense.html"
+            label="Dodge" value=data.data.core.speed.value desc="vs
+            melee/missile" }}
+          </div>
+          <div class="defense">
+            {{> "systems/cryptomancer/actor-sheet/components/defense.html"
+            label="Parry" value=data.data.core.power.value desc="vs melee" }}
+          </div>
         </div>
-        <div class="defense">
-          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Parry" value=data.data.core.power.value desc="vs melee" }}
+        <div>
+          <div class="defense">
+            {{> "systems/cryptomancer/actor-sheet/components/defense.html"
+            label="Take Cover" value=data.data.core.wits.value desc="vs missile"
+            }}
+          </div>
+          <div class="defense">
+            {{> "systems/cryptomancer/actor-sheet/components/defense.html"
+            label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
+          </div>
         </div>
-        <div class="defense">
-          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Take Cover" value=data.data.core.wits.value desc="vs missile"
-          }}
-        </div>
-        <div class="defense">
-          {{> "systems/cryptomancer/actor-sheet/components/defense.html"
-          label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
+        <div class="difficulty-selector">
+          <span class="label">Check Difficulty</span>
+          <span class="difficulty"
+            >Trivial {{>
+            "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
+            id="difficulty-trivial" value=(is checkDifficulty 4)}}</span
+          >
+          <span class="difficulty"
+            >Challenging {{>
+            "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
+            id="difficulty-challenging" value=(is checkDifficulty 6)}}</span
+          >
+          <span class="difficulty"
+            >Tough {{>
+            "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
+            id="difficulty-tough" value=(is checkDifficulty 8)}}</span
+          >
         </div>
       </div>
     </div>

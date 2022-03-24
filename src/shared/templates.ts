@@ -14,7 +14,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/actor-sheet/parts/actor-items.html",
     "systems/cryptomancer/actor-sheet/parts/actor-spells.html",
     "systems/cryptomancer/actor-sheet/parts/actor-effects.html",
-    "systems/cryptomancer/skill-check/skill-check.html",
+    "systems/cryptomancer/skill-check/skill-check.hbs",
     "systems/cryptomancer/shared/components/text-input/text-input.html",
     "systems/cryptomancer/shared/components/core-input/core-input.html",
     "systems/cryptomancer/shared/components/toggle-box/toggle-box.html",

@@ -7,12 +7,17 @@ import { CryptomancerActor } from "./actor/actor.js";
 import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.js";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./shared/templates.js";
+import { SettingsService } from "./settings/settings.service.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
 Hooks.once("init", async function () {
+  const settingsService = new SettingsService();
+
+  const _game = game as Game;
+
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   (game as any).cryptomancer = {
@@ -35,6 +40,9 @@ Hooks.once("init", async function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = CryptomancerActor;
 
+  // Register settings
+  settingsService.registerSettings();
+
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
@@ -54,6 +62,10 @@ Hooks.once("init", async function () {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here are a few useful examples:
+Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
+  return source === target;
+});
+
 Handlebars.registerHelper("concat", function () {
   var outStr = "";
   for (var arg in arguments) {

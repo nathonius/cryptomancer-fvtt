@@ -1,4 +1,11 @@
 .skill-check {
+  .attribute {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .difficulty {
+    display: flex;
+  }
   .dice {
     list-style: none;
     display: flex;
@@ -10,7 +17,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     color: transparent;
-    &.attr {
+    &.attribute {
       &.result-1 {
         background-image: url("assets/img/d10-grey-1.png");
         &.botch {
