@@ -9,13 +9,13 @@
       {{skill.label}}
     </span>
     <div class="toggles">
-      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
+      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
       id=(concat "break-" skillKey)
       value=skill.break
       name=(concat "data.core." ../attr.core ".attributes." skill.attribute ".skills." skillKey ".break")
       placeholder="1"
       }}
-      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.html"
+      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
       id=(concat "push-" skillKey)
       value=skill.push
       name=(concat "data.core." ../attr.core ".attributes." skill.attribute ".skills." skillKey ".push")

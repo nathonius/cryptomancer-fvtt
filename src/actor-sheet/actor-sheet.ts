@@ -21,7 +21,7 @@ export class CryptomancerActorSheet extends ActorSheet<
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
-      template: "systems/cryptomancer/actor-sheet/actor-sheet.html",
+      template: "systems/cryptomancer/actor-sheet/actor-sheet.hbs",
       width: 625,
       height: 700,
       tabs: [
@@ -36,7 +36,7 @@ export class CryptomancerActorSheet extends ActorSheet<
 
   /** @override */
   get template() {
-    return `systems/cryptomancer/actor-sheet/actor-sheet-${this.actor.data.type}.html`;
+    return `systems/cryptomancer/actor-sheet/actor-sheet-${this.actor.data.type}.hbs`;
   }
 
   /* -------------------------------------------- */

@@ -6,17 +6,17 @@
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     // Actor partials.
-    "systems/cryptomancer/actor-sheet/components/core-triad.html",
-    "systems/cryptomancer/actor-sheet/components/skill-list.html",
-    "systems/cryptomancer/actor-sheet/components/resource-skill.html",
-    "systems/cryptomancer/actor-sheet/components/defense.html",
-    "systems/cryptomancer/actor-sheet/parts/actor-features.html",
-    "systems/cryptomancer/actor-sheet/parts/actor-items.html",
-    "systems/cryptomancer/actor-sheet/parts/actor-spells.html",
-    "systems/cryptomancer/actor-sheet/parts/actor-effects.html",
+    "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
+    "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
+    "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",
+    "systems/cryptomancer/actor-sheet/components/defense.hbs",
+    "systems/cryptomancer/actor-sheet/parts/actor-features.hbs",
+    "systems/cryptomancer/actor-sheet/parts/actor-items.hbs",
+    "systems/cryptomancer/actor-sheet/parts/actor-spells.hbs",
+    "systems/cryptomancer/actor-sheet/parts/actor-effects.hbs",
     "systems/cryptomancer/skill-check/skill-check.hbs",
-    "systems/cryptomancer/shared/components/text-input/text-input.html",
-    "systems/cryptomancer/shared/components/core-input/core-input.html",
-    "systems/cryptomancer/shared/components/toggle-box/toggle-box.html",
+    "systems/cryptomancer/shared/components/text-input/text-input.hbs",
+    "systems/cryptomancer/shared/components/core-input/core-input.hbs",
+    "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs",
   ]);
 };
