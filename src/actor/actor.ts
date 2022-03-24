@@ -13,13 +13,11 @@ import { SkillCheckService } from "../skill-check/skill-check.service.js";
  * @extends {Actor}
  */
 export class CryptomancerActor extends Actor {
-  private readonly skillCheckService: SkillCheckService;
   constructor(
     data?: ActorDataConstructorData,
     context?: Context<TokenDocument>
   ) {
     super(data, context);
-    this.skillCheckService = new SkillCheckService();
   }
 
   /** @override */
@@ -113,7 +111,7 @@ export class CryptomancerActor extends Actor {
     ];
     const skill = skillName ? attribute.skills[skillName] : null;
     if (skill) {
-      this.skillCheckService.skillCheck(
+      SkillCheckService.skillCheck(
         attribute.value,
         attributeName,
         difficulty,
@@ -122,11 +120,7 @@ export class CryptomancerActor extends Actor {
         skill.push
       );
     } else {
-      this.skillCheckService.skillCheck(
-        attribute.value,
-        attributeName,
-        difficulty
-      );
+      SkillCheckService.skillCheck(attribute.value, attributeName, difficulty);
     }
   }
 }

@@ -1,14 +1,20 @@
-import { ParsedRollResult } from "./skill-check.interface.js";
+import {
+  ParsedRollResult,
+  SkillCheckConfigFlag,
+} from "./skill-check.interface.js";
 import {
   CheckDifficulty,
+  CheckDifficultyLabel,
   CheckResult,
+  CheckResultLabel,
   DieResult,
   DieType,
 } from "./skill-check.enum.js";
-import { SkillCheckMessage } from "./skill-check-message.js";
+import { getGame, l } from "../shared/util.js";
+import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 
 export class SkillCheckService {
-  async skillCheck(
+  static async skillCheck(
     attributeDice: number,
     attributeName = "",
     difficulty = CheckDifficulty.Challenging,
@@ -18,7 +24,7 @@ export class SkillCheckService {
   ): Promise<void> {
     const r = new Roll(`{${attributeDice}d10, ${5 - attributeDice}d6}`, {});
     await r.evaluate({ async: true });
-    new SkillCheckMessage(
+    await this.createChatMessage(
       r,
       attributeName,
       skillName,
@@ -128,5 +134,185 @@ export class SkillCheckService {
         }
         return CheckResult.DramaticSuccess;
     }
+  }
+
+  static async createChatMessage(
+    roll: Roll,
+    attribute: string,
+    skill: string,
+    difficulty: CheckDifficulty,
+    skillBreak: boolean,
+    skillPush: boolean
+  ) {
+    // Gather message data
+    const data = await this.getChatMessageData(
+      roll,
+      attribute,
+      skill,
+      difficulty,
+      skillBreak,
+      skillPush
+    );
+
+    const messageData: ChatMessageDataConstructorData = {
+      ...data,
+      user: getGame().user?.id,
+      speaker: ChatMessage.getSpeaker(),
+      roll,
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      sound: CONFIG.sounds.dice,
+      whisper: null,
+    };
+
+    // Get roll mode
+    const rollMode = getGame().settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode)) {
+      messageData.whisper = ChatMessage.getWhisperRecipients("GM");
+    }
+
+    // Create message
+    return ChatMessage.create(messageData, {});
+  }
+
+  static async updateChatMessage(
+    message: ChatMessage,
+    overrideConfig: Partial<SkillCheckConfigFlag>
+  ) {
+    // Get config
+    const config = message.getFlag(
+      "cryptomancer",
+      "check-config"
+    ) as SkillCheckConfigFlag;
+    if (!config || !message.roll) {
+      return;
+    }
+
+    const combinedConfig = { ...config, ...overrideConfig };
+
+    // Get new data
+    const messageData = await this.getChatMessageData(
+      message.roll,
+      combinedConfig.attribute,
+      combinedConfig.skill,
+      combinedConfig.difficulty,
+      combinedConfig.skillBreak,
+      combinedConfig.skillPush
+    );
+
+    return message.update(messageData, {});
+  }
+
+  private static async getChatMessageData(
+    roll: Roll,
+    attribute: string,
+    skill: string,
+    difficulty: CheckDifficulty,
+    skillBreak: boolean,
+    skillPush: boolean
+  ) {
+    // Get result
+    const result = this.getCheckResult(roll, difficulty, skillBreak, skillPush);
+
+    // Get labels for chat message
+    const labels = {
+      attributeName: attribute ? l(`Attr.${attribute}`) : "",
+      skillName: skill ? l(`Skill.${skill}`) : "",
+      difficulty: l(`CheckDifficulty.${CheckDifficultyLabel[difficulty]}`),
+      checkResult: l(`CheckResult.${CheckResultLabel[result.result]}`),
+    };
+
+    // Render template
+    const resultTemplate = await renderTemplate(
+      "systems/cryptomancer/skill-check/skill-check.hbs",
+      { rolls: result.parsedDice, ...labels }
+    );
+
+    const messageData = {
+      content: resultTemplate,
+      flags: {
+        cryptomancer: {
+          "check-config": {
+            attribute,
+            skill,
+            difficulty,
+            skillBreak,
+            skillPush,
+          },
+        },
+      },
+    };
+
+    return messageData;
+  }
+
+  /**
+   * Add event listeners to buttons on chat card
+   */
+  static bindMessage(message: ChatMessage, html: JQuery<HTMLElement>): void {
+    if (!message.id) {
+      return;
+    }
+
+    const id = message.id;
+
+    html
+      .find(".difficulty-update-button")
+      .off()
+      .on("click", (evt) => {
+        const _message = getGame().messages?.get(id);
+        if (_message) {
+          if (evt.target.classList.contains("left")) {
+            this.lowerDifficulty(_message);
+          } else {
+            this.raiseDifficulty(_message);
+          }
+        }
+      });
+  }
+
+  /**
+   * Lower the difficulty and re-render
+   */
+  private static lowerDifficulty(message: ChatMessage): void {
+    const config = message.getFlag(
+      "cryptomancer",
+      "check-config"
+    ) as SkillCheckConfigFlag;
+    if (!config) {
+      return;
+    }
+    const overrideConfig: Partial<SkillCheckConfigFlag> = {};
+    switch (config.difficulty) {
+      case CheckDifficulty.Tough:
+        overrideConfig.difficulty = CheckDifficulty.Challenging;
+        break;
+      case CheckDifficulty.Challenging:
+        overrideConfig.difficulty = CheckDifficulty.Trivial;
+        break;
+    }
+    this.updateChatMessage(message, overrideConfig);
+  }
+
+  /**
+   * Raise the difficulty and re-render
+   */
+  private static raiseDifficulty(message: ChatMessage): void {
+    const config = message.getFlag(
+      "cryptomancer",
+      "check-config"
+    ) as SkillCheckConfigFlag;
+    if (!config) {
+      return;
+    }
+    const overrideConfig: Partial<SkillCheckConfigFlag> = {};
+    switch (config.difficulty) {
+      case CheckDifficulty.Trivial:
+        overrideConfig.difficulty = CheckDifficulty.Challenging;
+        break;
+      case CheckDifficulty.Challenging:
+        overrideConfig.difficulty = CheckDifficulty.Tough;
+        break;
+    }
+    this.updateChatMessage(message, overrideConfig);
   }
 }
