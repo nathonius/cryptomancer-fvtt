@@ -1,6 +1,6 @@
 {
   "Partial": {
     "prefix": ["part"],
-    "body": "{{> \"systems/cryptomancer/shared/components/core-input/core-input.component.html\" }}"
+    "body": "{{> \"systems/cryptomancer/shared/components/core-input/core-input.component.hbs\" }}"
   }
 }

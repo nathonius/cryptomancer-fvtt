@@ -12,12 +12,12 @@
       </svg>
     </div>
     <div class="core-container core">
-      {{> "systems/cryptomancer/shared/components/core-input/core-input.html"
+      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs"
       size="large" name=(concat "data.core." core.key ".value") value=core.value
       }}
     </div>
     <div class="core-container attribute left">
-      {{> "systems/cryptomancer/shared/components/core-input/core-input.html"
+      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs"
       size="small" name=(concat "data.core." core.key ".attributes." attrL.key
       ".value") value=attrL.value }}
       <div
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="core-container attribute right">
-      {{> "systems/cryptomancer/shared/components/core-input/core-input.html"
+      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs"
       size="small" name=(concat "data.core." core.key ".attributes." attrR.key
       ".value") value=attrR.value }}
       <div
