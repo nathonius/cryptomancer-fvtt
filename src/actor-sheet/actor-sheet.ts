@@ -2,6 +2,8 @@ import { CoreAlt } from "../shared/interfaces/cryptomancer";
 import { onManageActiveEffect } from "../shared/effects.js";
 import { LocalizationService } from "../shared/localization.service.js";
 import { AugmentedData } from "./actor-sheet.interface";
+import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
+import { SettingsService } from "../settings/settings.service.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -12,6 +14,7 @@ export class CryptomancerActorSheet extends ActorSheet<
   AugmentedData
 > {
   private readonly i18n = new LocalizationService();
+  private readonly settings = new SettingsService();
   private _data!: AugmentedData;
 
   /** @override */
@@ -66,7 +69,10 @@ export class CryptomancerActorSheet extends ActorSheet<
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
-    // Add core triad data
+    // Get configured check difficulty
+    context.checkDifficulty =
+      this.settings.getSetting("checkDifficulty") ??
+      CheckDifficulty.Challenging;
 
     return context;
   }
@@ -177,6 +183,10 @@ export class CryptomancerActorSheet extends ActorSheet<
     // Rollable abilities.
     html.find(".rollable").on("click", this._onRoll.bind(this));
 
+    html
+      .find(".difficulty-selector")
+      .on("change", this._onDifficultySelect.bind(this));
+
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev: DragEvent) => this._onDragStart(ev);
@@ -215,6 +225,25 @@ export class CryptomancerActorSheet extends ActorSheet<
     return await Item.create(itemData, { parent: this.actor });
   }
 
+  _onDifficultySelect(event: JQuery.ChangeEvent) {
+    event.preventDefault();
+    switch (event.target.id as string) {
+      case "difficulty-trivial":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
+        break;
+      case "difficulty-challenging":
+        this.settings.updateSetting(
+          "checkDifficulty",
+          CheckDifficulty.Challenging
+        );
+        break;
+      case "difficulty-tough":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
+        break;
+    }
+    this.render();
+  }
+
   /**
    * Handle clickable rolls.
    * @param {Event} event   The originating click event
@@ -229,27 +258,11 @@ export class CryptomancerActorSheet extends ActorSheet<
     const rollAttribute = dataset.rollAttribute;
     const rollSkill = dataset.rollSkill;
 
-    this.document.rollAttribute(rollCore, rollAttribute, rollSkill);
-
-    // // Handle item rolls.
-    // if (dataset.rollType) {
-    //   if (dataset.rollType == "item") {
-    //     const itemId = element.closest(".item").dataset.itemId;
-    //     const item = this.actor.items.get(itemId);
-    //     if (item) return item.roll();
-    //   }
-    // }
-
-    // // Handle rolls that supply the formula directly.
-    // if (dataset.roll) {
-    //   let label = dataset.label ? `[ability] ${dataset.label}` : "";
-    //   let roll = new Roll(dataset.roll, this.actor.getRollData());
-    //   roll.toMessage({
-    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //     flavor: label,
-    //     rollMode: game.settings.get("core", "rollMode"),
-    //   });
-    //   return roll;
-    // }
+    this.document.rollAttribute(
+      rollCore,
+      rollAttribute,
+      rollSkill,
+      this._data.checkDifficulty
+    );
   }
 }

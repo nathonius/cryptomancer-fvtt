@@ -1,0 +1,25 @@
+<div class="skill-check">
+  <div class="attribute">
+    <span>{{attributeName}}</span>
+    <span>{{skillName}}</span>
+  </div>
+  <div class="difficulty">
+    <button
+      class="difficulty-update-button left"
+      {{disabled (is difficulty 4)}}
+    >-</button>
+    <span>{{difficulty}}</span>
+    <button
+      class="difficulty-update-button right"
+      {{disabled (is difficulty 8)}}
+    >+</button>
+  </div>
+  <div class="result">{{checkResult}}</div>
+  <ol class="dice">
+    {{#each rolls}}
+      <li
+        class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
+      ></li>
+    {{/each}}
+  </ol>
+</div>

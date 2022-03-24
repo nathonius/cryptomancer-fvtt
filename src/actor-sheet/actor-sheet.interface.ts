@@ -1,8 +1,11 @@
+import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
+
 export type AugmentedData = ActorSheet.Data & {
   rollData: object;
   sheet: SheetData;
   gear: ActorSheetItem[];
   features: ActorSheetItem[];
+  checkDifficulty: CheckDifficulty;
 };
 
 export interface SheetData {

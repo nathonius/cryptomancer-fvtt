@@ -59,6 +59,17 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      .difficulty-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+
+        .difficulty {
+          display: flex;
+          gap: 4px;
+        }
+      }
     }
   }
   .sheet-cores {
@@ -70,7 +81,7 @@
       margin-bottom: 8px;
       .sheet-skills {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
       }
     }
   }

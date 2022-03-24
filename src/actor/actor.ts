@@ -4,6 +4,7 @@ import {
   ActorData,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
 
 import { SkillCheckService } from "../skill-check/skill-check.service.js";
 
@@ -101,7 +102,12 @@ export class CryptomancerActor extends Actor {
     // }
   }
 
-  async rollAttribute(coreName: string, attributeName: string, skillName = "") {
+  async rollAttribute(
+    coreName: string,
+    attributeName: string,
+    skillName = "",
+    difficulty = CheckDifficulty.Challenging
+  ) {
     const attribute = (this.data.data as any).core[coreName].attributes[
       attributeName
     ];
@@ -110,13 +116,17 @@ export class CryptomancerActor extends Actor {
       this.skillCheckService.skillCheck(
         attribute.value,
         attributeName,
-        undefined,
+        difficulty,
         skillName,
         skill.break,
         skill.push
       );
     } else {
-      this.skillCheckService.skillCheck(attribute.value, attributeName);
+      this.skillCheckService.skillCheck(
+        attribute.value,
+        attributeName,
+        difficulty
+      );
     }
   }
 }
