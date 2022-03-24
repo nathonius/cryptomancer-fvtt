@@ -8,6 +8,7 @@ import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.js";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./shared/templates.js";
 import { SettingsService } from "./settings/settings.service.js";
+import { SkillCheckService } from "./skill-check/skill-check.service.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -79,6 +80,13 @@ Handlebars.registerHelper("concat", function () {
 Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
+
+Hooks.on(
+  "renderChatMessage",
+  (message: ChatMessage, html: JQuery<HTMLElement>) => {
+    SkillCheckService.bindMessage(message, html);
+  }
+);
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
