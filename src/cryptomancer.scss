@@ -1,14 +1,114 @@
-/* Color Overrides */
-:root {
-  --color-shadow-primary: #00eeff;
-  --color-shadow-highlight: #00ffe1;
-  --color-border-highlight-alt: #00eeff;
-  --color-border-highlight: #00ffe1;
-  --color-bg-light: #ffffff;
-  --color-bg-stripe: #ececec;
-  --font-accent: "Orbitron", "Signika", sans-serif;
+/* Default Vars */
+.foundry-default-vars {
+  --color-text-light-highlight: #f0f0e0;
+  --color-text-light-heading: #c9c7b8;
+  --color-text-light-primary: #b5b3a4;
+  --color-text-dark-primary: #191813;
+  --color-text-dark-secondary: #4b4a44;
+  --color-text-dark-header: #23221d;
+  --color-text-dark-inactive: #7a7971;
+  --color-text-hyperlink: #ff6400;
+  --color-text-light-0: #fff;
+  --color-text-light-1: #eee;
+  --color-text-light-2: #ddd;
+  --color-text-light-3: #ccc;
+  --color-text-light-4: #bbb;
+  --color-text-light-5: #aaa;
+  --color-text-light-6: #999;
+  --color-text-light-7: #888;
+  --color-text-dark-1: #111;
+  --color-text-dark-2: #222;
+  --color-text-dark-3: #444;
+  --color-text-dark-4: #555;
+  --color-text-dark-5: #666;
+  --color-text-dark-6: #777;
+  --color-border-light-1: #ddd;
+  --color-border-light-2: #999;
+  --color-border-dark-1: #111;
+  --color-border-dark-2: #222;
+  --color-border-dark-3: #333;
+  --color-border-dark-4: #444;
+  --color-border-dark-5: #666;
+  --color-shadow-primary: #ff0000;
+  --color-shadow-highlight: #ff6400;
+  --color-shadow-dark: #000;
+  --color-underline-inactive: #7a7971;
+  --color-underline-active: #44191a;
+  --color-underline-header: #782e22;
+  --color-border-light-highlight: #f0f0e0;
+  --color-border-light-primary: #b5b3a4;
+  --color-border-light-secondary: #c9c7b8;
+  --color-border-light-tertiary: #7a7971;
+  --color-border-dark: #000;
+  --color-border-dark-primary: #191813;
+  --color-border-dark-secondary: #23221d;
+  --color-border-dark-tertiary: #4b4a44;
+  --color-border-highlight: #ff6400;
+  --color-border-highlight-alt: #ff0000;
+  --color-bg-btn-minor-inactive: #c9c7b8;
+  --color-bg-btn-minor-active: #b5b3a4;
+  --color-bg-option: #dad8cc;
+  --font-primary: "Signika", sans-serif;
+  --font-mono: monospace;
 }
 
+:root {
+  /* Palette - Primary */
+  --crypt-primary: #00f8f8;
+  --crypt-primary--dark-1: #00c5c5;
+  --crypt-primary--dark-2: #009292;
+  --crypt-primary--dark-3: #005f5f;
+  --crypt-primary--light-1: #2cffff;
+  --crypt-primary--light-2: #5fffff;
+  --crypt-primary--light-3: #92ffff;
+  /* Palette - Secondary */
+  --crypt-secondary: #fe852c;
+  --crypt-secondary--light-1: #fea25f;
+  --crypt-secondary--light-2: #fec092;
+  --crypt-secondary--light-3: #ffddc4;
+  --crypt-secondary--dark-1: #f66901;
+  --crypt-secondary--dark-2: #c35301;
+  --crypt-secondary--dark-3: #903e01;
+  /* Palette - Text */
+  --crypt-text: var(--crypt-primary--light-3);
+  /* Palette - Neutral */
+  --crypt-neutral: #021114;
+  --crypt-neutral--light-1: #031b20;
+  --crypt-neutral--light-2: #04252b;
+  --crypt-neutral--light-3: #052f37;
+  --crypt-neutral--light-4: #073842;
+  /* Palette - Fonts */
+  --crypt-font-normal: "Titillium Web", "Signika", sans-serif;
+  --crypt-font-accent: "Orbitron", "Signika", sans-serif;
+  --crypt-font-mono: "Source Code Pro", monospace;
+
+  /* New Theme Vars */
+  --font-accent: var(--crypt-font-accent);
+  --background-normal: var(--crypt-neutral);
+  --background-light: var(--crypt-neutral--light-2);
+  --background-lighter: var(--crypt-neutral--light-4);
+
+  /* Overrides */
+  --font-primary: var(--crypt-font-normal);
+  --font-mono: var(--crypt-font-mono);
+  --color-shadow-primary: var(--crypt-primary);
+  --color-border-light-primary: var(--crypt-primary--light-1);
+  --color-border-light-tertiary: var(--crypt-primary--dark-1);
+  --color-border-highlight-alt: var(--crypt-primary);
+  --color-shadow-highlight: var(--crypt-primary--light-2);
+  --color-border-highlight: var(--crypt-primary--light-2);
+  --color-text-dark-inactive: var(--crypt-primary--dark-2);
+  --color-text-dark-primary: var(--crypt-text);
+  --color-text-dark-secondary: var(--crypt-primary--dark-1);
+  // --color-shadow-primary: #00eeff;
+  // --color-shadow-highlight: #00ffe1;
+  // --color-border-highlight-alt: #00eeff;
+  // --color-border-highlight: #00ffe1;
+  --color-bg-light: #ffffff;
+  --color-bg-stripe: #ececec;
+}
+
+@import "foundry";
 @import "shared/utility";
 @import "skill-check/skill-check";
 @import "actor-sheet/actor-sheet";

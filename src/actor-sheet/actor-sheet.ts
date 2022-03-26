@@ -23,7 +23,7 @@ export class CryptomancerActorSheet extends ActorSheet<
       classes: ["cryptomancer", "sheet", "actor"],
       template: "systems/cryptomancer/actor-sheet/actor-sheet.hbs",
       width: 625,
-      height: 700,
+      height: 720,
       tabs: [
         {
           navSelector: ".sheet-tabs",

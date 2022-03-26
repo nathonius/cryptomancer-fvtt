@@ -1,0 +1,44 @@
+/* Override foundry default styles */
+body.system-cryptomancer {
+  /* Body */
+  background-image: none;
+  background-color: var(--background-normal);
+  box-shadow: none;
+
+  /* UI Elements */
+  .app {
+    background-image: none;
+    background-color: var(--background-light);
+    box-shadow: none;
+  }
+
+  .window-app {
+    border: 1px solid var(--crypt-primary);
+    border-radius: 0px;
+
+    .window-header {
+      background-color: var(--crypt-primary);
+      color: var(--crypt-neutral);
+    }
+    .window-content {
+      background-image: none;
+      background-color: var(--background-light);
+      color: var(--crypt-text);
+    }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar-track {
+    box-shadow: 0 0 1px var(--background-lighter) inset;
+  }
+  ::-webkit-scrollbar-thumb {
+    outline: none;
+    border-radius: 3px;
+    background: var(--crypt-primary--dark-3);
+    border: 1px solid var(--crypt-primary--light-1);
+  }
+  :root {
+    scrollbar-width: thin;
+    scrollbar-color: var(--crypt-primary--dark-3) #111;
+  }
+}
