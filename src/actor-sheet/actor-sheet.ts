@@ -1,9 +1,9 @@
 import { CoreAlt } from "../shared/interfaces/cryptomancer";
 import { onManageActiveEffect } from "../shared/effects.js";
-import { LocalizationService } from "../shared/localization.service.js";
 import { AugmentedData } from "./actor-sheet.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
 import { SettingsService } from "../settings/settings.service.js";
+import { l } from "../shared/util.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -13,7 +13,6 @@ export class CryptomancerActorSheet extends ActorSheet<
   ActorSheet.Options,
   AugmentedData
 > {
-  private readonly i18n = new LocalizationService();
   private readonly settings = new SettingsService();
   private _data!: AugmentedData;
 
@@ -87,26 +86,24 @@ export class CryptomancerActorSheet extends ActorSheet<
   _prepareCharacterData(context: AugmentedData) {
     // Handle labels.
     // Localize resources
-    context.data.data.healthPoints.label = this.i18n.l(
+    context.data.data.healthPoints.label = l(
       context.data.data.healthPoints.label
     );
-    context.data.data.manaPoints.label = this.i18n.l(
-      context.data.data.manaPoints.label
-    );
-    context.data.data.upgradePoints.label = this.i18n.l(
+    context.data.data.manaPoints.label = l(context.data.data.manaPoints.label);
+    context.data.data.upgradePoints.label = l(
       context.data.data.upgradePoints.label
     );
 
     // Localize core, attribute, skill
     for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
-      coreValue.label = this.i18n.l(`Core.${coreKey}`);
+      coreValue.label = l(`Core.${coreKey}`);
       for (let [attrKey, attrValue] of Object.entries(
         (coreValue as CoreAlt).attributes
       )) {
-        attrValue.label = this.i18n.l(`Attr.${attrKey}`);
+        attrValue.label = l(`Attr.${attrKey}`);
         if (attrValue.skills) {
           for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
-            skillValue.label = this.i18n.l(`Skill.${skillKey}`);
+            skillValue.label = l(`Skill.${skillKey}`);
           }
         }
       }

@@ -13,7 +13,15 @@ import {
 import { getGame, l } from "../shared/util.js";
 import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 
+/**
+ * Executes skill checks from character sheets, creates
+ * chat cards for those skill checks, and updates
+ * existing chat cards for previous skill checks.
+ */
 export class SkillCheckService {
+  /**
+   * Do a skill check. Rolls dice, creates a chat card.
+   */
   static async skillCheck(
     attributeDice: number,
     attributeName = "",
@@ -34,6 +42,11 @@ export class SkillCheckService {
     );
   }
 
+  /**
+   * Given a xd10, yd6 roll, the difficulty, and break/push for this skill,
+   * returns the values of the dice for rendering as well as the final result
+   * of the skill check
+   */
   static getCheckResult(
     roll: Roll,
     difficulty: CheckDifficulty,
@@ -80,6 +93,10 @@ export class SkillCheckService {
     return { parsedDice, result };
   }
 
+  /**
+   * Convert a set of rolled dice to a format that can more
+   * easily be rendered.
+   */
   private static parseRoll(
     roll: Roll,
     rollType: DieType,
@@ -101,6 +118,10 @@ export class SkillCheckService {
     return result;
   }
 
+  /**
+   * Gets the result of an individual die based on its value,
+   * type, and the difficulty of the check.
+   */
   private static getDieResult(
     value: number,
     dieType: DieType,
@@ -117,6 +138,9 @@ export class SkillCheckService {
     }
   }
 
+  /**
+   * Counts hits and botches and returns the result.
+   */
   private static calculateCheckResult(hit: number, botch: number): CheckResult {
     const value = hit - botch;
     switch (value) {
@@ -136,6 +160,9 @@ export class SkillCheckService {
     }
   }
 
+  /**
+   * Create a new chat message for a skill check.
+   */
   static async createChatMessage(
     roll: Roll,
     attribute: string,
@@ -174,6 +201,10 @@ export class SkillCheckService {
     return ChatMessage.create(messageData, {});
   }
 
+  /**
+   * Update an existing chat message for a skill check. Args are
+   * the message itself and the new values for the message.
+   */
   static async updateChatMessage(
     message: ChatMessage,
     overrideConfig: Partial<SkillCheckConfigFlag>
@@ -202,6 +233,10 @@ export class SkillCheckService {
     return message.update(messageData, {});
   }
 
+  /**
+   * Given the config for a chat message, gets the content of
+   * the message and stores the config as a flag.
+   */
   private static async getChatMessageData(
     roll: Roll,
     attribute: string,
