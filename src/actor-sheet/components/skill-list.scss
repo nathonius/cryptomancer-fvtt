@@ -4,9 +4,9 @@
     display: flex;
     justify-content: space-between;
     padding: 2px 4px;
-    background-color: var(--color-bg-light);
+    background-color: var(--background-lighter);
     &:nth-child(even) {
-      background-color: var(--color-bg-stripe);
+      background-color: var(--background-normal);
     }
   }
 

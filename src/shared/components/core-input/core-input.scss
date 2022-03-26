@@ -1,10 +1,11 @@
 .crypt-core-input {
-  border: 1px solid var(--color-border-dark);
+  border: 1px solid var(--crypt-primary--dark-3);
+  box-shadow: 0 0 4px var(--crypt-primary--dark-2) inset;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-bg-light);
+  background-color: var(--background-normal);
 
   &:focus-within {
     box-shadow: 0 0 10px var(--color-shadow-primary);
