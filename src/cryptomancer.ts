@@ -19,6 +19,7 @@ Hooks.once("init", async function () {
 
   const _game = game as Game;
 
+  // TODO: Are these actually being used? Remove them if not. This seems hacky.
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   (game as any).cryptomancer = {
@@ -26,9 +27,11 @@ Hooks.once("init", async function () {
     rollItemMacro,
   };
 
+  // TODO: What would I put in config? I have no idea. Figure out what this is good for.
   // Add custom constants for configuration.
   // CONFIG.BOILERPLATE = BOILERPLATE;
 
+  // TODO: Can I just remove this?
   /**
    * Set an initiative formula for the system
    * @type {String}
@@ -49,6 +52,8 @@ Hooks.once("init", async function () {
   Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
     makeDefault: true,
   });
+
+  // TODO: Create an item sheet.
   // Items.unregisterSheet("core", ItemSheet);
   // Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
   //   makeDefault: true,
@@ -62,11 +67,15 @@ Hooks.once("init", async function () {
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
-// If you need to add Handlebars helpers, here are a few useful examples:
+/**
+ * TODO: Figure out if this is actually required. or if there's
+ * a built-in way to check equality. I hate handlebars. :(
+ */
 Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
   return source === target;
 });
 
+// If you need to add Handlebars helpers, here are a few useful examples:
 Handlebars.registerHelper("concat", function () {
   var outStr = "";
   for (var arg in arguments) {
@@ -81,13 +90,6 @@ Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
 
-Hooks.on(
-  "renderChatMessage",
-  (message: ChatMessage, html: JQuery<HTMLElement>) => {
-    SkillCheckService.bindMessage(message, html);
-  }
-);
-
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
@@ -96,6 +98,18 @@ Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
+
+/**
+ * Chat message render hook. Used to bind the
+ * buttons in each skill check chat message to
+ * update the check difficulty.
+ */
+Hooks.on(
+  "renderChatMessage",
+  (message: ChatMessage, html: JQuery<HTMLElement>) => {
+    SkillCheckService.bindMessage(message, html);
+  }
+);
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
