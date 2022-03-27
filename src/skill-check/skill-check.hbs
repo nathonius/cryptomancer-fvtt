@@ -1,24 +1,35 @@
 <div class="crypt-skill-check">
-  <div class="attribute">
-    <span>{{attributeName}}</span>
-    <span>{{skillName}}</span>
-  </div>
+  <h4 class="skill">
+    {{#if skillName}}
+      {{skillName}}
+    {{else}}
+      {{attributeName}}
+    {{/if}}
+  </h4>
   <div class="difficulty">
+    <p>
+      <span class="difficulty-label">{{localize
+          "CRYPTOMANCER.CheckDifficulty.difficulty"
+        }}:</span>
+      {{difficulty}}
+    </p>
+    <div class="flex-spacer"></div>
     <button
       class="difficulty-update-button left"
-      {{disabled (is difficulty 4)}}
+      {{disabled (is difficultyValue 4)}}
     >-</button>
-    <span>{{difficulty}}</span>
     <button
       class="difficulty-update-button right"
-      {{disabled (is difficulty 8)}}
+      {{disabled (is difficultyValue 8)}}
     >+</button>
   </div>
-  <div class="result">{{checkResult}}</div>
+  <p class="result"><strong>{{checkResult}}</strong> {{resultDescription}}</p>
   <ol class="dice">
     {{#each rolls}}
       <li
         class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
+        title="{{this.value}}"
+        data-tooltip="{{this.value}}"
       ></li>
     {{/each}}
   </ol>

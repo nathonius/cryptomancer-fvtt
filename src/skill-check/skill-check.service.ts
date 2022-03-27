@@ -254,12 +254,15 @@ export class SkillCheckService {
       skillName: skill ? l(`Skill.${skill}`) : "",
       difficulty: l(`CheckDifficulty.${CheckDifficultyLabel[difficulty]}`),
       checkResult: l(`CheckResult.${CheckResultLabel[result.result]}`),
+      resultDescription: l(
+        `CheckResultDescription.${CheckResultLabel[result.result]}`
+      ),
     };
 
     // Render template
     const resultTemplate = await renderTemplate(
       "systems/cryptomancer/skill-check/skill-check.hbs",
-      { rolls: result.parsedDice, ...labels }
+      { rolls: result.parsedDice, ...labels, difficultyValue: difficulty }
     );
 
     const messageData = {

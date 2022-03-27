@@ -8,7 +8,7 @@ body.system-cryptomancer {
   /* UI Elements */
   .app {
     background-image: none;
-    background-color: var(--background-light);
+    background-color: var(--background-normal);
     box-shadow: none;
   }
 
@@ -25,6 +25,38 @@ body.system-cryptomancer {
       background-color: var(--background-light);
       color: var(--crypt-text);
     }
+  }
+
+  /* Buttons */
+  button {
+    background-color: var(--background-normal);
+    border: 1px solid var(--crypt-primary);
+    color: var(--color-text-dark-primary);
+    border-radius: 0px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    border-color: var(--crypt-primary--dark-2);
+    color: var(--crypt-primary--dark-2);
+    cursor: not-allowed;
+  }
+
+  /* Chat messages */
+  .chat-message {
+    background-image: none;
+    background-color: var(--background-light);
+    border-width: 1px;
+    border-color: var(--color-border-light-tertiary);
+    box-shadow: 0 0 4px var(--crypt-primary) inset;
+    margin: 10px;
+  }
+
+  select,
+  #chat-form textarea {
+    color: var(--color-text-dark-primary);
+    background-color: var(--background-light);
+    background-image: none;
   }
 
   /* Scrollbar */

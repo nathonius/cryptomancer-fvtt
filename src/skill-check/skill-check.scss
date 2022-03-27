@@ -1,14 +1,27 @@
 .crypt-skill-check {
-  .attribute {
-    display: flex;
-    justify-content: space-evenly;
+  .skill {
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
   }
   .difficulty {
     display: flex;
+    align-items: center;
+
+    .difficulty-update-button {
+      height: 20px;
+      width: 20px;
+      line-height: 1;
+    }
+  }
+  .result {
+    font-size: 0.9rem;
   }
   .dice {
     list-style: none;
     display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
   }
   .crypto-die {
     width: 32px;
