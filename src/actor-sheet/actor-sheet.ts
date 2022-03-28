@@ -1,4 +1,4 @@
-import { CoreAlt } from "../shared/interfaces/cryptomancer";
+import { CoreAlt } from "../actor/actor.interface";
 import { onManageActiveEffect } from "../shared/effects.js";
 import { AugmentedData } from "./actor-sheet.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
@@ -130,7 +130,7 @@ export class CryptomancerActorSheet extends ActorSheet<
         gear.push(i);
       }
       // Append to features.
-      else if (i.type === "feature") {
+      else if (i.type === "talent") {
         features.push(i);
       }
     }

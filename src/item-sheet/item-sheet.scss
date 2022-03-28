@@ -1,0 +1,72 @@
+.crypt-item-sheet {
+  &__item,
+  &__talent,
+  &__spell {
+    display: flex;
+    flex-direction: column;
+
+    .item-info-wrapper {
+      display: flex;
+      gap: 4px;
+
+      .avatar {
+        height: 90px;
+        img {
+          height: 100%;
+        }
+      }
+
+      .item-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        &-inner {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+
+      .name,
+      .cost {
+        font-family: var(--font-accent);
+        line-height: 0.9rem;
+        label {
+          min-width: 60px;
+          &::after,
+          input {
+            height: 40px;
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+
+    .sheet-body {
+      flex-grow: 1;
+      .tab,
+      .editor {
+        height: 100%;
+      }
+    }
+  }
+
+  &__talent {
+    .item-info-wrapper {
+      .tiers {
+        height: 36px;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        .tiered-toggle {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .tier-count {
+          width: 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

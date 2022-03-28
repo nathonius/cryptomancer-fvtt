@@ -1,5 +1,6 @@
 import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
 
+// TODO: Are all these properties being used?
 export type AugmentedData = ActorSheet.Data & {
   rollData: object;
   sheet: SheetData;
@@ -8,6 +9,7 @@ export type AugmentedData = ActorSheet.Data & {
   checkDifficulty: CheckDifficulty;
 };
 
+// TODO: Are all these properties being used?
 export interface SheetData {
   triad: {
     speed: {

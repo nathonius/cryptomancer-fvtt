@@ -9,6 +9,9 @@ import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.js";
 import { preloadHandlebarsTemplates } from "./shared/templates.js";
 import { SettingsService } from "./settings/settings.service.js";
 import { SkillCheckService } from "./skill-check/skill-check.service.js";
+import { CryptomancerItem } from "./item/item.js";
+import { CryptomancerItemSheet } from "./item-sheet/item-sheet.js";
+import { l } from "./shared/util.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -43,6 +46,7 @@ Hooks.once("init", async function () {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = CryptomancerActor;
+  CONFIG.Item.documentClass = CryptomancerItem;
 
   // Register settings
   settingsService.registerSettings();
@@ -51,13 +55,24 @@ Hooks.once("init", async function () {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
     makeDefault: true,
+    label: l("SheetType.Character"),
+    types: ["character"],
   });
 
-  // TODO: Create an item sheet.
-  // Items.unregisterSheet("core", ItemSheet);
-  // Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-  //   makeDefault: true,
-  // });
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+    makeDefault: true,
+    label: l("SheetType.Talent"),
+    types: ["talent"],
+  });
+  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+    label: l("SheetType.Spell"),
+    types: ["spell"],
+  });
+  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+    label: l("SheetType.Item"),
+    types: ["item"],
+  });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
@@ -74,6 +89,27 @@ Hooks.once("init", async function () {
 Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
   return source === target;
 });
+
+Handlebars.registerHelper("lt", (a: any, b: any) => {
+  return a < b;
+});
+
+Handlebars.registerHelper("add", (a: number, b: number) => {
+  return a + b;
+});
+
+Handlebars.registerHelper(
+  "times",
+  (context: number, options: Handlebars.HelperOptions) => {
+    let ret = "";
+
+    for (let i = 0; i < context; i++) {
+      ret = ret + options.fn(i);
+    }
+
+    return ret;
+  }
+);
 
 // If you need to add Handlebars helpers, here are a few useful examples:
 Handlebars.registerHelper("concat", function () {
