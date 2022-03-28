@@ -353,7 +353,7 @@
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": ["item", "talent", "spell"],
     "templates": {
       "base": {
         "description": ""
@@ -361,16 +361,20 @@
     },
     "item": {
       "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+      "quantity": 1
     },
-    "feature": {
-      "templates": ["base"]
+    "talent": {
+      "templates": ["base"],
+      "purchaseCost": 10,
+      "tiered": true,
+      "tiers": 3,
+      "currentTier": 1
     },
     "spell": {
       "templates": ["base"],
-      "spellLevel": 1
+      "purchaseCost": 10,
+      "castCost": 1,
+      "type": "cantrip"
     }
   }
 }

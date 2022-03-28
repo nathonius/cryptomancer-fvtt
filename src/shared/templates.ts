@@ -5,7 +5,6 @@
  */
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
-    // Actor partials.
     "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
     "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
     "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",

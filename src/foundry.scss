@@ -42,6 +42,21 @@ body.system-cryptomancer {
     cursor: not-allowed;
   }
 
+  /* Specific Buttons */
+  a.editor-edit {
+    background-color: var(--background-normal);
+    border-radius: 0px;
+    border-color: var(--crypt-primary);
+  }
+
+  /* Editor */
+  .mce-content-body {
+    color: var(--crypt-primary);
+  }
+  .tox.tox-tinymce .tox-edit-area__iframe {
+    background-color: white;
+  }
+
   /* Chat messages */
   .chat-message {
     background-image: none;

@@ -1,4 +1,8 @@
 {
+  "CRYPTOMANCER.SheetType.Character": "Character",
+  "CRYPTOMANCER.SheetType.Item": "Item",
+  "CRYPTOMANCER.SheetType.Talent": "Talent",
+  "CRYPTOMANCER.SheetType.Spell": "Spell",
   "CRYPTOMANCER.Core.wits": "Wits",
   "CRYPTOMANCER.Core.resolve": "Resolve",
   "CRYPTOMANCER.Core.speed": "Speed",
@@ -63,6 +67,8 @@
   "CRYPTOMANCER.Defense.parry": "Parry",
   "CRYPTOMANCER.Defense.takeCover": "Take Cover",
   "CRYPTOMANCER.Defense.resist": "Resist",
+  "CRYPTOMANCER.Talent.Tier": "Tier",
+  "CRYPTOMANCER.Talent.Tiers": "Tiers",
 
   "CRYPTOMANCER.EffectCreate": "Create Effect",
   "CRYPTOMANCER.EffectToggle": "Toggle Effect",
