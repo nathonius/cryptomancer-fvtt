@@ -1,5 +1,5 @@
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { Character } from "./actor/actor.interface";
+import { Character, PreparedCharacter } from "./actor/actor.interface";
 import { CryptItem, Spell, Talent } from "./item/item.interface";
 import { CryptomancerActor } from "./actor/actor";
 import { CryptomancerItem } from "./item/item";
@@ -7,6 +7,11 @@ import { CryptomancerItem } from "./item/item";
 interface CharacterDataSource {
   type: "character";
   data: Character;
+}
+
+interface CharacterDataPrepared {
+  type: "character";
+  data: PreparedCharacter;
 }
 
 interface ItemDataSource {
@@ -25,12 +30,12 @@ interface TalentDataSource {
 }
 
 type CryptomancerActorDataSource = CharacterDataSource;
-type CryptomancerActorDataProperties = CryptomancerActorDataSource;
+type CryptomancerActorDataPrepared = CharacterDataPrepared;
 type CryptomancerItemDataSource =
   | ItemDataSource
   | SpellDataSource
   | TalentDataSource;
-type CryptomancerItemDataProperties =
+type CryptomancerItemDataPrepared =
   | ItemDataSource
   | SpellDataSource
   | TalentDataSource;
@@ -41,8 +46,8 @@ declare global {
     Item: CryptomancerItemDataSource;
   }
   interface DataConfig {
-    Actor: CryptomancerActorDataProperties;
-    Item: CryptomancerItemDataProperties;
+    Actor: CryptomancerActorDataPrepared;
+    Item: CryptomancerItemDataPrepared;
   }
 
   interface DocumentClassConfig {

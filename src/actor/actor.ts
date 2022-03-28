@@ -57,14 +57,19 @@ export class CryptomancerActor extends Actor {
   _prepareCharacterData(actorData: ActorData) {
     if (actorData.type !== "character") return;
 
-    // Make modifications to data here. For example:
-    const data = actorData.data;
+    this.data.data.talents = [];
+    this.data.data.spells = [];
 
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    // for (let [key, ability] of Object.entries(data.abilities)) {
-    //   // Calculate the modifier using d20 rules.
-    //   ability.mod = Math.floor((ability.value - 10) / 2);
-    // }
+    this.items.forEach((i) => {
+      switch (i.type) {
+        case "talent":
+          this.data.data.talents.push(i);
+          break;
+        case "spell":
+          this.data.data.spells.push(i);
+          break;
+      }
+    });
   }
 
   /**

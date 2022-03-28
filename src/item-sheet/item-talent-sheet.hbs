@@ -42,14 +42,14 @@
         </div>
         <div class="tiers">
           {{#if data.data.tiered}}
-            <p>{{localize "CRYPTOMANCER.Talent.Tier"}}</p>
+            <p>{{localize "CRYPTOMANCER.Talent.tier"}}</p>
             {{#times data.data.tiers}}
               <span class="tier-toggle">{{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "tier-toggle-" ../item.id "-" this) value=(lt this ../data.data.currentTier) placeholder=(add this 1) }}</span>
             {{/times}}
           {{/if}}
           <div class="flex-spacer"></div>
           <span class="tiered-toggle">
-            {{localize "CRYPTOMANCER.Talent.Tiers"}} {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "tiered-toggle-" item.id) value=data.data.tiered name="data.tiered"}}
+            {{localize "CRYPTOMANCER.Talent.tiers"}} {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "tiered-toggle-" item.id) value=data.data.tiered name="data.tiered"}}
           </span>
           <input
             class="tier-count"

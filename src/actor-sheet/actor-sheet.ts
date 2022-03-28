@@ -1,6 +1,5 @@
 import { CoreAlt } from "../actor/actor.interface";
 import { onManageActiveEffect } from "../shared/effects.js";
-import { AugmentedData } from "./actor-sheet.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
 import { SettingsService } from "../settings/settings.service.js";
 import { l } from "../shared/util.js";
@@ -9,12 +8,8 @@ import { l } from "../shared/util.js";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class CryptomancerActorSheet extends ActorSheet<
-  ActorSheet.Options,
-  AugmentedData
-> {
+export class CryptomancerActorSheet extends ActorSheet {
   private readonly settings = new SettingsService();
-  private _data!: AugmentedData;
 
   /** @override */
   static get defaultOptions() {
@@ -27,7 +22,7 @@ export class CryptomancerActorSheet extends ActorSheet<
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "features",
+          initial: "core",
         },
       ],
     });
@@ -48,28 +43,25 @@ export class CryptomancerActorSheet extends ActorSheet<
     // editable, the items array, and the effects array.
     const context = await super.getData();
     const augmented = this.augmentContext(context);
-    this._data = augmented;
     return augmented;
   }
 
+  // TODO: I've moved the majority of this to the actor class, remove what I can
   /**
    * Add data that is specifically for rendering sheets, mainly
    * inputs for partial components.
    */
-  private augmentContext(context: AugmentedData): AugmentedData {
-    console.log(context);
-
+  private augmentContext(
+    context: ActorSheet.Data<ActorSheet.Options>
+  ): ActorSheet.Data<ActorSheet.Options> {
     // Prepare character data and items.
     if (context.data.type == "character") {
       this._prepareItems(context);
       this._prepareCharacterData(context);
     }
 
-    // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
-
     // Get configured check difficulty
-    context.checkDifficulty =
+    context.data.data.checkDifficulty =
       this.settings.getSetting("checkDifficulty") ??
       CheckDifficulty.Challenging;
 
@@ -83,7 +75,7 @@ export class CryptomancerActorSheet extends ActorSheet<
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context: AugmentedData) {
+  _prepareCharacterData(context: ActorSheet.Data<ActorSheet.Options>) {
     // Handle labels.
     // Localize resources
     context.data.data.healthPoints.label = l(
@@ -117,27 +109,23 @@ export class CryptomancerActorSheet extends ActorSheet<
    *
    * @return {undefined}
    */
-  _prepareItems(context: AugmentedData) {
-    // Initialize containers.
-    const gear: ActorSheetItem[] = [];
-    const features: ActorSheetItem[] = [];
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || CONST.DEFAULT_TOKEN;
-      // Append to gear.
-      if (i.type === "item") {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === "talent") {
-        features.push(i);
-      }
-    }
-
-    // Assign and return
-    context.gear = gear;
-    context.features = features;
+  _prepareItems(context: ActorSheet.Data<ActorSheet.Options>) {
+    console.log(context);
+    // // Initialize containers.
+    // const gear: ActorSheetItem[] = [];
+    // const talents: ActorSheetItem[] = [];
+    // // Iterate through items, allocating to containers
+    // for (let i of context.items) {
+    //   i.img = i.img || CONST.DEFAULT_TOKEN;
+    //   // Append to gear.
+    //   if (i.type === "item") {
+    //     gear.push(i);
+    //   }
+    //   // Append to features.
+    //   else if (i.type === "talent") {
+    //     talents.push(i);
+    //   }
+    // }
   }
 
   /* -------------------------------------------- */
@@ -259,7 +247,8 @@ export class CryptomancerActorSheet extends ActorSheet<
       rollCore,
       rollAttribute,
       rollSkill,
-      this._data.checkDifficulty
+      (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ??
+        CheckDifficulty.Challenging
     );
   }
 }
