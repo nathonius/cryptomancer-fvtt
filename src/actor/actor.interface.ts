@@ -1,3 +1,6 @@
+import { CryptomancerItem } from "../item/item.js";
+import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
+
 export interface Character {
   core: {
     wits: Core & {
@@ -141,4 +144,10 @@ export interface Skill {
   attribute: string;
   break: boolean;
   push: boolean;
+}
+
+export interface PreparedCharacter extends Character {
+  talents: CryptomancerItem[];
+  spells: CryptomancerItem[];
+  checkDifficulty: CheckDifficulty;
 }

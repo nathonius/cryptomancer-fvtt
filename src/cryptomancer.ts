@@ -55,22 +55,22 @@ Hooks.once("init", async function () {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
     makeDefault: true,
-    label: l("SheetType.Character"),
+    label: l("SheetType.character"),
     types: ["character"],
   });
 
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
     makeDefault: true,
-    label: l("SheetType.Talent"),
+    label: l("SheetType.talent"),
     types: ["talent"],
   });
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: l("SheetType.Spell"),
+    label: l("SheetType.spell"),
     types: ["spell"],
   });
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: l("SheetType.Item"),
+    label: l("SheetType.item"),
     types: ["item"],
   });
 
