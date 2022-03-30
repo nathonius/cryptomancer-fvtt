@@ -143,6 +143,43 @@ export class CryptomancerActorSheet extends ActorSheet {
       }
     });
 
+    // Add talent event listeners
+    html.find(".talent-table .action-button").on("click", (evt) => {
+      const button = evt.target;
+      const row = $(evt.currentTarget).parents(".talent-row");
+      const talent = this.actor.items.get(row.data("talentId"));
+      if (!talent || !talent.sheet) {
+        console.log("NO TALENT SHEET");
+        return;
+      }
+      if (
+        button.classList.contains("view") ||
+        button.classList.contains("edit")
+      ) {
+        talent.sheet.render(true);
+      } else if (button.classList.contains("delete")) {
+        talent.deleteDialog();
+      }
+    });
+
+    // html.find(".talent-table .talent-row").each((_, row) => {
+    //   const id = row.dataset.talentId;
+    //   $(row)
+    //     .find(".action-button")
+    //     .on("click", (evt) => {
+    //       if (!id) {
+    //         return;
+    //       }
+    //       if (evt.target.classList.contains("view")) {
+    //         this.handleTalentAction(id, "view");
+    //       } else if (evt.target.classList.contains("edit")) {
+    //         this.handleTalentAction(id, "edit");
+    //       } else if (evt.target.classList.contains("delete")) {
+    //         this.handleTalentAction(id, "delete");
+    //       }
+    //     });
+    // });
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -250,5 +287,26 @@ export class CryptomancerActorSheet extends ActorSheet {
       (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ??
         CheckDifficulty.Challenging
     );
+  }
+
+  private handleTalentAction(
+    id: string,
+    action: "view" | "edit" | "delete"
+  ): void {
+    const talent = this.actor.items.get(id);
+    if (!talent) {
+      return;
+    }
+    switch (action) {
+      case "view":
+        talent.sheet?.render(true);
+        break;
+      case "edit":
+        talent.sheet?.render(true);
+        break;
+      case "delete":
+        talent.deleteDialog();
+        break;
+    }
   }
 }

@@ -122,6 +122,10 @@ Handlebars.registerHelper("concat", function () {
   return outStr;
 });
 
+Handlebars.registerHelper("safe", (arg: string) => {
+  return new Handlebars.SafeString(arg);
+});
+
 Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });

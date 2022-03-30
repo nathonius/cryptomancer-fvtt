@@ -1,0 +1,34 @@
+<div class="crypt-feature-list">
+  <table class="talent-table">
+    <tr>
+      <th>{{localize "CRYPTOMANCER.Talent.talents"}}</th>
+    </tr>
+    {{#each talents}}
+      <tr class="talent-row" data-talent-id="{{this.id}}">
+        <td class="talent name">{{this.name}}</td>
+        <td class="talent actions-wrapper">
+          <div class="actions">
+            <button
+              class="action-button view"
+              data-tooltip="{{localize 'CRYPTOMANCER.View'}}"
+            >
+              <span class="fas fa-eye"></span>
+            </button>
+            <button
+              class="action-button edit"
+              data-tooltip="{{localize 'CRYPTOMANCER.Edit'}}"
+            >
+              <span class="fas fa-edit"></span>
+            </button>
+            <button
+              class="action-button delete"
+              data-tooltip="{{localize 'CRYPTOMANCER.Delete'}}"
+            >
+              <span class="fas fa-trash"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+</div>

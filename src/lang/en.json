@@ -77,5 +77,9 @@
   "CRYPTOMANCER.EffectEdit": "Edit Effect",
   "CRYPTOMANCER.EffectDelete": "Delete Effect",
 
-  "CRYPTOMANCER.Add": "Add"
+  "CRYPTOMANCER.Features": "Features",
+  "CRYPTOMANCER.Add": "Add",
+  "CRYPTOMANCER.View": "View",
+  "CRYPTOMANCER.Edit": "Edit",
+  "CRYPTOMANCER.Delete": "Delete"
 }
