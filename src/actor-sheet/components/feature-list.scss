@@ -4,41 +4,60 @@
     text-align: left;
   }
 
-  .talent-table {
-    width: 100%;
+  .feature-table {
+    &__talent,
+    &__spell {
+      width: 100%;
 
-    tr:nth-child(even) {
-      background-color: var(--background-lighter);
-    }
+      tr:nth-child(even) {
+        background-color: var(--background-lighter);
+      }
 
-    .actions {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 2px;
-
-      .action-button {
-        width: auto;
-        padding: 0px 4px;
-        margin: 0;
-        background-color: transparent;
-        border: none;
-        color: var(--crypt-primary--dark-2);
-
-        // Have to do this hack because font awesome is super inconsistent with aspect ratios...
-        &.delete {
-          padding-left: 2px;
+      td.spell {
+        &.name {
+          width: 60%;
         }
-
-        &:hover,
-        &:focus {
-          color: var(--crypt-primary);
-          box-shadow: none;
+        &.cost,
+        &.type {
+          width: 15%;
         }
+      }
 
-        span {
-          pointer-events: none;
+      .cost {
+        .cast-cost {
+          color: var(--color-text-dark-inactive);
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 2px;
+
+        .action-button {
+          width: auto;
+          padding: 0px 4px;
+          margin: 0;
+          background-color: transparent;
+          border: none;
+          color: var(--crypt-primary--dark-2);
+
+          // Have to do this hack because font awesome is super inconsistent with aspect ratios...
+          &.delete {
+            padding-left: 2px;
+          }
+
+          &:hover,
+          &:focus {
+            color: var(--crypt-primary);
+            box-shadow: none;
+          }
+
+          span {
+            pointer-events: none;
+          }
         }
       }
     }

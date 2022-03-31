@@ -1,5 +1,5 @@
 <div class="crypt-feature-list">
-  <table class="talent-table">
+  <table class="feature-table__talent">
     <tr>
       <th>{{localize "CRYPTOMANCER.Talent.talents"}}</th>
     </tr>
@@ -7,6 +7,45 @@
       <tr class="talent-row" data-talent-id="{{this.id}}">
         <td class="talent name">{{this.name}}</td>
         <td class="talent actions-wrapper">
+          <div class="actions">
+            <button
+              class="action-button view"
+              data-tooltip="{{localize 'CRYPTOMANCER.View'}}"
+            >
+              <span class="fas fa-eye"></span>
+            </button>
+            <button
+              class="action-button edit"
+              data-tooltip="{{localize 'CRYPTOMANCER.Edit'}}"
+            >
+              <span class="fas fa-edit"></span>
+            </button>
+            <button
+              class="action-button delete"
+              data-tooltip="{{localize 'CRYPTOMANCER.Delete'}}"
+            >
+              <span class="fas fa-trash"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+  <table class="feature-table__spell">
+    <tr>
+      <th>{{localize "CRYPTOMANCER.Spell.spells"}}</th>
+      <th>{{localize "CRYPTOMANCER.SpellType.spellType"}}</th>
+      <th>{{localize "CRYPTOMANCER.Spell.castCost"}}</th>
+    </tr>
+    {{#each spells}}
+      <tr class="spell-row" data-talent-id="{{this.id}}">
+        <td class="spell name">{{this.name}}</td>
+        <td class="spell type">{{localizeSpellType this.data.data.type}}</td>
+        <td class="spell cost">
+          {{this.data.data.castCost}}
+          {{localize "CRYPTOMANCER.Spell.mp"}}
+        </td>
+        <td class="spell actions-wrapper">
           <div class="actions">
             <button
               class="action-button view"

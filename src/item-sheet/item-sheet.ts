@@ -1,4 +1,10 @@
-export class CryptomancerItemSheet extends ItemSheet {
+import { AugmentedData } from "./item-sheet.interface";
+import { SpellTypes } from "./item-sheet.constant.js";
+
+export class CryptomancerItemSheet extends ItemSheet<
+  DocumentSheetOptions,
+  AugmentedData
+> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "item"],
@@ -12,6 +18,14 @@ export class CryptomancerItemSheet extends ItemSheet {
         },
       ],
     });
+  }
+
+  override async getData(
+    options?: Partial<DocumentSheetOptions>
+  ): Promise<AugmentedData> {
+    const context = await super.getData(options);
+    context.spellTypes = SpellTypes;
+    return context;
   }
 
   override get template(): string {
