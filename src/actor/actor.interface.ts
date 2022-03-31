@@ -87,6 +87,7 @@ export interface Character {
     fears: string;
     tendsTo: string;
     usedTo: string;
+    background: string;
   };
   healthPoints: {
     label: string;

@@ -144,21 +144,20 @@ export class CryptomancerActorSheet extends ActorSheet {
     });
 
     // Add talent event listeners
-    html.find(".talent-table .action-button").on("click", (evt) => {
+    html.find(".crypt-feature-list .action-button").on("click", (evt) => {
       const button = evt.target;
-      const row = $(evt.currentTarget).parents(".talent-row");
-      const talent = this.actor.items.get(row.data("talentId"));
-      if (!talent || !talent.sheet) {
-        console.log("NO TALENT SHEET");
+      const row = $(evt.currentTarget).parents(".item-row");
+      const item = this.actor.items.get(row.data("itemId"));
+      if (!item || !item.sheet) {
         return;
       }
       if (
         button.classList.contains("view") ||
         button.classList.contains("edit")
       ) {
-        talent.sheet.render(true);
+        item.sheet.render(true);
       } else if (button.classList.contains("delete")) {
-        talent.deleteDialog();
+        item.deleteDialog();
       }
     });
 

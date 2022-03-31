@@ -4,7 +4,7 @@
       <th>{{localize "CRYPTOMANCER.Talent.talents"}}</th>
     </tr>
     {{#each talents}}
-      <tr class="talent-row" data-talent-id="{{this.id}}">
+      <tr class="item-row" data-item-id="{{this.id}}">
         <td class="talent name">{{this.name}}</td>
         <td class="talent actions-wrapper">
           <div class="actions">
@@ -38,7 +38,7 @@
       <th>{{localize "CRYPTOMANCER.Spell.castCost"}}</th>
     </tr>
     {{#each spells}}
-      <tr class="spell-row" data-talent-id="{{this.id}}">
+      <tr class="item-row" data-item-id="{{this.id}}">
         <td class="spell name">{{this.name}}</td>
         <td class="spell type">{{localizeSpellType this.data.data.type}}</td>
         <td class="spell cost">
