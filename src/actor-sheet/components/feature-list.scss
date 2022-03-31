@@ -13,22 +13,6 @@
         background-color: var(--background-lighter);
       }
 
-      td.spell {
-        &.name {
-          width: 60%;
-        }
-        &.cost,
-        &.type {
-          width: 15%;
-        }
-      }
-
-      .cost {
-        .cast-cost {
-          color: var(--color-text-dark-inactive);
-        }
-      }
-
       .actions {
         display: flex;
         gap: 6px;
@@ -58,6 +42,24 @@
           span {
             pointer-events: none;
           }
+        }
+      }
+    }
+
+    &__spell {
+      td.spell {
+        &.name {
+          width: 60%;
+        }
+        &.cost,
+        &.type {
+          width: 15%;
+        }
+      }
+
+      .cost {
+        .cast-cost {
+          color: var(--color-text-dark-inactive);
         }
       }
     }
