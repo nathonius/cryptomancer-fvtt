@@ -12,6 +12,7 @@ import { SkillCheckService } from "./skill-check/skill-check.service.js";
 import { CryptomancerItem } from "./item/item.js";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet.js";
 import { l } from "./shared/util.js";
+import { SpellType } from "./shared/enums/item.js";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -96,6 +97,10 @@ Handlebars.registerHelper("lt", (a: any, b: any) => {
 
 Handlebars.registerHelper("add", (a: number, b: number) => {
   return a + b;
+});
+
+Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
+  return l(`SpellType.${type}`);
 });
 
 Handlebars.registerHelper(
