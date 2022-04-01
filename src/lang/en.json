@@ -1,6 +1,10 @@
 {
+  "ITEM.TypeSpell": "Spell",
+  "ITEM.TypeTalent": "Talent",
+  "ITEM.TypeTrademarkitem": "Trademark Item",
+  "ACTOR.TypeCharacter": "Character",
   "CRYPTOMANCER.SheetType.character": "Character",
-  "CRYPTOMANCER.SheetType.item": "Item",
+  "CRYPTOMANCER.SheetType.trademarkItem": "Trademark Item",
   "CRYPTOMANCER.SheetType.talent": "Talent",
   "CRYPTOMANCER.SheetType.spell": "Spell",
   "CRYPTOMANCER.Core.core": "Core",

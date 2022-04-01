@@ -63,15 +63,15 @@ Hooks.once("init", async function () {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
     makeDefault: true,
-    label: l("SheetType.talent"),
+    label: "CRYPTOMANCER.SheetType.talent",
     types: ["talent"],
   });
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: l("SheetType.spell"),
+    label: "CRYPTOMANCER.SheetType.spell",
     types: ["spell"],
   });
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: l("SheetType.trademarkItem"),
+    label: "CRYPTOMANCER.SheetType.trademarkItem",
     types: ["trademarkItem"],
   });
 
