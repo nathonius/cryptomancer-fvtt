@@ -74,6 +74,9 @@ export interface Character {
       };
     };
   };
+  gear: {
+    other: string;
+  };
   biography: {
     race: string;
     trueName: string;

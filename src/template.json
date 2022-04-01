@@ -303,6 +303,9 @@
           }
         }
       },
+      "gear": {
+        "other": ""
+      },
       "biography": {
         "race": "",
         "trueName": "",

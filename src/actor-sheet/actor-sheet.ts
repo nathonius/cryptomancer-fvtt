@@ -110,7 +110,6 @@ export class CryptomancerActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareItems(context: ActorSheet.Data<ActorSheet.Options>) {
-    console.log(context);
     // // Initialize containers.
     // const gear: ActorSheetItem[] = [];
     // const talents: ActorSheetItem[] = [];
@@ -162,7 +161,7 @@ export class CryptomancerActorSheet extends ActorSheet {
     });
 
     html
-      .find(".crypt-bio .trademark-items .trademark-item__action-button")
+      .find(".crypt-gear .trademark-items .trademark-item__action-button")
       .on("click", (evt) => {
         const button = evt.target;
         const itemElement = $(evt.currentTarget).parents(".trademark-item");

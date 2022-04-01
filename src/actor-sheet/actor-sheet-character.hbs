@@ -170,6 +170,7 @@
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="core">{{localize "CRYPTOMANCER.Core.core"}}</a>
     <a class="item" data-tab="features">{{localize "CRYPTOMANCER.Features"}}</a>
+    <a class="item" data-tab="gear">{{localize "CRYPTOMANCER.Gear.gear"}}</a>
     <a class="item" data-tab="bio">{{localize "CRYPTOMANCER.Bio.bio"}}</a>
   </nav>
   <section class="sheet-body">
@@ -229,6 +230,9 @@
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
       {{> "systems/cryptomancer/actor-sheet/components/feature-list.hbs" talents=data.data.talents spells=data.data.spells}}
+    </div>
+    <div class="tab gear" data-group="primary" data-tab="gear">
+      {{> "systems/cryptomancer/actor-sheet/components/gear.hbs"}}
     </div>
     <div class="tab bio" data-group="primary" data-tab="bio">
       {{> "systems/cryptomancer/actor-sheet/components/bio.hbs"}}
