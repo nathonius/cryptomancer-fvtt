@@ -11,7 +11,7 @@ const FILE_GLOBS = {
   SCSS: "src/cryptomancer.scss",
   SCSSWatch: "src/**/*.scss",
   TS: "src/**/*.ts",
-  OTHER: "src/**/*{.md,.json,.html,.hbs,.png,.otf}",
+  OTHER: "src/**/*{.md,.json,.html,.hbs,.png,.otf,.db}",
 };
 
 /**
