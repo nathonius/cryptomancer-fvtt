@@ -15,6 +15,7 @@
 
       .avatar {
         width: 32px;
+        width: 42px;
         .avatar-wrapper {
           height: 32px;
           img {
@@ -59,11 +60,11 @@
     &__spell {
       td.spell {
         &.name {
-          width: 60%;
+          width: 54%;
         }
         &.cost,
         &.type {
-          width: 15%;
+          width: 13%;
         }
       }
 
