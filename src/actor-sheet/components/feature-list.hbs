@@ -38,12 +38,17 @@
   </table>
   <table class="feature-table__spell">
     <tr>
-      <th>{{localize "CRYPTOMANCER.Spell.spells"}}</th>
+      <th colspan="2">{{localize "CRYPTOMANCER.Spell.spells"}}</th>
       <th>{{localize "CRYPTOMANCER.SpellType.spellType"}}</th>
       <th>{{localize "CRYPTOMANCER.Spell.castCost"}}</th>
     </tr>
     {{#each spells}}
       <tr class="item-row" data-item-id="{{this.id}}">
+        <td class="spell avatar">
+          <div class="avatar-wrapper">
+            <img src="{{this.img}}" alt="{{this.name}}" />
+          </div>
+        </td>
         <td class="spell name">{{this.name}}</td>
         <td class="spell type">{{localizeSpellType this.data.data.type}}</td>
         <td class="spell cost">
