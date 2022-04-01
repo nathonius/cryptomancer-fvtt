@@ -318,16 +318,6 @@
         "usedTo": "",
         "background": ""
       },
-      "gear": {
-        "weapon": {
-          "rules": "",
-          "qualities": ""
-        },
-        "outfit": {
-          "rules": "",
-          "qualities": ""
-        }
-      },
       "healthPoints": {
         "label": "healthPoints",
         "key": "healthPoints",
@@ -354,15 +344,17 @@
     }
   },
   "Item": {
-    "types": ["item", "talent", "spell"],
+    "types": ["trademarkItem", "talent", "spell"],
     "templates": {
       "base": {
         "description": ""
       }
     },
-    "item": {
+    "trademarkItem": {
       "templates": ["base"],
-      "quantity": 1
+      "type": "",
+      "rules": "",
+      "qualities": ""
     },
     "talent": {
       "templates": ["base"],

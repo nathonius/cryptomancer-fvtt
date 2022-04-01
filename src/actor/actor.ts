@@ -59,6 +59,7 @@ export class CryptomancerActor extends Actor {
 
     this.data.data.talents = [];
     this.data.data.spells = [];
+    this.data.data.trademarkItems = [];
 
     this.items.forEach((i) => {
       switch (i.type) {
@@ -67,6 +68,9 @@ export class CryptomancerActor extends Actor {
           break;
         case "spell":
           this.data.data.spells.push(i);
+          break;
+        case "trademarkItem":
+          this.data.data.trademarkItems.push(i);
           break;
       }
     });

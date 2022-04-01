@@ -1,121 +1,139 @@
 <div class="crypt-bio">
-  <div class="short-bio">
-    <p>{{localize "CRYPTOMANCER.Bio.appearance"}}</p>
-    <label
-      class="input-sizer stacked build"
-      data-value="{{data.data.biography.build}}"
-    >
+  <div class="bio-section">
+    <p class="section-label">{{localize "CRYPTOMANCER.Bio.appearance"}}</p>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-build-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.build"}}
+      </label>
       <input
+        id="{{concat 'bio-build-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.build"
         placeholder="{{localize 'CRYPTOMANCER.Bio.build'}}"
         value="{{data.data.biography.build}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.build"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked eyes"
-      data-value="{{data.data.biography.eyes}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-eyes-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.eyes"}}
+      </label>
       <input
+        id="{{concat 'bio-eyes-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.eyes"
         placeholder="{{localize 'CRYPTOMANCER.Bio.eyes'}}"
         value="{{data.data.biography.eyes}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.eyes"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked hair"
-      data-value="{{data.data.biography.hair}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-hair-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.hair"}}
+      </label>
       <input
+        id="{{concat 'bio-hair-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.hair"
         placeholder="{{localize 'CRYPTOMANCER.Bio.hair'}}"
         value="{{data.data.biography.hair}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.hair"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked skin"
-      data-value="{{data.data.biography.skin}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-skin-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.skin"}}
+      </label>
       <input
+        id="{{concat 'bio-skin-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.skin"
         placeholder="{{localize 'CRYPTOMANCER.Bio.skin'}}"
         value="{{data.data.biography.skin}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.skin"}}</span>
-    </label>
+    </div>
   </div>
-  <div class="short-bio">
-    <p>{{localize "CRYPTOMANCER.Bio.personality"}}</p>
-    <label
-      class="input-sizer stacked desires"
-      data-value="{{data.data.biography.desires}}"
-    >
+  <div class="bio-section">
+    <p class="section-label">{{localize "CRYPTOMANCER.Bio.personality"}}</p>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-desires-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.desires"}}
+      </label>
       <input
+        id="{{concat 'bio-desires-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.desires"
         placeholder="{{localize 'CRYPTOMANCER.Bio.desires'}}"
         value="{{data.data.biography.desires}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.desires"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked fears"
-      data-value="{{data.data.biography.fears}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-fears-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.fears"}}
+      </label>
       <input
+        id="{{concat 'bio-fears-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.fears"
         placeholder="{{localize 'CRYPTOMANCER.Bio.fears'}}"
         value="{{data.data.biography.fears}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.fears"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked tendsTo"
-      data-value="{{data.data.biography.tendsTo}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-tendsTo-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.tendsTo"}}
+      </label>
       <input
+        id="{{concat 'bio-tendsTo-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.tendsTo"
         placeholder="{{localize 'CRYPTOMANCER.Bio.tendsTo'}}"
         value="{{data.data.biography.tendsTo}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.tendsTo"}}</span>
-    </label>
-    <label
-      class="input-sizer stacked usedTo"
-      data-value="{{data.data.biography.usedTo}}"
-    >
+    </div>
+    <div class="bio-section__input">
+      <label for="{{concat 'bio-usedTo-' document.id}}">
+        {{localize "CRYPTOMANCER.Bio.usedTo"}}
+      </label>
       <input
+        id="{{concat 'bio-usedTo-' document.id}}"
         type="text"
-        oninput="this.parentNode.dataset.value = this.value"
-        size="1"
         name="data.biography.usedTo"
         placeholder="{{localize 'CRYPTOMANCER.Bio.usedTo'}}"
         value="{{data.data.biography.usedTo}}"
       />
-      <span class="label">{{localize "CRYPTOMANCER.Bio.usedTo"}}</span>
-    </label>
+    </div>
   </div>
-  <div class="long-bio"></div>
+  <div class="bio-section trademark-items">
+    <p class="section-label">{{localize "CRYPTOMANCER.Bio.trademarkItems"}}</p>
+    <div class="trademark-items__wrapper">
+      {{#each data.data.trademarkItems}}
+        <div class="trademark-item">
+          <p class="trademark-item__name">{{this.name}}</p>
+          {{#if (is this.data.data.type "outfit")}}
+            <p class="trademark-item__label">
+              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkOutfit"}}
+            </p>
+          {{else}}
+            <p class="trademark-item__label">
+              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkWeapon"}}
+            </p>
+          {{/if}}
+          <div class="trademark-item__rules">
+            <span class="label">
+              {{localize "CRYPTOMANCER.TrademarkItem.rules"}}
+            </span>
+            <span class="value">
+              {{this.data.data.rules}}
+            </span>
+          </div>
+          <div class="trademark-item__qualities">
+            <span class="label">
+              {{localize "CRYPTOMANCER.TrademarkItem.qualities"}}
+            </span>
+            <span class="value">
+              {{this.data.data.qualities}}
+            </span>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </div>

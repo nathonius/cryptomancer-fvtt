@@ -20,7 +20,9 @@
                 name="name"
                 value="{{item.name}}"
               />
-              <span class="label">Talent Name</span>
+              <span class="label">
+                {{localize "CRYPTOMANCER.Spell.spellName"}}
+              </span>
             </label>
           </div>
           <div class="cost">
@@ -36,7 +38,9 @@
                 value="{{data.data.castCost}}"
                 data-dtype="Number"
               />
-              <span class="label">MP Cost</span>
+              <span class="label">
+                {{localize "CRYPTOMANCER.Spell.mpCost"}}
+              </span>
             </label>
             <label
               class="input-sizer stacked item-purchase-cost"
@@ -50,7 +54,9 @@
                 value="{{data.data.purchaseCost}}"
                 data-dtype="Number"
               />
-              <span class="label">UP Cost</span>
+              <span class="label">
+                {{localize "CRYPTOMANCER.Talent.upCost"}}
+              </span>
             </label>
           </div>
         </div>
@@ -66,7 +72,9 @@
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="description">
+      {{localize "CRYPTOMANCER.Description"}}
+    </a>
   </nav>
   <section class="sheet-body">
     <div class="tab" data-group="primary" data-tab="description">

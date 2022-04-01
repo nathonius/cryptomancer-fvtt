@@ -1,5 +1,5 @@
 .crypt-item-sheet {
-  &__item,
+  &__trademark-item,
   &__talent,
   &__spell {
     display: flex;
@@ -77,6 +77,31 @@
       justify-content: flex-end;
       align-items: baseline;
       gap: 4px;
+    }
+  }
+
+  &__trademark-item {
+    .item-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .item-rules,
+    .item-qualities {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      margin: 4px 0px;
+      padding-bottom: 2px;
+
+      label {
+        font-family: var(--font-accent);
+        color: var(--color-text-dark-inactive);
+      }
+      input {
+        color: var(--crypt-primary);
+        width: 100%;
+      }
     }
   }
 }

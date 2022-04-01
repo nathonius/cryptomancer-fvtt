@@ -1,4 +1,4 @@
-import { SpellType } from "../shared/enums/item.js";
+import { SpellType, TrademarkItemType } from "../shared/enums/item.js";
 
 export interface CryptItemBase {
   description: string;
@@ -8,8 +8,10 @@ export interface Purchaseable extends CryptItemBase {
   purchaseCost: number;
 }
 
-export interface CryptItem extends CryptItemBase {
-  quantity: number;
+export interface TrademarkItem extends CryptItemBase {
+  type: TrademarkItemType;
+  rules: string;
+  qualities: string;
 }
 
 export interface Talent extends Purchaseable {

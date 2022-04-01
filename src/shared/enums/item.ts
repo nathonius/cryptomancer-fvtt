@@ -3,3 +3,8 @@ export enum SpellType {
   Basic = "basic",
   Greater = "greater",
 }
+
+export enum TrademarkItemType {
+  Outfit = "outfit",
+  Weapon = "weapon",
+}

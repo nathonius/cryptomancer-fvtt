@@ -49,6 +49,25 @@ body.system-cryptomancer {
     border-color: var(--crypt-primary);
   }
 
+  /* Select */
+  optgroup {
+    background-color: var(--crypt-neutral);
+  }
+
+  /* Specific Selects/Inputs */
+  #chat-controls .roll-type-select,
+  .directory .directory-header .header-search input {
+    background-color: var(--crypt-neutral);
+  }
+
+  /* Slider */
+  input[type="range"]::-webkit-slider-runnable-track {
+    background-color: var(--crypt-primary--dark-3);
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    background-color: var(--crypt-secondary);
+  }
+
   /* Editor */
   .mce-content-body {
     color: var(--crypt-primary);
