@@ -161,6 +161,25 @@ export class CryptomancerActorSheet extends ActorSheet {
       }
     });
 
+    html
+      .find(".crypt-bio .trademark-items .trademark-item__action-button")
+      .on("click", (evt) => {
+        const button = evt.target;
+        const itemElement = $(evt.currentTarget).parents(".trademark-item");
+        const item = this.actor.items.get(itemElement.data("itemId"));
+        if (!item || !item.sheet) {
+          return;
+        }
+        if (
+          button.classList.contains("view") ||
+          button.classList.contains("edit")
+        ) {
+          item.sheet.render(true);
+        } else if (button.classList.contains("delete")) {
+          item.deleteDialog();
+        }
+      });
+
     // html.find(".talent-table .talent-row").each((_, row) => {
     //   const id = row.dataset.talentId;
     //   $(row)
