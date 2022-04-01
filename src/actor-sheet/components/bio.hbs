@@ -101,56 +101,14 @@
       />
     </div>
   </div>
-  <div class="bio-section trademark-items">
-    <p class="section-label">{{localize "CRYPTOMANCER.Bio.trademarkItems"}}</p>
-    <div class="trademark-items__wrapper">
-      {{#each data.data.trademarkItems}}
-        <div class="trademark-item" data-item-id="{{this.id}}">
-          <h3 class="trademark-item__name">{{this.name}}</h3>
-          {{#if (is this.data.data.type "outfit")}}
-            <p class="trademark-item__label">
-              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkOutfit"}}
-            </p>
-          {{else}}
-            <p class="trademark-item__label">
-              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkWeapon"}}
-            </p>
-          {{/if}}
-          <div class="trademark-item__rules">
-            <span class="label">
-              {{localize "CRYPTOMANCER.TrademarkItem.rules"}}
-            </span>
-            <span class="value">
-              {{this.data.data.rules}}
-            </span>
-          </div>
-          <div class="trademark-item__qualities">
-            <span class="label">
-              {{localize "CRYPTOMANCER.TrademarkItem.qualities"}}
-            </span>
-            <span class="value">
-              {{this.data.data.qualities}}
-            </span>
-          </div>
-          <div class="trademark-item__avatar">
-            <img src="{{this.img}}" alt="{{this.name}}" />
-          </div>
-          <div class="trademark-item__actions">
-            <button
-              class="trademark-item__action-button view"
-              data-tooltip="{{localize 'CRYPTOMANCER.View'}}"
-            >
-              <span class="fas fa-eye"></span>
-            </button>
-            <button
-              class="trademark-item__action-button delete"
-              data-tooltip="{{localize 'CRYPTOMANCER.Delete'}}"
-            >
-              <span class="fas fa-trash"></span>
-            </button>
-          </div>
-        </div>
-      {{/each}}
-    </div>
+  <div class="bio-section background">
+    <p class="section-label">{{localize "CRYPTOMANCER.Bio.background"}}</p>
+    {{editor
+      content=data.data.biography.background
+      target="data.biography.background"
+      button=true
+      owner=owner
+      editable=editable
+    }}
   </div>
 </div>

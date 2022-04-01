@@ -4,8 +4,11 @@
 @import "./components/skill-list";
 @import "./components/feature-list";
 @import "./components/bio";
+@import "./components/gear";
 
 .crypt-actor-sheet {
+  display: flex;
+  flex-direction: column;
   header {
     display: flex;
     gap: 8px;
@@ -72,6 +75,17 @@
           gap: 4px;
         }
       }
+    }
+  }
+  .sheet-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .tab[data-tab].active {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
   }
   .sheet-cores {
