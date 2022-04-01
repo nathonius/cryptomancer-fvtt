@@ -13,6 +13,16 @@
         background-color: var(--background-lighter);
       }
 
+      .avatar {
+        width: 32px;
+        .avatar-wrapper {
+          height: 32px;
+          img {
+            height: 100%;
+          }
+        }
+      }
+
       .actions {
         display: flex;
         gap: 6px;

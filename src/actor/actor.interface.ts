@@ -150,5 +150,6 @@ export interface Skill {
 export interface PreparedCharacter extends Character {
   talents: CryptomancerItem[];
   spells: CryptomancerItem[];
+  trademarkItems: CryptomancerItem[];
   checkDifficulty: CheckDifficulty;
 }

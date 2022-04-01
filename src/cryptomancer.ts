@@ -71,8 +71,8 @@ Hooks.once("init", async function () {
     types: ["spell"],
   });
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: l("SheetType.item"),
-    types: ["item"],
+    label: l("SheetType.trademarkItem"),
+    types: ["trademarkItem"],
   });
 
   // Preload Handlebars templates.

@@ -5,6 +5,11 @@
     </tr>
     {{#each talents}}
       <tr class="item-row" data-item-id="{{this.id}}">
+        <td class="talent avatar">
+          <div class="avatar-wrapper">
+            <img src="{{this.img}}" alt="{{this.name}}" />
+          </div>
+        </td>
         <td class="talent name">{{this.name}}</td>
         <td class="talent actions-wrapper">
           <div class="actions">

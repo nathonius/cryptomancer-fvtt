@@ -1,7 +1,12 @@
-import { SpellType } from "../shared/enums/item.js";
+import { SpellType, TrademarkItemType } from "../shared/enums/item.js";
 
 export const SpellTypes: Record<SpellType, string> = {
   [SpellType.Cantrip]: "CRYPTOMANCER.SpellType.cantrip",
   [SpellType.Basic]: "CRYPTOMANCER.SpellType.basic",
   [SpellType.Greater]: "CRYPTOMANCER.SpellType.greater",
+};
+
+export const TrademarkItemTypes: Record<TrademarkItemType, string> = {
+  [TrademarkItemType.Outfit]: "CRYPTOMANCER.TrademarkItemType.outfit",
+  [TrademarkItemType.Weapon]: "CRYPTOMANCER.TrademarkItemType.weapon",
 };

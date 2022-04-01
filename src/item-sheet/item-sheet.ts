@@ -1,5 +1,5 @@
 import { AugmentedData } from "./item-sheet.interface";
-import { SpellTypes } from "./item-sheet.constant.js";
+import { SpellTypes, TrademarkItemTypes } from "./item-sheet.constant.js";
 
 export class CryptomancerItemSheet extends ItemSheet<
   DocumentSheetOptions,
@@ -25,6 +25,7 @@ export class CryptomancerItemSheet extends ItemSheet<
   ): Promise<AugmentedData> {
     const context = await super.getData(options);
     context.spellTypes = SpellTypes;
+    context.itemTypes = TrademarkItemTypes;
     return context;
   }
 
