@@ -144,6 +144,10 @@ Hooks.once("ready", async function () {
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });
 
+Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
+  registerPackageDebugFlag("cryptomancer");
+});
+
 /**
  * Chat message render hook. Used to bind the
  * buttons in each skill check chat message to
