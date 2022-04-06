@@ -341,25 +341,50 @@
         { "eventText": "", "complete": false },
         { "eventText": "", "complete": false }
       ],
-      "safehouse": [
-        { "type": "cryptovault", "owned": false, "value": "", "cost": 3 },
-        { "type": "dungeon", "owned": false, "value": "", "cost": 2 },
-        { "type": "forge", "owned": false, "value": "", "cost": 3 },
-        { "type": "front", "owned": false, "value": "", "cost": 2 },
-        { "type": "golem", "owned": false, "value": "", "cost": 4 },
-        { "type": "laboratory", "owned": false, "value": "", "cost": 3 },
-        { "type": "lounge", "owned": false, "value": "", "cost": 2 },
-        { "type": "sanctuary", "owned": false, "value": "", "cost": 3 },
-        {
+      "safehouse": {
+        "cryptovault": {
+          "type": "cryptovault",
+          "owned": false,
+          "value": "",
+          "cost": 3
+        },
+        "dungeon": {
+          "type": "dungeon",
+          "owned": false,
+          "value": "",
+          "cost": 2
+        },
+        "forge": { "type": "forge", "owned": false, "value": "", "cost": 3 },
+        "front": { "type": "front", "owned": false, "value": "", "cost": 2 },
+        "golem": { "type": "golem", "owned": false, "value": "", "cost": 4 },
+        "laboratory": {
+          "type": "laboratory",
+          "owned": false,
+          "value": "",
+          "cost": 3
+        },
+        "lounge": { "type": "lounge", "owned": false, "value": "", "cost": 2 },
+        "sanctuary": {
+          "type": "sanctuary",
+          "owned": false,
+          "value": "",
+          "cost": 3
+        },
+        "stable": {
           "type": "stable",
           "owned": false,
           "value": "",
-          "mounts": [],
+          "mounts": "",
           "cost": null
         },
-        { "type": "trainingRoom", "owned": false, "value": "", "cost": 2 },
-        { "type": "warRoom", "owned": false, "value": "", "cost": 3 }
-      ],
+        "trainingRoom": {
+          "type": "trainingRoom",
+          "owned": false,
+          "value": "",
+          "cost": 2
+        },
+        "warRoom": { "type": "warRoom", "owned": false, "value": "", "cost": 3 }
+      },
       "cells": [
         {
           "type": "",

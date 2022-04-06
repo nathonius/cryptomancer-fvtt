@@ -60,6 +60,10 @@ Hooks.once("init", async function () {
     label: l("SheetType.character"),
     types: ["character"],
   });
+  Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
+    label: l("SheetType.party"),
+    types: ["party"],
+  });
 
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
