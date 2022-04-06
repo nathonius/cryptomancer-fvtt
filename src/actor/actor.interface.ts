@@ -1,5 +1,6 @@
 import { CryptomancerItem } from "../item/item";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.enum";
 
 export interface Character {
   core: {
@@ -108,6 +109,43 @@ export interface Character {
   upgradePoints: {
     label: string;
     key: string;
+    value: number;
+  };
+}
+
+export interface Party {
+  risk: {
+    min: 1;
+    value: number;
+    max: 100;
+  };
+  upgradePoints: 0;
+  assets: 0;
+  riskEvents: RiskEvent[];
+  safehouse: SafehouseRoom[];
+  cells: Cell[];
+}
+
+export interface RiskEvent {
+  eventText: string;
+  complete: boolean;
+}
+
+export interface SafehouseRoom {
+  type: SafehouseRoomType;
+  owned: boolean;
+  value: string;
+  cost: number | null;
+  mounts?: string[];
+}
+
+export interface Cell {
+  type: CellType | "";
+  skillBreak: boolean;
+  skillPush: boolean;
+  operations: number | null;
+  time: {
+    increment: CellTimeIncrement;
     value: number;
   };
 }
