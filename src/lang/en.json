@@ -44,6 +44,7 @@
   "CRYPTOMANCER.Skill.charm": "Charm",
   "CRYPTOMANCER.Skill.menace": "Menace",
   "CRYPTOMANCER.Skill.performance": "Performance",
+  "CRYPTOMANCER.Skill.operations": "Operations",
   "CRYPTOMANCER.CheckDifficulty.difficulty": "Difficulty",
   "CRYPTOMANCER.CheckDifficulty.trivial": "Trivial",
   "CRYPTOMANCER.CheckDifficulty.challenging": "Challenging",
