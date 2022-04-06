@@ -55,15 +55,14 @@ export class CryptomancerActorSheet extends ActorSheet {
     context: ActorSheet.Data<ActorSheet.Options>
   ): ActorSheet.Data<ActorSheet.Options> {
     // Prepare character data and items.
-    if (context.data.type == "character") {
+    if (context.data.type === "character") {
       this._prepareItems(context);
-      this._prepareCharacterData(context);
+      this.prepareCharacterData(context);
+      // Get configured check difficulty
+      context.data.data.checkDifficulty =
+        this.settings.getSetting("checkDifficulty") ??
+        CheckDifficulty.Challenging;
     }
-
-    // Get configured check difficulty
-    context.data.data.checkDifficulty =
-      this.settings.getSetting("checkDifficulty") ??
-      CheckDifficulty.Challenging;
 
     return context;
   }
@@ -75,7 +74,9 @@ export class CryptomancerActorSheet extends ActorSheet {
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context: ActorSheet.Data<ActorSheet.Options>) {
+  private prepareCharacterData(context: ActorSheet.Data<ActorSheet.Options>) {
+    if (context.data.type !== "character") return;
+
     // Handle labels.
     // Localize resources
     context.data.data.healthPoints.label = l(
