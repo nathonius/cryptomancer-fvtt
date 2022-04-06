@@ -5,99 +5,120 @@
 @import "./components/feature-list";
 @import "./components/bio";
 @import "./components/gear";
+@import "./components/safehouse-room";
 
 .crypt-actor-sheet {
-  display: flex;
-  flex-direction: column;
-  header {
+  &.character {
     display: flex;
-    gap: 8px;
-    .bio {
-      flex-grow: 1;
+    flex-direction: column;
+    header {
       display: flex;
-      flex-direction: column;
       gap: 8px;
-      .name {
-        font-family: var(--font-accent);
+      .bio {
+        flex-grow: 1;
         display: flex;
+        flex-direction: column;
         gap: 8px;
-        line-height: 0.9rem;
-        label {
-          min-width: 60px;
-          &::after,
-          input {
-            height: 40px;
-            font-size: 1.8rem;
+        .name {
+          font-family: var(--font-accent);
+          display: flex;
+          gap: 8px;
+          line-height: 0.9rem;
+          label {
+            min-width: 60px;
+            &::after,
+            input {
+              height: 40px;
+              font-size: 1.8rem;
+            }
+            .label {
+              text-transform: uppercase;
+            }
           }
-          .label {
-            text-transform: uppercase;
+        }
+        .pronouns-party {
+          font-family: var(--font-accent);
+          display: flex;
+          gap: 8px;
+          line-height: 0.9rem;
+          label {
+            min-width: 60px;
+            &::after,
+            input {
+              font-size: 1rem;
+            }
+          }
+          .upgrade-points {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            input {
+              display: block;
+              text-align: center;
+              width: 60px;
+              height: 40px;
+              font-size: 24px;
+            }
           }
         }
       }
-      .pronouns-party {
-        font-family: var(--font-accent);
+      .defenses {
         display: flex;
-        gap: 8px;
-        line-height: 0.9rem;
-        label {
-          min-width: 60px;
-          &::after,
-          input {
-            font-size: 1rem;
-          }
-        }
-        .upgrade-points {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .difficulty-selector {
           display: flex;
-          align-items: center;
-          gap: 8px;
-          input {
-            display: block;
-            text-align: center;
-            width: 60px;
-            height: 40px;
-            font-size: 24px;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 4px;
+
+          .difficulty {
+            display: flex;
+            gap: 4px;
           }
         }
       }
     }
-    .defenses {
+    .sheet-body {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      .tab[data-tab].active {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .sheet-cores {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      .difficulty-selector {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
-
-        .difficulty {
+      .sheet-core {
+        width: 300px;
+        margin-bottom: 8px;
+        .sheet-skills {
           display: flex;
-          gap: 4px;
+          justify-content: flex-end;
         }
       }
     }
   }
-  .sheet-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-
-    .tab[data-tab].active {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-  }
-  .sheet-cores {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .sheet-core {
-      width: 300px;
-      margin-bottom: 8px;
-      .sheet-skills {
-        display: flex;
-        justify-content: flex-end;
+  &.party {
+    .sheet-body {
+      .tab.safehouse {
+        .safehouse-rooms {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, 280px);
+          grid-auto-flow: dense;
+          justify-content: space-around;
+          gap: 16px;
+          .crypt-safehouse-room {
+            &.stable {
+              grid-row: span 2;
+            }
+          }
+        }
       }
     }
   }

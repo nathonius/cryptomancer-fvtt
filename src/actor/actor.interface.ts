@@ -122,7 +122,19 @@ export interface Party {
   upgradePoints: 0;
   assets: 0;
   riskEvents: RiskEvent[];
-  safehouse: SafehouseRoom[];
+  safehouse: {
+    [SafehouseRoomType.Cryptovault]: SafehouseRoom;
+    [SafehouseRoomType.Dungeon]: SafehouseRoom;
+    [SafehouseRoomType.Forge]: SafehouseRoom;
+    [SafehouseRoomType.Front]: SafehouseRoom;
+    [SafehouseRoomType.Golem]: SafehouseRoom;
+    [SafehouseRoomType.Laboratory]: SafehouseRoom;
+    [SafehouseRoomType.Lounge]: SafehouseRoom;
+    [SafehouseRoomType.Sanctuary]: SafehouseRoom;
+    [SafehouseRoomType.Stable]: SafehouseRoom & { mounts: string };
+    [SafehouseRoomType.TrainingRoom]: SafehouseRoom;
+    [SafehouseRoomType.WarRoom]: SafehouseRoom;
+  };
   cells: Cell[];
 }
 
@@ -136,7 +148,6 @@ export interface SafehouseRoom {
   owned: boolean;
   value: string;
   cost: number | null;
-  mounts?: string[];
 }
 
 export interface Cell {

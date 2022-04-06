@@ -41,39 +41,34 @@ export class CryptomancerActor extends Actor {
    * available both inside and outside of character sheets (such as if an actor
    * is queried and has a roll executed directly from it).
    */
-  override prepareDerivedData() {
+  override prepareDerivedData(): void {
     const actorData = this.data;
-    const data = actorData.data;
-    const flags = actorData.flags.cryptomancer || {};
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
-    this._prepareCharacterData(actorData);
+    this.prepareCharacterData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData: ActorData) {
-    if (actorData.type === "character") {
-      this.data.data.talents = [];
-      this.data.data.spells = [];
-      this.data.data.trademarkItems = [];
+  private prepareCharacterData(actorData: ActorData) {
+    if (actorData.type !== "character") return;
+    actorData.data.talents = [];
+    actorData.data.spells = [];
+    actorData.data.trademarkItems = [];
 
-      this.items.forEach((i) => {
-        switch (i.type) {
-          case "talent":
-            this.data.data.talents.push(i);
-            break;
-          case "spell":
-            this.data.data.spells.push(i);
-            break;
-          case "trademarkItem":
-            this.data.data.trademarkItems.push(i);
-            break;
-        }
-      });
-    }
+    actorData.items.forEach((i) => {
+      switch (i.type) {
+        case "talent":
+          actorData.data.talents.push(i);
+          break;
+        case "spell":
+          actorData.data.spells.push(i);
+          break;
+        case "trademarkItem":
+          actorData.data.trademarkItems.push(i);
+          break;
+      }
+    });
   }
 
   /**

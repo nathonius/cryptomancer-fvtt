@@ -1,0 +1,26 @@
+<!--
+  @Input room: SafehouseRoom;
+-->
+<div class="crypt-safehouse-room {{room.type}}">
+  <div class="room__header">
+    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned}}
+    <h3>{{localize (concat "CRYPTOMANCER.SafehouseRoomType." room.type)}}</h3>
+    {{#if room.cost}}
+      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" size="small" value=room.cost readonly=true}}
+    {{/if}}
+  </div>
+  <div class="room__desc">
+    <p>{{localize (concat "CRYPTOMANCER.SafehouseRoomDescription." room.type)}}</p>
+  </div>
+  <div class="room__input">
+    <input type="text" name="{{concat "data.safehouse." room.type ".value"}}" value="{{room.value}}">
+  </div>
+  <div class="room__effect">
+    <p>{{localize (concat "CRYPTOMANCER.SafehouseRoomEffect." room.type)}}</p>
+  </div>
+  {{#if (is room.type "stable")}}
+      <div class="room__mounts">
+        <textarea name="data.safehouse.stable.mounts" cols="30" rows="12">{{data.data.safehouse.stable.mounts}}</textarea>
+      </div>
+  {{/if}}
+</div>
