@@ -55,25 +55,25 @@ export class CryptomancerActor extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(actorData: ActorData) {
-    if (actorData.type !== "character") return;
+    if (actorData.type === "character") {
+      this.data.data.talents = [];
+      this.data.data.spells = [];
+      this.data.data.trademarkItems = [];
 
-    this.data.data.talents = [];
-    this.data.data.spells = [];
-    this.data.data.trademarkItems = [];
-
-    this.items.forEach((i) => {
-      switch (i.type) {
-        case "talent":
-          this.data.data.talents.push(i);
-          break;
-        case "spell":
-          this.data.data.spells.push(i);
-          break;
-        case "trademarkItem":
-          this.data.data.trademarkItems.push(i);
-          break;
-      }
-    });
+      this.items.forEach((i) => {
+        switch (i.type) {
+          case "talent":
+            this.data.data.talents.push(i);
+            break;
+          case "spell":
+            this.data.data.spells.push(i);
+            break;
+          case "trademarkItem":
+            this.data.data.trademarkItems.push(i);
+            break;
+        }
+      });
+    }
   }
 
   /**

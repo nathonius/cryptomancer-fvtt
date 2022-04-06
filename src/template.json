@@ -1,21 +1,7 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
-    "templates": {
-      "base": {
-        "health": {
-          "value": 10,
-          "min": 0,
-          "max": 10
-        },
-        "power": {
-          "value": 5,
-          "min": 0,
-          "max": 5
-        },
-        "biography": ""
-      }
-    },
+    "types": ["character", "party"],
+    "templates": {},
     "character": {
       "core": {
         "wits": {
@@ -341,9 +327,62 @@
         "value": 0
       }
     },
-    "npc": {
-      "templates": ["base"],
-      "cr": 0
+    "party": {
+      "risk": {
+        "min": 1,
+        "value": 1,
+        "max": 100
+      },
+      "upgradePoints": 0,
+      "assets": 0,
+      "riskEvents": [
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false }
+      ],
+      "safehouse": [
+        { "type": "cryptovault", "owned": false, "value": "", "cost": 3 },
+        { "type": "dungeon", "owned": false, "value": "", "cost": 2 },
+        { "type": "forge", "owned": false, "value": "", "cost": 3 },
+        { "type": "front", "owned": false, "value": "", "cost": 2 },
+        { "type": "golem", "owned": false, "value": "", "cost": 4 },
+        { "type": "laboratory", "owned": false, "value": "", "cost": 3 },
+        { "type": "lounge", "owned": false, "value": "", "cost": 2 },
+        { "type": "sanctuary", "owned": false, "value": "", "cost": 3 },
+        {
+          "type": "stable",
+          "owned": false,
+          "value": "",
+          "mounts": [],
+          "cost": null
+        },
+        { "type": "trainingRoom", "owned": false, "value": "", "cost": 2 },
+        { "type": "warRoom", "owned": false, "value": "", "cost": 3 }
+      ],
+      "cells": [
+        {
+          "type": "",
+          "skillBreak": false,
+          "skillPush": false,
+          "operations": null,
+          "time": { "increment": "", "value": 0 }
+        },
+        {
+          "type": "",
+          "skillBreak": false,
+          "skillPush": false,
+          "operations": null,
+          "time": { "increment": "", "value": 0 }
+        },
+        {
+          "type": "",
+          "skillBreak": false,
+          "skillPush": false,
+          "operations": null,
+          "time": { "increment": "", "value": 0 }
+        }
+      ]
     }
   },
   "Item": {
