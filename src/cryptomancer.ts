@@ -13,6 +13,7 @@ import { CryptomancerItem } from "./item/item.js";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet.js";
 import { l } from "./shared/util.js";
 import { SpellType } from "./shared/enums/item.js";
+import "./cryptomancer.scss";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
