@@ -3,9 +3,11 @@
   "version": "0.1.1",
   "description": "The Cryptomancer system for FoundryVTT!",
   "scripts": {
-    "build": "gulp",
-    "serve": "gulp serve",
-    "watch": "gulp watch"
+    "build": "rollup -c",
+    "build:watch": "rollup -cw",
+    "gulp:build": "gulp",
+    "gulp:serve": "gulp serve",
+    "gulp:watch": "gulp watch"
   },
   "browserslist": [
     "last 3 versions"
@@ -21,7 +23,9 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
+    "@guanghechen/rollup-plugin-copy": "^1.9.2",
     "@league-of-foundry-developers/foundry-vtt-types": "^9.249.4",
+    "@rollup/plugin-typescript": "^8.3.1",
     "@types/fs-extra": "^9.0.13",
     "@types/gulp": "^4.0.9",
     "@types/gulp-autoprefixer": "^0.0.33",
@@ -30,7 +34,11 @@
     "dotenv": "^16.0.0",
     "fs-extra": "^10.0.1",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "rollup": "^2.70.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-styles": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
     "ts-node": "^10.7.0",
-    "typescript": "^4.7.0-dev.20220306"
+    "typescript": "^4.6.3"
   }
 }
