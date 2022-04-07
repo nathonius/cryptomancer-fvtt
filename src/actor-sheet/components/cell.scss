@@ -1,0 +1,64 @@
+.crypt-party-cell {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  border: 1px solid var(--crypt-primary);
+  padding: 4px;
+  background-color: var(--crypt-neutral--light-1);
+
+  &__desc {
+    input {
+      height: 100%;
+      font-size: 1.4em;
+    }
+  }
+
+  &__operations {
+    display: grid;
+    gap: 4px;
+
+    .operations-label {
+      text-transform: uppercase;
+      font-family: var(--font-accent);
+      font-size: 10px;
+      text-align: center;
+      color: var(--crypt-primary--dark-1);
+      cursor: pointer;
+      &:hover {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+        color: var(--crypt-primary);
+      }
+    }
+    .operations-inputs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+  &__time {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    .time-increments__increment {
+      text-align: center;
+      padding: 0px 2px;
+      cursor: pointer;
+      &:hover {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+      }
+      &.active {
+        background-color: var(--crypt-neutral--light-4);
+      }
+    }
+    label {
+      text-align: center;
+      align-self: baseline;
+      color: var(--crypt-primary--dark-2);
+    }
+    input {
+      grid-column: span 2;
+    }
+  }
+  &__mission {
+    grid-column: span 3;
+  }
+}

@@ -1,0 +1,33 @@
+<!--
+  @Input cell: Cell;
+  @Input index: number;
+-->
+
+<div class="crypt-party-cell" data-index="{{index}}">
+  <div class="crypt-party-cell__desc">
+    <input type="text" value="{{cell.type}}" name="data.cells.{{index}}.type" placeholder="{{localize "CRYPTOMANCER.Cell.cellType"}}" />
+  </div>
+  <div class="crypt-party-cell__operations">
+    <span class="operations-label rollable" data-index="{{index}}">{{localize "CRYPTOMANCER.Skill.operations"}}</span>
+    <div class="operations-inputs">
+      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "cell-" index "-break") placeholder="1" value=cell.skillBreak name=(concat "data.cells." index ".skillBreak") }}
+      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" size="small" value=cell.operations name=(concat "data.cells." index ".operations") }}
+      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "cell-" index "-push") placeholder="10" value=cell.skillPush name=(concat "data.cells." index ".skillPush") }}
+    </div>
+  </div>
+  <div class="crypt-party-cell__time">
+      <div class="time-increments__increment {{#if (is cell.time.increment "downtime")}}active{{/if}}" data-increment="downtime" data-index="{{index}}">{{localize "CRYPTOMANCER.Cell.TimeIncrement.downtime"}}</div>
+      <div class="time-increments__increment {{#if (is cell.time.increment "day")}}active{{/if}}" data-increment="day" data-index="{{index}}">{{localize "CRYPTOMANCER.Cell.TimeIncrement.day"}}</div>
+      <div class="time-increments__increment {{#if (is cell.time.increment "week")}}active{{/if}}" data-increment="week" data-index="{{index}}">{{localize "CRYPTOMANCER.Cell.TimeIncrement.week"}}</div>
+      <label for="time-remaining-{{index}}">{{localize "CRYPTOMANCER.Cell.TimeIncrement.remaining"}}</label>
+      <input id="time-remaining-{{index}}" type="text" data-dtype="Number" value="{{cell.time.value}}" name="data.cells.{{index}}.time.value">
+  </div>
+  <div class="crypt-party-cell__mission">
+    <input
+      type="text"
+      value="{{cell.mission}}"
+      name="data.cells.{{index}}.mission"
+      placeholder="{{localize "CRYPTOMANCER.Cell.mission"}}"
+    />
+  </div>
+</div>

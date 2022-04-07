@@ -133,6 +133,65 @@ export class CryptomancerActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
+    this._activateCharacterListenters(html);
+    this._activatePartyListenters(html);
+
+    // html.find(".talent-table .talent-row").each((_, row) => {
+    //   const id = row.dataset.talentId;
+    //   $(row)
+    //     .find(".action-button")
+    //     .on("click", (evt) => {
+    //       if (!id) {
+    //         return;
+    //       }
+    //       if (evt.target.classList.contains("view")) {
+    //         this.handleTalentAction(id, "view");
+    //       } else if (evt.target.classList.contains("edit")) {
+    //         this.handleTalentAction(id, "edit");
+    //       } else if (evt.target.classList.contains("delete")) {
+    //         this.handleTalentAction(id, "delete");
+    //       }
+    //     });
+    // });
+
+    // -------------------------------------------------------------
+    // Everything below here is only needed if the sheet is editable
+    if (!this.isEditable) return;
+
+    // // Add Inventory Item
+    // html.find(".item-create").on("click", this._onItemCreate.bind(this));
+
+    // // Delete Inventory Item
+    // html.find(".item-delete").on("click", (ev) => {
+    //   const li = $(ev.currentTarget).parents(".item");
+    //   const item = this.actor.items.get(li.data("itemId"));
+    //   if (item) {
+    //     item.delete();
+    //     li.slideUp(200, () => this.render(false));
+    //   }
+    // });
+
+    // // Active Effect management
+    // html
+    //   .find(".effect-control")
+    //   .on("click", (ev) => onManageActiveEffect(ev, this.actor));
+
+    // Drag events for macros.
+    if (this.actor.isOwner) {
+      let handler = (ev: DragEvent) => this._onDragStart(ev);
+      html.find("li.item").each((i, li) => {
+        if (li.classList.contains("inventory-header")) return;
+        li.setAttribute("draggable", "true");
+        li.addEventListener("dragstart", handler, false);
+      });
+    }
+  }
+
+  private _activateCharacterListenters(html: JQuery<HTMLElement>): void {
+    if (this.actor.data.type !== "character") return;
+
+    // Rollable abilities.
+    html.find(".rollable").on("click", this._onRoll.bind(this));
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find(".item-edit").on("click", (ev) => {
@@ -180,62 +239,29 @@ export class CryptomancerActorSheet extends ActorSheet {
         }
       });
 
-    // html.find(".talent-table .talent-row").each((_, row) => {
-    //   const id = row.dataset.talentId;
-    //   $(row)
-    //     .find(".action-button")
-    //     .on("click", (evt) => {
-    //       if (!id) {
-    //         return;
-    //       }
-    //       if (evt.target.classList.contains("view")) {
-    //         this.handleTalentAction(id, "view");
-    //       } else if (evt.target.classList.contains("edit")) {
-    //         this.handleTalentAction(id, "edit");
-    //       } else if (evt.target.classList.contains("delete")) {
-    //         this.handleTalentAction(id, "delete");
-    //       }
-    //     });
-    // });
-
-    // -------------------------------------------------------------
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
-
-    // Add Inventory Item
-    html.find(".item-create").on("click", this._onItemCreate.bind(this));
-
-    // Delete Inventory Item
-    html.find(".item-delete").on("click", (ev) => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      if (item) {
-        item.delete();
-        li.slideUp(200, () => this.render(false));
-      }
-    });
-
-    // Active Effect management
-    html
-      .find(".effect-control")
-      .on("click", (ev) => onManageActiveEffect(ev, this.actor));
-
-    // Rollable abilities.
-    html.find(".rollable").on("click", this._onRoll.bind(this));
-
     html
       .find(".difficulty-selector")
       .on("change", this._onDifficultySelect.bind(this));
+  }
 
-    // Drag events for macros.
-    if (this.actor.isOwner) {
-      let handler = (ev: DragEvent) => this._onDragStart(ev);
-      html.find("li.item").each((i, li) => {
-        if (li.classList.contains("inventory-header")) return;
-        li.setAttribute("draggable", "true");
-        li.addEventListener("dragstart", handler, false);
+  private _activatePartyListenters(html: JQuery<HTMLElement>): void {
+    if (this.actor.data.type !== "party") return;
+
+    // Operations skill checks
+    html.find(".rollable").on("click", this._onCellRoll.bind(this));
+
+    // Cell time increment selector
+    html.find(".time-increments__increment").on("click", (event) => {
+      event.preventDefault();
+      const element = event.currentTarget;
+      const dataset = element.dataset;
+      const increment = dataset.increment;
+      const index = dataset.index;
+      if (index === undefined) return;
+      this.actor.update({
+        data: { cells: { [index]: { time: { increment } } } },
       });
-    }
+    });
   }
 
   /**
@@ -305,6 +331,17 @@ export class CryptomancerActorSheet extends ActorSheet {
       (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ??
         CheckDifficulty.Challenging
     );
+  }
+
+  _onCellRoll(event: JQuery.ClickEvent) {
+    if (this.actor.data.type !== "party") return;
+    event.preventDefault();
+    const element = event.currentTarget;
+    const dataset = element.dataset;
+
+    const index = dataset.index as "1" | "2" | "3";
+
+    this.document.rollCellOperations(this.actor.data.data.cells[index]);
   }
 
   private handleTalentAction(

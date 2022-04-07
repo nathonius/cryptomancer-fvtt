@@ -13,6 +13,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/actor-sheet/components/bio.hbs",
     "systems/cryptomancer/actor-sheet/components/gear.hbs",
     "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
+    "systems/cryptomancer/actor-sheet/components/cell.hbs",
     "systems/cryptomancer/actor-sheet/parts/actor-features.hbs",
     "systems/cryptomancer/actor-sheet/parts/actor-items.hbs",
     "systems/cryptomancer/actor-sheet/parts/actor-spells.hbs",
