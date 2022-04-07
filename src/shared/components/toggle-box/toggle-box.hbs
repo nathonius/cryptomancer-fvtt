@@ -3,10 +3,18 @@
   @Input value: boolean;
   @Input name: string;
   @Input placeholder?: string;
+  @Input index?: string;
 -->
 
 <div class="crypto-toggle-box">
-  <input class="visually-hidden" id="{{ id }}" type="checkbox" {{checked value}} name="{{ name }}"
-    data-dtype="Boolean" />
-  <label for="{{ id }}">{{ placeholder }}</label>
+  <input
+    class="visually-hidden"
+    id="{{id}}"
+    type="checkbox"
+    {{checked value}}
+    name="{{name}}"
+    data-dtype="Boolean"
+    data-index="{{index}}"
+  />
+  <label for="{{id}}">{{placeholder}}</label>
 </div>

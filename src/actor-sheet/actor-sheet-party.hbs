@@ -10,6 +10,31 @@
   </nav>
   <section class="sheet-body">
     <div class="tab party" data-group="primary" data-tab="party">
+      <div class="party-wrapper">
+        <div class="party-resources">
+          <div class="resource-label">{{localize "CRYPTOMANCER.Party.risk"}}</div>
+          {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" value=data.data.risk.value name="data.risk.value" size="large"}}
+          <div class="resource-label">{{localize "CRYPTOMANCER.Party.upgradePoints"}}</div>
+          {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" value=data.data.upgradePoints name="data.upgradePoints" size="large"}}
+          <div class="resource-label">{{localize "CRYPTOMANCER.Party.assets"}}</div>
+          {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" value=data.data.assets name="data.assets" size="large"}}
+        </div>
+        <div class="party-risk-events">
+          <h2>{{localize "CRYPTOMANCER.Party.riskEvents"}}</h2>
+          {{#each data.data.riskEvents as |event index|}}
+          <div class="risk-event">
+            {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
+            <input type="text" id="{{concat "risk-event-text-" index}}" value="{{event.eventText}}" >
+          </div>
+          {{/each}}
+        </div>
+        <div class="party-cells">
+          <h2>{{localize "CRYPTOMANCER.Party.cells"}}</h2>
+          {{#each data.data.cells as |cell index|}}
+            {{> "systems/cryptomancer/actor-sheet/components/cell.hbs" cell=cell index=index }}
+          {{/each}}
+        </div>
+      </div>
     </div>
     <div class="tab safehouse" data-group="primary" data-tab="safehouse">
       <div class="safehouse-rooms">

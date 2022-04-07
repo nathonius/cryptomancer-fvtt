@@ -135,7 +135,7 @@ export interface Party {
     [SafehouseRoomType.TrainingRoom]: SafehouseRoom;
     [SafehouseRoomType.WarRoom]: SafehouseRoom;
   };
-  cells: Cell[];
+  cells: { "1": Cell; "2": Cell; "3": Cell };
 }
 
 export interface RiskEvent {
@@ -151,6 +151,7 @@ export interface SafehouseRoom {
 }
 
 export interface Cell {
+  mission: string;
   type: CellType | "";
   skillBreak: boolean;
   skillPush: boolean;
