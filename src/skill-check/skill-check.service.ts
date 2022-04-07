@@ -30,7 +30,10 @@ export class SkillCheckService {
     skillBreak = false,
     skillPush = false
   ): Promise<void> {
-    const r = new Roll(`{${attributeDice}d10, ${5 - attributeDice}d6}`, {});
+    const r = new Roll(
+      `{${Math.max(attributeDice, 0)}d10, ${Math.max(5 - attributeDice, 0)}d6}`,
+      {}
+    );
     await r.evaluate({ async: true });
     await this.createChatMessage(
       r,

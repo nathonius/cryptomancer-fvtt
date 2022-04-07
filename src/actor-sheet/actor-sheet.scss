@@ -6,6 +6,7 @@
 @import "./components/bio";
 @import "./components/gear";
 @import "./components/safehouse-room";
+@import "./components/cell";
 
 .crypt-actor-sheet {
   &.character {
@@ -106,17 +107,62 @@
   }
   &.party {
     .sheet-body {
-      .tab.safehouse {
-        .safehouse-rooms {
+      .tab.party {
+        .party-wrapper {
           display: grid;
-          grid-template-columns: repeat(auto-fit, 280px);
-          grid-auto-flow: dense;
-          justify-content: space-around;
+          grid-template-columns: auto 1fr;
           gap: 16px;
-          .crypt-safehouse-room {
-            &.stable {
-              grid-row: span 2;
+          h2 {
+            font-family: var(--font-accent);
+            font-size: 1.8em;
+            border: none;
+            margin: 0;
+          }
+
+          .party-resources {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+            .resource-label {
+              font-family: var(--font-accent);
+              font-size: 1.8em;
+              padding-right: 4px;
+              text-align: right;
             }
+          }
+          .party-risk-events {
+            display: grid;
+            gap: 8px;
+            .risk-event {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              input {
+                font-size: 1.3em;
+                background-color: var(--crypt-neutral--light-2);
+                border-radius: 0px;
+              }
+            }
+          }
+          .party-cells {
+            grid-column: span 2;
+            display: grid;
+            gap: 16px;
+          }
+        }
+      }
+    }
+    .tab.safehouse {
+      .safehouse-rooms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 280px);
+        grid-auto-flow: dense;
+        justify-content: space-around;
+        gap: 16px;
+        .crypt-safehouse-room {
+          &.stable {
+            grid-row: span 2;
           }
         }
       }

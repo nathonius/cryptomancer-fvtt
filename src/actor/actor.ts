@@ -4,9 +4,11 @@ import {
   ActorData,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
+import { Cell } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -101,6 +103,18 @@ export class CryptomancerActor extends Actor {
     // }
   }
 
+  async rollCellOperations(cell: Cell) {
+    if (cell.operations === null) return;
+    return SkillCheckService.skillCheck(
+      cell.operations,
+      "operations",
+      CheckDifficulty.Challenging,
+      "",
+      cell.skillBreak,
+      cell.skillPush
+    );
+  }
+
   async rollAttribute(
     coreName: string,
     attributeName: string,
@@ -112,7 +126,7 @@ export class CryptomancerActor extends Actor {
     ];
     const skill = skillName ? attribute.skills[skillName] : null;
     if (skill) {
-      SkillCheckService.skillCheck(
+      return SkillCheckService.skillCheck(
         attribute.value,
         attributeName,
         difficulty,
@@ -121,7 +135,11 @@ export class CryptomancerActor extends Actor {
         skill.push
       );
     } else {
-      SkillCheckService.skillCheck(attribute.value, attributeName, difficulty);
+      return SkillCheckService.skillCheck(
+        attribute.value,
+        attributeName,
+        difficulty
+      );
     }
   }
 }
