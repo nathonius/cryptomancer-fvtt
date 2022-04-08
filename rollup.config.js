@@ -1,17 +1,23 @@
-import copy from "@guanghechen/rollup-plugin-copy";
+import "dotenv/config";
+import copyPlugin from "@guanghechen/rollup-plugin-copy";
+import clear from "rollup-plugin-clear";
 import typescript from "@rollup/plugin-typescript";
-import livereload from "rollup-plugin-livereload";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
 
+const isProd = process.env.NODE_ENV === "production";
+const isDev = !isProd;
 const name = "cryptomancer";
 const distDirectory = "dist";
 const srcDirectory = "src";
 
 const staticFiles = `${srcDirectory}/**/*{.md,.json,.html,.hbs,.png,.otf,.db}`;
 
-const isProd = process.env.NODE_ENV === "production";
-const isDev = !isProd;
+// build to dist and foundry folder during watch
+const outputDirs = [distDirectory];
+if (isDev && process.env.OUT_DIR) {
+  outputDirs.push(process.env.OUT_DIR);
+}
 
 /**
  * this simple plugin displays which environment we're in when rollup starts
@@ -31,14 +37,15 @@ const environment = (environment) => {
 /** @type {import('rollup').RollupOptions} */
 const config = {
   input: { [`${name}`]: `${srcDirectory}/${name}.ts` },
-  output: {
-    dir: distDirectory,
+  output: outputDirs.map((dir) => ({
+    dir,
     format: "es",
     sourcemap: true,
     assetFileNames: "[name].[ext]",
-  },
+  })),
   plugins: [
     environment(process.env.NODE_ENV),
+    clear({ targets: outputDirs }),
     typescript({ noEmitOnError: isProd }),
     styles({
       mode: ["extract", `${name}.css`],
@@ -46,15 +53,10 @@ const config = {
       sourceMap: true,
       minimize: isProd,
     }),
-    copy({
-      targets: [
-        {
-          src: staticFiles,
-          dest: distDirectory,
-        },
-      ],
+    copyPlugin({
+      targets: outputDirs.map((dest) => ({ src: staticFiles, dest })),
+      copyOnce: false,
     }),
-    isDev && livereload(distDirectory),
     isProd && terser({ ecma: 2020, keep_fnames: true, keep_classnames: true }),
   ],
 };
