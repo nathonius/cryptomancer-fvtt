@@ -1,8 +1,10 @@
-import copy from "@guanghechen/rollup-plugin-copy";
+import "dotenv/config";
+import copyPlugin from "@guanghechen/rollup-plugin-copy";
 import typescript from "@rollup/plugin-typescript";
-import livereload from "rollup-plugin-livereload";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
+import { copy, mkdir, pathExists, rm } from "fs-extra";
+import { join } from "path";
 
 const name = "cryptomancer";
 const distDirectory = "dist";
@@ -28,6 +30,21 @@ const environment = (environment) => {
   return plugin;
 };
 
+const serve = (outDir) => ({
+  name: "serve",
+  writeBundle: async () => {
+    if (outDir) {
+      // Empty the directory first
+      await cleanDir(outDir);
+      // Copy the files
+      await copyDir(distDirectory, outDir);
+      console.log(`Wrote out to ${outDir}`);
+    } else {
+      console.log("Not copying to foundry folder, provide OUT_DIR in .env.");
+    }
+  },
+});
+
 /** @type {import('rollup').RollupOptions} */
 const config = {
   input: { [`${name}`]: `${srcDirectory}/${name}.ts` },
@@ -46,7 +63,7 @@ const config = {
       sourceMap: true,
       minimize: isProd,
     }),
-    copy({
+    copyPlugin({
       targets: [
         {
           src: staticFiles,
@@ -54,9 +71,23 @@ const config = {
         },
       ],
     }),
-    isDev && livereload(distDirectory),
     isProd && terser({ ecma: 2020, keep_fnames: true, keep_classnames: true }),
+    isDev && process.env.OUT_DIR && serve(process.env.OUT_DIR),
   ],
 };
+
+async function copyDir(src, dest) {
+  if (!(await pathExists(dest))) {
+    await mkdir(dest);
+  }
+  await copy(src, dest, { recursive: true, overwrite: true });
+}
+
+async function cleanDir(path) {
+  if (await pathExists(path)) {
+    await rm(join(path), { recursive: true });
+    await mkdir(path);
+  }
+}
 
 export default config;
