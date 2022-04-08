@@ -1,5 +1,5 @@
 // Foundry
-import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
+import type { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
 // Import document classes.
 import { CryptomancerActor } from "./actor/actor.js";

@@ -1,4 +1,4 @@
-import { AugmentedData } from "./item-sheet.interface";
+import type { AugmentedData } from "./item-sheet.interface";
 import { SpellTypes, TrademarkItemTypes } from "./item-sheet.constant.js";
 
 export class CryptomancerItemSheet extends ItemSheet<

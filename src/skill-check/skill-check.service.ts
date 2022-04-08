@@ -1,4 +1,4 @@
-import {
+import type {
   ParsedRollResult,
   SkillCheckConfigFlag,
 } from "./skill-check.interface.js";
@@ -11,7 +11,7 @@ import {
   DieType,
 } from "./skill-check.enum.js";
 import { getGame, l } from "../shared/util.js";
-import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
+import type { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 
 /**
  * Executes skill checks from character sheets, creates

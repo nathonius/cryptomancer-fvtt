@@ -1,4 +1,4 @@
-import { CoreAlt } from "../actor/actor.interface";
+import type { CoreAlt } from "../actor/actor.interface";
 import { onManageActiveEffect } from "../shared/effects.js";
 import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
 import { SettingsService } from "../settings/settings.service.js";
