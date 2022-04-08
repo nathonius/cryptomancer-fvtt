@@ -2,17 +2,17 @@
 import type { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
 // Import document classes.
-import { CryptomancerActor } from "./actor/actor.js";
+import { CryptomancerActor } from "./actor/actor";
 // Import sheet classes.
-import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet.js";
+import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet";
 // Import helper/utility classes and constants.
-import { preloadHandlebarsTemplates } from "./shared/templates.js";
-import { SettingsService } from "./settings/settings.service.js";
-import { SkillCheckService } from "./skill-check/skill-check.service.js";
-import { CryptomancerItem } from "./item/item.js";
-import { CryptomancerItemSheet } from "./item-sheet/item-sheet.js";
-import { l } from "./shared/util.js";
-import { SpellType } from "./shared/enums/item.js";
+import { preloadHandlebarsTemplates } from "./shared/templates";
+import { SettingsService } from "./settings/settings.service";
+import { SkillCheckService } from "./skill-check/skill-check.service";
+import { CryptomancerItem } from "./item/item";
+import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
+import { l } from "./shared/util";
+import { SpellType } from "./shared/enums/item";
 import "./cryptomancer.scss";
 
 /* -------------------------------------------- */

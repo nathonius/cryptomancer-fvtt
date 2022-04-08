@@ -1,4 +1,4 @@
-import { SpellType, TrademarkItemType } from "../shared/enums/item.js";
+import { SpellType, TrademarkItemType } from "../shared/enums/item";
 
 export interface CryptItemBase {
   description: string;

@@ -1,5 +1,5 @@
-import { CryptomancerItem } from "../item/item.js";
-import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
+import { CryptomancerItem } from "../item/item";
+import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 export interface Character {
   core: {

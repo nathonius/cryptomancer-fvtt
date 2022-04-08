@@ -1,7 +1,7 @@
 import type {
   ParsedRollResult,
   SkillCheckConfigFlag,
-} from "./skill-check.interface.js";
+} from "./skill-check.interface";
 import {
   CheckDifficulty,
   CheckDifficultyLabel,
@@ -9,8 +9,8 @@ import {
   CheckResultLabel,
   DieResult,
   DieType,
-} from "./skill-check.enum.js";
-import { getGame, l } from "../shared/util.js";
+} from "./skill-check.enum";
+import { getGame, l } from "../shared/util";
 import type { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 
 /**

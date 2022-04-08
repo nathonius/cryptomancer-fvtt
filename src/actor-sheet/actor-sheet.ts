@@ -1,8 +1,8 @@
 import type { CoreAlt } from "../actor/actor.interface";
-import { onManageActiveEffect } from "../shared/effects.js";
-import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
-import { SettingsService } from "../settings/settings.service.js";
-import { l } from "../shared/util.js";
+import { onManageActiveEffect } from "../shared/effects";
+import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import { SettingsService } from "../settings/settings.service";
+import { l } from "../shared/util";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
