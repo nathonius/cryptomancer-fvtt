@@ -1,7 +1,7 @@
 import {
   CheckDifficulty,
   CheckDifficultyLabel,
-} from "../skill-check/skill-check.enum.js";
+} from "../skill-check/skill-check.enum";
 
 export type SettingsKeys = "checkDifficulty";
 

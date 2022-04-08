@@ -1,5 +1,6 @@
-import { getGame } from "../shared/util.js";
-import { Settings, SettingsKeys, Module } from "./settings.constant.js";
+import { getGame } from "../shared/util";
+import type { SettingsKeys } from "./settings.constant";
+import { Settings, Module } from "./settings.constant";
 
 export class SettingsService {
   registerSettings(): void {
