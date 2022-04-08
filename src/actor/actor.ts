@@ -4,9 +4,9 @@ import {
   ActorData,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
-import { CheckDifficulty } from "../skill-check/skill-check.enum.js";
+import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
-import { SkillCheckService } from "../skill-check/skill-check.service.js";
+import { SkillCheckService } from "../skill-check/skill-check.service";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.

@@ -1,4 +1,4 @@
-import { SpellType, TrademarkItemType } from "../shared/enums/item.js";
+import { SpellType, TrademarkItemType } from "../shared/enums/item";
 
 export const SpellTypes: Record<SpellType, string> = {
   [SpellType.Cantrip]: "CRYPTOMANCER.SpellType.cantrip",
