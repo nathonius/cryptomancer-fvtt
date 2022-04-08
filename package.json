@@ -3,41 +3,27 @@
   "version": "0.1.1",
   "description": "The Cryptomancer system for FoundryVTT!",
   "scripts": {
-    "build": "rollup -c",
-    "build:watch": "rollup -cw",
-    "gulp:build": "gulp",
-    "gulp:serve": "gulp serve",
-    "gulp:watch": "gulp watch"
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "watch": "cross-env NODE_ENV=dev rollup -cw"
   },
   "browserslist": [
     "last 3 versions"
   ],
   "author": "OfficerHalf",
   "license": "MIT",
-  "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-cli": "^2.3.0",
-    "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "sass": "^1.49.9"
-  },
   "devDependencies": {
     "@guanghechen/rollup-plugin-copy": "^1.9.2",
     "@league-of-foundry-developers/foundry-vtt-types": "^9.249.4",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/fs-extra": "^9.0.13",
-    "@types/gulp": "^4.0.9",
-    "@types/gulp-autoprefixer": "^0.0.33",
-    "@types/gulp-sass": "^5.0.0",
-    "@types/gulp-sourcemaps": "^0.0.35",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "fs-extra": "^10.0.1",
-    "gulp-typescript": "^6.0.0-alpha.1",
     "rollup": "^2.70.1",
-    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.49.9",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   }
