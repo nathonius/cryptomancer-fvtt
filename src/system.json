@@ -2,12 +2,16 @@
   "name": "cryptomancer",
   "title": "Cryptomancer",
   "description": "The Cryptomancer system for FoundryVTT!",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
-  "esmodules": ["cryptomancer.js"],
-  "styles": ["cryptomancer.css"],
+  "esmodules": [
+    "cryptomancer.js"
+  ],
+  "styles": [
+    "cryptomancer.css"
+  ],
   "scripts": [],
   "packs": [
     {
