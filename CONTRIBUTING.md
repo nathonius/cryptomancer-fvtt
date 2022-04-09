@@ -7,19 +7,13 @@
 
 # Build
 
-The system is written in TypeScript, so there is a build step. Everything is automated through Gulp.
+The system is written in TypeScript, so there is a build step. Everything is automated through Rollup.
 
 ## Build System
 
 `npm run build`
 
 This will clean the `dist` folder if it exists and build the source to that folder.
-
-## Copy System to Foundry
-
-`npm run serve`
-
-This will clean the `cryptomancer` folder congfigured in `.env` and then copy the contents of the dist to it.
 
 ## Watch
 
