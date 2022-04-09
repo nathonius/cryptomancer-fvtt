@@ -1,0 +1,9 @@
+{
+  "releaseCommitMessageFormat": "build: release {{currentTag}}",
+  "bumpFiles": [
+    {
+      "filename": "src/system.json",
+      "type": "json"
+    }
+  ]
+}
