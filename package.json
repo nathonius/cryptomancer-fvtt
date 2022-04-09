@@ -1,10 +1,11 @@
 {
   "name": "cryptomancer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The Cryptomancer system for FoundryVTT!",
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
-    "watch": "cross-env NODE_ENV=dev rollup -cw"
+    "watch": "cross-env NODE_ENV=dev rollup -cw",
+    "release": "standard-version"
   },
   "browserslist": [
     "last 3 versions"
@@ -24,6 +25,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.49.9",
+    "standard-version": "^9.3.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   }
