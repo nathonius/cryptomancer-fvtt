@@ -1,6 +1,6 @@
 // Foundry
-import { Context } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
-import {
+import type { Context } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
+import type {
   ActorData,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
@@ -8,7 +8,7 @@ import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
-import { Cell } from "./actor.interface";
+import type { Cell } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.

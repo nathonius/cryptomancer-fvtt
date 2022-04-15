@@ -1,5 +1,5 @@
 // Foundry
-import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
+import type { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
 // Import document classes.
 import { CryptomancerActor } from "./actor/actor";
@@ -12,7 +12,7 @@ import { SkillCheckService } from "./skill-check/skill-check.service";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
 import { l } from "./shared/util";
-import { SpellType } from "./shared/enums/item";
+import type { SpellType } from "./shared/enums/item";
 import "./cryptomancer.scss";
 
 /* -------------------------------------------- */
@@ -138,6 +138,10 @@ Handlebars.registerHelper("safe", (arg: string) => {
 
 Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
+});
+
+Handlebars.registerHelper("stringify", (arg: any) => {
+  return JSON.stringify(arg);
 });
 
 /* -------------------------------------------- */

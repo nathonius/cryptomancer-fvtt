@@ -1,4 +1,4 @@
-import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import type { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 // TODO: Are all these properties being used?
 export type AugmentedData = ActorSheet.Data & {

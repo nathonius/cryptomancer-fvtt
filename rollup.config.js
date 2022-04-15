@@ -1,4 +1,8 @@
 import "dotenv/config";
+import svelte from "rollup-plugin-svelte";
+import sveltePreprocess from "svelte-preprocess";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 import copyPlugin from "@guanghechen/rollup-plugin-copy";
 import clear from "rollup-plugin-clear";
 import typescript from "@rollup/plugin-typescript";
@@ -46,6 +50,15 @@ const config = {
   plugins: [
     environment(process.env.NODE_ENV),
     clear({ targets: outputDirs }),
+    svelte({
+      preprocess: sveltePreprocess({ sourceMap: isDev }),
+      compilerOptions: {
+        dev: isDev,
+        customElement: true,
+      },
+    }),
+    resolve({ browser: true, dedupe: ["svelte"] }),
+    commonjs(),
     typescript({ noEmitOnError: isProd }),
     styles({
       mode: ["extract", `${name}.css`],

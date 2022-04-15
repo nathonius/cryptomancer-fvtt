@@ -53,32 +53,6 @@
           />
           <span class="label">Race</span>
         </label>
-        {{!--
-        <div>
-          <input
-            type="text"
-            class="common-name"
-            placeholder="Common Name"
-            name="name"
-            value="{{actor.name}}"
-          />
-        </div>
-        <span class="true-name">
-          (<input
-            type="text"
-            placeholder="True Name"
-            name="data.biography.trueName"
-            value="{{data.data.biography.trueName}}"
-          />)
-        </span>
-        <input
-          type="text"
-          class="pronouns"
-          placeholder="Pronouns"
-          name="data.biography.pronouns"
-          value="{{data.data.biography.pronouns}}"
-        />
-        --}}
       </div>
       <div class="pronouns-party">
         <label
@@ -175,7 +149,15 @@
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
-      <div class="sheet-cores">
+      <crypt-core-triad
+        core="speed"
+        coreValue={{data.data.core.speed.value}}
+        attribute1="agility"
+        attribute1Value={{data.data.core.speed.attributes.agility.value}}
+        attribute2="dexterity"
+        attribute2Value={{data.data.core.speed.attributes.dexterity.value}}
+      ></crypt-core-triad>
+      {{!-- <div class="sheet-cores">
         <div class="sheet-core">
           {{> "systems/cryptomancer/actor-sheet/components/core-triad.hbs"
           core=data.data.core.speed
@@ -226,7 +208,7 @@
             resource=data.data.manaPoints }}
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
       {{> "systems/cryptomancer/actor-sheet/components/feature-list.hbs" talents=data.data.talents spells=data.data.spells}}

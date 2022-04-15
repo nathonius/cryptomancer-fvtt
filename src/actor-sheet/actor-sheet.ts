@@ -43,6 +43,7 @@ export class CryptomancerActorSheet extends ActorSheet {
     // editable, the items array, and the effects array.
     const context = await super.getData();
     const augmented = this.augmentContext(context);
+
     return augmented;
   }
 

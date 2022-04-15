@@ -1,5 +1,5 @@
-import { CryptomancerItem } from "../item/item";
-import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import type { CryptomancerItem } from "../item/item";
+import type { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.enum";
 
 export interface Character {

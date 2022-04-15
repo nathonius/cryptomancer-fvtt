@@ -1,4 +1,4 @@
-import {
+import type {
   ParsedRollResult,
   SkillCheckConfigFlag,
 } from "./skill-check.interface";

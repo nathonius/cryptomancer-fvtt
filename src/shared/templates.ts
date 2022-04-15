@@ -1,9 +1,14 @@
+import { Button, CoreInput, FormField, ToggleBox } from "crypt-ui";
+import CoreTriad from "../actor-sheet/components/CoreTriad.svelte";
+import CoreTriadAttribute from "../actor-sheet/components/CoreTriadAttribute.svelte";
+
 /**
  * Define a set of template paths to pre-load
  * Pre-loaded templates are compiled and cached for fast access when rendering
  * @return {Promise}
  */
 export const preloadHandlebarsTemplates = async function () {
+  registerElements();
   return loadTemplates([
     "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
     "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
@@ -24,3 +29,24 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs",
   ]);
 };
+
+function registerElements(): void {
+  const elements: Array<{ tag: string; el: any }> = [
+    { el: Button, tag: "crypt-button" },
+    { el: CoreInput, tag: "crypt-input" },
+    { el: FormField, tag: "crypt-form-field" },
+    { el: ToggleBox, tag: "crypt-toggle-box" },
+    { el: CoreTriad, tag: "crypt-core-triad" },
+    { el: CoreTriadAttribute, tag: "crypt-core-triad-attribute" },
+  ];
+  elements.forEach((def) => {
+    registerElement(def.tag, def.el);
+  });
+}
+
+function registerElement(tag: string, el: any): void {
+  if (customElements.get(tag)) {
+    return;
+  }
+  customElements.define(tag, el);
+}

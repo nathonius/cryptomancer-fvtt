@@ -1,4 +1,4 @@
-import { CheckDifficulty, DieResult, DieType } from "./skill-check.enum";
+import type { CheckDifficulty, DieResult, DieType } from "./skill-check.enum";
 
 export interface ParsedRollResult {
   type: DieType;
