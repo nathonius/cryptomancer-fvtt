@@ -1,7 +1,7 @@
 .crypt-safehouse-room {
   padding: 8px;
-  border: 1px solid var(--crypt-primary--dark-3);
-  background-color: var(--crypt-neutral--light-1);
+  border: 1px solid var(--primary--dark-3);
+  background-color: var(--neutral--light-1);
 
   .room {
     &__header {
@@ -23,9 +23,9 @@
         padding: 4px;
         font-family: var(--font-primary);
         width: 100%;
-        color: var(--crypt-text);
-        background-color: var(--crypt-neutral--light-2);
-        border: 1px solid var(--crypt-primary);
+        color: var(--primary);
+        background-color: var(--neutral--light-2);
+        border: 1px solid var(--primary);
         border-radius: 0px;
         font-size: 18px;
       }
