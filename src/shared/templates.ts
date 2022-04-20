@@ -13,8 +13,8 @@ const partials: Record<string, string> = {
     "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
   cell: "systems/cryptomancer/actor-sheet/components/cell.hbs",
   textInput: "systems/cryptomancer/shared/components/text-input/text-input.hbs",
-  coreInput: "systems/cryptomancer/shared/components/core-input/core-input.hbs",
-  toggleBox: "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs",
+  coreInput: "systems/cryptomancer/shared/components/core-input.hbs",
+  toggleBox: "systems/cryptomancer/shared/components/toggle-box.hbs",
 };
 
 /**
