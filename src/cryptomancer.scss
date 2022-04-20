@@ -52,61 +52,88 @@
   --font-mono: monospace;
 }
 
+// :root {
+//   /* Palette - Primary */
+//   --crypt-primary: #00f8f8;
+//   --crypt-primary--dark-1: #00c5c5;
+//   --crypt-primary--dark-2: #009292;
+//   --crypt-primary--dark-3: #005f5f;
+//   --crypt-primary--light-1: #2cffff;
+//   --crypt-primary--light-2: #5fffff;
+//   --crypt-primary--light-3: #92ffff;
+//   /* Palette - Secondary */
+//   --crypt-secondary: #fe852c;
+//   --crypt-secondary--light-1: #fea25f;
+//   --crypt-secondary--light-2: #fec092;
+//   --crypt-secondary--light-3: #ffddc4;
+//   --crypt-secondary--dark-1: #f66901;
+//   --crypt-secondary--dark-2: #c35301;
+//   --crypt-secondary--dark-3: #903e01;
+//   /* Palette - Text */
+//   --crypt-text: var(--crypt-primary--light-3);
+//   /* Palette - Neutral */
+//   --crypt-neutral: #021114;
+//   --crypt-neutral--light-1: #031b20;
+//   --crypt-neutral--light-2: #04252b;
+//   --crypt-neutral--light-3: #052f37;
+//   --crypt-neutral--light-4: #073842;
+//   /* Palette - Fonts */
+//   --crypt-font-normal: "Titillium Web", "Signika", sans-serif;
+//   --crypt-font-accent: "Orbitron", "Signika", sans-serif;
+//   --crypt-font-mono: "Source Code Pro", monospace;
+
+//   /* New Theme Vars */
+//   --font-accent: var(--crypt-font-accent);
+//   --background-normal: var(--crypt-neutral);
+//   --background-light: var(--crypt-neutral--light-2);
+//   --background-lighter: var(--crypt-neutral--light-4);
+
+//   /* Overrides */
+//   --font-primary: var(--crypt-font-normal);
+//   --font-mono: var(--crypt-font-mono);
+//   --color-shadow-primary: var(--crypt-primary);
+//   --color-border-light-primary: var(--crypt-primary--light-1);
+//   --color-border-light-secondary: var(--crypt-primary--light-2);
+//   --color-border-light-tertiary: var(--crypt-primary--dark-1);
+//   --color-border-highlight-alt: var(--crypt-primary);
+//   --color-shadow-highlight: var(--crypt-primary--light-2);
+//   --color-border-highlight: var(--crypt-primary--light-2);
+//   --color-text-dark-inactive: var(--crypt-primary--dark-2);
+//   --color-text-dark-primary: var(--crypt-text);
+//   --color-text-light-primary: var(--crypt-text);
+//   --color-text-dark-secondary: var(--crypt-primary--dark-1);
+//   --color-bg-option: var(--crypt-neutral);
+//   --color-border-light-highlight: var(--crypt-primary--light-3);
+//   --color-bg-btn-minor-active: var(--crypt-neutral);
+//   --color-bg-btn-minor-inactive: var(--crypt-neutral--light-2);
+//   --color-border-dark-primary: var(--crypt-primary--light-1);
+//   // --color-shadow-primary: #00eeff;
+//   // --color-shadow-highlight: #00ffe1;
+//   // --color-border-highlight-alt: #00eeff;
+//   // --color-border-highlight: #00ffe1;
+//   --color-bg-light: #ffffff;
+//   --color-bg-stripe: #ececec;
+// }
+
 :root {
-  /* Palette - Primary */
-  --crypt-primary: #00f8f8;
-  --crypt-primary--dark-1: #00c5c5;
-  --crypt-primary--dark-2: #009292;
-  --crypt-primary--dark-3: #005f5f;
-  --crypt-primary--light-1: #2cffff;
-  --crypt-primary--light-2: #5fffff;
-  --crypt-primary--light-3: #92ffff;
-  /* Palette - Secondary */
-  --crypt-secondary: #fe852c;
-  --crypt-secondary--light-1: #fea25f;
-  --crypt-secondary--light-2: #fec092;
-  --crypt-secondary--light-3: #ffddc4;
-  --crypt-secondary--dark-1: #f66901;
-  --crypt-secondary--dark-2: #c35301;
-  --crypt-secondary--dark-3: #903e01;
-  /* Palette - Text */
-  --crypt-text: var(--crypt-primary--light-3);
-  /* Palette - Neutral */
-  --crypt-neutral: #021114;
-  --crypt-neutral--light-1: #031b20;
-  --crypt-neutral--light-2: #04252b;
-  --crypt-neutral--light-3: #052f37;
-  --crypt-neutral--light-4: #073842;
-  /* Palette - Fonts */
-  --crypt-font-normal: "Titillium Web", "Signika", sans-serif;
-  --crypt-font-accent: "Orbitron", "Signika", sans-serif;
-  --crypt-font-mono: "Source Code Pro", monospace;
-
-  /* New Theme Vars */
-  --font-accent: var(--crypt-font-accent);
-  --background-normal: var(--crypt-neutral);
-  --background-light: var(--crypt-neutral--light-2);
-  --background-lighter: var(--crypt-neutral--light-4);
-
   /* Overrides */
-  --font-primary: var(--crypt-font-normal);
   --font-mono: var(--crypt-font-mono);
-  --color-shadow-primary: var(--crypt-primary);
-  --color-border-light-primary: var(--crypt-primary--light-1);
-  --color-border-light-secondary: var(--crypt-primary--light-2);
-  --color-border-light-tertiary: var(--crypt-primary--dark-1);
-  --color-border-highlight-alt: var(--crypt-primary);
-  --color-shadow-highlight: var(--crypt-primary--light-2);
-  --color-border-highlight: var(--crypt-primary--light-2);
-  --color-text-dark-inactive: var(--crypt-primary--dark-2);
-  --color-text-dark-primary: var(--crypt-text);
-  --color-text-light-primary: var(--crypt-text);
-  --color-text-dark-secondary: var(--crypt-primary--dark-1);
-  --color-bg-option: var(--crypt-neutral);
-  --color-border-light-highlight: var(--crypt-primary--light-3);
-  --color-bg-btn-minor-active: var(--crypt-neutral);
-  --color-bg-btn-minor-inactive: var(--crypt-neutral--light-2);
-  --color-border-dark-primary: var(--crypt-primary--light-1);
+  --color-shadow-primary: var(--primary);
+  --color-border-light-primary: var(--primary--light-1);
+  --color-border-light-secondary: var(--primary--light-2);
+  --color-border-light-tertiary: var(--primary--dark-1);
+  --color-border-highlight-alt: var(--primary);
+  --color-shadow-highlight: var(--primary--light-2);
+  --color-border-highlight: var(--primary--light-2);
+  --color-text-dark-inactive: var(--primary--dark-2);
+  --color-text-dark-primary: var(--primary);
+  --color-text-light-primary: var(--primary);
+  --color-text-dark-secondary: var(--primary--dark-1);
+  --color-bg-option: var(--neutral);
+  --color-border-light-highlight: var(--primary--light-3);
+  --color-bg-btn-minor-active: var(--neutral);
+  --color-bg-btn-minor-inactive: var(--neutral--light-2);
+  --color-border-dark-primary: var(--primary--light-1);
   // --color-shadow-primary: #00eeff;
   // --color-shadow-highlight: #00ffe1;
   // --color-border-highlight-alt: #00eeff;
@@ -115,6 +142,8 @@
   --color-bg-stripe: #ececec;
 }
 
+@import "~crypt-ui";
+@import "~crypt-ui/src/fonts";
 @import "foundry";
 @import "shared/utility";
 @import "skill-check/skill-check";
