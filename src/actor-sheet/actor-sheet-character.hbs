@@ -124,43 +124,31 @@
       <div class="defenses">
         <div>
           <div class="defense">
-            {{> "systems/cryptomancer/actor-sheet/components/defense.hbs"
-            label="Dodge" value=data.data.core.speed.value desc="vs
-            melee/missile" }}
+            {{> defense label="Dodge" value=data.data.core.speed.value desc="vs melee/missile" }}
           </div>
           <div class="defense">
-            {{> "systems/cryptomancer/actor-sheet/components/defense.hbs"
-            label="Parry" value=data.data.core.power.value desc="vs melee" }}
+            {{> defense label="Parry" value=data.data.core.power.value desc="vs melee" }}
           </div>
         </div>
         <div>
           <div class="defense">
-            {{> "systems/cryptomancer/actor-sheet/components/defense.hbs"
-            label="Take Cover" value=data.data.core.wits.value desc="vs missile"
-            }}
+            {{> defense label="Take Cover" value=data.data.core.wits.value desc="vs missile" }}
           </div>
           <div class="defense">
-            {{> "systems/cryptomancer/actor-sheet/components/defense.hbs"
-            label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
+            {{> defense label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
           </div>
         </div>
         <div class="difficulty-selector">
           <span class="label">Check Difficulty</span>
-          <span class="difficulty"
-            >Trivial {{>
-            "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
-            id="difficulty-trivial" value=(is data.data.checkDifficulty 4)}}</span
-          >
-          <span class="difficulty"
-            >Challenging {{>
-            "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
-            id="difficulty-challenging" value=(is data.data.checkDifficulty 6)}}</span
-          >
-          <span class="difficulty"
-            >Tough {{>
-            "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
-            id="difficulty-tough" value=(is data.data.checkDifficulty 8)}}</span
-          >
+          <span class="difficulty">
+            Trivial {{> toggleBox id="difficulty-trivial" value=(is data.data.checkDifficulty 4)}}
+          </span>
+          <span class="difficulty">
+            Challenging {{> toggleBox id="difficulty-challenging" value=(is data.data.checkDifficulty 6)}}
+          </span>
+          <span class="difficulty">
+            Tough {{> toggleBox id="difficulty-tough" value=(is data.data.checkDifficulty 8)}}
+          </span>
         </div>
       </div>
     </div>
@@ -177,51 +165,51 @@
     <div class="tab core" data-group="primary" data-tab="core">
       <div class="sheet-cores">
         <div class="sheet-core">
-          {{> "systems/cryptomancer/actor-sheet/components/core-triad.hbs"
+          {{> coreTriad
           core=data.data.core.speed
           attrL=data.data.core.speed.attributes.agility
           attrR=data.data.core.speed.attributes.dexterity }}
           <div class="sheet-skills">
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            {{> skillList
             attr=data.data.core.speed.attributes.agility }} {{>
-            "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            skillList
             attr=data.data.core.speed.attributes.dexterity }}
           </div>
         </div>
         <div class="sheet-core">
-          {{> "systems/cryptomancer/actor-sheet/components/core-triad.hbs"
+          {{> coreTriad
           core=data.data.core.power
           attrL=data.data.core.power.attributes.strength
           attrR=data.data.core.power.attributes.endurance }}
           <div class="sheet-skills">
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            {{> skillList
             attr=data.data.core.power.attributes.strength }} {{>
-            "systems/cryptomancer/actor-sheet/components/resource-skill.hbs"
+            resourceSkill
             attr=data.data.core.power.attributes.endurance
             resource=data.data.healthPoints }}
           </div>
         </div>
         <div class="sheet-core">
-          {{> "systems/cryptomancer/actor-sheet/components/core-triad.hbs"
+          {{> coreTriad
           core=data.data.core.wits
           attrL=data.data.core.wits.attributes.knowledge
           attrR=data.data.core.wits.attributes.cunning }}
           <div class="sheet-skills">
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            {{> skillList
             attr=data.data.core.wits.attributes.knowledge }} {{>
-            "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            skillList
             attr=data.data.core.wits.attributes.cunning }}
           </div>
         </div>
         <div class="sheet-core">
-          {{> "systems/cryptomancer/actor-sheet/components/core-triad.hbs"
+          {{> coreTriad
           core=data.data.core.resolve
           attrL=data.data.core.resolve.attributes.presence
           attrR=data.data.core.resolve.attributes.willpower }}
           <div class="sheet-skills">
-            {{> "systems/cryptomancer/actor-sheet/components/skill-list.hbs"
+            {{> skillList
             attr=data.data.core.resolve.attributes.presence }} {{>
-            "systems/cryptomancer/actor-sheet/components/resource-skill.hbs"
+            resourceSkill
             attr=data.data.core.power.attributes.presence
             resource=data.data.manaPoints }}
           </div>
@@ -229,13 +217,13 @@
       </div>
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
-      {{> "systems/cryptomancer/actor-sheet/components/feature-list.hbs" talents=data.data.talents spells=data.data.spells}}
+      {{> featureList talents=data.data.talents spells=data.data.spells}}
     </div>
     <div class="tab gear" data-group="primary" data-tab="gear">
-      {{> "systems/cryptomancer/actor-sheet/components/gear.hbs"}}
+      {{> gear }}
     </div>
     <div class="tab bio" data-group="primary" data-tab="bio">
-      {{> "systems/cryptomancer/actor-sheet/components/bio.hbs"}}
+      {{> bio }}
     </div>
   </section>
 </form>

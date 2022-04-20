@@ -10,9 +10,9 @@
   <div class="crypt-party-cell__operations">
     <span class="operations-label rollable" data-index="{{index}}">{{localize "CRYPTOMANCER.Skill.operations"}}</span>
     <div class="operations-inputs">
-      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "cell-" index "-break") placeholder="1" value=cell.skillBreak name=(concat "data.cells." index ".skillBreak") }}
-      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" size="small" value=cell.operations name=(concat "data.cells." index ".operations") }}
-      {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat "cell-" index "-push") placeholder="10" value=cell.skillPush name=(concat "data.cells." index ".skillPush") }}
+      {{> toggleBox id=(concat "cell-" index "-break") placeholder="1" value=cell.skillBreak name=(concat "data.cells." index ".skillBreak") }}
+      {{> coreInput size="small" value=cell.operations name=(concat "data.cells." index ".operations") }}
+      {{> toggleBox id=(concat "cell-" index "-push") placeholder="10" value=cell.skillPush name=(concat "data.cells." index ".skillPush") }}
     </div>
   </div>
   <div class="crypt-party-cell__time">

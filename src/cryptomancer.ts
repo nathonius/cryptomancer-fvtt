@@ -140,6 +140,15 @@ Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
 
+Handlebars.registerHelper("partial", (name: string, context: any) => {
+  if (typeof name !== "string" || !Handlebars.partials[name]) {
+    console.warn(`No partial ${name} registered.`);
+    return "";
+  }
+  const template = Handlebars.compile(Handlebars.partials[name]);
+  return template(context);
+});
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */

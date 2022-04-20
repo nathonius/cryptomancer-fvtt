@@ -15,11 +15,7 @@
     </div>
   </div>
   <div class="toggles">
-    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
-    id=(concat "break-" resource.key) value=attr.break name=(concat "data.core."
-    attr.core ".attributes." attr.key ".break") placeholder="1" }} {{>
-    "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs"
-    id=(concat "push-" resource.key) value=attr.push name=(concat "data.core."
-    attr.core ".attributes." attr.key ".push") placeholder="10" }}
+    {{> toggleBox id=(concat "break-" resource.key) value=attr.break name=(concat "data.core." attr.core ".attributes." attr.key ".break") placeholder="1" }}
+    {{> toggleBox id=(concat "push-" resource.key) value=attr.push name=(concat "data.core." attr.core ".attributes." attr.key ".push") placeholder="10" }}
   </div>
 </div>

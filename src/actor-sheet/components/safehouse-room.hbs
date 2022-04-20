@@ -3,10 +3,10 @@
 -->
 <div class="crypt-safehouse-room {{room.type}}">
   <div class="room__header">
-    {{> "systems/cryptomancer/shared/components/toggle-box/toggle-box.hbs" id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned}}
+    {{> toggleBox id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned}}
     <h3>{{localize (concat "CRYPTOMANCER.SafehouseRoomType." room.type)}}</h3>
     {{#if room.cost}}
-      {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs" size="small" value=room.cost readonly=true}}
+      {{> coreInput size="small" value=room.cost readonly=true}}
     {{/if}}
   </div>
   <div class="room__desc">

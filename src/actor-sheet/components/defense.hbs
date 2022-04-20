@@ -5,11 +5,7 @@
 -->
 <div class="crypt-defense">
   <div class="label">{{ label }}</div>
-  {{> "systems/cryptomancer/shared/components/core-input/core-input.hbs"
-  value=value
-  readonly=true
-  size="small"
-  }}
+  {{> coreInput value=value readonly=true size="small" }}
   <div class="desc">
     {{ desc }}
   </div>
