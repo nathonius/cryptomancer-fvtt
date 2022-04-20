@@ -1,5 +1,5 @@
-import { Button, CoreInput, FormField, ToggleBox } from "crypt-ui";
-import CoreTriad from "../actor-sheet/components/CoreTriad.svelte";
+import { Button, CoreInput, CoreTriad, FormField, ToggleBox } from "crypt-ui";
+// import CoreTriad from "../actor-sheet/components/CoreTriad.svelte";
 import CoreTriadAttribute from "../actor-sheet/components/CoreTriadAttribute.svelte";
 
 /**

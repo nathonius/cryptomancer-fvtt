@@ -33,6 +33,10 @@ export class CryptomancerActorSheet extends ActorSheet {
     return `systems/cryptomancer/actor-sheet/actor-sheet-${this.actor.data.type}.hbs`;
   }
 
+  protected override _renderInner(
+    data: ActorSheet.Data<ActorSheet.Options>
+  ): Promise<JQuery<HTMLElement>> {}
+
   /* -------------------------------------------- */
 
   /** @override */
