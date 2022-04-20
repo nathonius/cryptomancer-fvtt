@@ -10,7 +10,7 @@
       width: 100%;
 
       tr:nth-child(even) {
-        background-color: var(--background-lighter);
+        background-color: var(--neutral--light-4);
       }
 
       .avatar {
@@ -37,7 +37,7 @@
           margin: 0;
           background-color: transparent;
           border: none;
-          color: var(--crypt-primary--dark-2);
+          color: var(--primary--dark-2);
 
           // Have to do this hack because font awesome is super inconsistent with aspect ratios...
           &.delete {
@@ -46,7 +46,7 @@
 
           &:hover,
           &:focus {
-            color: var(--crypt-primary);
+            color: var(--primary);
             box-shadow: none;
           }
 

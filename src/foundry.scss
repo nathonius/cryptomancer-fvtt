@@ -2,75 +2,75 @@
 body.system-cryptomancer {
   /* Body */
   background-image: none;
-  background-color: var(--background-normal);
+  background-color: var(--neutral);
   box-shadow: none;
 
   /* UI Elements */
   .app {
     background-image: none;
-    background-color: var(--background-normal);
+    background-color: var(--neutral);
     box-shadow: none;
   }
 
   .window-app {
-    border: 1px solid var(--crypt-primary);
+    border: 1px solid var(--primary);
     border-radius: 0px;
 
     .window-header {
-      background-color: var(--crypt-primary);
-      color: var(--crypt-neutral);
+      background-color: var(--primary);
+      color: var(--neutral);
     }
     .window-content {
       background-image: none;
-      background-color: var(--background-light);
-      color: var(--crypt-text);
+      background-color: var(--neutral--light-2);
+      color: var(--primary);
     }
   }
 
   /* Buttons */
   button {
-    background-color: var(--background-normal);
-    border: 1px solid var(--crypt-primary);
+    background-color: var(--neutral);
+    border: 1px solid var(--primary);
     color: var(--color-text-dark-primary);
     border-radius: 0px;
     cursor: pointer;
   }
 
   button:disabled {
-    border-color: var(--crypt-primary--dark-2);
-    color: var(--crypt-primary--dark-2);
+    border-color: var(--primary--dark-2);
+    color: var(--primary--dark-2);
     cursor: not-allowed;
   }
 
   /* Specific Buttons */
   a.editor-edit {
-    background-color: var(--background-normal);
+    background-color: var(--neutral);
     border-radius: 0px;
-    border-color: var(--crypt-primary);
+    border-color: var(--primary);
   }
 
   /* Select */
   optgroup {
-    background-color: var(--crypt-neutral);
+    background-color: var(--neutral);
   }
 
   /* Specific Selects/Inputs */
   #chat-controls .roll-type-select,
   .directory .directory-header .header-search input {
-    background-color: var(--crypt-neutral);
+    background-color: var(--neutral);
   }
 
   /* Slider */
   input[type="range"]::-webkit-slider-runnable-track {
-    background-color: var(--crypt-primary--dark-3);
+    background-color: var(--primary--dark-3);
   }
   input[type="range"]::-webkit-slider-thumb {
-    background-color: var(--crypt-secondary);
+    background-color: var(--secondary);
   }
 
   /* Editor */
   .mce-content-body {
-    color: var(--crypt-primary);
+    color: var(--primary);
   }
   .tox.tox-tinymce .tox-edit-area__iframe {
     background-color: white;
@@ -79,32 +79,32 @@ body.system-cryptomancer {
   /* Chat messages */
   .chat-message {
     background-image: none;
-    background-color: var(--background-light);
+    background-color: var(--neutral--light-2);
     border-width: 1px;
     border-color: var(--color-border-light-tertiary);
-    box-shadow: 0 0 4px var(--crypt-primary) inset;
+    box-shadow: 0 0 4px var(--primary) inset;
     margin: 10px;
   }
 
   select,
   #chat-form textarea {
     color: var(--color-text-dark-primary);
-    background-color: var(--background-light);
+    background-color: var(--neutral--light-2);
     background-image: none;
   }
 
   /* Scrollbar */
   ::-webkit-scrollbar-track {
-    box-shadow: 0 0 1px var(--background-lighter) inset;
+    box-shadow: 0 0 1px var(--neutral--light-4) inset;
   }
   ::-webkit-scrollbar-thumb {
     outline: none;
     border-radius: 3px;
-    background: var(--crypt-primary--dark-3);
-    border: 1px solid var(--crypt-primary--light-1);
+    background: var(--primary--dark-3);
+    border: 1px solid var(--primary--light-1);
   }
   :root {
     scrollbar-width: thin;
-    scrollbar-color: var(--crypt-primary--dark-3) #111;
+    scrollbar-color: var(--primary--dark-3) #111;
   }
 }

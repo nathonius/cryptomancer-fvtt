@@ -19,8 +19,8 @@
 
     .trademark-item {
       position: relative;
-      border: 1px solid var(--crypt-primary);
-      box-shadow: 0 0 4px var(--crypt-primary);
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 4px var(--primary);
       padding: 4px;
 
       &__name {
@@ -71,7 +71,7 @@
         margin: 0;
         background-color: transparent;
         border: none;
-        color: var(--crypt-primary--dark-2);
+        color: var(--primary--dark-2);
 
         // Have to do this hack because font awesome is super inconsistent with aspect ratios...
         &.delete {
@@ -80,7 +80,7 @@
 
         &:hover,
         &:focus {
-          color: var(--crypt-primary);
+          color: var(--primary);
           box-shadow: none;
         }
 

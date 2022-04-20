@@ -2,9 +2,9 @@
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: 8px;
-  border: 1px solid var(--crypt-primary);
+  border: 1px solid var(--primary);
   padding: 4px;
-  background-color: var(--crypt-neutral--light-1);
+  background-color: var(--neutral--light-1);
 
   &__desc {
     input {
@@ -22,11 +22,11 @@
       font-family: var(--font-accent);
       font-size: 10px;
       text-align: center;
-      color: var(--crypt-primary--dark-1);
+      color: var(--primary--dark-1);
       cursor: pointer;
       &:hover {
         text-shadow: 0 0 8px var(--color-shadow-primary);
-        color: var(--crypt-primary);
+        color: var(--primary);
       }
     }
     .operations-inputs {
@@ -46,13 +46,13 @@
         text-shadow: 0 0 8px var(--color-shadow-primary);
       }
       &.active {
-        background-color: var(--crypt-neutral--light-4);
+        background-color: var(--neutral--light-4);
       }
     }
     label {
       text-align: center;
       align-self: baseline;
-      color: var(--crypt-primary--dark-2);
+      color: var(--primary--dark-2);
     }
     input {
       grid-column: span 2;
