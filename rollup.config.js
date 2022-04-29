@@ -4,6 +4,8 @@ import clear from "rollup-plugin-clear";
 import typescript from "@rollup/plugin-typescript";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
+import node from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
 
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
@@ -46,7 +48,16 @@ const config = {
   plugins: [
     environment(process.env.NODE_ENV),
     clear({ targets: outputDirs }),
+    node(),
     typescript({ noEmitOnError: isProd }),
+    replace({
+      preventAssignment: true,
+      values: {
+        "process.env.NODE_ENV": isProd
+          ? JSON.stringify("production")
+          : JSON.stringify("development"),
+      },
+    }),
     styles({
       mode: ["extract", `${name}.css`],
       url: false,

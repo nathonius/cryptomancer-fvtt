@@ -98,6 +98,8 @@ export interface Character {
     key: string;
     value: number;
     max: number;
+    criticalWound: boolean;
+    mortalWound: boolean;
   };
   manaPoints: {
     label: string;

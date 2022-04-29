@@ -1,0 +1,29 @@
+{{!
+@Input core: {
+  label: string;
+  key: string;
+  value: string;
+  attributes: Array<{
+    label: string;
+    key: string;
+    value: string;
+  }>
+}
+}}
+
+<div class="crypt-mini-triad">
+  <div class="core-label">
+    {{l this.label}}
+  </div>
+  <div class="triad">
+    <div class="core-value">
+      {{> coreInput value=this.value name=(concat "data.core." this.key ".value") size="large"}}
+    </div>
+    {{#each attributes}}
+      <div class="core">
+        {{> coreInput value=this.value name=(concat "data.core." ../key ".attributes." this.key ".value") size="small"}}
+        <a class="rollable" data-roll-core="{{../key}}" data-roll-attribute="{{this.key}}">{{l this.label}}</a>
+      </div>
+    {{/each}}
+  </div>
+</div>

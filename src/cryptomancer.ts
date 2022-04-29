@@ -88,12 +88,13 @@ Hooks.once("init", async function () {
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
-/**
- * TODO: Figure out if this is actually required. or if there's
- * a built-in way to check equality. I hate handlebars. :(
- */
+// General Helpers
 Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
   return source === target;
+});
+
+Handlebars.registerHelper("ne", (source: unknown, target: unknown) => {
+  return source !== target;
 });
 
 Handlebars.registerHelper("lt", (a: any, b: any) => {
@@ -102,10 +103,6 @@ Handlebars.registerHelper("lt", (a: any, b: any) => {
 
 Handlebars.registerHelper("add", (a: number, b: number) => {
   return a + b;
-});
-
-Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
-  return l(`SpellType.${type}`);
 });
 
 Handlebars.registerHelper(
@@ -121,7 +118,6 @@ Handlebars.registerHelper(
   }
 );
 
-// If you need to add Handlebars helpers, here are a few useful examples:
 Handlebars.registerHelper("concat", function () {
   var outStr = "";
   for (var arg in arguments) {
@@ -136,17 +132,42 @@ Handlebars.registerHelper("safe", (arg: string) => {
   return new Handlebars.SafeString(arg);
 });
 
-Handlebars.registerHelper("toLowerCase", function (str) {
-  return str.toLowerCase();
+Handlebars.registerHelper("toLowerCase", (input: string) => {
+  return input.toLowerCase();
 });
 
-Handlebars.registerHelper("partial", (name: string, context: any) => {
-  if (typeof name !== "string" || !Handlebars.partials[name]) {
-    console.warn(`No partial ${name} registered.`);
-    return "";
+Handlebars.registerHelper("toUpperCase", (input: string) => {
+  return input.toUpperCase();
+});
+
+Handlebars.registerHelper("l", (key: string) => {
+  return l(key);
+});
+
+// Sheet Specific Helpers
+Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
+  return l(`SpellType.${type}`);
+});
+
+Handlebars.registerHelper("firstHalf", (array: any[]) => {
+  if (!array || array.length === 0) {
+    return [];
   }
-  const template = Handlebars.compile(Handlebars.partials[name]);
-  return template(context);
+  return array.slice(0, Math.floor(array.length / 2));
+});
+
+Handlebars.registerHelper("lastHalf", (array: any[]) => {
+  if (!array || array.length === 0) {
+    return [];
+  }
+  return array.slice(Math.floor(array.length / 2));
+});
+
+/**
+ * Lookup and localize the short version of an attribute name
+ */
+Handlebars.registerHelper("shortAttr", (attribute: string) => {
+  return l(`ShortAttr.${attribute}`);
 });
 
 /* -------------------------------------------- */
