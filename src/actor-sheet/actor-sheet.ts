@@ -1,14 +1,20 @@
-import type { CoreAlt } from "../actor/actor.interface";
-import { onManageActiveEffect } from "../shared/effects";
+import type { AttributeAlt, CoreAlt } from "../actor/actor.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { SettingsService } from "../settings/settings.service";
 import { l } from "../shared/util";
+import { AugmentedData } from "./actor-sheet.interface";
+
+// Remove this when migrating to v10
+import tippy from "tippy.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class CryptomancerActorSheet extends ActorSheet {
+export class CryptomancerActorSheet extends ActorSheet<
+  DocumentSheetOptions,
+  AugmentedData
+> {
   private readonly settings = new SettingsService();
 
   /** @override */
@@ -16,11 +22,11 @@ export class CryptomancerActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],
       template: "systems/cryptomancer/actor-sheet/actor-sheet.hbs",
-      width: 625,
-      height: 720,
+      width: 680,
+      height: 840,
       tabs: [
         {
-          navSelector: ".sheet-tabs",
+          navSelector: ".crypt-tabs",
           contentSelector: ".sheet-body",
           initial: "core",
         },
@@ -51,17 +57,56 @@ export class CryptomancerActorSheet extends ActorSheet {
    * Add data that is specifically for rendering sheets, mainly
    * inputs for partial components.
    */
-  private augmentContext(
-    context: ActorSheet.Data<ActorSheet.Options>
-  ): ActorSheet.Data<ActorSheet.Options> {
+  private augmentContext(context: AugmentedData): AugmentedData {
     // Prepare character data and items.
     if (context.data.type === "character") {
-      this._prepareItems(context);
       this.prepareCharacterData(context);
       // Get configured check difficulty
       context.data.data.checkDifficulty =
         this.settings.getSetting("checkDifficulty") ??
         CheckDifficulty.Challenging;
+
+      // Prep data for rendering
+      context.hpAttributeBar = {
+        color: "success",
+        max: context.data.data.healthPoints.max,
+        maxName: "data.healthPoints.max",
+        maxPlaceholder: "Max HP",
+        value: context.data.data.healthPoints.value,
+        valueName: "data.healthPoints.value",
+        valuePlaceholder: "HP",
+        class: "hp",
+        tooltip: "HP",
+      };
+      context.manaAttributeBar = {
+        color: "primary",
+        max: context.data.data.manaPoints.max,
+        maxName: "data.manaPoints.max",
+        maxPlaceholder: "Max Mana",
+        value: context.data.data.manaPoints.value,
+        valueName: "data.manaPoints.value",
+        valuePlaceholder: "MP",
+        class: "mp",
+        tooltip: "MP",
+      };
+
+      // Prep skills for rendering
+      context.skills = [];
+      Object.values(context.data.data.core).forEach((core) => {
+        Object.values(core.attributes).forEach((attr: AttributeAlt) => {
+          if (attr.skills) {
+            Object.values(attr.skills).forEach((skill) => {
+              skill.label = l(skill.label);
+              context.skills.push({
+                ...skill,
+                core: core.key,
+                attributeValue: attr.value,
+              });
+            });
+          }
+        });
+      });
+      context.skills.sort((a, b) => (a.label > b.label ? 1 : -1));
     }
 
     return context;
@@ -79,51 +124,26 @@ export class CryptomancerActorSheet extends ActorSheet {
 
     // Handle labels.
     // Localize resources
-    context.data.data.healthPoints.label = l(
-      context.data.data.healthPoints.label
-    );
-    context.data.data.manaPoints.label = l(context.data.data.manaPoints.label);
-    context.data.data.upgradePoints.label = l(
-      context.data.data.upgradePoints.label
-    );
+    // context.data.data.healthPoints.label = l(
+    //   context.data.data.healthPoints.label
+    // );
+    // context.data.data.manaPoints.label = l(context.data.data.manaPoints.label);
+    // context.data.data.upgradePoints.label = l(
+    //   context.data.data.upgradePoints.label
+    // );
 
     // Localize core, attribute, skill
-    for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
-      coreValue.label = l(`Core.${coreKey}`);
-      for (let [attrKey, attrValue] of Object.entries(
-        (coreValue as CoreAlt).attributes
-      )) {
-        attrValue.label = l(`Attr.${attrKey}`);
-        if (attrValue.skills) {
-          for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
-            skillValue.label = l(`Skill.${skillKey}`);
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Organize and classify Items for Character sheets.
-   *
-   * @param {Object} actorData The actor to prepare.
-   *
-   * @return {undefined}
-   */
-  _prepareItems(context: ActorSheet.Data<ActorSheet.Options>) {
-    // // Initialize containers.
-    // const gear: ActorSheetItem[] = [];
-    // const talents: ActorSheetItem[] = [];
-    // // Iterate through items, allocating to containers
-    // for (let i of context.items) {
-    //   i.img = i.img || CONST.DEFAULT_TOKEN;
-    //   // Append to gear.
-    //   if (i.type === "item") {
-    //     gear.push(i);
-    //   }
-    //   // Append to features.
-    //   else if (i.type === "talent") {
-    //     talents.push(i);
+    // for (let [coreKey, coreValue] of Object.entries(context.data.data.core)) {
+    //   coreValue.label = l(`Core.${coreKey}`);
+    //   for (let [attrKey, attrValue] of Object.entries(
+    //     (coreValue as CoreAlt).attributes
+    //   )) {
+    //     attrValue.label = l(`Attr.${attrKey}`);
+    //     if (attrValue.skills) {
+    //       for (let [skillKey, skillValue] of Object.entries(attrValue.skills)) {
+    //         skillValue.label = l(`Skill.${skillKey}`);
+    //       }
+    //     }
     //   }
     // }
   }
@@ -135,6 +155,11 @@ export class CryptomancerActorSheet extends ActorSheet {
     super.activateListeners(html);
     this._activateCharacterListenters(html);
     this._activatePartyListenters(html);
+    tippy("[data-tooltip]", {
+      content: (reference) => {
+        return (reference as HTMLElement).dataset.tooltip as string;
+      },
+    });
 
     // html.find(".talent-table .talent-row").each((_, row) => {
     //   const id = row.dataset.talentId;

@@ -311,7 +311,9 @@
         "label": "healthPoints",
         "key": "healthPoints",
         "value": 10,
-        "max": 10
+        "max": 10,
+        "criticalWound": false,
+        "mortalWound": false
       },
       "manaPoints": {
         "label": "manaPoints",

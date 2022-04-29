@@ -1,0 +1,16 @@
+.crypt-skill {
+  height: 100%;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, auto) 1fr repeat(2, auto);
+  gap: 6px;
+  align-items: center;
+  .skill-name {
+    font-size: 1rem;
+  }
+  .short-attr,
+  .attr-value {
+    font-size: 0.8;
+    opacity: 0.5;
+  }
+}

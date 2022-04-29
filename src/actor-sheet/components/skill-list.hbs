@@ -1,27 +1,8 @@
-<!--
-  @Input attr: Attribute
--->
+{{!
+@Input context: Array<Skill & {core: string, attributeValue: number}>;
+}}
 <div class="crypt-skill-list">
-  {{#each attr.skills as |skill skillKey|}}
-  <div class="skill">
-    <span class="skill-name rollable" data-roll-core="{{../attr.core}}" data-roll-attribute="{{skill.attribute}}"
-      data-roll-skill="{{skillKey}}">
-      {{skill.label}}
-    </span>
-    <div class="toggles">
-      {{> toggleBox
-      id=(concat "break-" skillKey)
-      value=skill.break
-      name=(concat "data.core." ../attr.core ".attributes." skill.attribute ".skills." skillKey ".break")
-      placeholder="1"
-      }}
-      {{> toggleBox
-      id=(concat "push-" skillKey)
-      value=skill.push
-      name=(concat "data.core." ../attr.core ".attributes." skill.attribute ".skills." skillKey ".push")
-      placeholder="10"
-      }}
-    </div>
-  </div>
+  {{#each this}}
+  {{> skill this }}
   {{/each}}
 </div>

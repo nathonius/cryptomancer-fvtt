@@ -1,25 +1,21 @@
 .crypt-skill-list {
-  min-width: 150px;
-  .skill {
-    display: flex;
-    justify-content: space-between;
-    padding: 2px 4px;
-    background-color: var(--neutral--light-4);
-    &:nth-child(even) {
-      background-color: var(--neutral);
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  grid-auto-columns: 1fr;
+  flex-grow: 1;
+  &:first-of-type {
+    .crypt-skill {
+      &:nth-child(even) {
+        background-color: var(--neutral--light-3);
+      }
     }
   }
-
-  .skill-name {
-    cursor: pointer;
-    &:hover {
-      text-shadow: 0 0 8px var(--color-shadow-primary);
+  &:last-of-type {
+    .crypt-skill {
+      &:nth-child(odd) {
+        background-color: var(--neutral--light-3);
+      }
     }
-  }
-
-  .toggles {
-    display: flex;
-    gap: 4px;
-    margin-left: 4px;
   }
 }
