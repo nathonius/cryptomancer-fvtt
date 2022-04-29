@@ -1,7 +1,9 @@
 import { getGame } from "./util";
 
 const partials: Record<string, string> = {
+  attributeBar: "systems/cryptomancer/shared/components/attribute-bar.hbs",
   coreTriad: "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
+  miniTriad: "systems/cryptomancer/actor-sheet/components/mini-triad.hbs",
   skillList: "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
   resourceSkill:
     "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",
@@ -12,9 +14,10 @@ const partials: Record<string, string> = {
   safehouseRoom:
     "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
   cell: "systems/cryptomancer/actor-sheet/components/cell.hbs",
-  textInput: "systems/cryptomancer/shared/components/text-input/text-input.hbs",
+  formField: "systems/cryptomancer/shared/components/form-field.hbs",
   coreInput: "systems/cryptomancer/shared/components/core-input.hbs",
   toggleBox: "systems/cryptomancer/shared/components/toggle-box.hbs",
+  skill: "systems/cryptomancer/actor-sheet/components/skill.hbs",
 };
 
 /**

@@ -1,0 +1,19 @@
+{{!
+@Input label: string;
+@Input id: string;
+@Input mode: "default" | "stacked" | "full" | "count";
+@Input value: string;
+@Input name: string;
+}}
+
+<div class="crypt-form-field {{mode}}">
+  {{#if (is mode "count")}}
+    <input id={{id}} value={{value}} name={{name}} />
+  {{/if}}
+  {{#if (ne mode "full")}}
+    <label for={{id}}>{{label}}</label>
+  {{/if}}
+  {{#if (ne mode "count")}}
+    <input id={{id}} value={{value}} name={{name}} />
+  {{/if}}
+</div>

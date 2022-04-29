@@ -1,4 +1,5 @@
 @import "./components/core-triad";
+@import "./components/mini-triad";
 @import "./components/defense";
 @import "./components/resource-skill";
 @import "./components/skill-list";
@@ -7,100 +8,106 @@
 @import "./components/gear";
 @import "./components/safehouse-room";
 @import "./components/cell";
+@import "./components/skill.scss";
 
 .crypt-actor-sheet {
   &.character {
+    // Overrides base form application 8px padding
+    margin: -8px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     header {
-      display: flex;
-      gap: 8px;
-      .bio {
-        flex-grow: 1;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      box-sizing: content-box;
+      padding: 8px;
+      gap: 10px;
+      min-height: 232px;
+      .avatar {
+        display: grid;
+        grid-template-rows: 1fr auto auto;
+        gap: 2px;
+        img {
+          width: 100%;
+          max-height: 180px;
+        }
+      }
+      .bio-defense {
         display: flex;
-        flex-direction: column;
-        gap: 8px;
-        .name {
-          font-family: var(--font-accent);
+        gap: 10px;
+        .bio {
           display: flex;
-          gap: 8px;
-          line-height: 0.9rem;
-          label {
-            min-width: 60px;
-            &::after,
+          flex-direction: column;
+          justify-content: space-between;
+          flex-grow: 1;
+          .crypt-form-field {
             input {
-              height: 40px;
-              font-size: 1.8rem;
+              width: 175px;
+              font-size: 1.3rem;
+              font-family: var(--font-accent);
             }
-            .label {
-              text-transform: uppercase;
+            &:first-child {
+              padding-top: 0;
             }
           }
         }
-        .pronouns-party {
-          font-family: var(--font-accent);
+        .defenses {
           display: flex;
-          gap: 8px;
-          line-height: 0.9rem;
-          label {
-            min-width: 60px;
-            &::after,
-            input {
-              font-size: 1rem;
-            }
-          }
-          .upgrade-points {
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .difficulty-selector {
+          align-items: center;
+          justify-content: space-between;
+          .toggles {
+            height: 26px;
             display: flex;
             align-items: center;
             gap: 8px;
-            input {
-              display: block;
-              text-align: center;
-              width: 60px;
-              height: 40px;
-              font-size: 24px;
-            }
           }
         }
-      }
-      .defenses {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        .difficulty-selector {
+        .wounds {
           display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 4px;
-
-          .difficulty {
-            display: flex;
-            gap: 4px;
-          }
+          align-items: center;
+          height: 30px;
+          gap: 8px;
+          padding: 4px;
+          background-color: var(--neutral--light-4);
         }
       }
     }
     .sheet-body {
+      padding: 8px;
       flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-
-      .tab[data-tab].active {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
+      .tab {
+        height: 100%;
       }
-    }
-    .sheet-cores {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .sheet-core {
-        width: 300px;
-        margin-bottom: 8px;
-        .sheet-skills {
+      .tab.core.active {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 8px;
+        .cores {
           display: flex;
-          justify-content: flex-end;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .skills {
+          display: flex;
+          flex-direction: column;
+          .skills-label {
+            margin: 0;
+            font-family: var(--font-accent);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          .skill-lists {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            gap: 8px;
+          }
         }
       }
     }

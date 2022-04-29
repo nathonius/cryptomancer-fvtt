@@ -1,12 +1,18 @@
-<!--
+{{!
   @Input id: string;
   @Input value: boolean;
   @Input name: string;
   @Input placeholder?: string;
   @Input index?: string;
--->
+  @Input color?: string;
+  @Input round?: boolean;
+  @Input tooltip?: string;
+}}
 
-<div class="crypt-toggle-box">
+<div
+  class="crypt-toggle-box {{#if color}}{{color}}{{/if}} {{#if round}}round{{/if}}"
+  {{#if tooltip}}data-tooltip="{{tooltip}}"{{/if}}
+>
   <input
     class="visually-hidden"
     id="{{id}}"

@@ -1,0 +1,33 @@
+.crypt-mini-triad {
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--neutral--light-3);
+  }
+  .core-label {
+    font-family: var(--font-accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
+  .triad {
+    font-family: var(--font-accent);
+    display: grid;
+    align-items: center;
+    row-gap: 16px;
+    column-gap: 18px;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 8px 0px;
+    .core-value {
+      grid-row: span 2;
+    }
+    .core {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      a {
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}

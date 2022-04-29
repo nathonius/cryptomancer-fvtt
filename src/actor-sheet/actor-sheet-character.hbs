@@ -5,166 +5,94 @@
         src="{{ actor.img }}"
         data-edit="img"
         title="{{ actor.name }}"
-        height="180"
-        width="180"
       />
+      {{> attributeBar hpAttributeBar}}
+      {{> attributeBar manaAttributeBar}}
     </div>
-    <div class="bio">
-      <div class="name">
-        <label
-          class="input-sizer stacked common-name"
-          data-value="{{actor.name}}"
-        >
-          <input
-            type="text"
-            oninput="this.parentNode.dataset.value = this.value"
-            size="1"
-            name="name"
-            value="{{actor.name}}"
-          />
-          <span class="label">Common Name</span>
-        </label>
-        <div class="flex-spacer"></div>
-        <label
-          class="input-sizer stacked true-name"
-          data-value="{{data.data.biography.trueName}}"
-        >
-          <input
-            type="text"
-            oninput="this.parentNode.dataset.value = this.value"
-            size="1"
-            name="data.biography.trueName"
-            placeholder="Barry"
-            value="{{data.data.biography.trueName}}"
-          />
-          <span class="label">True Name</span>
-        </label>
-        <label
-          class="input-sizer stacked race"
-          data-value="{{data.data.biography.race}}"
-        >
-          <input
-            type="text"
-            oninput="this.parentNode.dataset.value = this.value"
-            size="1"
-            name="data.biography.race"
-            placeholder="race"
-            value="{{data.data.biography.race}}"
-          />
-          <span class="label">Race</span>
-        </label>
-        {{!--
-        <div>
-          <input
-            type="text"
-            class="common-name"
-            placeholder="Common Name"
-            name="name"
-            value="{{actor.name}}"
-          />
+    <div class="bio-defense">
+      <div class="bio">
+        <div class="crypt-form-field">
+          <label for="name-field">Common Name</label>
+          <input id="name-field" placeholder="Enter your name..." name="name" value="{{actor.name}}"/>
         </div>
-        <span class="true-name">
-          (<input
-            type="text"
-            placeholder="True Name"
-            name="data.biography.trueName"
-            value="{{data.data.biography.trueName}}"
-          />)
-        </span>
-        <input
-          type="text"
-          class="pronouns"
-          placeholder="Pronouns"
-          name="data.biography.pronouns"
-          value="{{data.data.biography.pronouns}}"
-        />
-        --}}
-      </div>
-      <div class="pronouns-party">
-        <label
-          class="input-sizer stacked pronouns"
-          data-value="{{data.data.biography.pronouns}}"
-        >
-          <input
-            type="text"
-            oninput="this.parentNode.dataset.value = this.value"
-            size="1"
-            name="data.biography.pronouns"
-            placeholder="he/him"
-            value="{{data.data.biography.pronouns}}"
-          />
-          <span class="label">Pronouns</span>
-        </label>
-        <label
-          class="input-sizer stacked party-name"
-          data-value="{{data.data.biography.party}}"
-        >
-          <input
-            type="text"
-            oninput="this.parentNode.dataset.value = this.value"
-            size="1"
-            name="data.biography.party"
-            placeholder="Party"
-            value="{{data.data.biography.party}}"
-          />
-          <span class="label">Party Name</span>
-        </label>
-        <div class="flex-spacer"></div>
-        <div class="upgrade-points">
-          <span>UPs</span>
-          <input
-            class="upgrade-points"
-            type="text"
-            data-dtype="Number"
-            name="data.upgradePoints.value"
-            value="{{data.data.upgradePoints.value}}"
-          />
+        <div class="crypt-form-field">
+          <label for="true-name-field">True Name</label>
+          <input id="true-name-field" placeholder="Enter your true name..." name="data.biography.trueName" value="{{data.data.biography.trueName}}"/>
+        </div>
+        <div class="crypt-form-field">
+          <label for="race-field">Race</label>
+          <input id="race-field" placeholder="Race" name="data.biography.race" value="{{data.data.biography.race}}"/>
+        </div>
+        <div class="crypt-form-field">
+          <label for="pronouns-field">Pronouns</label>
+          <input id="pronouns-field" placeholder="he/him" name="data.biography.pronouns" value="{{data.data.biography.pronouns}}"/>
+        </div>
+        <div class="difficulty-selector crypt-form-field">
+          <label>{{localize "CRYPTOMANCER.CheckDifficulty.difficulty"}}</label>
+          <div class="toggles">
+            <span class="difficulty">{{> toggleBox id="difficulty-trivial" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
+            <span class="difficulty">{{> toggleBox id="difficulty-challenging" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
+            <span class="difficulty">{{> toggleBox id="difficulty-tough" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
+          </div>
         </div>
       </div>
       <div class="defenses">
-        <div>
-          <div class="defense">
-            {{> defense label="Dodge" value=data.data.core.speed.value desc="vs melee/missile" }}
-          </div>
-          <div class="defense">
-            {{> defense label="Parry" value=data.data.core.power.value desc="vs melee" }}
-          </div>
+        <div class="defense">
+          {{> defense label="Dodge" value=data.data.core.speed.value desc="vs melee/missile" }}
         </div>
-        <div>
-          <div class="defense">
-            {{> defense label="Take Cover" value=data.data.core.wits.value desc="vs missile" }}
-          </div>
-          <div class="defense">
-            {{> defense label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
-          </div>
+        <div class="defense">
+          {{> defense label="Parry" value=data.data.core.power.value desc="vs melee" }}
         </div>
-        <div class="difficulty-selector">
-          <span class="label">Check Difficulty</span>
-          <span class="difficulty">
-            Trivial {{> toggleBox id="difficulty-trivial" value=(is data.data.checkDifficulty 4)}}
-          </span>
-          <span class="difficulty">
-            Challenging {{> toggleBox id="difficulty-challenging" value=(is data.data.checkDifficulty 6)}}
-          </span>
-          <span class="difficulty">
-            Tough {{> toggleBox id="difficulty-tough" value=(is data.data.checkDifficulty 8)}}
-          </span>
+        <div class="defense">
+          {{> defense label="Take Cover" value=data.data.core.wits.value desc="vs missile" }}
+        </div>
+        <div class="defense">
+          {{> defense label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
+        </div>
+        <div class="wounds">
+          <span class="label">{{localize "CRYPTOMANCER.Wound.wounds"}}</span>
+          <div class="flex-spacer"></div>
+          <span class="difficulty">{{> toggleBox id="wound-critical" tooltip=(localize "CRYPTOMANCER.Wound.critical") value=data.data.healthPoints.criticalWound name="data.healthPoints.criticalWound" color="secondary"}}</span>
+          <span class="difficulty">{{> toggleBox id="wound-mortal" tooltip=(localize "CRYPTOMANCER.Wound.mortal") value=data.data.healthPoints.mortalWound name="data.healthPoints.mortalWound" color="danger"}}</span>
         </div>
       </div>
     </div>
   </header>
   {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
+  <nav class="crypt-tabs small" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="core">{{localize "CRYPTOMANCER.Core.core"}}</a>
-    <a class="item" data-tab="features">{{localize "CRYPTOMANCER.Features"}}</a>
-    <a class="item" data-tab="gear">{{localize "CRYPTOMANCER.Gear.gear"}}</a>
-    <a class="item" data-tab="bio">{{localize "CRYPTOMANCER.Bio.bio"}}</a>
+    <a class="crypt-tab" data-tab="core">{{toUpperCase (localize "CRYPTOMANCER.Core.core")}}</a>
+    <a class="crypt-tab" data-tab="features">{{toUpperCase (localize "CRYPTOMANCER.Features")}}</a>
+    <a class="crypt-tab" data-tab="gear">{{toUpperCase (localize "CRYPTOMANCER.Gear.gear")}}</a>
+    <a class="crypt-tab" data-tab="bio">{{toUpperCase (localize "CRYPTOMANCER.Bio.bio")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
-      <div class="sheet-cores">
-        <div class="sheet-core">
+      <div class="cores">
+        {{> miniTriad data.data.core.speed}}
+        {{> miniTriad data.data.core.power}}
+        {{> miniTriad data.data.core.wits}}
+        {{> miniTriad data.data.core.resolve}}
+      </div>
+      <div class="skills">
+        <h3 class="skills-label">{{l "Skill.skills"}}</h3>
+        <div class="skill-lists">
+          {{> skillList (firstHalf skills) }}
+          {{> skillList (lastHalf skills) }}
+        </div>
+      </div>
+      {{!-- <div class="skill-list">
+        {{#each (firstHalf skills)}}
+        {{> skill this }}
+        {{/each}}
+      </div>
+      <div class="skill-list">
+        {{#each (lastHalf skills)}}
+        {{> skill this }}
+        {{/each}}
+      </div> --}}
+      {{!-- <div class="sheet-cores"> --}}
+        {{!-- <div class="sheet-core">
           {{> coreTriad
           core=data.data.core.speed
           attrL=data.data.core.speed.attributes.agility
@@ -183,10 +111,7 @@
           attrR=data.data.core.power.attributes.endurance }}
           <div class="sheet-skills">
             {{> skillList
-            attr=data.data.core.power.attributes.strength }} {{>
-            resourceSkill
-            attr=data.data.core.power.attributes.endurance
-            resource=data.data.healthPoints }}
+            attr=data.data.core.power.attributes.strength }}
           </div>
         </div>
         <div class="sheet-core">
@@ -208,13 +133,10 @@
           attrR=data.data.core.resolve.attributes.willpower }}
           <div class="sheet-skills">
             {{> skillList
-            attr=data.data.core.resolve.attributes.presence }} {{>
-            resourceSkill
-            attr=data.data.core.power.attributes.presence
-            resource=data.data.manaPoints }}
+            attr=data.data.core.resolve.attributes.presence }}
           </div>
-        </div>
-      </div>
+        </div> --}}
+      {{!-- </div> --}}
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
       {{> featureList talents=data.data.talents spells=data.data.spells}}
@@ -227,201 +149,3 @@
     </div>
   </section>
 </form>
-<!-- 
-<form autocomplete="off">
-  <header class="sheet-header">
-    <img
-      class="profile-img"
-      src="{{ actor.img }}"
-      data-edit="img"
-      title="{{ actor.name }}"
-      height="100"
-      width="100"
-    />
-    <div class="header-fields">
-      <h1 class="charname">
-        <input
-          name="name"
-          type="text"
-          value="{{ actor.name }}"
-          placeholder="Name"
-        />
-      </h1>
-      <div class="resources grid grid-3col">
-        <div class="resource flex-group-center">
-          <label for="data.data.health.value" class="resource-label"
-            >Health Points</label
-          >
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
-              type="text"
-              name="data.healthPoints.value"
-              value="{{ data.data.healthPoints.value }}"
-              data-dtype="Number"
-            />
-            <span> / </span>
-            <input
-              type="text"
-              name="data.healthPoints.max"
-              value="{{ data.data.healthPoints.max }}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label for="data.data.manaPoints.value" class="resource-label"
-            >Mana Points</label
-          >
-          <div class="resource-content flexrow flex-center flex-between">
-            <input
-              type="text"
-              name="data.manaPoints.value"
-              value="{{ data.data.manaPoints.value }}"
-              data-dtype="Number"
-            />
-            <span> / </span>
-            <input
-              type="text"
-              name="data.manaPoints.max"
-              value="{{ data.data.manaPoints.max }}"
-              data-dtype="Number"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
-    <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="spells">Spells</a>
-    <a class="item" data-tab="effects">Effects</a>
-  </nav>
-
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
-    {{!-- Owned Features Tab --}}
-    <div class="tab features" data-group="primary" data-tab="features">
-      <div class="core">
-        <h2>{{localize "CRYPTOMANCER.Core.speed"}}</h2>
-        <input
-          type="text"
-          name="data.core.speed.value"
-          value="{{ data.data.core.speed.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.speed.attributes.agility.value"
-          value="{{ data.data.core.speed.attributes.agility.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.speed.attributes.dexterity.value"
-          value="{{ data.data.core.speed.attributes.dexterity.value }}"
-          data-dtype="Number"
-        />
-        <div class="attributes">
-        </div>
-      </div>
-      <div class="core">
-        <h2>{{localize "CRYPTOMANCER.Core.power"}}</h2>
-        <input
-          type="text"
-          name="data.core.power.value"
-          value="{{ data.data.core.power.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.power.attributes.strength.value"
-          value="{{ data.data.core.power.attributes.strength.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.power.attributes.endurance.value"
-          value="{{ data.data.core.power.attributes.endurance.value }}"
-          data-dtype="Number"
-        />
-        <div class="attributes">
-        </div>
-      </div>
-      <div class="core">
-        <h2>{{localize "CRYPTOMANCER.Core.wits"}}</h2>
-        <input
-          type="text"
-          name="data.core.wits.value"
-          value="{{ data.data.core.wits.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.wits.attributes.knowledge.value"
-          value="{{ data.data.core.wits.attributes.knowledge.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.wits.attributes.cunning.value"
-          value="{{ data.data.core.wits.attributes.cunning.value }}"
-          data-dtype="Number"
-        />
-        <div class="attributes">
-        </div>
-      </div>
-      <div class="core">
-        <h2>{{localize "CRYPTOMANCER.Core.resolve"}}</h2>
-        <input
-          type="text"
-          name="data.core.resolve.value"
-          value="{{ data.data.core.resolve.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.resolve.attributes.presence.value"
-          value="{{ data.data.core.resolve.attributes.presence.value }}"
-          data-dtype="Number"
-        />
-        <input
-          type="text"
-          name="data.core.resolve.attributes.willpower.value"
-          value="{{ data.data.core.resolve.attributes.willpower.value }}"
-          data-dtype="Number"
-        />
-        <div class="attributes">
-        </div>
-      </div>
-    </div> -->
-
-<!-- {{!-- Biography Tab --}}
-    <div class="tab biography" data-group="primary" data-tab="description"> -->
-<!-- {{!-- If you want TinyMCE editors to output inline rolls when rendered,
-      you need to pass the actor's roll data to the rollData property. --}}
-      {{editor content=data.data.biography target="data.data.biography" rollData=rollData
-      button=true owner=owner editable=editable}} -->
-<!-- </div>
-
-    {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="items"> -->
-<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-items.hbs"}} -->
-<!-- </div>
-
-    {{!-- Owned Spells Tab --}}
-    <div class="tab spells" data-group="primary" data-tab="spells"> -->
-<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-spells.hbs"}} -->
-<!-- </div>
-
-    {{!-- Active Effects Tab --}}
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects"> -->
-<!-- {{> "systems/cryptomancer/actor-sheet/parts/actor-effects.hbs"}} -->
-<!-- </div>
-  </section>
-</form> -->
