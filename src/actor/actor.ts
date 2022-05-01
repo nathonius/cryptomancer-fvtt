@@ -8,7 +8,7 @@ import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
-import { Cell } from "./actor.interface";
+import { Attribute, Cell, CoreAlt, ResourceAttribute } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -116,14 +116,16 @@ export class CryptomancerActor extends Actor {
   }
 
   async rollAttribute(
-    coreName: string,
+    coreName: "wits" | "power" | "speed" | "resolve",
     attributeName: string,
     skillName = "",
     difficulty = CheckDifficulty.Challenging
   ) {
-    const attribute = (this.data.data as any).core[coreName].attributes[
-      attributeName
-    ];
+    if (this.data.type !== "character") {
+      return;
+    }
+    const core = this.data.data.core[coreName] as CoreAlt;
+    const attribute = core.attributes[attributeName];
     const skill = skillName ? attribute.skills[skillName] : null;
     if (skill) {
       return SkillCheckService.skillCheck(
@@ -138,7 +140,10 @@ export class CryptomancerActor extends Actor {
       return SkillCheckService.skillCheck(
         attribute.value,
         attributeName,
-        difficulty
+        difficulty,
+        undefined,
+        Boolean((attribute as Attribute as ResourceAttribute).break),
+        Boolean((attribute as Attribute as ResourceAttribute).push)
       );
     }
   }

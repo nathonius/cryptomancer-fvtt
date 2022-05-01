@@ -128,6 +128,7 @@
   "CRYPTOMANCER.TrademarkItem.rules": "Rules",
   "CRYPTOMANCER.TrademarkItem.qualities": "Qualities",
   "CRYPTOMANCER.Party.party": "Party",
+  "CRYPTOMANCER.Party.partyUpgradePoints": "Party UPs",
   "CRYPTOMANCER.Party.safehouse": "Safehouse",
   "CRYPTOMANCER.Party.risk": "Risk",
   "CRYPTOMANCER.Party.riskEvents": "Risk Events",

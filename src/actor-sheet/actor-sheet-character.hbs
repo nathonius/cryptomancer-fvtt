@@ -33,8 +33,8 @@
             <span class="difficulty">{{> toggleBox id="difficulty-trivial" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
             <span class="difficulty">{{> toggleBox id="difficulty-challenging" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
             <span class="difficulty">{{> toggleBox id="difficulty-tough" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
-          </div>
         </div>
+          </div>
       </div>
       <div class="defenses">
         <div class="defense">
@@ -139,7 +139,20 @@
       {{!-- </div> --}}
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
-      {{> featureList talents=data.data.talents spells=data.data.spells}}
+      <section class="party-upgrade-points">
+        <div class="crypt-form-field">
+          <label for="party-select">{{l "Party.party"}}</label>
+          <select id="party-select" name="data.biography.party">{{selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name"}}</select>
+        </div>
+        <div class="crypt-form-field">
+          <label for="upgrade-points-input">{{l "upgradePoints"}}</label>
+          <input type="text" id="upgrade-points-input" name="data.upgradePoints.value" value="{{data.data.upgradePoints.value}}">
+        </div>
+        {{#if selectedParty}}
+        <span>({{selectedParty.upgradePoints}} {{l "Party.partyUpgradePoints"}})</span>
+        {{/if}}
+      </section>
+      <section class="feature-list">{{> featureList talents=data.data.talents spells=data.data.spells}}</section>
     </div>
     <div class="tab gear" data-group="primary" data-tab="gear">
       {{> gear }}

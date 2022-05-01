@@ -2,6 +2,15 @@
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--neutral--light-3);
   }
+  .label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .attr-break-push {
+      display: flex;
+      gap: 8px;
+    }
+  }
   .core-label {
     font-family: var(--font-accent);
     letter-spacing: 2px;

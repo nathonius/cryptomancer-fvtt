@@ -1,7 +1,7 @@
-import type { AttributeAlt, CoreAlt } from "../actor/actor.interface";
+import type { AttributeAlt, CoreAlt, Party } from "../actor/actor.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { SettingsService } from "../settings/settings.service";
-import { l } from "../shared/util";
+import { getGame, l } from "../shared/util";
 import { AugmentedData } from "./actor-sheet.interface";
 
 // Remove this when migrating to v10
@@ -107,6 +107,21 @@ export class CryptomancerActorSheet extends ActorSheet<
         });
       });
       context.skills.sort((a, b) => (a.label > b.label ? 1 : -1));
+
+      // Get all party sheets to select for this character
+      context.partyOptions = getGame().actors!.filter(
+        (a) => a.type === "party"
+      );
+      context.selectedParty = null;
+      const currentPartyId = context.data.data.biography.party;
+      if (currentPartyId) {
+        const selectedParty = context.partyOptions.find(
+          (p) => p.id === currentPartyId
+        );
+        if (selectedParty) {
+          context.selectedParty = selectedParty.data.data as Party;
+        }
+      }
     }
 
     return context;
@@ -160,24 +175,6 @@ export class CryptomancerActorSheet extends ActorSheet<
         return (reference as HTMLElement).dataset.tooltip as string;
       },
     });
-
-    // html.find(".talent-table .talent-row").each((_, row) => {
-    //   const id = row.dataset.talentId;
-    //   $(row)
-    //     .find(".action-button")
-    //     .on("click", (evt) => {
-    //       if (!id) {
-    //         return;
-    //       }
-    //       if (evt.target.classList.contains("view")) {
-    //         this.handleTalentAction(id, "view");
-    //       } else if (evt.target.classList.contains("edit")) {
-    //         this.handleTalentAction(id, "edit");
-    //       } else if (evt.target.classList.contains("delete")) {
-    //         this.handleTalentAction(id, "delete");
-    //       }
-    //     });
-    // });
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
@@ -245,6 +242,7 @@ export class CryptomancerActorSheet extends ActorSheet<
       }
     });
 
+    // Add trademark item button listeners
     html
       .find(".crypt-gear .trademark-items .trademark-item__action-button")
       .on("click", (evt) => {
@@ -264,9 +262,10 @@ export class CryptomancerActorSheet extends ActorSheet<
         }
       });
 
+    // Difficulty selector
     html
       .find(".difficulty-selector")
-      .on("change", this._onDifficultySelect.bind(this));
+      .on("change", this.onDifficultySelect.bind(this));
   }
 
   private _activatePartyListenters(html: JQuery<HTMLElement>): void {
@@ -316,7 +315,7 @@ export class CryptomancerActorSheet extends ActorSheet<
     return await Item.create(itemData, { parent: this.actor });
   }
 
-  _onDifficultySelect(event: JQuery.ChangeEvent) {
+  private onDifficultySelect(event: JQuery.ChangeEvent) {
     event.preventDefault();
     switch (event.target.id as string) {
       case "difficulty-trivial":
@@ -367,26 +366,5 @@ export class CryptomancerActorSheet extends ActorSheet<
     const index = dataset.index as "1" | "2" | "3";
 
     this.document.rollCellOperations(this.actor.data.data.cells[index]);
-  }
-
-  private handleTalentAction(
-    id: string,
-    action: "view" | "edit" | "delete"
-  ): void {
-    const talent = this.actor.items.get(id);
-    if (!talent) {
-      return;
-    }
-    switch (action) {
-      case "view":
-        talent.sheet?.render(true);
-        break;
-      case "edit":
-        talent.sheet?.render(true);
-        break;
-      case "delete":
-        talent.deleteDialog();
-        break;
-    }
   }
 }
