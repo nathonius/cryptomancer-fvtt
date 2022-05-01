@@ -14,6 +14,7 @@ import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
 import { l } from "./shared/util";
 import { SpellType } from "./shared/enums/item";
 import "./cryptomancer.scss";
+import { CoreAlt } from "./actor/actor.interface";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -144,11 +145,6 @@ Handlebars.registerHelper("l", (key: string) => {
   return l(key);
 });
 
-// Sheet Specific Helpers
-Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
-  return l(`SpellType.${type}`);
-});
-
 Handlebars.registerHelper("firstHalf", (array: any[]) => {
   if (!array || array.length === 0) {
     return [];
@@ -162,6 +158,24 @@ Handlebars.registerHelper("lastHalf", (array: any[]) => {
   }
   return array.slice(Math.floor(array.length / 2));
 });
+
+// Sheet Specific Helpers
+Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
+  return l(`SpellType.${type}`);
+});
+
+Handlebars.registerHelper(
+  "noSkillAttribute",
+  (core: CoreAlt, options: Handlebars.HelperOptions) => {
+    if (core.key === "resolve") {
+      return options.fn(core.attributes["willpower"]);
+    } else if (core.key === "power") {
+      return options.fn(core.attributes["endurance"]);
+    } else {
+      return;
+    }
+  }
+);
 
 /**
  * Lookup and localize the short version of an attribute name
