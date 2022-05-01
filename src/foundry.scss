@@ -86,7 +86,7 @@ body.system-cryptomancer {
     margin: 10px;
   }
 
-  select,
+  *:not(.crypt-form-field) > select,
   #chat-form textarea {
     color: var(--color-text-dark-primary);
     background-color: var(--neutral--light-2);
