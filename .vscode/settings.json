@@ -3,5 +3,8 @@
   "files.associations": {
     "*.html": "handlebars"
   },
-  "cSpell.words": ["cryptomancer"]
+  "cSpell.words": ["cryptomancer"],
+  "[handlebars]": {
+    "editor.defaultFormatter": "monosans.djlint"
+  }
 }
