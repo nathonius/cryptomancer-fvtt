@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.0.1 # grab latest tag from GitHub
+    hooks:
+      - id: djlint-handlebars
+        entry: djlint --profile=handlebars --reformat

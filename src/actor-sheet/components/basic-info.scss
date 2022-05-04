@@ -1,0 +1,26 @@
+.crypt-basic-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  .crypt-form-field {
+    input {
+      width: 175px;
+      font-size: 1.3rem;
+      font-family: var(--font-accent);
+    }
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+  .difficulty-selector {
+    align-items: center;
+    justify-content: space-between;
+    .toggles {
+      height: 26px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
