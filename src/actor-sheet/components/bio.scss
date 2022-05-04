@@ -9,14 +9,10 @@
       font-family: var(--font-accent);
       font-size: 1.3rem;
     }
-    &__input {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      align-items: center;
-      gap: 4px;
+
+    .crypt-form-field {
       label {
-        font-family: var(--font-accent);
-        color: var(--color-text-dark-inactive);
+        white-space: nowrap;
       }
     }
 

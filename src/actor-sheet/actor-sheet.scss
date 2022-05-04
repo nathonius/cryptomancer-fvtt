@@ -112,6 +112,10 @@
           }
         }
       }
+      .tab.gear.active {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
   &.party {
