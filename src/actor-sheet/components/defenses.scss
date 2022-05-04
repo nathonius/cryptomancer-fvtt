@@ -1,0 +1,14 @@
+.crypt-defenses {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .wounds {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    gap: 8px;
+    padding: 4px;
+    background-color: var(--neutral--light-4);
+  }
+}

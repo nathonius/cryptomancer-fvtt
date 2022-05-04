@@ -1,81 +1,33 @@
 <form class="crypt-actor-sheet character" autocomplete="off">
   <header>
     <div class="avatar">
-      <img
-        src="{{ actor.img }}"
-        data-edit="img"
-        title="{{ actor.name }}"
-      />
-      {{> attributeBar hpAttributeBar}}
-      {{> attributeBar manaAttributeBar}}
+      <img src="{{ actor.img }}" data-edit="img" title="{{ actor.name }}" />
+      {{> attributeBar hpAttributeBar }}
+      {{> attributeBar manaAttributeBar }}
     </div>
     <div class="bio-defense">
-      <div class="bio">
-        <div class="crypt-form-field">
-          <label for="name-field">Common Name</label>
-          <input id="name-field" placeholder="Enter your name..." name="name" value="{{actor.name}}"/>
-        </div>
-        <div class="crypt-form-field">
-          <label for="true-name-field">True Name</label>
-          <input id="true-name-field" placeholder="Enter your true name..." name="data.biography.trueName" value="{{data.data.biography.trueName}}"/>
-        </div>
-        <div class="crypt-form-field">
-          <label for="race-field">Race</label>
-          <input id="race-field" placeholder="Race" name="data.biography.race" value="{{data.data.biography.race}}"/>
-        </div>
-        <div class="crypt-form-field">
-          <label for="pronouns-field">Pronouns</label>
-          <input id="pronouns-field" placeholder="he/him" name="data.biography.pronouns" value="{{data.data.biography.pronouns}}"/>
-        </div>
-        <div class="difficulty-selector crypt-form-field">
-          <label>{{localize "CRYPTOMANCER.CheckDifficulty.difficulty"}}</label>
-          <div class="toggles">
-            <span class="difficulty">{{> toggleBox id="difficulty-trivial" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
-            <span class="difficulty">{{> toggleBox id="difficulty-challenging" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
-            <span class="difficulty">{{> toggleBox id="difficulty-tough" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
-        </div>
-          </div>
-      </div>
-      <div class="defenses">
-        <div class="defense">
-          {{> defense label="Dodge" value=data.data.core.speed.value desc="vs melee/missile" }}
-        </div>
-        <div class="defense">
-          {{> defense label="Parry" value=data.data.core.power.value desc="vs melee" }}
-        </div>
-        <div class="defense">
-          {{> defense label="Take Cover" value=data.data.core.wits.value desc="vs missile" }}
-        </div>
-        <div class="defense">
-          {{> defense label="Resist" value=data.data.core.resolve.value desc="vs magic" }}
-        </div>
-        <div class="wounds">
-          <span class="label">{{localize "CRYPTOMANCER.Wound.wounds"}}</span>
-          <div class="flex-spacer"></div>
-          <span class="difficulty">{{> toggleBox id="wound-critical" tooltip=(localize "CRYPTOMANCER.Wound.critical") value=data.data.healthPoints.criticalWound name="data.healthPoints.criticalWound" color="secondary"}}</span>
-          <span class="difficulty">{{> toggleBox id="wound-mortal" tooltip=(localize "CRYPTOMANCER.Wound.mortal") value=data.data.healthPoints.mortalWound name="data.healthPoints.mortalWound" color="danger"}}</span>
-        </div>
-      </div>
+      {{> basicInfo }}
+      {{> defenses }}
     </div>
   </header>
   {{!-- Sheet Tab Navigation --}}
   <nav class="crypt-tabs small" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="crypt-tab" data-tab="core">{{toUpperCase (localize "CRYPTOMANCER.Core.core")}}</a>
-    <a class="crypt-tab" data-tab="features">{{toUpperCase (localize "CRYPTOMANCER.Features")}}</a>
-    <a class="crypt-tab" data-tab="gear">{{toUpperCase (localize "CRYPTOMANCER.Gear.gear")}}</a>
-    <a class="crypt-tab" data-tab="bio">{{toUpperCase (localize "CRYPTOMANCER.Bio.bio")}}</a>
+    <a class="crypt-tab" data-tab="core">{{ toUpperCase (localize "CRYPTOMANCER.Core.core")}}</a>
+    <a class="crypt-tab" data-tab="features">{{ toUpperCase (localize "CRYPTOMANCER.Features")}}</a>
+    <a class="crypt-tab" data-tab="gear">{{ toUpperCase (localize "CRYPTOMANCER.Gear.gear")}}</a>
+    <a class="crypt-tab" data-tab="bio">{{ toUpperCase (localize "CRYPTOMANCER.Bio.bio")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
       <div class="cores">
-        {{> miniTriad data.data.core.speed}}
-        {{> miniTriad data.data.core.power}}
-        {{> miniTriad data.data.core.wits}}
-        {{> miniTriad data.data.core.resolve}}
+        {{> miniTriad data.data.core.speed }}
+        {{> miniTriad data.data.core.power }}
+        {{> miniTriad data.data.core.wits }}
+        {{> miniTriad data.data.core.resolve }}
       </div>
       <div class="skills">
-        <h3 class="skills-label">{{l "Skill.skills"}}</h3>
+        <h3 class="skills-label">{{ l "Skill.skills" }}</h3>
         <div class="skill-lists">
           {{> skillList (firstHalf skills) }}
           {{> skillList (lastHalf skills) }}
@@ -85,26 +37,30 @@
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="party-upgrade-points">
         <div class="crypt-form-field">
-          <label for="party-select">{{l "Party.party"}}</label>
-          <select id="party-select" name="data.biography.party">{{selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name"}}</select>
+          <label for="party-select">{{ l "Party.party" }}</label>
+          <select id="party-select" name="data.biography.party">
+            {{ selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name" }}
+          </select>
         </div>
-        {{#if selectedParty}}
-        <button class="party-action-button view" data-tooltip="{{l "View"}}" data-party-id="{{data.data.biography.party}}"><span class="fas fa-eye"></span></button>
-        <span>({{selectedParty.upgradePoints}} {{l "Party.upgradePoints"}})</span>
-        {{/if}}
+        {{#if selectedParty }}
+          <button class="party-action-button view"
+                  data-tooltip="{{ l "View" }}"
+                  data-party-id="{{ data.data.biography.party }}">
+            <span class="fas fa-eye"></span>
+          </button>
+          <span>({{ selectedParty.upgradePoints }} {{ l "Party.upgradePoints" }})</span>
+        {{/if }}
         <div class="flex-spacer"></div>
         <div class="upgrade-points">
-          <label for="upgrade-points-input">{{l "upgradePoints"}}</label>
-          {{> coreInput id="upgrade-points-input" name="data.upgradePoints.value" value=data.data.upgradePoints.value size="small"}}
+          <label for="upgrade-points-input">{{ l "upgradePoints" }}</label>
+          {{> coreInput id="upgrade-points-input" name="data.upgradePoints.value" value=data.data.upgradePoints.value size="small" }}
         </div>
       </section>
-      <section class="feature-list">{{> featureList talents=data.data.talents spells=data.data.spells}}</section>
+      <section class="feature-list">
+        {{> featureList talents=data.data.talents spells=data.data.spells }}
+      </section>
     </div>
-    <div class="tab gear" data-group="primary" data-tab="gear">
-      {{> gear }}
-    </div>
-    <div class="tab bio" data-group="primary" data-tab="bio">
-      {{> bio }}
-    </div>
+    <div class="tab gear" data-group="primary" data-tab="gear">{{> gear }}</div>
+    <div class="tab bio" data-group="primary" data-tab="bio">{{> bio }}</div>
   </section>
 </form>
