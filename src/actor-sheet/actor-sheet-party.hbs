@@ -1,12 +1,9 @@
 <form class="crypt-actor-sheet party" autocomplete="off">
-  <header></header>
+  <header>
+  </header>
   <nav class="crypt-tabs small" data-group="primary">
-    <a class="crypt-tab" data-tab="party">
-      {{toUpperCase (localize "CRYPTOMANCER.Party.party")}}
-    </a>
-    <a class="crypt-tab" data-tab="safehouse">
-      {{toUpperCase (localize "CRYPTOMANCER.Party.safehouse")}}
-    </a>
+    <a class="crypt-tab" data-tab="party">{{toUpperCase (localize "CRYPTOMANCER.Party.party")}}</a>
+    <a class="crypt-tab" data-tab="safehouse">{{toUpperCase (localize "CRYPTOMANCER.Party.safehouse")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab party" data-group="primary" data-tab="party">
@@ -21,16 +18,20 @@
         </div>
         <div class="party-risk-events">
           <h2>{{localize "CRYPTOMANCER.Party.riskEvents"}}</h2>
-          {{#each data.data.riskEvents as |event index|}}
-          <div class="risk-event">
-            {{> toggleBox id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
-            <input type="text" id="{{concat "risk-event-text-" index}}" value="{{event.eventText}}" >
-          </div>
+          {{#each data.data.riskEvents as |event index|}
+            }
+            <div class="risk-event">
+              {{> toggleBox id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
+              <input type="text"
+                     id="{{concat "risk-event-text-" index}}"
+                     value="{{event.eventText}}">
+            </div>
           {{/each}}
         </div>
         <div class="party-cells">
           <h2>{{localize "CRYPTOMANCER.Party.cells"}}</h2>
-          {{#each data.data.cells as |cell index|}}
+          {{#each data.data.cells as |cell index|}
+            }
             {{> cell cell=cell index=index }}
           {{/each}}
         </div>

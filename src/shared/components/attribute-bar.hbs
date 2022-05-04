@@ -1,34 +1,28 @@
 {{!
 @Input context: {
-  color: "primary" | "secondary" | "success" | "danger",
-  value: number;
-  valueName: string;
-  valuePlaceholder: string;
-  max: number;
-  maxName: string;
-  maxPlaceholder: string;
-  class: string;
-  tooltip: string;
+color: "primary" | "secondary" | "success" | "danger",
+value: number;
+valueName: string;
+valuePlaceholder: string;
+max: number;
+maxName: string;
+maxPlaceholder: string;
+class: string;
+tooltip: string;
 }
 }}
-<div
-  class="crypt-attribute-bar {{this.color}} {{this.class}}"
-  data-tooltip="{{this.tooltip}}"
->
+<div class="crypt-attribute-bar {{this.color}} {{this.class}}"
+     data-tooltip="{{this.tooltip}}">
   <progress value={{this.value}} max={{this.max}}></progress>
-  <input
-    class="attribute-value left"
-    type="text"
-    value="{{this.value}}"
-    placeholder="{{this.valuePlaceholder}}"
-    name="{{this.valueName}}"
-  />
+  <input class="attribute-value left"
+         type="text"
+         value="{{this.value}}"
+         placeholder="{{this.valuePlaceholder}}"
+         name="{{this.valueName}}"/>
   <span class="slash">/</span>
-  <input
-    class="attribute-value right"
-    type="text"
-    value="{{this.max}}"
-    placeholder="{{this.maxPlaceholder}}"
-    name="{{this.maxName}}"
-  />
+  <input class="attribute-value right"
+         type="text"
+         value="{{this.max}}"
+         placeholder="{{this.maxPlaceholder}}"
+         name="{{this.maxName}}"/>
 </div>

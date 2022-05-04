@@ -1,16 +1,13 @@
 {{!
 @Input skill: Skill & {core: string, attributeValue: number}
 }}
-
 <div class="crypt-skill">
   {{> toggleBox id=(concat "skill-" this.key "-break") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".skillBreak") value=this.skillBreak placeholder="1"}}
   {{> toggleBox id=(concat "skill-" this.key "-push") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".skillPush") value=this.skillPush placeholder="10"}}
-  <a
-    class="skill-name rollable"
-    data-roll-core="{{this.core}}"
-    data-roll-attribute="{{this.attribute}}"
-    data-roll-skill="{{this.key}}"
-  >{{this.label}}</a>
+  <a class="skill-name rollable"
+     data-roll-core="{{this.core}}"
+     data-roll-attribute="{{this.attribute}}"
+     data-roll-skill="{{this.key}}">{{this.label}}</a>
   <span class="short-attr">({{shortAttr this.attribute}})</span>
   <span class="attr-value">{{this.attributeValue}}</span>
 </div>
