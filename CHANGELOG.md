@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.3.0 (2022-05-04)
+
+### Features
+
+- cleanup templates, add linting setup ([7637457](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/7637457fe0489fa5858db27cae91248fa27f2dca))
+- first pass at crypt-ui and new Core character sheet ([29dd013](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/29dd013358b7b1ff8a483d53856a71667c3cfeb6))
+- formatting upgrade points section ([1750e00](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/1750e00aacafbb32613bb6c4ff6951c5dad9e9b4))
+- migrate to crypt-ui vars ([d495d62](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/d495d6249ad6059b2097a5d76ba39e243a4a8868))
+- use core-input and toggle-box from crypt-ui ([d49accd](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/d49accd7354630965f0ea4cf16a8f6a49e258648))
+- use named partials ([495fd3e](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/495fd3eb2276a7fa3d187168c154b0fb4aa7979a))
+- view actor sheet from character sheet ([2c8a4be](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/2c8a4be6d2899b56fc5b904456c4510320f2b809))
+
+### Bug Fixes
+
+- break and push work for endurance and willpower and toggles are on the sheet ([8f8d451](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/8f8d4516fe9f67d212ad2c6f9ef6a2e4dc7bad3b))
+- party sheet can be rendered again ([61dfa2e](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/61dfa2ef733b8ddb6d3902887068890c5115d3ef))
+
 ## 0.2.0 (2022-04-09)
 
 ### Features
