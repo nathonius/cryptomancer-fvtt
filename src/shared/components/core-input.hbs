@@ -1,4 +1,5 @@
 {{!
+  @Input id?: string;
   @Input value: string | number;
   @Input name: string;
   @Input size: "small" | "large";
@@ -12,5 +13,6 @@
     name="{{name}}"
     {{disabled readonly}}
     data-dtype="Number"
+    {{#if id}}id="{{id}}"{{/if}}
   />
 </div>

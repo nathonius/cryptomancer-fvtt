@@ -81,62 +81,6 @@
           {{> skillList (lastHalf skills) }}
         </div>
       </div>
-      {{!-- <div class="skill-list">
-        {{#each (firstHalf skills)}}
-        {{> skill this }}
-        {{/each}}
-      </div>
-      <div class="skill-list">
-        {{#each (lastHalf skills)}}
-        {{> skill this }}
-        {{/each}}
-      </div> --}}
-      {{!-- <div class="sheet-cores"> --}}
-        {{!-- <div class="sheet-core">
-          {{> coreTriad
-          core=data.data.core.speed
-          attrL=data.data.core.speed.attributes.agility
-          attrR=data.data.core.speed.attributes.dexterity }}
-          <div class="sheet-skills">
-            {{> skillList
-            attr=data.data.core.speed.attributes.agility }} {{>
-            skillList
-            attr=data.data.core.speed.attributes.dexterity }}
-          </div>
-        </div>
-        <div class="sheet-core">
-          {{> coreTriad
-          core=data.data.core.power
-          attrL=data.data.core.power.attributes.strength
-          attrR=data.data.core.power.attributes.endurance }}
-          <div class="sheet-skills">
-            {{> skillList
-            attr=data.data.core.power.attributes.strength }}
-          </div>
-        </div>
-        <div class="sheet-core">
-          {{> coreTriad
-          core=data.data.core.wits
-          attrL=data.data.core.wits.attributes.knowledge
-          attrR=data.data.core.wits.attributes.cunning }}
-          <div class="sheet-skills">
-            {{> skillList
-            attr=data.data.core.wits.attributes.knowledge }} {{>
-            skillList
-            attr=data.data.core.wits.attributes.cunning }}
-          </div>
-        </div>
-        <div class="sheet-core">
-          {{> coreTriad
-          core=data.data.core.resolve
-          attrL=data.data.core.resolve.attributes.presence
-          attrR=data.data.core.resolve.attributes.willpower }}
-          <div class="sheet-skills">
-            {{> skillList
-            attr=data.data.core.resolve.attributes.presence }}
-          </div>
-        </div> --}}
-      {{!-- </div> --}}
     </div>
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="party-upgrade-points">
@@ -144,13 +88,15 @@
           <label for="party-select">{{l "Party.party"}}</label>
           <select id="party-select" name="data.biography.party">{{selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name"}}</select>
         </div>
-        <div class="crypt-form-field">
-          <label for="upgrade-points-input">{{l "upgradePoints"}}</label>
-          <input type="text" id="upgrade-points-input" name="data.upgradePoints.value" value="{{data.data.upgradePoints.value}}">
-        </div>
         {{#if selectedParty}}
-        <span>({{selectedParty.upgradePoints}} {{l "Party.partyUpgradePoints"}})</span>
+        <button class="party-action-button view" data-tooltip="{{l "View"}}"><span class="fas fa-eye"></span></button>
+        <span>({{selectedParty.upgradePoints}} {{l "Party.upgradePoints"}})</span>
         {{/if}}
+        <div class="flex-spacer"></div>
+        <div class="upgrade-points">
+          <label for="upgrade-points-input">{{l "upgradePoints"}}</label>
+          {{> coreInput id="upgrade-points-input" name="data.upgradePoints.value" value=data.data.upgradePoints.value size="small"}}
+        </div>
       </section>
       <section class="feature-list">{{> featureList talents=data.data.talents spells=data.data.spells}}</section>
     </div>
