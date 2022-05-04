@@ -16,21 +16,17 @@
     </div>
     <div class="core-container attribute left">
       {{> coreInput size="small" name=(concat "data.core." core.key ".attributes." attrL.key ".value") value=attrL.value }}
-      <div
-        class="label attribute left rollable"
-        data-roll-core="{{ attrL.core }}"
-        data-roll-attribute="{{ attrL.key }}"
-      >
+      <div class="label attribute left rollable"
+           data-roll-core="{{ attrL.core }}"
+           data-roll-attribute="{{ attrL.key }}">
         {{ attrL.label }}
       </div>
     </div>
     <div class="core-container attribute right">
       {{> coreInput size="small" name=(concat "data.core." core.key ".attributes." attrR.key ".value") value=attrR.value }}
-      <div
-        class="label attribute right rollable"
-        data-roll-core="{{ attrR.core }}"
-        data-roll-attribute="{{ attrR.key }}"
-      >
+      <div class="label attribute right rollable"
+           data-roll-core="{{ attrR.core }}"
+           data-roll-attribute="{{ attrR.key }}">
         {{ attrR.label }}
       </div>
     </div>

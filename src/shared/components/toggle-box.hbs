@@ -1,26 +1,14 @@
 {{!
-  @Input id: string;
-  @Input value: boolean;
-  @Input name: string;
-  @Input placeholder?: string;
-  @Input index?: string;
-  @Input color?: string;
-  @Input round?: boolean;
-  @Input tooltip?: string;
+@Input id: string;
+@Input value: boolean;
+@Input name: string;
+@Input placeholder?: string;
+@Input index?: string;
+@Input color?: string;
+@Input round?: boolean;
+@Input tooltip?: string;
 }}
-
-<div
-  class="crypt-toggle-box {{#if color}}{{color}}{{/if}} {{#if round}}round{{/if}}"
-  {{#if tooltip}}data-tooltip="{{tooltip}}"{{/if}}
->
-  <input
-    class="visually-hidden"
-    id="{{id}}"
-    type="checkbox"
-    {{checked value}}
-    name="{{name}}"
-    data-dtype="Boolean"
-    data-index="{{index}}"
-  />
+<div class="crypt-toggle-box {{#if color }}{{color }}{{/if }} {{#if round }}round{{/if }}" {{#if tooltip }}data-tooltip="{{tooltip }}"{{/if }}>
+  <input class="visually-hidden" id="{{id}}" type="checkbox" {{checked value}} name="{{name}}" data-dtype="Boolean" data-index="{{index}}" />
   <label for="{{id}}">{{placeholder}}</label>
 </div>
