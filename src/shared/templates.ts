@@ -2,7 +2,9 @@ import { getGame } from "./util";
 
 const partials: Record<string, string> = {
   attributeBar: "systems/cryptomancer/shared/components/attribute-bar.hbs",
+  basicInfo: "systems/cryptomancer/actor-sheet/components/basic-info.hbs",
   coreTriad: "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
+  defenses: "systems/cryptomancer/actor-sheet/components/defenses.hbs",
   miniTriad: "systems/cryptomancer/actor-sheet/components/mini-triad.hbs",
   skillList: "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
   resourceSkill:
