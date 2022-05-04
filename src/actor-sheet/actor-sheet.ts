@@ -242,6 +242,16 @@ export class CryptomancerActorSheet extends ActorSheet<
       }
     });
 
+    // Add party event listeners
+    html
+      .find(".party-upgrade-points .party-action-button")
+      .on("click", async (evt) => {
+        const button = evt.target;
+        if (button.classList.contains("view")) {
+          // Need to get the party that was configured in getData
+        }
+      });
+
     // Add trademark item button listeners
     html
       .find(".crypt-gear .trademark-items .trademark-item__action-button")
