@@ -89,7 +89,7 @@
           <select id="party-select" name="data.biography.party">{{selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name"}}</select>
         </div>
         {{#if selectedParty}}
-        <button class="party-action-button view" data-tooltip="{{l "View"}}"><span class="fas fa-eye"></span></button>
+        <button class="party-action-button view" data-tooltip="{{l "View"}}" data-party-id="{{data.data.biography.party}}"><span class="fas fa-eye"></span></button>
         <span>({{selectedParty.upgradePoints}} {{l "Party.upgradePoints"}})</span>
         {{/if}}
         <div class="flex-spacer"></div>
