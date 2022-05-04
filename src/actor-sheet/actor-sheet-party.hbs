@@ -18,8 +18,7 @@
         </div>
         <div class="party-risk-events">
           <h2>{{localize "CRYPTOMANCER.Party.riskEvents"}}</h2>
-          {{#each data.data.riskEvents as |event index|}
-            }
+          {{#each data.data.riskEvents as |event index| }}
             <div class="risk-event">
               {{> toggleBox id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
               <input type="text"
@@ -30,8 +29,7 @@
         </div>
         <div class="party-cells">
           <h2>{{localize "CRYPTOMANCER.Party.cells"}}</h2>
-          {{#each data.data.cells as |cell index|}
-            }
+          {{#each data.data.cells as |cell index| }}
             {{> cell cell=cell index=index }}
           {{/each}}
         </div>
