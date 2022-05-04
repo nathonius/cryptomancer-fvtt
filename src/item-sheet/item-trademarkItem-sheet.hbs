@@ -2,26 +2,22 @@
   <header>
     <div class="item-info-wrapper">
       <div class="avatar">
-        <img
-          class="profile-img"
-          src="{{item.img}}"
-          data-edit="img"
-          title="{{item.name}}"
-        />
+        <img class="profile-img"
+             src="{{item.img}}"
+             data-edit="img"
+             title="{{item.name}}"/>
       </div>
       <div class="item-info">
         <div class="item-info-inner">
           <div class="name">
             <label class="input-sizer stacked" data-value="{{item.name}}">
-              <input
-                type="text"
-                oninput="this.parentNode.dataset.value = this.value"
-                size="1"
-                name="name"
-                value="{{item.name}}"
-              />
+              <input type="text"
+                     oninput="this.parentNode.dataset.value = this.value"
+                     size="1"
+                     name="name"
+                     value="{{item.name}}"/>
               <span class="label">
-                {{#if (is data.data.type "outfit")}}
+                {{#if (is data.data.type "outfit") }}
                   {{localize "CRYPTOMANCER.TrademarkItem.outfitName"}}
                 {{else}}
                   {{localize "CRYPTOMANCER.TrademarkItem.weaponName"}}
@@ -30,13 +26,8 @@
             </label>
           </div>
           <div class="item-type">
-            <label for="{{concat 'item-type-select-' item.id}}">
-              {{localize "CRYPTOMANCER.TrademarkItemType.itemType"}}
-            </label>
-            <select
-              id="{{concat 'item-type-select-' item.id}}"
-              name="data.type"
-            >
+            <label for="{{concat 'item-type-select-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItemType.itemType"}}</label>
+            <select id="{{concat 'item-type-select-' item.id}}" name="data.type">
               {{selectOptions itemTypes selected=data.data.type localize=true}}
             </select>
           </div>
@@ -45,44 +36,34 @@
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">
-      {{localize "CRYPTOMANCER.Description"}}
-    </a>
+    <a class="item" data-tab="description">{{localize "CRYPTOMANCER.Description"}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab" data-group="primary" data-tab="description">
       <div class="item-wrapper">
         <div class="item-rules">
-          <label for="{{concat 'item-rules-' item.id}}">
-            {{localize "CRYPTOMANCER.TrademarkItem.rules"}}
-          </label>
-          <input
-            id="{{concat 'item-rules-' item.id}}"
-            type="text"
-            placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.rules'}}"
-            name="data.rules"
-            value="{{data.data.rules}}"
-          />
+          <label for="{{concat 'item-rules-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItem.rules"}}</label>
+          <input id="{{concat 'item-rules-' item.id}}"
+                 type="text"
+                 placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.rules'}}"
+                 name="data.rules"
+                 value="{{data.data.rules}}"/>
         </div>
         <div class="item-qualities">
-          <label for="{{concat 'item-qualities-' item.id}}">
-            {{localize "CRYPTOMANCER.TrademarkItem.qualities"}}
-          </label>
-          <input
-            id="{{concat 'item-qualities-' item.id}}"
-            type="text"
-            placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.qualities'}}"
-            name="data.qualities"
-            value="{{data.data.qualities}}"
-          />
+          <label for="{{concat 'item-qualities-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItem.qualities"}}</label>
+          <input id="{{concat 'item-qualities-' item.id}}"
+                 type="text"
+                 placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.qualities'}}"
+                 name="data.qualities"
+                 value="{{data.data.qualities}}"/>
         </div>
         {{editor
-          content=data.data.description
-          target="data.description"
-          rollData=rollData
-          button=true
-          owner=owner
-          editable=editable
+        content=data.data.description
+        target="data.description"
+        rollData=rollData
+        button=true
+        owner=owner
+        editable=editable
         }}
       </div>
     </div>

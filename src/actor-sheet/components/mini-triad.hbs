@@ -1,37 +1,36 @@
 {{!
 @Input core: {
-  label: string;
-  key: string;
-  value: string;
-  attributes: Array<{
-    label: string;
-    key: string;
-    value: string;
-  }>
+label: string;
+key: string;
+value: string;
+attributes: Array<{
+label: string;
+key: string;
+value: string;
+}>
 }
 }}
-
 <div class="crypt-mini-triad">
   <div class="label-wrapper">
-    <div class="core-label">
-      {{l this.label}}
-    </div>
+    <div class="core-label">{{l this.label}}</div>
     {{#noSkillAttribute this}}
-      <div class="attr-break-push">
-        {{> toggleBox id=(concat "attr-" this.key "-break") name=(concat "data.core." this.core ".attributes." this.key ".break") value=this.break placeholder="1"}}
-        {{> toggleBox id=(concat "attr-" this.key "-push") name=(concat "data.core." this.core ".attributes." this.key ".push") value=this.push placeholder="10"}}
-      </div>
-    {{/noSkillAttribute}}
-  </div>
-  <div class="triad">
-    <div class="core-value">
-      {{> coreInput value=this.value name=(concat "data.core." this.key ".value") size="large"}}
+    <div class="attr-break-push">
+      {{> toggleBox id=(concat "attr-" this.key "-break") name=(concat "data.core." this.core ".attributes." this.key ".break") value=this.break placeholder="1"}}
+      {{> toggleBox id=(concat "attr-" this.key "-push") name=(concat "data.core." this.core ".attributes." this.key ".push") value=this.push placeholder="10"}}
     </div>
-    {{#each attributes}}
-      <div class="core">
-        {{> coreInput value=this.value name=(concat "data.core." ../key ".attributes." this.key ".value") size="small"}}
-        <a class="rollable" data-roll-core="{{../key}}" data-roll-attribute="{{this.key}}">{{l this.label}}</a>
-      </div>
-    {{/each}}
+  {{/noSkillAttribute}}
+</div>
+<div class="triad">
+  <div class="core-value">
+    {{> coreInput value=this.value name=(concat "data.core." this.key ".value") size="large"}}
   </div>
+  {{#each attributes }}
+    <div class="core">
+      {{> coreInput value=this.value name=(concat "data.core." ../key ".attributes." this.key ".value") size="small"}}
+      <a class="rollable"
+         data-roll-core="{{../key}}"
+         data-roll-attribute="{{this.key}}">{{l this.label}}</a>
+    </div>
+  {{/each}}
+</div>
 </div>

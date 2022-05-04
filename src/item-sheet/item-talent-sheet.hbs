@@ -2,79 +2,71 @@
   <header>
     <div class="item-info-wrapper">
       <div class="avatar">
-        <img
-          class="profile-img"
-          src="{{item.img}}"
-          data-edit="img"
-          title="{{item.name}}"
-        />
+        <img class="profile-img"
+             src="{{item.img}}"
+             data-edit="img"
+             title="{{item.name}}"/>
       </div>
       <div class="item-info">
         <div class="item-info-inner">
           <div class="name">
             <label class="input-sizer stacked" data-value="{{item.name}}">
-              <input
-                type="text"
-                oninput="this.parentNode.dataset.value = this.value"
-                size="1"
-                name="name"
-                value="{{item.name}}"
-              />
+              <input type="text"
+                     oninput="this.parentNode.dataset.value = this.value"
+                     size="1"
+                     name="name"
+                     value="{{item.name}}"/>
               <span class="label">{{localize "CRYPTOMANCER.Talent.talentName"}}</span>
             </label>
           </div>
           <div class="cost">
-            <label
-              class="input-sizer stacked item-purchase-cost"
-              data-value="{{data.data.purchaseCost}}"
-            >
-              <input
-                type="text"
-                oninput="this.parentNode.dataset.value = this.value"
-                size="1"
-                name="data.purchaseCost"
-                value="{{data.data.purchaseCost}}"
-                data-dtype="Number"
-              />
+            <label class="input-sizer stacked item-purchase-cost"
+                   data-value="{{data.data.purchaseCost}}">
+              <input type="text"
+                     oninput="this.parentNode.dataset.value = this.value"
+                     size="1"
+                     name="data.purchaseCost"
+                     value="{{data.data.purchaseCost}}"
+                     data-dtype="Number"/>
               <span class="label">{{localize "CRYPTOMANCER.Talent.upCost"}}</span>
             </label>
           </div>
         </div>
         <div class="tiers">
-          {{#if data.data.tiered}}
-            <p>{{localize "CRYPTOMANCER.Talent.tier"}}</p>
+          {{#if data.data.tiered }}
+            <p>
+              {{localize "CRYPTOMANCER.Talent.tier"}}
+            </p>
             {{#times data.data.tiers}}
-              <span class="tier-toggle">{{> toggleBox id=(concat "tier-toggle-" ../item.id "-" this) value=(lt this ../data.data.currentTier) placeholder=(add this 1) }}</span>
-            {{/times}}
-          {{/if}}
-          <div class="flex-spacer"></div>
-          <span class="tiered-toggle">
-            {{localize "CRYPTOMANCER.Talent.tiers"}} {{> toggleBox id=(concat "tiered-toggle-" item.id) value=data.data.tiered name="data.tiered"}}
-          </span>
-          <input
-            class="tier-count"
-            type="text"
-            name="data.tiers"
-            value="{{data.data.tiers}}"
-            data-dtype="Number"
-          />
-        </div>
+            <span class="tier-toggle">{{> toggleBox id=(concat "tier-toggle-" ../item.id "-" this) value=(lt this ../data.data.currentTier) placeholder=(add this 1) }}</span>
+          {{/times}}
+        {{/if}}
+        <div class="flex-spacer"></div>
+        <span class="tiered-toggle">
+          {{localize "CRYPTOMANCER.Talent.tiers"}} {{> toggleBox id=(concat "tiered-toggle-" item.id) value=data.data.tiered name="data.tiered"}}
+        </span>
+        <input class="tier-count"
+               type="text"
+               name="data.tiers"
+               value="{{data.data.tiers}}"
+               data-dtype="Number"/>
       </div>
     </div>
-  </header>
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">{{localize "CRYPTOMANCER.Description"}}</a>
-  </nav>
-  <section class="sheet-body">
-    <div class="tab" data-group="primary" data-tab="description">
-      {{editor
-        content=data.data.description
-        target="data.description"
-        rollData=rollData
-        button=true
-        owner=owner
-        editable=editable
-      }}
-    </div>
-  </section>
+  </div>
+</header>
+<nav class="sheet-tabs tabs" data-group="primary">
+  <a class="item" data-tab="description">{{localize "CRYPTOMANCER.Description"}}</a>
+</nav>
+<section class="sheet-body">
+  <div class="tab" data-group="primary" data-tab="description">
+    {{editor
+    content=data.data.description
+    target="data.description"
+    rollData=rollData
+    button=true
+    owner=owner
+    editable=editable
+    }}
+  </div>
+</section>
 </form>

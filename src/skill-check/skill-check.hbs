@@ -1,6 +1,6 @@
 <div class="crypt-skill-check">
   <h4 class="skill">
-    {{#if skillName}}
+    {{#if skillName }}
       {{skillName}}
     {{else}}
       {{attributeName}}
@@ -9,28 +9,25 @@
   <div class="difficulty">
     <p>
       <span class="difficulty-label">{{localize
-          "CRYPTOMANCER.CheckDifficulty.difficulty"
-        }}:</span>
+        "CRYPTOMANCER.CheckDifficulty.difficulty"
+      }}:</span>
       {{difficulty}}
     </p>
     <div class="flex-spacer"></div>
-    <button
-      class="difficulty-update-button left"
-      {{disabled (is difficultyValue 4)}}
-    >-</button>
-    <button
-      class="difficulty-update-button right"
-      {{disabled (is difficultyValue 8)}}
-    >+</button>
+    <button class="difficulty-update-button left" {{disabled (is difficultyValue 4)}}>-
+    </button>
+    <button class="difficulty-update-button right" {{disabled (is difficultyValue 8)}}>+
+    </button>
   </div>
-  <p class="result"><strong>{{checkResult}}</strong> {{resultDescription}}</p>
-  <ol class="dice">
-    {{#each rolls}}
-      <li
-        class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
+  <p class="result">
+    <strong>{{checkResult}}</strong> {{resultDescription}}
+</p>
+<ol class="dice">
+  {{#each rolls }}
+    <li class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
         title="{{this.value}}"
-        data-tooltip="{{this.value}}"
-      ></li>
-    {{/each}}
-  </ol>
+        data-tooltip="{{this.value}}">
+    </li>
+  {{/each}}
+</ol>
 </div>
