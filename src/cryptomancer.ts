@@ -11,10 +11,12 @@ import { SettingsService } from "./settings/settings.service";
 import { SkillCheckService } from "./skill-check/skill-check.service";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
-import { l } from "./shared/util";
-import { SpellType } from "./shared/enums/item";
+import { getGame, l } from "./shared/util";
+import { SpellType } from "./item/item.enum";
 import "./cryptomancer.scss";
 import { CoreAlt } from "./actor/actor.interface";
+import { SCOPE } from "./shared/constants";
+import { migrateWorld } from "./shared/migrations";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -56,29 +58,32 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
+  Actors.registerSheet(SCOPE, CryptomancerActorSheet, {
     makeDefault: true,
-    label: l("SheetType.character"),
+    label: "CRYPTOMANCER.SheetType.character",
     types: ["character"],
   });
-  Actors.registerSheet("cryptomancer", CryptomancerActorSheet, {
-    label: l("SheetType.party"),
+  Actors.registerSheet(SCOPE, CryptomancerActorSheet, {
+    makeDefault: true,
+    label: "CRYPTOMANCER.SheetType.party",
     types: ["party"],
   });
 
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+  Items.registerSheet(SCOPE, CryptomancerItemSheet, {
     makeDefault: true,
     label: "CRYPTOMANCER.SheetType.talent",
     types: ["talent"],
   });
-  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
+  Items.registerSheet(SCOPE, CryptomancerItemSheet, {
+    makeDefault: true,
     label: "CRYPTOMANCER.SheetType.spell",
     types: ["spell"],
   });
-  Items.registerSheet("cryptomancer", CryptomancerItemSheet, {
-    label: "CRYPTOMANCER.SheetType.trademarkItem",
-    types: ["trademarkItem"],
+  Items.registerSheet(SCOPE, CryptomancerItemSheet, {
+    makeDefault: true,
+    label: "CRYPTOMANCER.SheetType.equipment",
+    types: ["equipment"],
   });
 
   // Preload Handlebars templates.
@@ -106,18 +111,15 @@ Handlebars.registerHelper("add", (a: number, b: number) => {
   return a + b;
 });
 
-Handlebars.registerHelper(
-  "times",
-  (context: number, options: Handlebars.HelperOptions) => {
-    let ret = "";
+Handlebars.registerHelper("times", (context: number, options: Handlebars.HelperOptions) => {
+  let ret = "";
 
-    for (let i = 0; i < context; i++) {
-      ret = ret + options.fn(i);
-    }
-
-    return ret;
+  for (let i = 0; i < context; i++) {
+    ret = ret + options.fn(i);
   }
-);
+
+  return ret;
+});
 
 Handlebars.registerHelper("concat", function () {
   var outStr = "";
@@ -164,18 +166,15 @@ Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
   return l(`SpellType.${type}`);
 });
 
-Handlebars.registerHelper(
-  "noSkillAttribute",
-  (core: CoreAlt, options: Handlebars.HelperOptions) => {
-    if (core.key === "resolve") {
-      return options.fn(core.attributes["willpower"]);
-    } else if (core.key === "power") {
-      return options.fn(core.attributes["endurance"]);
-    } else {
-      return;
-    }
+Handlebars.registerHelper("noSkillAttribute", (core: CoreAlt, options: Handlebars.HelperOptions) => {
+  if (core.key === "resolve") {
+    return options.fn(core.attributes["willpower"]);
+  } else if (core.key === "power") {
+    return options.fn(core.attributes["endurance"]);
+  } else {
+    return;
   }
-);
+});
 
 /**
  * Lookup and localize the short version of an attribute name
@@ -191,6 +190,21 @@ Handlebars.registerHelper("shortAttr", (attribute: string) => {
 Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+
+  // Determine whether a system migration is required and feasible
+  const game = getGame();
+  if (!game.user?.isGM) return;
+  const currentVersion = game.settings.get(SCOPE, "systemMigrationVersion") as string;
+  const NEEDS_MIGRATION_VERSION = "0.3.0";
+  const COMPATIBLE_MIGRATION_VERSION = "0.1.0";
+  const needsMigration = !currentVersion || isNewerVersion(NEEDS_MIGRATION_VERSION, currentVersion);
+  if (!needsMigration) return;
+
+  // Perform the migration
+  if (currentVersion && isNewerVersion(COMPATIBLE_MIGRATION_VERSION, currentVersion)) {
+    ui.notifications?.error(game.i18n.localize("MIGRATION.VersionTooOldWarning"), { permanent: true });
+  }
+  migrateWorld();
 });
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
@@ -202,12 +216,21 @@ Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
  * buttons in each skill check chat message to
  * update the check difficulty.
  */
-Hooks.on(
-  "renderChatMessage",
-  (message: ChatMessage, html: JQuery<HTMLElement>) => {
-    SkillCheckService.bindMessage(message, html);
-  }
-);
+Hooks.on("renderChatMessage", (message: ChatMessage, html: JQuery<HTMLElement>) => {
+  SkillCheckService.bindMessage(message, html);
+});
+
+/**
+ * Don't allow the creation of trademark items.
+ * DEPRECATED Remove this in 1.0.0
+ */
+Hooks.on("renderDialog", (_: Dialog, html: JQuery<HTMLElement>) => {
+  Array.from(html.find<HTMLOptionElement>("#document-create option")).forEach((option) => {
+    if (option.value === "trademarkItem") {
+      option.remove();
+    }
+  });
+});
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
@@ -222,17 +245,12 @@ Hooks.on(
  */
 async function createItemMacro(data: DropData<Macro>, slot: number) {
   if ((data as any).type !== "Item") return;
-  if (!("data" in data))
-    return ui?.notifications?.warn(
-      "You can only create macro buttons for owned Items"
-    );
+  if (!("data" in data)) return ui?.notifications?.warn("You can only create macro buttons for owned Items");
   const item = data.data;
 
   // Create the macro command
   const command = `game.cryptomancer.rollItemMacro("${item.name}");`;
-  let macro = (game as any).macros.find(
-    (m: any) => m.name === item.name && m.command === command
-  );
+  let macro = (game as any).macros.find((m: any) => m.name === item.name && m.command === command);
   if (!macro) {
     macro = await Macro.create({
       name: item.name,
@@ -257,13 +275,8 @@ function rollItemMacro(itemName: string) {
   let actor;
   if (speaker.token) actor = (game as any).actors.tokens[speaker.token];
   if (!actor) actor = (game as any).actors.get(speaker.actor);
-  const item = actor
-    ? actor.items.find((i: Item) => i.name === itemName)
-    : null;
-  if (!item)
-    return ui?.notifications?.warn(
-      `Your controlled Actor does not have an item named ${itemName}`
-    );
+  const item = actor ? actor.items.find((i: Item) => i.name === itemName) : null;
+  if (!item) return ui?.notifications?.warn(`Your controlled Actor does not have an item named ${itemName}`);
 
   // Trigger the item roll
   return item.roll();

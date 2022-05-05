@@ -1,5 +1,5 @@
 .crypt-item-sheet {
-  &__trademark-item,
+  &__equipment,
   &__talent,
   &__spell {
     display: flex;
@@ -80,7 +80,7 @@
     }
   }
 
-  &__trademark-item {
+  &__equipment {
     .item-wrapper {
       display: flex;
       flex-direction: column;

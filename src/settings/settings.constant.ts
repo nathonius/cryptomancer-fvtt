@@ -1,16 +1,8 @@
-import {
-  CheckDifficulty,
-  CheckDifficultyLabel,
-} from "../skill-check/skill-check.enum";
+import { CheckDifficulty, CheckDifficultyLabel } from "../skill-check/skill-check.enum";
 
-export type SettingsKeys = "checkDifficulty";
+export type SettingsKeys = "checkDifficulty" | "systemMigrationVersion";
 
-export const Module = "Cryptomancer";
-
-export const Settings: Record<
-  SettingsKeys,
-  ClientSettings.PartialSetting<number>
-> = {
+export const Settings: Record<SettingsKeys, ClientSettings.PartialSetting> = {
   checkDifficulty: {
     type: Number,
     scope: "client",
@@ -18,9 +10,14 @@ export const Settings: Record<
     config: false,
     choices: {
       [CheckDifficulty.Trivial]: CheckDifficultyLabel[CheckDifficulty.Trivial],
-      [CheckDifficulty.Challenging]:
-        CheckDifficultyLabel[CheckDifficulty.Challenging],
+      [CheckDifficulty.Challenging]: CheckDifficultyLabel[CheckDifficulty.Challenging],
       [CheckDifficulty.Tough]: CheckDifficultyLabel[CheckDifficulty.Tough],
     },
+  },
+  systemMigrationVersion: {
+    type: String,
+    scope: "world",
+    default: "0.3.0",
+    config: false,
   },
 };

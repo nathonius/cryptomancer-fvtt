@@ -1,6 +1,6 @@
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
 import { Character, Party, PreparedCharacter } from "./actor/actor.interface";
-import { TrademarkItem, Spell, Talent } from "./item/item.interface";
+import { TrademarkItem, Spell, Talent, Equipment } from "./item/item.interface";
 import { CryptomancerActor } from "./actor/actor";
 import { CryptomancerItem } from "./item/item";
 
@@ -29,6 +29,11 @@ interface TrademarkItemDataSource {
   data: TrademarkItem;
 }
 
+interface EquipmentDataSource {
+  type: "equipment";
+  data: Equipment;
+}
+
 interface SpellDataSource {
   type: "spell";
   data: Spell;
@@ -41,14 +46,8 @@ interface TalentDataSource {
 
 type CryptomancerActorDataSource = CharacterDataSource | PartyDataSource;
 type CryptomancerActorDataPrepared = CharacterDataPrepared | PartyDataPrepared;
-type CryptomancerItemDataSource =
-  | TrademarkItemDataSource
-  | SpellDataSource
-  | TalentDataSource;
-type CryptomancerItemDataPrepared =
-  | TrademarkItemDataSource
-  | SpellDataSource
-  | TalentDataSource;
+type CryptomancerItemDataSource = EquipmentDataSource | TrademarkItemDataSource | SpellDataSource | TalentDataSource;
+type CryptomancerItemDataPrepared = EquipmentDataSource | TrademarkItemDataSource | SpellDataSource | TalentDataSource;
 
 declare global {
   interface SoruceConfig {

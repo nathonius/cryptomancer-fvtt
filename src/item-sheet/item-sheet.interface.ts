@@ -1,6 +1,6 @@
-import { SpellType, TrademarkItemType } from "../shared/enums/item";
+import { SpellType, EquipmentType } from "../item/item.enum";
 
 export type AugmentedData = ItemSheet.Data & {
   spellTypes: Record<SpellType, string>;
-  itemTypes: Record<TrademarkItemType, string>;
+  equipmentTypes: Record<EquipmentType, string>;
 };

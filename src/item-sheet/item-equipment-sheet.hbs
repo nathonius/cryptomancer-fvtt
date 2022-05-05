@@ -1,4 +1,4 @@
-<form class="crypt-item-sheet__trademark-item" autocomplete="off">
+<form class="crypt-item-sheet__equipment" autocomplete="off">
   <header>
     <div class="item-info-wrapper">
       <div class="avatar">
@@ -17,18 +17,14 @@
                      name="name"
                      value="{{item.name}}"/>
               <span class="label">
-                {{#if (is data.data.type "outfit") }}
-                  {{localize "CRYPTOMANCER.TrademarkItem.outfitName"}}
-                {{else}}
-                  {{localize "CRYPTOMANCER.TrademarkItem.weaponName"}}
-                {{/if}}
+                  {{localize "CRYPTOMANCER.Equipment.name"}}
               </span>
             </label>
           </div>
           <div class="item-type">
-            <label for="{{concat 'item-type-select-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItemType.itemType"}}</label>
+            <label for="{{concat 'item-type-select-' item.id}}">{{localize "CRYPTOMANCER.EquipmentType.itemType"}}</label>
             <select id="{{concat 'item-type-select-' item.id}}" name="data.type">
-              {{selectOptions itemTypes selected=data.data.type localize=true}}
+              {{selectOptions equipmentTypes selected=data.data.type localize=true}}
             </select>
           </div>
         </div>
@@ -42,18 +38,18 @@
     <div class="tab" data-group="primary" data-tab="description">
       <div class="item-wrapper">
         <div class="item-rules">
-          <label for="{{concat 'item-rules-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItem.rules"}}</label>
+          <label for="{{concat 'item-rules-' item.id}}">{{localize "CRYPTOMANCER.Equipment.rules"}}</label>
           <input id="{{concat 'item-rules-' item.id}}"
                  type="text"
-                 placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.rules'}}"
+                 placeholder="{{localize 'CRYPTOMANCER.Equipment.rules'}}"
                  name="data.rules"
                  value="{{data.data.rules}}"/>
         </div>
         <div class="item-qualities">
-          <label for="{{concat 'item-qualities-' item.id}}">{{localize "CRYPTOMANCER.TrademarkItem.qualities"}}</label>
+          <label for="{{concat 'item-qualities-' item.id}}">{{localize "CRYPTOMANCER.Equipment.qualities"}}</label>
           <input id="{{concat 'item-qualities-' item.id}}"
                  type="text"
-                 placeholder="{{localize 'CRYPTOMANCER.TrademarkItem.qualities'}}"
+                 placeholder="{{localize 'CRYPTOMANCER.Equipment.qualities'}}"
                  name="data.qualities"
                  value="{{data.data.qualities}}"/>
         </div>
