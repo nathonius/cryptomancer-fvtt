@@ -4,6 +4,7 @@ import {
   ActorData,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { CryptomancerItem } from "../item/item";
 import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
@@ -15,10 +16,7 @@ import { Attribute, Cell, CoreAlt, ResourceAttribute } from "./actor.interface";
  * @extends {Actor}
  */
 export class CryptomancerActor extends Actor {
-  constructor(
-    data?: ActorDataConstructorData,
-    context?: Context<TokenDocument>
-  ) {
+  constructor(data?: ActorDataConstructorData, context?: Context<TokenDocument>) {
     super(data, context);
   }
 
@@ -57,17 +55,22 @@ export class CryptomancerActor extends Actor {
     actorData.data.talents = [];
     actorData.data.spells = [];
     actorData.data.trademarkItems = [];
+    actorData.data.equipment = [];
 
-    actorData.items.forEach((i) => {
-      switch (i.type) {
+    actorData.items.forEach((i: CryptomancerItem) => {
+      switch (i.data.type) {
         case "talent":
           actorData.data.talents.push(i);
           break;
         case "spell":
           actorData.data.spells.push(i);
           break;
-        case "trademarkItem":
-          actorData.data.trademarkItems.push(i);
+        case "equipment":
+          if (i.data.data.trademark) {
+            actorData.data.trademarkItems.push(i);
+          } else {
+            actorData.data.equipment.push(i);
+          }
           break;
       }
     });

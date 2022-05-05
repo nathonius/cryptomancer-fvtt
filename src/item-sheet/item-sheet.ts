@@ -1,10 +1,7 @@
 import type { AugmentedData } from "./item-sheet.interface";
-import { SpellTypes, TrademarkItemTypes } from "./item-sheet.constant";
+import { SpellTypes, EquipmentTypes } from "./item-sheet.constant";
 
-export class CryptomancerItemSheet extends ItemSheet<
-  DocumentSheetOptions,
-  AugmentedData
-> {
+export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, AugmentedData> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "item"],
@@ -20,12 +17,10 @@ export class CryptomancerItemSheet extends ItemSheet<
     });
   }
 
-  override async getData(
-    options?: Partial<DocumentSheetOptions>
-  ): Promise<AugmentedData> {
+  override async getData(options?: Partial<DocumentSheetOptions>): Promise<AugmentedData> {
     const context = await super.getData(options);
     context.spellTypes = SpellTypes;
-    context.itemTypes = TrademarkItemTypes;
+    context.equipmentTypes = EquipmentTypes;
     return context;
   }
 
@@ -41,15 +36,13 @@ export class CryptomancerItemSheet extends ItemSheet<
     if (this.object.data.type === "talent") {
       // Attach tier change listeners
       if (this.object.data.data.tiered) {
-        html
-          .find('.tiers .tier-toggle input[type="checkbox"]')
-          .on("change", (evt) => {
-            if (this.object.data.type === "talent") {
-              evt.preventDefault();
-              const index = parseInt(evt.target.id.split("-").at(-1)!);
-              this.item.update({ data: { currentTier: index + 1 } });
-            }
-          });
+        html.find('.tiers .tier-toggle input[type="checkbox"]').on("change", (evt) => {
+          if (this.object.data.type === "talent") {
+            evt.preventDefault();
+            const index = parseInt(evt.target.id.split("-").at(-1)!);
+            this.item.update({ data: { currentTier: index + 1 } });
+          }
+        });
       }
     }
   }
