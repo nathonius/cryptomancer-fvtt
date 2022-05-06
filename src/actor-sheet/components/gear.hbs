@@ -9,19 +9,19 @@
           <h3 class="trademark-item__name">{{this.name}}</h3>
           {{#if (is this.data.data.type "outfit") }}
             <p class="trademark-item__label">
-              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkOutfit"}}
+              {{localize "CRYPTOMANCER.EquipmentType.trademarkOutfit"}}
             </p>
           {{else}}
             <p class="trademark-item__label">
-              {{localize "CRYPTOMANCER.TrademarkItemType.trademarkWeapon"}}
+              {{localize "CRYPTOMANCER.EquipmentType.trademarkWeapon"}}
             </p>
           {{/if}}
           <div class="trademark-item__rules">
-            <span class="label">{{localize "CRYPTOMANCER.TrademarkItem.rules"}}</span>
+            <span class="label">{{localize "CRYPTOMANCER.Equipment.rules"}}</span>
             <span class="value">{{this.data.data.rules}}</span>
           </div>
           <div class="trademark-item__qualities">
-            <span class="label">{{localize "CRYPTOMANCER.TrademarkItem.qualities"}}</span>
+            <span class="label">{{localize "CRYPTOMANCER.Equipment.qualities"}}</span>
             <span class="value">{{this.data.data.qualities}}</span>
           </div>
           <div class="trademark-item__avatar">
@@ -45,12 +45,6 @@
     <p class="section-label">
       {{localize "CRYPTOMANCER.Gear.equipmentConsumablesLoot"}}
     </p>
-    {{editor
-    content=data.data.gear.other
-    target="data.gear.other"
-    button=true
-    owner=owner
-    editable=editable
-    }}
+    {{editor content=data.data.gear.other target="data.gear.other" button=true owner=owner editable=editable }}
   </div>
 </div>

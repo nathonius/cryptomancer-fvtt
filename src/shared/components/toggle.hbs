@@ -1,0 +1,12 @@
+{{!
+@Input context: {
+id: string;
+type: "round" | "square";
+name: string;
+value: boolean;
+}
+}}
+<label for="{{this.id}}" class="crypt-toggle {{this.type}}">
+  <input class="visually-hidden" type="checkbox" id="{{this.id}}" {{checked this.value}} name="{{this.name}}"/>
+  <span class="slider"></span>
+</label>

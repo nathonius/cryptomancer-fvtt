@@ -7,17 +7,16 @@ const partials: Record<string, string> = {
   defenses: "systems/cryptomancer/actor-sheet/components/defenses.hbs",
   miniTriad: "systems/cryptomancer/actor-sheet/components/mini-triad.hbs",
   skillList: "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
-  resourceSkill:
-    "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",
+  resourceSkill: "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",
   defense: "systems/cryptomancer/actor-sheet/components/defense.hbs",
   featureList: "systems/cryptomancer/actor-sheet/components/feature-list.hbs",
   bio: "systems/cryptomancer/actor-sheet/components/bio.hbs",
   gear: "systems/cryptomancer/actor-sheet/components/gear.hbs",
-  safehouseRoom:
-    "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
+  safehouseRoom: "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
   cell: "systems/cryptomancer/actor-sheet/components/cell.hbs",
   formField: "systems/cryptomancer/shared/components/form-field.hbs",
   coreInput: "systems/cryptomancer/shared/components/core-input.hbs",
+  toggle: "systems/cryptomancer/shared/components/toggle.hbs",
   toggleBox: "systems/cryptomancer/shared/components/toggle-box.hbs",
   skill: "systems/cryptomancer/actor-sheet/components/skill.hbs",
 };
@@ -51,9 +50,7 @@ async function cryptGetTemplate(name: string, path: string) {
         const compiled = Handlebars.compile(resp.html);
         Handlebars.registerPartial(name, compiled);
         _templateCache[name] = compiled;
-        console.log(
-          `Cryptomancer VTT | Retrieved and compiled template ${name} at ${path}`
-        );
+        console.log(`Cryptomancer VTT | Retrieved and compiled template ${name} at ${path}`);
         resolve(compiled);
       });
     });

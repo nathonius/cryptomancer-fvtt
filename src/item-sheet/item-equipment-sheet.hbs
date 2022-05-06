@@ -1,67 +1,70 @@
 <form class="crypt-item-sheet__equipment" autocomplete="off">
-  <header>
-    <div class="item-info-wrapper">
-      <div class="avatar">
-        <img class="profile-img"
-             src="{{item.img}}"
-             data-edit="img"
-             title="{{item.name}}"/>
-      </div>
-      <div class="item-info">
-        <div class="item-info-inner">
-          <div class="name">
-            <label class="input-sizer stacked" data-value="{{item.name}}">
-              <input type="text"
-                     oninput="this.parentNode.dataset.value = this.value"
-                     size="1"
-                     name="name"
-                     value="{{item.name}}"/>
-              <span class="label">
-                  {{localize "CRYPTOMANCER.Equipment.name"}}
-              </span>
-            </label>
-          </div>
-          <div class="item-type">
-            <label for="{{concat 'item-type-select-' item.id}}">{{localize "CRYPTOMANCER.EquipmentType.itemType"}}</label>
-            <select id="{{concat 'item-type-select-' item.id}}" name="data.type">
-              {{selectOptions equipmentTypes selected=data.data.type localize=true}}
-            </select>
-          </div>
-        </div>
-      </div>
+  <section class="avatar">
+    <img alt="equipment avatar"
+         class="profile-img"
+         src="{{item.img}}"
+         data-edit="img"
+         title="{{item.name}}"/>
+  </section>
+  <section class="item-info">
+    <div class="crypt-form-field">
+      <label for="item-name-{{item.id}}">{{l "Equipment.name"}}</label>
+      <input id="item-name-{{item.id}}"
+             type="text"
+             name="name"
+             value="{{item.name}}"/>
     </div>
-  </header>
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">{{localize "CRYPTOMANCER.Description"}}</a>
-  </nav>
+    <div class="crypt-form-field">
+      <label for="item-type-select-{{item.id}}">{{l "EquipmentType.itemType"}}</label>
+      <select id="item-type-select-{{item.id}}" name="data.type">
+        {{selectOptions equipmentTypes selected=data.data.type localize=true}}
+      </select>
+    </div>
+  </section>
+  <section class="config">
+    <div class="crypt-form-field">
+      <label for="item-quantity-{{item.id}}">{{l "Equipment.quantity"}}</label>
+      <input id="item-quantity-{{item.id}}"
+             type="text"
+             name="data.quantity"
+             value="{{data.data.quantity}}"
+             data-dtype="Number"/>
+    </div>
+    <div class="crypt-form-field">
+      <label for="item-cost-{{item.id}}">{{l "Equipment.cost"}}</label>
+      <input id="item-cost-{{item.id}}"
+             type="text"
+             name="data.cost"
+             value="{{data.data.cost}}"
+             data-dtype="Number"/>
+    </div>
+    <div class="toggle-field">
+      <span class="toggle-label">{{l "Equipment.masterwork" }}</span>
+      {{> toggleBox id=(concat "masterwork-toggle-" item.id) name="data.masterwork" value=data.data.masterwork}}
+    </div>
+    <div class="toggle-field">
+      <span class="toggle-label">{{l "Equipment.trademark" }}</span>
+      {{> toggleBox id=(concat "trademark-toggle-" item.id) name="data.trademark" value=data.data.trademark}}
+    </div>
+  </section>
   <section class="sheet-body">
-    <div class="tab" data-group="primary" data-tab="description">
-      <div class="item-wrapper">
-        <div class="item-rules">
-          <label for="{{concat 'item-rules-' item.id}}">{{localize "CRYPTOMANCER.Equipment.rules"}}</label>
-          <input id="{{concat 'item-rules-' item.id}}"
-                 type="text"
-                 placeholder="{{localize 'CRYPTOMANCER.Equipment.rules'}}"
-                 name="data.rules"
-                 value="{{data.data.rules}}"/>
-        </div>
-        <div class="item-qualities">
-          <label for="{{concat 'item-qualities-' item.id}}">{{localize "CRYPTOMANCER.Equipment.qualities"}}</label>
-          <input id="{{concat 'item-qualities-' item.id}}"
-                 type="text"
-                 placeholder="{{localize 'CRYPTOMANCER.Equipment.qualities'}}"
-                 name="data.qualities"
-                 value="{{data.data.qualities}}"/>
-        </div>
-        {{editor
-        content=data.data.description
-        target="data.description"
-        rollData=rollData
-        button=true
-        owner=owner
-        editable=editable
-        }}
-      </div>
+    <div class="crypt-form-field">
+      <label for="item-rules-{{item.id}}">{{l "Equipment.rules"}}</label>
+      <input id="item-rules-{{item.id}}"
+             type="text"
+             placeholder="{{l "Equipment.rules"}}"
+             name="data.rules"
+             value="{{data.data.rules}}"/>
     </div>
+    <div class="crypt-form-field">
+      <label for="item-qualities-{{item.id}}">{{l "Equipment.qualities"}}</label>
+      <input id="item-qualities-{{item.id}}"
+             type="text"
+             placeholder="{{l "Equipment.qualities"}}"
+             name="data.qualities"
+             value="{{data.data.qualities}}"/>
+    </div>
+    <h3 class="description-label">{{l "Description"}}</h3>
+    {{editor content=data.data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
   </section>
 </form>
