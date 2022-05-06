@@ -2,105 +2,58 @@
   &__equipment,
   &__talent,
   &__spell {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 120px 1fr;
+    gap: 16px;
 
-    .item-info-wrapper {
-      display: flex;
-      gap: 4px;
+    section.avatar {
+      img {
+        display: block;
+        height: 100%;
+        max-width: 120px;
+      }
+    }
 
-      .avatar {
-        height: 90px;
-        img {
-          height: 100%;
+    section.item-info {
+      .crypt-form-field {
+        input,
+        select {
+          font-size: 1.3rem;
+          font-family: var(--font-accent);
         }
       }
+    }
 
-      .item-info {
+    section.config {
+      .toggle-field {
         display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        gap: 4px;
-        &-inner {
-          display: flex;
-          justify-content: space-between;
-        }
-      }
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.1rem;
+        border-bottom: 1px solid var(--neutral--light-2);
+        gap: 0.3rem;
+        min-height: 43px;
 
-      .name,
-      .cost {
-        font-family: var(--font-accent);
-        line-height: 0.9rem;
-        label {
-          min-width: 60px;
-          &::after,
-          input {
-            height: 40px;
-            font-size: 1.8rem;
-          }
+        .toggle-label {
+          text-transform: uppercase;
+          font-weight: bold;
         }
       }
     }
 
     .sheet-body {
-      flex-grow: 1;
-      .tab,
-      .editor {
-        height: 100%;
-      }
-    }
-  }
-
-  &__talent {
-    .item-info-wrapper {
-      .tiers {
-        height: 36px;
-        display: flex;
-        gap: 4px;
-        align-items: center;
-        .tiered-toggle {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
-        .tier-count {
-          width: 20px;
-          text-align: center;
-        }
-      }
-    }
-  }
-
-  &__spell {
-    .spell-type {
-      display: flex;
-      justify-content: flex-end;
-      align-items: baseline;
-      gap: 4px;
-    }
-  }
-
-  &__equipment {
-    .item-wrapper {
       display: flex;
       flex-direction: column;
-      height: 100%;
-    }
-    .item-rules,
-    .item-qualities {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      margin: 4px 0px;
-      padding-bottom: 2px;
-
-      label {
-        font-family: var(--font-accent);
-        color: var(--color-text-dark-inactive);
+      .description-label {
+        padding: 0.5rem 0.1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 14px;
+        margin: 0;
       }
-      input {
-        color: var(--primary);
-        width: 100%;
+      .editor {
+        flex-grow: 1;
       }
     }
   }

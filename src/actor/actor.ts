@@ -5,6 +5,7 @@ import {
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
 import { CryptomancerItem } from "../item/item";
+import { EquipmentType } from "../item/item.enum";
 import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
@@ -66,7 +67,7 @@ export class CryptomancerActor extends Actor {
           actorData.data.spells.push(i);
           break;
         case "equipment":
-          if (i.data.data.trademark) {
+          if (i.data.data.trademark && [EquipmentType.Outfit, EquipmentType.Weapon].includes(i.data.data.type)) {
             actorData.data.trademarkItems.push(i);
           } else {
             actorData.data.equipment.push(i);

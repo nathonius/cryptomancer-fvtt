@@ -1,7 +1,10 @@
 <form class="crypt-actor-sheet character" autocomplete="off">
   <header>
     <div class="avatar">
-      <img src="{{ actor.img }}" data-edit="img" title="{{ actor.name }}" />
+      <img alt="character avatar"
+           src="{{ actor.img }}"
+           data-edit="img"
+           title="{{ actor.name }}"/>
       {{> attributeBar hpAttributeBar }}
       {{> attributeBar manaAttributeBar }}
     </div>

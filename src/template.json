@@ -446,7 +446,6 @@
     "talent": {
       "templates": ["base", "purchaseable"],
       "tiered": true,
-      "tiers": 3,
       "currentTier": 1
     },
     "spell": {

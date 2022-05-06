@@ -5,11 +5,11 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "item"],
-      width: 520,
-      height: 480,
+      width: 580,
+      height: 620,
       tabs: [
         {
-          navSelector: ".sheet-tabs",
+          navSelector: ".crypt-tabs",
           contentSelector: ".sheet-body",
           initial: "description",
         },
