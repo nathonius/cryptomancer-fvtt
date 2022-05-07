@@ -55,8 +55,10 @@ export class CryptomancerActor extends Actor {
     if (actorData.type !== "character") return;
     actorData.data.talents = [];
     actorData.data.spells = [];
-    actorData.data.trademarkItems = [];
+    actorData.data.consumables = [];
     actorData.data.equipment = [];
+    actorData.data.outfits = [];
+    actorData.data.weapons = [];
 
     actorData.items.forEach((i: CryptomancerItem) => {
       switch (i.data.type) {
@@ -67,10 +69,19 @@ export class CryptomancerActor extends Actor {
           actorData.data.spells.push(i);
           break;
         case "equipment":
-          if (i.data.data.trademark && [EquipmentType.Outfit, EquipmentType.Weapon].includes(i.data.data.type)) {
-            actorData.data.trademarkItems.push(i);
-          } else {
-            actorData.data.equipment.push(i);
+          switch (i.data.data.type) {
+            case EquipmentType.Consumable:
+              actorData.data.consumables.push(i);
+              break;
+            case EquipmentType.Equipment:
+              actorData.data.equipment.push(i);
+              break;
+            case EquipmentType.Outfit:
+              actorData.data.outfits.push(i);
+              break;
+            case EquipmentType.Weapon:
+              actorData.data.weapons.push(i);
+              break;
           }
           break;
       }

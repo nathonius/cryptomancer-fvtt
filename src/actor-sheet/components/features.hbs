@@ -1,7 +1,7 @@
-<div class="crypt-feature-list">
-  <table class="feature-table__talent">
+<div class="crypt-features">
+  <table class="crypt-item-table talent-table">
     <tr>
-      <th>{{localize "CRYPTOMANCER.Talent.talents"}}</th>
+      <th>{{l "Talent.talents"}}</th>
     </tr>
     {{#each talents }}
       <tr class="item-row" data-item-id="{{this.id}}">
@@ -13,16 +13,13 @@
         <td class="talent name">{{this.name}}</td>
         <td class="talent actions-wrapper">
           <div class="actions">
-            <button class="action-button view"
-                    data-tooltip="{{localize 'CRYPTOMANCER.View'}}">
+            <button class="action-button view" data-tooltip="{{l 'View'}}">
               <span class="fas fa-eye"></span>
             </button>
-            <button class="action-button edit"
-                    data-tooltip="{{localize 'CRYPTOMANCER.Edit'}}">
+            <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
               <span class="fas fa-edit"></span>
             </button>
-            <button class="action-button delete"
-                    data-tooltip="{{localize 'CRYPTOMANCER.Delete'}}">
+            <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
               <span class="fas fa-trash"></span>
             </button>
           </div>
@@ -30,11 +27,11 @@
       </tr>
     {{/each}}
   </table>
-  <table class="feature-table__spell">
+  <table class="crypt-item-table spell-table">
     <tr>
-      <th colspan="2">{{localize "CRYPTOMANCER.Spell.spells"}}</th>
-      <th>{{localize "CRYPTOMANCER.SpellType.spellType"}}</th>
-      <th>{{localize "CRYPTOMANCER.Spell.castCost"}}</th>
+      <th colspan="2">{{l "Spell.spells"}}</th>
+      <th>{{l "SpellType.spellType"}}</th>
+      <th>{{l "Spell.castCost"}}</th>
     </tr>
     {{#each spells }}
       <tr class="item-row" data-item-id="{{this.id}}">
@@ -47,20 +44,17 @@
         <td class="spell type">{{localizeSpellType this.data.data.type}}</td>
         <td class="spell cost">
           {{this.data.data.castCost}}
-          {{localize "CRYPTOMANCER.Spell.mp"}}
+          {{l "Spell.mp"}}
         </td>
         <td class="spell actions-wrapper">
           <div class="actions">
-            <button class="action-button view"
-                    data-tooltip="{{localize 'CRYPTOMANCER.View'}}">
+            <button class="action-button view" data-tooltip="{{l 'View'}}">
               <span class="fas fa-eye"></span>
             </button>
-            <button class="action-button edit"
-                    data-tooltip="{{localize 'CRYPTOMANCER.Edit'}}">
+            <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
               <span class="fas fa-edit"></span>
             </button>
-            <button class="action-button delete"
-                    data-tooltip="{{localize 'CRYPTOMANCER.Delete'}}">
+            <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
               <span class="fas fa-trash"></span>
             </button>
           </div>

@@ -16,10 +16,10 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="crypt-tabs small" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="crypt-tab" data-tab="core">{{ toUpperCase (localize "CRYPTOMANCER.Core.core")}}</a>
-    <a class="crypt-tab" data-tab="features">{{ toUpperCase (localize "CRYPTOMANCER.Features")}}</a>
-    <a class="crypt-tab" data-tab="gear">{{ toUpperCase (localize "CRYPTOMANCER.Gear.gear")}}</a>
-    <a class="crypt-tab" data-tab="bio">{{ toUpperCase (localize "CRYPTOMANCER.Bio.bio")}}</a>
+    <a class="crypt-tab" data-tab="core">{{ toUpperCase (l "Core.core")}}</a>
+    <a class="crypt-tab" data-tab="features">{{ toUpperCase (l "Features")}}</a>
+    <a class="crypt-tab" data-tab="equipment">{{ toUpperCase (l "Equipment.equipment")}}</a>
+    <a class="crypt-tab" data-tab="bio">{{ toUpperCase (l "Bio.bio")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
@@ -60,10 +60,10 @@
         </div>
       </section>
       <section class="feature-list">
-        {{> featureList talents=data.data.talents spells=data.data.spells }}
+        {{> features talents=data.data.talents spells=data.data.spells }}
       </section>
     </div>
-    <div class="tab gear" data-group="primary" data-tab="gear">{{> gear }}</div>
+    <div class="tab equipment" data-group="primary" data-tab="equipment">{{> equipment }}</div>
     <div class="tab bio" data-group="primary" data-tab="bio">{{> bio }}</div>
   </section>
 </form>

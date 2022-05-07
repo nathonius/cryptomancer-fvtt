@@ -11,10 +11,7 @@ import tippy from "tippy.js";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class CryptomancerActorSheet extends ActorSheet<
-  DocumentSheetOptions,
-  AugmentedData
-> {
+export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, AugmentedData> {
   private readonly settings = new SettingsService();
 
   static override get defaultOptions() {
@@ -93,9 +90,7 @@ export class CryptomancerActorSheet extends ActorSheet<
   private prepareCharacterData(context: AugmentedData) {
     if (context.data.type !== "character") return;
     // Get configured check difficulty
-    context.data.data.checkDifficulty =
-      this.settings.getSetting("checkDifficulty") ??
-      CheckDifficulty.Challenging;
+    context.data.data.checkDifficulty = this.settings.getSetting("checkDifficulty") ?? CheckDifficulty.Challenging;
 
     // Prep data for rendering
     context.hpAttributeBar = {
@@ -144,9 +139,7 @@ export class CryptomancerActorSheet extends ActorSheet<
     context.selectedParty = null;
     const currentPartyId = context.data.data.biography.party;
     if (currentPartyId) {
-      const selectedParty = context.partyOptions.find(
-        (p) => p.id === currentPartyId
-      );
+      const selectedParty = context.partyOptions.find((p) => p.id === currentPartyId);
       if (selectedParty) {
         context.selectedParty = selectedParty.data.data as Party;
       }
@@ -169,17 +162,14 @@ export class CryptomancerActorSheet extends ActorSheet<
     });
 
     // Add talent event listeners
-    html.find(".crypt-feature-list .action-button").on("click", (evt) => {
+    html.find(".crypt-item-table .action-button").on("click", (evt) => {
       const button = evt.target;
       const row = $(evt.currentTarget).parents(".item-row");
       const item = this.actor.items.get(row.data("itemId"));
       if (!item || !item.sheet) {
         return;
       }
-      if (
-        button.classList.contains("view") ||
-        button.classList.contains("edit")
-      ) {
+      if (button.classList.contains("view") || button.classList.contains("edit")) {
         item.sheet.render(true);
       } else if (button.classList.contains("delete")) {
         item.deleteDialog();
@@ -187,44 +177,20 @@ export class CryptomancerActorSheet extends ActorSheet<
     });
 
     // Add party event listeners
-    html
-      .find(".party-upgrade-points .party-action-button")
-      .on("click", async (evt) => {
-        const button = evt.target as HTMLButtonElement;
-        const partyId = button.dataset.partyId;
-        if (button.classList.contains("view") && partyId) {
-          const party = getGame().actors!.get(partyId);
-          if (!party || !party.sheet) {
-            return;
-          }
-          party.sheet.render(true);
-        }
-      });
-
-    // Add trademark item button listeners
-    html
-      .find(".crypt-gear .trademark-items .trademark-item__action-button")
-      .on("click", (evt) => {
-        const button = evt.target;
-        const itemElement = $(evt.currentTarget).parents(".trademark-item");
-        const item = this.actor.items.get(itemElement.data("itemId"));
-        if (!item || !item.sheet) {
+    html.find(".party-upgrade-points .party-action-button").on("click", async (evt) => {
+      const button = evt.target as HTMLButtonElement;
+      const partyId = button.dataset.partyId;
+      if (button.classList.contains("view") && partyId) {
+        const party = getGame().actors!.get(partyId);
+        if (!party || !party.sheet) {
           return;
         }
-        if (
-          button.classList.contains("view") ||
-          button.classList.contains("edit")
-        ) {
-          item.sheet.render(true);
-        } else if (button.classList.contains("delete")) {
-          item.deleteDialog();
-        }
-      });
+        party.sheet.render(true);
+      }
+    });
 
     // Difficulty selector
-    html
-      .find(".difficulty-selector")
-      .on("change", this.onDifficultySelect.bind(this));
+    html.find(".difficulty-selector").on("change", this.onDifficultySelect.bind(this));
   }
 
   private _activatePartyListenters(html: JQuery<HTMLElement>): void {
@@ -254,10 +220,7 @@ export class CryptomancerActorSheet extends ActorSheet<
         this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
         break;
       case "difficulty-challenging":
-        this.settings.updateSetting(
-          "checkDifficulty",
-          CheckDifficulty.Challenging
-        );
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
         break;
       case "difficulty-tough":
         this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
@@ -284,8 +247,7 @@ export class CryptomancerActorSheet extends ActorSheet<
       rollCore,
       rollAttribute,
       rollSkill,
-      (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ??
-        CheckDifficulty.Challenging
+      (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ?? CheckDifficulty.Challenging
     );
   }
 

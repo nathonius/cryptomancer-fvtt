@@ -1,13 +1,11 @@
 @import "./components/basic-info";
-@import "./components/core-triad";
 @import "./components/defenses";
 @import "./components/mini-triad";
 @import "./components/defense";
-@import "./components/resource-skill";
 @import "./components/skill-list";
-@import "./components/feature-list";
+@import "./components/item-table";
 @import "./components/bio";
-@import "./components/gear";
+@import "./components/equipment";
 @import "./components/safehouse-room";
 @import "./components/cell";
 @import "./components/skill.scss";
@@ -74,7 +72,12 @@
         }
       }
       .tab.features.active {
+        display: flex;
+        flex-direction: column;
         section {
+          &.feature-list {
+            flex-grow: 1;
+          }
           &.party-upgrade-points {
             display: flex;
             align-items: center;
@@ -112,7 +115,7 @@
           }
         }
       }
-      .tab.gear.active {
+      .tab.equipment.active {
         display: flex;
         flex-direction: column;
       }
