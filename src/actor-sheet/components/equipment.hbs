@@ -1,0 +1,173 @@
+<div class="crypt-equipment">
+  <section class="coin-other">
+    <div class="crypt-form-field other">
+      <label for="character-other-{{document.id}}">{{l "Equipment.other"}}</label>
+      <input id="character-other-{{document.id}}"
+             type="text"
+             name="data.gear.other"
+             value="{{data.data.gear.other}}"/>
+    </div>
+    <div class="crypt-form-field coin">
+      <label for="character-coin-{{document.id}}">{{l "Equipment.coin"}}</label>
+      <input id="character-coin-{{document.id}}"
+             type="text"
+             data-dtype="Number"
+             name="data.gear.coin"
+             value="{{data.data.gear.coin}}"/>
+    </div>
+  </section>
+  {{#if data.data.weapons.length }}
+    <table class="crypt-item-table weapons-table">
+      <tr>
+        <th colspan="2">{{l "Equipment.weapons"}}</th>
+        <th>{{l "Equipment.quantity"}}</th>
+        <th>{{l "Equipment.cost"}}</th>
+      </tr>
+      {{#each data.data.weapons }}
+        <tr class="item-row" data-item-id="{{this.id}}">
+          <td class="weapon avatar">
+            <div class="avatar-wrapper">
+              <img src="{{this.img}}" alt="{{this.name}}"/>
+            </div>
+          </td>
+          <td class="weapon name">
+            {{this.name}} <span class="item-attrs">{{itemAttrs this}}</span>
+          </td>
+          <td class="weapon quantity">{{this.data.data.quantity}}</td>
+          <td class="weapon cost">{{this.data.data.cost}}</td>
+          <td class="weapon actions-wrapper">
+            <div class="actions">
+              <button class="action-button view" data-tooltip="{{l 'View'}}">
+                <span class="fas fa-eye"></span>
+              </button>
+              <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
+                <span class="fas fa-edit"></span>
+              </button>
+              <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+  {{#if data.data.outfits.length }}
+    <table class="crypt-item-table outfits-table">
+      <tr>
+        <th colspan="2">{{l "Equipment.outfits"}}</th>
+        <th>{{l "Equipment.quantity"}}</th>
+        <th>{{l "Equipment.cost"}}</th>
+      </tr>
+      {{#each data.data.outfits }}
+        <tr class="item-row" data-item-id="{{this.id}}">
+          <td class="outfit avatar">
+            <div class="avatar-wrapper">
+              <img src="{{this.img}}" alt="{{this.name}}"/>
+            </div>
+          </td>
+          <td class="outfit name">
+            {{this.name}} <span class="item-attrs">{{itemAttrs this}}</span>
+          </td>
+          <td class="outfit quantity">{{this.data.data.quantity}}</td>
+          <td class="outfit cost">{{this.data.data.cost}}</td>
+          <td class="outfit actions-wrapper">
+            <div class="actions">
+              <button class="action-button view" data-tooltip="{{l 'View'}}">
+                <span class="fas fa-eye"></span>
+              </button>
+              <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
+                <span class="fas fa-edit"></span>
+              </button>
+              <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+  {{#if data.data.consumables.length }}
+    <table class="crypt-item-table consumables-table">
+      <tr>
+        <th colspan="2">{{l "Equipment.consumables"}}</th>
+        <th>{{l "Equipment.quantity"}}</th>
+        <th>{{l "Equipment.cost"}}</th>
+      </tr>
+      {{#each data.data.consumables }}
+        <tr class="item-row" data-item-id="{{this.id}}">
+          <td class="consumable avatar">
+            <div class="avatar-wrapper">
+              <img src="{{this.img}}" alt="{{this.name}}"/>
+            </div>
+          </td>
+          <td class="consumable name">
+            {{this.name}} <span class="item-attrs">{{itemAttrs this}}</span>
+          </td>
+          <td class="consumable quantity">{{this.data.data.quantity}}</td>
+          <td class="consumable cost">{{this.data.data.cost}}</td>
+          <td class="consumable actions-wrapper">
+            <div class="actions">
+              <button class="action-button view" data-tooltip="{{l 'View'}}">
+                <span class="fas fa-eye"></span>
+              </button>
+              <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
+                <span class="fas fa-edit"></span>
+              </button>
+              <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+  {{#if data.data.equipment.length }}
+    <table class="crypt-item-table equipment-table">
+      <tr>
+        <th colspan="2">
+          {{l "Equipment.equipment"}}
+        </th>
+        <th>
+          {{l "Equipment.quantity"}}
+        </th>
+        <th>
+          {{l "Equipment.cost"}}
+        </th>
+      </tr>
+      {{#each data.data.equipment }}
+        <tr class="item-row" data-item-id="{{this.id}}">
+          <td class="equipment avatar">
+            <div class="avatar-wrapper">
+              <img src="{{this.img}}" alt="{{this.name}}"/>
+            </div>
+          </td>
+          <td class="equipment name">
+            {{this.name}} <span class="item-attrs">{{itemAttrs this}}</span>
+          </td>
+          <td class="equipment quantity">
+            {{this.data.data.quantity}}
+          </td>
+          <td class="equipment cost">
+            {{this.data.data.cost}}
+          </td>
+          <td class="equipment actions-wrapper">
+            <div class="actions">
+              <button class="action-button view" data-tooltip="{{l 'View'}}">
+                <span class="fas fa-eye"></span>
+              </button>
+              <button class="action-button edit" data-tooltip="{{l 'Edit'}}">
+                <span class="fas fa-edit"></span>
+              </button>
+              <button class="action-button delete" data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+</div>

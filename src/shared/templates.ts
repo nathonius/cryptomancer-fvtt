@@ -3,15 +3,13 @@ import { getGame } from "./util";
 const partials: Record<string, string> = {
   attributeBar: "systems/cryptomancer/shared/components/attribute-bar.hbs",
   basicInfo: "systems/cryptomancer/actor-sheet/components/basic-info.hbs",
-  coreTriad: "systems/cryptomancer/actor-sheet/components/core-triad.hbs",
   defenses: "systems/cryptomancer/actor-sheet/components/defenses.hbs",
   miniTriad: "systems/cryptomancer/actor-sheet/components/mini-triad.hbs",
   skillList: "systems/cryptomancer/actor-sheet/components/skill-list.hbs",
-  resourceSkill: "systems/cryptomancer/actor-sheet/components/resource-skill.hbs",
   defense: "systems/cryptomancer/actor-sheet/components/defense.hbs",
-  featureList: "systems/cryptomancer/actor-sheet/components/feature-list.hbs",
+  features: "systems/cryptomancer/actor-sheet/components/features.hbs",
   bio: "systems/cryptomancer/actor-sheet/components/bio.hbs",
-  gear: "systems/cryptomancer/actor-sheet/components/gear.hbs",
+  equipment: "systems/cryptomancer/actor-sheet/components/equipment.hbs",
   safehouseRoom: "systems/cryptomancer/actor-sheet/components/safehouse-room.hbs",
   cell: "systems/cryptomancer/actor-sheet/components/cell.hbs",
   formField: "systems/cryptomancer/shared/components/form-field.hbs",
@@ -28,13 +26,7 @@ const partials: Record<string, string> = {
  */
 export const preloadHandlebarsTemplates = async function () {
   await cryptLoadTemplates(partials);
-  return loadTemplates([
-    "systems/cryptomancer/actor-sheet/parts/actor-features.hbs",
-    "systems/cryptomancer/actor-sheet/parts/actor-items.hbs",
-    "systems/cryptomancer/actor-sheet/parts/actor-spells.hbs",
-    "systems/cryptomancer/actor-sheet/parts/actor-effects.hbs",
-    "systems/cryptomancer/skill-check/skill-check.hbs",
-  ]);
+  return loadTemplates(["systems/cryptomancer/skill-check/skill-check.hbs"]);
 };
 
 /**

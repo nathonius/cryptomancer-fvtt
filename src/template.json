@@ -290,6 +290,7 @@
         }
       },
       "gear": {
+        "coin": 0,
         "other": ""
       },
       "biography": {

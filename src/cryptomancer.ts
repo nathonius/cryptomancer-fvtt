@@ -12,7 +12,7 @@ import { SkillCheckService } from "./skill-check/skill-check.service";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
 import { getGame, l } from "./shared/util";
-import { SpellType } from "./item/item.enum";
+import { EquipmentType, SpellType } from "./item/item.enum";
 import "./cryptomancer.scss";
 import { CoreAlt } from "./actor/actor.interface";
 import { SCOPE } from "./shared/constants";
@@ -99,6 +99,12 @@ Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
   return source === target;
 });
 
+Handlebars.registerHelper("or", (a: any, b: any, options: Handlebars.HelperOptions) => {
+  if ([a, b].some((value) => Boolean(value))) {
+    return options.fn(true);
+  }
+});
+
 Handlebars.registerHelper("ne", (source: unknown, target: unknown) => {
   return source !== target;
 });
@@ -181,6 +187,25 @@ Handlebars.registerHelper("noSkillAttribute", (core: CoreAlt, options: Handlebar
  */
 Handlebars.registerHelper("shortAttr", (attribute: string) => {
   return l(`ShortAttr.${attribute}`);
+});
+
+/**
+ * Return a string showing whether an item is masterwork or trademark
+ */
+Handlebars.registerHelper("itemAttrs", (item: CryptomancerItem) => {
+  if (item.data.type !== "equipment") {
+    return;
+  }
+  const output: string[] = [];
+  if (item.data.data.masterwork) {
+    output.push(l("Equipment.masterworkShort"));
+  }
+  if (item.data.data.trademark) {
+    output.push(l("Equipment.trademarkShort"));
+  }
+  if (output.length > 0) {
+    return `(${output.join(", ")})`;
+  }
 });
 
 /* -------------------------------------------- */

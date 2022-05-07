@@ -1,0 +1,80 @@
+.crypt-item-table {
+  td,
+  th {
+    text-align: left;
+  }
+
+  width: 100%;
+
+  tr.item-row:nth-child(even) {
+    background-color: var(--neutral--light-4);
+  }
+
+  .avatar {
+    width: 42px;
+    .avatar-wrapper {
+      height: 32px;
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2px;
+
+    .action-button {
+      width: auto;
+      padding: 0px 4px;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      color: var(--primary--dark-2);
+
+      // Have to do this hack because font awesome is super inconsistent with aspect ratios...
+      &.delete {
+        padding-left: 2px;
+      }
+
+      &:hover,
+      &:focus {
+        color: var(--primary);
+        box-shadow: none;
+      }
+
+      span {
+        pointer-events: none;
+      }
+    }
+  }
+
+  /* Specific table types */
+  /* TODO: Move these to the place where they are rendered */
+  &.spell-table {
+    td.spell {
+      &.name {
+        width: 54%;
+      }
+      &.cost,
+      &.type {
+        width: 13%;
+      }
+    }
+  }
+
+  &.weapons-table,
+  &.outfits-table,
+  &.consumables-table,
+  &.equipment-table {
+    .item-row .name {
+      width: 54%;
+      .item-attrs {
+        opacity: 0.5;
+      }
+    }
+  }
+}
