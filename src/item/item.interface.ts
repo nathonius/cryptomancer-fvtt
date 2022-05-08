@@ -15,16 +15,16 @@ export interface Purchaseable {
 
 export interface Equipment extends CryptItemBase, PhysicalItem {
   type: EquipmentType;
-  rules: string;
-  qualities: string;
+  rules: string[];
+  qualities: string[];
   trademark: boolean;
   masterwork: boolean;
 }
 
 export interface TrademarkItem extends CryptItemBase {
   type: TrademarkItemType;
-  rules: string;
-  qualities: string;
+  rules: string[];
+  qualities: string[];
 }
 
 export interface Talent extends CryptItemBase, Purchaseable {

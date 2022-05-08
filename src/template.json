@@ -433,8 +433,8 @@
     "equipment": {
       "templates": ["base", "physicalItem"],
       "type": "",
-      "rules": "",
-      "qualities": "",
+      "rules": [],
+      "qualities": [],
       "trademark": false,
       "masterwork": false
     },

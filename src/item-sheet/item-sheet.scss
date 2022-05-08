@@ -57,4 +57,31 @@
       }
     }
   }
+
+  &__equipment {
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      .chip-action-button {
+        background-color: transparent;
+        color: var(--neutral);
+        display: none;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        line-height: 1;
+        font-size: 0.7rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .crypt-chip {
+        white-space: nowrap;
+        &:hover .chip-action-button {
+          display: inline-flex;
+        }
+      }
+    }
+  }
 }

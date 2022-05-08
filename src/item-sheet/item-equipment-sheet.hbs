@@ -51,18 +51,44 @@
     <div class="crypt-form-field">
       <label for="item-rules-{{item.id}}">{{l "Equipment.rules"}}</label>
       <input id="item-rules-{{item.id}}"
+             class="chip-input rules"
              type="text"
-             placeholder="{{l "Equipment.rules"}}"
-             name="data.rules"
-             value="{{data.data.rules}}"/>
+             placeholder="{{l "Equipment.rulesPlaceholder"}}"/>
+    </div>
+    <div class="chip-list">
+      {{#each data.data.rules }}
+        <div class="crypt-chip primary"
+             data-index="{{@index}}"
+             data-value-type="rules">
+          {{this}}
+          <button type="button"
+                  class="chip-action-button delete"
+                  data-tooltip="{{l 'Delete'}}">
+            <span class="fas fa-times"></span>
+          </button>
+        </div>
+      {{/each}}
     </div>
     <div class="crypt-form-field">
       <label for="item-qualities-{{item.id}}">{{l "Equipment.qualities"}}</label>
       <input id="item-qualities-{{item.id}}"
+             class="chip-input qualities"
              type="text"
-             placeholder="{{l "Equipment.qualities"}}"
-             name="data.qualities"
-             value="{{data.data.qualities}}"/>
+             placeholder="{{l "Equipment.qualitiesPlaceholder"}}"/>
+    </div>
+    <div class="chip-list">
+      {{#each data.data.qualities }}
+        <div class="crypt-chip primary"
+             data-index="{{@index}}"
+             data-value-type="qualities">
+          {{this}}
+          <button type="button"
+                  class="chip-action-button delete"
+                  data-tooltip="{{l 'Delete'}}">
+            <span class="fas fa-times"></span>
+          </button>
+        </div>
+      {{/each}}
     </div>
     <h3 class="description-label">{{l "Description"}}</h3>
     {{editor content=data.data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}

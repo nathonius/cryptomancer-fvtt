@@ -30,20 +30,62 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
 
   override activateListeners(html: JQuery<HTMLElement>): void {
     super.activateListeners(html);
+    this.activateEquipmentListeners(html);
+  }
 
-    // TODO: Add edit toggle
-
-    if (this.object.data.type === "talent") {
-      // Attach tier change listeners
-      if (this.object.data.data.tiered) {
-        html.find('.tiers .tier-toggle input[type="checkbox"]').on("change", (evt) => {
-          if (this.object.data.type === "talent") {
-            evt.preventDefault();
-            const index = parseInt(evt.target.id.split("-").at(-1)!);
-            this.item.update({ data: { currentTier: index + 1 } });
-          }
-        });
-      }
+  private activateEquipmentListeners(html: JQuery<HTMLElement>): void {
+    if (this.object.data.type !== "equipment") {
+      return;
     }
+
+    // Handle chip inputs
+    html.find<HTMLInputElement>(".chip-input").on("blur", async (evt) => {
+      if (!evt.target.value) {
+        return;
+      }
+      await this.handleNewChips(evt.target);
+    });
+
+    html.find<HTMLInputElement>(".chip-input").on("keydown", async (evt) => {
+      if (!evt.target.value || evt.key !== "Enter") {
+        return;
+      }
+      await this.handleNewChips(evt.target);
+    });
+
+    // Handle chip deletes
+    html.find<HTMLButtonElement>(".chip-action-button").on("click", async (evt) => {
+      if (this.object.data.type !== "equipment") {
+        return;
+      }
+      const chip = $(evt.currentTarget).parents(".crypt-chip");
+      const index = chip.data("index");
+      const valueType: "rules" | "qualities" = chip.data("valueType");
+      const newValues = [...this.object.data.data[valueType]];
+      newValues.splice(index, 1);
+      const updateData: any = {};
+      updateData[`data.${valueType}`] = newValues;
+      await this.object.update(updateData, { overwrite: true });
+    });
+  }
+
+  private async handleNewChips(target: HTMLInputElement): Promise<void> {
+    if (this.object.data.type !== "equipment") {
+      return;
+    }
+    let valueType: "rules" | "qualities" = "rules";
+    if (target.classList.contains("qualities")) {
+      valueType = "qualities";
+    }
+    const newValues = target.value
+      .split(",")
+      .map((val) => val.trim())
+      .filter((val) => val !== "");
+    if (newValues.length === 0) {
+      return;
+    }
+    const updateData: any = {};
+    updateData[`data.${valueType}`] = [...this.object.data.data[valueType], ...newValues];
+    await this.object.update(updateData, { overwrite: true });
   }
 }
