@@ -46,7 +46,8 @@
           </select>
         </div>
         {{#if selectedParty }}
-          <button class="party-action-button view"
+          <button type="button"
+                  class="party-action-button view"
                   data-tooltip="{{ l "View" }}"
                   data-party-id="{{ data.data.biography.party }}">
             <span class="fas fa-eye"></span>
