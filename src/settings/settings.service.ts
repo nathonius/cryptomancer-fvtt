@@ -8,7 +8,7 @@ export class SettingsService {
     const game = getGame();
     // Register settings
     for (let setting in Settings) {
-      console.log(`Registering`);
+      console.log(`Registering setting ${setting}`);
       game.settings.register(SCOPE, setting, (Settings as Record<string, ClientSettings.PartialSetting>)[setting]);
     }
   }

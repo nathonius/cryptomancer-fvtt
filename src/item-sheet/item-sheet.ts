@@ -65,7 +65,7 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
       newValues.splice(index, 1);
       const updateData: any = {};
       updateData[`data.${valueType}`] = newValues;
-      await this.object.update(updateData, { overwrite: true });
+      await this.object.update(updateData);
     });
   }
 
@@ -86,6 +86,6 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
     }
     const updateData: any = {};
     updateData[`data.${valueType}`] = [...this.object.data.data[valueType], ...newValues];
-    await this.object.update(updateData, { overwrite: true });
+    await this.object.update(updateData);
   }
 }
