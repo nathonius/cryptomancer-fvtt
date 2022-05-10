@@ -6,14 +6,34 @@
   "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
-  "esmodules": [
-    "cryptomancer.js"
-  ],
-  "styles": [
-    "cryptomancer.css"
-  ],
+  "esmodules": ["cryptomancer.js"],
+  "styles": ["cryptomancer.css"],
   "scripts": [],
   "packs": [
+    {
+      "name": "consumables",
+      "label": "Consumables",
+      "path": "packs/consumables.db",
+      "type": "Item"
+    },
+    {
+      "name": "equipment",
+      "label": "Equipment",
+      "path": "packs/equipment.db",
+      "type": "Item"
+    },
+    {
+      "name": "outfits",
+      "label": "Outfits",
+      "path": "packs/outfits.db",
+      "type": "Item"
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "packs/spells.db",
+      "type": "Item"
+    },
     {
       "name": "talents",
       "label": "Talents",
@@ -21,9 +41,9 @@
       "type": "Item"
     },
     {
-      "name": "spells",
-      "label": "Spells",
-      "path": "packs/spells.db",
+      "name": "weapons",
+      "label": "Weapons",
+      "path": "packs/weapons.db",
       "type": "Item"
     }
   ],
