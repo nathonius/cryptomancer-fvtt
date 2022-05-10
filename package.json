@@ -1,6 +1,6 @@
 {
   "name": "cryptomancer",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "The Cryptomancer system for FoundryVTT!",
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",

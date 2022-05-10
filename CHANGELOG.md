@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.3.0...v0.4.0) (2022-05-10)
+
+
+### Features
+
+* add equipment compendia ([6023649](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/6023649116619cf0ac1e38f64652c90dc2bb3668))
+* add equipment type and migrate trademarkItem items to equipment ([5f1e947](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/5f1e947e63299ccf955d5f8e327c8a64e947c359))
+* add/remove rules and qualities as array ([aad672c](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/aad672c6a2d004907b49da967bcf4d1ffc3d5d68))
+* redo item sheets to be more consistent with each other and use crypt-ui components ([06b00fe](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/06b00fed38e17768b8833416a8e3813e30e5b58f))
+* support for all item types and coin ([1b699a1](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/1b699a104f1fceb5116db5a70b9d2ed02b39f403))
+
+
+### Bug Fixes
+
+* add some extra space between other gear label and input ([b7ab6ff](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/b7ab6ff2c041eb6a019f7bca77533a8ea5b2cb6b))
+* add type="button" to buttons where appropriate ([e52c364](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/e52c3643500e38786b859dfeb90a68c4f7e1998c))
+* correct package.json version ([34bd033](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/34bd033614c2607cfa8cc71da5e89b2da3cec118))
+* select options have a legible text color ([f14848e](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/f14848eee2f1b1141f322493e13a031276bfc81d))
+
 ## 0.3.0 (2022-05-04)
 
 ### Features
