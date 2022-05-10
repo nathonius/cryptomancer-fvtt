@@ -5,7 +5,9 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
     "watch": "cross-env NODE_ENV=dev rollup -cw",
-    "release": "standard-version"
+    "release:patch": "standard-version -r patch",
+    "release:minor": "standard-version -r minor",
+    "release:major": "standard-version -r major"
   },
   "browserslist": [
     "last 3 versions"
