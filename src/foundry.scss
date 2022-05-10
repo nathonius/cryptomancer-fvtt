@@ -53,6 +53,9 @@ body.system-cryptomancer {
   optgroup {
     background-color: var(--neutral);
   }
+  option {
+    color: var(--primary);
+  }
 
   /* Specific Selects/Inputs */
   #chat-controls .roll-type-select,
