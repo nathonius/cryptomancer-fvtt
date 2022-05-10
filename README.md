@@ -22,7 +22,12 @@ Unzip `system.zip` from the latest release into your Foundry `Data/systems/crypt
 
 ## Use
 
-TBD.
+### Supported Features (so far!)
+
+- Player Character sheets
+- Stuff (consumables, equipment, outfits, weapons)
+- Talents and Spells
+- Party sheet (it's really ugly)
 
 ## Development
 
