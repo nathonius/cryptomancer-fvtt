@@ -1,38 +1,38 @@
 <div class="crypt-basic-info">
   <div class="crypt-form-field">
-    <label for="name-field">Common Name</label>
-    <input id="name-field"
-           placeholder="Enter your name..."
+    <label for="name-field-{{document.id}}">{{l "Bio.commonName"}}</label>
+    <input id="name-field-{{document.id}}"
+           placeholder="{{l "Bio.commonNamePlaceholder"}}"
            name="name"
            value="{{actor.name}}"/>
   </div>
   <div class="crypt-form-field">
-    <label for="true-name-field">True Name</label>
-    <input id="true-name-field"
-           placeholder="Enter your true name..."
+    <label for="true-name-field-{{document.id}}">{{l "Bio.trueName"}}</label>
+    <input id="true-name-field-{{document.id}}"
+           placeholder="{{l "Bio.trueNamePlaceholder"}}"
            name="data.biography.trueName"
            value="{{data.data.biography.trueName}}"/>
   </div>
   <div class="crypt-form-field">
-    <label for="race-field">Race</label>
-    <input id="race-field"
-           placeholder="Race"
+    <label for="race-field-{{document.id}}">{{l "Bio.race"}}</label>
+    <input id="race-field-{{document.id}}"
+           placeholder="{{l "Bio.racePlaceholder"}}"
            name="data.biography.race"
            value="{{data.data.biography.race}}"/>
   </div>
   <div class="crypt-form-field">
-    <label for="pronouns-field">Pronouns</label>
-    <input id="pronouns-field"
-           placeholder="he/him"
+    <label for="pronouns-field-{{document.id}}">{{l "Bio.pronouns"}}</label>
+    <input id="pronouns-field-{{document.id}}"
+           placeholder="{{l "Bio.pronounsPlaceholder"}}"
            name="data.biography.pronouns"
            value="{{data.data.biography.pronouns}}"/>
   </div>
   <div class="difficulty-selector crypt-form-field">
-    <label>{{localize "CRYPTOMANCER.CheckDifficulty.difficulty"}}</label>
+    <label>{{l "CheckDifficulty.difficulty"}}</label>
     <div class="toggles">
-      <span class="difficulty">{{> toggleBox id="difficulty-trivial" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
-      <span class="difficulty">{{> toggleBox id="difficulty-challenging" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
-      <span class="difficulty">{{> toggleBox id="difficulty-tough" tooltip=(localize "CRYPTOMANCER.CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
+      <span class="difficulty">{{> toggleBox id=(concat "difficulty-trivial-" document.id) tooltip=(l "CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
+      <span class="difficulty">{{> toggleBox id=(concat "difficulty-challenging-" document.id) tooltip=(l "CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
+      <span class="difficulty">{{> toggleBox id=(concat "difficulty-tough-" document.id) tooltip=(l "CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
     </div>
   </div>
 </div>

@@ -1,12 +1,20 @@
 <div class="crypt-defenses">
-  <div class="defense">{{> defense label="Dodge" value=data.data.core.speed.value desc="vs melee/missile" }}</div>
-  <div class="defense">{{> defense label="Parry" value=data.data.core.power.value desc="vs melee" }}</div>
-  <div class="defense">{{> defense label="Take Cover" value=data.data.core.wits.value desc="vs missile" }}</div>
-  <div class="defense">{{> defense label="Resist" value=data.data.core.resolve.value desc="vs magic" }}</div>
+  <div class="defense">
+    {{> defense label=(l "Defense.dodge") value=data.data.core.speed.value desc=(l "Defense.vsMeleeMissile") }}
+  </div>
+  <div class="defense">
+    {{> defense label=(l "Defense.parry") value=data.data.core.power.value desc=(l "Defense.vsMelee") }}
+  </div>
+  <div class="defense">
+    {{> defense label=(l "Defense.takeCover") value=data.data.core.wits.value desc=(l "Defense.vsMissile") }}
+  </div>
+  <div class="defense">
+    {{> defense label=(l "Defense.resist") value=data.data.core.resolve.value desc=(l "Defense.vsMagic") }}
+  </div>
   <div class="wounds">
-    <span class="label">{{localize "CRYPTOMANCER.Wound.wounds"}}</span>
+    <span class="label">{{l "Wound.wounds"}}</span>
     <div class="flex-spacer"></div>
-    <span class="difficulty">{{> toggleBox id="wound-critical" tooltip=(localize "CRYPTOMANCER.Wound.critical") value=data.data.healthPoints.criticalWound name="data.healthPoints.criticalWound" color="secondary"}}</span>
-    <span class="difficulty">{{> toggleBox id="wound-mortal" tooltip=(localize "CRYPTOMANCER.Wound.mortal") value=data.data.healthPoints.mortalWound name="data.healthPoints.mortalWound" color="danger"}}</span>
+    <span class="difficulty">{{> toggleBox id=(concat "wound-critical-" document.id) tooltip=(l "Wound.critical") value=data.data.healthPoints.criticalWound name="data.healthPoints.criticalWound" color="secondary"}}</span>
+    <span class="difficulty">{{> toggleBox id=(concat "wound-mortal-" document.id) tooltip=(l "Wound.mortal") value=data.data.healthPoints.mortalWound name="data.healthPoints.mortalWound" color="danger"}}</span>
   </div>
 </div>
