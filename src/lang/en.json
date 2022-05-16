@@ -196,6 +196,7 @@
   "CRYPTOMANCER.View": "View",
   "CRYPTOMANCER.Edit": "Edit",
   "CRYPTOMANCER.Delete": "Delete",
+  "CRYPTOMANCER.ToChat": "To Chat",
 
   "MIGRATION.Begin": "Applying system migration for version {version}. Please be patient and do not close your game or shut down your server.",
   "MIGRATION.Complete": "System migration to version {version} completed!",

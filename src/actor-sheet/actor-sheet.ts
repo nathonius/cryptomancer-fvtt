@@ -176,6 +176,24 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
       }
     });
 
+    html.find(".crypt-item-table .avatar-wrapper").on("click", (evt) => {
+      const row = $(evt.currentTarget).parents(".item-row");
+      const item = this.actor.items.get(row.data("itemId"));
+      if (!item) {
+        return;
+      }
+      item.showChatMessage();
+    });
+
+    html.find(".crypt-item-table .name a").on("click", (evt) => {
+      const row = $(evt.currentTarget).parents(".item-row");
+      const item = this.actor.items.get(row.data("itemId"));
+      if (!item || !item.sheet) {
+        return;
+      }
+      item.sheet.render(true);
+    });
+
     // Add party event listeners
     html.find(".party-upgrade-points .party-action-button").on("click", async (evt) => {
       const button = evt.target as HTMLButtonElement;

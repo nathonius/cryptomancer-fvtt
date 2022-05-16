@@ -26,7 +26,7 @@ const partials: Record<string, string> = {
  */
 export const preloadHandlebarsTemplates = async function () {
   await cryptLoadTemplates(partials);
-  return loadTemplates(["systems/cryptomancer/skill-check/skill-check.hbs"]);
+  return loadTemplates(["systems/cryptomancer/skill-check/skill-check.hbs", "systems/cryptomancer/item/chat-card.hbs"]);
 };
 
 /**

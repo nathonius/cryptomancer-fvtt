@@ -13,6 +13,11 @@
   .avatar {
     width: 42px;
     .avatar-wrapper {
+      display: block;
+      width: auto;
+      border: none;
+      padding: 0;
+      margin: 0;
       height: 32px;
       img {
         height: 100%;
