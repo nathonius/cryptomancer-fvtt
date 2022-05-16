@@ -4,24 +4,24 @@
 <div class="crypt-safehouse-room {{room.type}}">
   <div class="room__header">
     {{> toggleBox id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned}}
-    <h3>{{localize (concat "CRYPTOMANCER.SafehouseRoomType." room.type)}}</h3>
+    <h3>{{l (concat "SafehouseRoomType." room.type)}}</h3>
     {{#if room.cost }}
       {{> coreInput size="small" value=room.cost readonly=true}}
     {{/if}}
   </div>
   <div class="room__desc">
     <p>
-      {{localize (concat "CRYPTOMANCER.SafehouseRoomDescription." room.type)}}
+      {{l (concat "SafehouseRoomDescription." room.type)}}
     </p>
   </div>
   <div class="room__input">
     <input type="text"
-           name="{{concat "data.safehouse." room.type ".value"}}"
-           value="{{room.value}}">
+           name="data.safehouse.{{room.type}}.value"
+           value="{{room.value}}"/>
   </div>
   <div class="room__effect">
     <p>
-      {{localize (concat "CRYPTOMANCER.SafehouseRoomEffect." room.type)}}
+      {{l (concat "SafehouseRoomEffect." room.type)}}
     </p>
   </div>
   {{#if (is room.type "stable") }}

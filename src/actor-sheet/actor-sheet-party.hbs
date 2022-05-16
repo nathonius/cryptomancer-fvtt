@@ -1,34 +1,32 @@
 <form class="crypt-actor-sheet party" autocomplete="off">
-  <header>
-  </header>
   <nav class="crypt-tabs small" data-group="primary">
-    <a class="crypt-tab" data-tab="party">{{toUpperCase (localize "CRYPTOMANCER.Party.party")}}</a>
-    <a class="crypt-tab" data-tab="safehouse">{{toUpperCase (localize "CRYPTOMANCER.Party.safehouse")}}</a>
+    <a class="crypt-tab" data-tab="party">{{toUpperCase (l "Party.party")}}</a>
+    <a class="crypt-tab" data-tab="safehouse">{{toUpperCase (l "Party.safehouse")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab party" data-group="primary" data-tab="party">
       <div class="party-wrapper">
         <div class="party-resources">
-          <div class="resource-label">{{localize "CRYPTOMANCER.Party.risk"}}</div>
+          <div class="resource-label">{{l "Party.risk"}}</div>
           {{> coreInput value=data.data.risk.value name="data.risk.value" size="large"}}
-          <div class="resource-label">{{localize "CRYPTOMANCER.Party.upgradePoints"}}</div>
+          <div class="resource-label">{{l "Party.upgradePoints"}}</div>
           {{> coreInput value=data.data.upgradePoints name="data.upgradePoints" size="large"}}
-          <div class="resource-label">{{localize "CRYPTOMANCER.Party.assets"}}</div>
+          <div class="resource-label">{{l "Party.assets"}}</div>
           {{> coreInput value=data.data.assets name="data.assets" size="large"}}
         </div>
         <div class="party-risk-events">
-          <h2>{{localize "CRYPTOMANCER.Party.riskEvents"}}</h2>
+          <h2>{{l "Party.riskEvents"}}</h2>
           {{#each data.data.riskEvents as |event index| }}
             <div class="risk-event">
               {{> toggleBox id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
               <input type="text"
                      id="{{concat "risk-event-text-" index}}"
-                     value="{{event.eventText}}">
+                     value="{{event.eventText}}"/>
             </div>
           {{/each}}
         </div>
         <div class="party-cells">
-          <h2>{{localize "CRYPTOMANCER.Party.cells"}}</h2>
+          <h2>{{l "Party.cells"}}</h2>
           {{#each data.data.cells as |cell index| }}
             {{> cell cell=cell index=index }}
           {{/each}}
