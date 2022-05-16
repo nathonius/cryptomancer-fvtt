@@ -3,6 +3,9 @@
 title: string;
 avatar: string;
 description: SafeString;
+rules?: string[];
+castCost?: string;
+type?: string;
 }
 }}
 <section class="crypt-item-card">
@@ -11,6 +14,16 @@ description: SafeString;
       <img src="{{this.avatar}}" alt="{{this.title}}" width="36" height="36"/>
       <h3>{{this.title}}</h3>
     </summary>
+    {{#if this.rules }}
+      <div class="rules">
+        {{#each this.rules }}
+          <div class="crypt-chip primary">{{this}}</div>
+        {{/each}}
+      </div>
+    {{/if}}
+    {{#if this.castCost }}
+      <div class="spell-info">{{chatCardSpellType this.type}}, {{this.castCost}} {{l "Spell.mp"}}</div>
+    {{/if}}
     <div>{{safe this.description}}</div>
   </details>
 </section>

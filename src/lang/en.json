@@ -99,6 +99,8 @@
   "CRYPTOMANCER.SpellType.cantrip": "Cantrip",
   "CRYPTOMANCER.SpellType.basic": "Basic",
   "CRYPTOMANCER.SpellType.greater": "Greater",
+  "CRYPTOMANCER.SpellType.basicSpell": "Basic Spell",
+  "CRYPTOMANCER.SpellType.greaterSpell": "Greater Spell",
   "CRYPTOMANCER.Spell.spells": "Spells",
   "CRYPTOMANCER.Spell.spellName": "Spell Name",
   "CRYPTOMANCER.Spell.mp": "MP",

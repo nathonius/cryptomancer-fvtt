@@ -172,6 +172,10 @@ Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
   return l(`SpellType.${type}`);
 });
 
+Handlebars.registerHelper("chatCardSpellType", (type: SpellType) => {
+  return type === SpellType.Cantrip ? l(`SpellType.cantrip`) : l(`SpellType.${type}Spell`);
+});
+
 Handlebars.registerHelper("noSkillAttribute", (core: CoreAlt, options: Handlebars.HelperOptions) => {
   if (core.key === "resolve") {
     return options.fn(core.attributes["willpower"]);
