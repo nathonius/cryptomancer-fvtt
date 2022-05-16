@@ -6,11 +6,13 @@
     {{#each talents }}
       <tr class="item-row" data-item-id="{{this.id}}">
         <td class="talent avatar">
-          <div class="avatar-wrapper">
+          <button type="button" class="avatar-wrapper" data-tooltip="{{l "ToChat"}}">
             <img src="{{this.img}}" alt="{{this.name}}" />
-          </div>
+          </button>
         </td>
-        <td class="talent name">{{this.name}}</td>
+        <td class="talent name">
+          <a>{{this.name}}</a>
+        </td>
         <td class="talent actions-wrapper">
           <div class="actions">
             <button type="button" class="action-button view" data-tooltip="{{l 'View'}}">
@@ -38,11 +40,13 @@
     {{#each spells }}
       <tr class="item-row" data-item-id="{{this.id}}">
         <td class="spell avatar">
-          <div class="avatar-wrapper">
+          <button class="avatar-wrapper" data-tooltip="{{l "ToChat"}}">
             <img src="{{this.img}}" alt="{{this.name}}" />
-          </div>
+          </button>
         </td>
-        <td class="spell name">{{this.name}}</td>
+        <td class="spell name">
+          <a>{{this.name}}</a>
+        </td>
         <td class="spell type">{{localizeSpellType this.data.data.type}}</td>
         <td class="spell cost">
           {{this.data.data.castCost}}

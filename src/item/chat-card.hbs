@@ -1,0 +1,16 @@
+{{!
+@Input context: {
+title: string;
+avatar: string;
+description: SafeString;
+}
+}}
+<section class="crypt-item-card">
+  <details open>
+    <summary>
+      <img src="{{this.avatar}}" alt="{{this.title}}" width="36" height="36"/>
+      <h3>{{this.title}}</h3>
+    </summary>
+    <div>{{safe this.description}}</div>
+  </details>
+</section>
