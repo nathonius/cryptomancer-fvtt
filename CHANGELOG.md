@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.4.0...v0.5.0) (2022-05-16)
+
+
+### Features
+
+* add equipment rules and spell info to item chat card ([23e7f25](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/23e7f25106f599c43ca3127bbc5d673b7ca64394))
+* basic support for chat cards from character sheet ([9defeaf](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/9defeaf770243f68c6152ffa231d9636be1966b2))
+
+
+### Bug Fixes
+
+* improve localization consistency, add document specific IDs to actor sheet inputs ([e34ecff](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/e34ecff0ba31f7eb2de3f6d5396e2d2b112f7240))
+
 ## [0.4.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.3.0...v0.4.0) (2022-05-10)
 
 
