@@ -10,6 +10,7 @@ import { getGame } from "../shared/util";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
+import { DEFAULT_CELL } from "./actor.constant";
 import { Attribute, Cell, CoreAlt, ResourceAttribute } from "./actor.interface";
 
 /**
@@ -161,5 +162,27 @@ export class CryptomancerActor extends Actor {
         Boolean((attribute as Attribute as ResourceAttribute).push)
       );
     }
+  }
+
+  async addCell(cell?: Cell): Promise<void> {
+    if (this.data.type !== "party") {
+      return;
+    }
+
+    if (!cell) {
+      cell = { ...DEFAULT_CELL };
+    }
+    const newCells = [...this.data.data.cells, cell];
+    await this.update({ data: { cells: newCells } });
+  }
+
+  async removeCell(index: number): Promise<void> {
+    if (this.data.type !== "party") {
+      return;
+    }
+
+    const newCells = [...this.data.data.cells];
+    newCells.splice(index, 1);
+    await this.update({ data: { cells: newCells } });
   }
 }
