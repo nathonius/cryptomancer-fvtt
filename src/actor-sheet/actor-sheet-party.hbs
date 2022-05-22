@@ -16,19 +16,23 @@
         </div>
         <div class="party-risk-events">
           <h2>{{l "Party.riskEvents"}}</h2>
-          {{#each data.data.riskEvents as |event index| }}
-            <div class="risk-event">
-              {{> toggleBox id=(concat "risk-event-toggle-" index) value=event.complete name=(concat "data.riskEvents." index ".complete")}}
+          {{#each data.data.riskEvents }}
+            <div class="risk-event" data-index="{{@index}}">
+              <div class="crypt-toggle-box">
+                <input class="visually-hidden risk-event-field" id="risk-event-toggle-{{@index}}-{{../document.id}}" type="checkbox" {{checked this.complete}} data-dtype="Boolean"/>
+                <label for="risk-event-toggle-{{@index}}-{{../document.id}}"></label>
+              </div>
               <input type="text"
-                     id="{{concat "risk-event-text-" index}}"
-                     value="{{event.eventText}}"/>
+                     id="risk-event-text-{{@index}}-{{../document.id}}"
+                     class="risk-event-text risk-event-field"
+                     value="{{this.eventText}}"/>
             </div>
           {{/each}}
         </div>
         <div class="party-cells">
           <h2>{{l "Party.cells"}}</h2>
-          {{#each data.data.cells as |cell index| }}
-            {{> cell cell=cell index=index }}
+          {{#each data.data.cells }}
+            {{> cell cell=this index=@index documentId=../document.id }}
           {{/each}}
         </div>
       </div>

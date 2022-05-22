@@ -138,7 +138,7 @@ export interface Party {
     [SafehouseRoomType.TrainingRoom]: SafehouseRoom;
     [SafehouseRoomType.WarRoom]: SafehouseRoom;
   };
-  cells: { "1": Cell; "2": Cell; "3": Cell };
+  cells: Cell[];
 }
 
 export interface RiskEvent {
