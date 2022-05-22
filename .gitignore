@@ -12,3 +12,5 @@ jsconfig.json
 foundry
 
 dist/
+
+.env
