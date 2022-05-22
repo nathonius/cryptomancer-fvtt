@@ -338,12 +338,12 @@
       },
       "upgradePoints": 0,
       "assets": 0,
-      "riskEvents": {
-        "1": { "eventText": "", "complete": false },
-        "2": { "eventText": "", "complete": false },
-        "3": { "eventText": "", "complete": false },
-        "4": { "eventText": "", "complete": false }
-      },
+      "riskEvents": [
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false },
+        { "eventText": "", "complete": false }
+      ],
       "safehouse": {
         "cryptovault": {
           "type": "cryptovault",
@@ -388,8 +388,8 @@
         },
         "warRoom": { "type": "warRoom", "owned": false, "value": "", "cost": 3 }
       },
-      "cells": {
-        "1": {
+      "cells": [
+        {
           "mission": "",
           "type": "",
           "skillBreak": false,
@@ -397,7 +397,7 @@
           "operations": null,
           "time": { "increment": "", "value": 0 }
         },
-        "2": {
+        {
           "mission": "",
           "type": "",
           "skillBreak": false,
@@ -405,7 +405,7 @@
           "operations": null,
           "time": { "increment": "", "value": 0 }
         },
-        "3": {
+        {
           "mission": "",
           "type": "",
           "skillBreak": false,
@@ -413,7 +413,7 @@
           "operations": null,
           "time": { "increment": "", "value": 0 }
         }
-      }
+      ]
     }
   },
   "Item": {
