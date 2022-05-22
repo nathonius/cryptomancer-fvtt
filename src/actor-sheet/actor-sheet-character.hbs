@@ -40,8 +40,8 @@
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="party-upgrade-points">
         <div class="crypt-form-field">
-          <label for="party-select">{{ l "Party.party" }}</label>
-          <select id="party-select" name="data.biography.party">
+          <label for="party-select-{{document.id}}">{{ l "Party.party" }}</label>
+          <select id="party-select-{{document.id}}" name="data.biography.party">
             {{ selectOptions partyOptions selected=data.data.biography.party blank="Select party..." nameAttr="id" labelAttr="name" }}
           </select>
         </div>
@@ -56,8 +56,8 @@
         {{/if }}
         <div class="flex-spacer"></div>
         <div class="upgrade-points">
-          <label for="upgrade-points-input">{{ l "upgradePoints" }}</label>
-          {{> coreInput id="upgrade-points-input" name="data.upgradePoints.value" value=data.data.upgradePoints.value size="small" }}
+          <label for="upgrade-points-input-{{document.id}}">{{ l "upgradePoints" }}</label>
+          {{> coreInput id=(concat "upgrade-points-input-" document.id) name="data.upgradePoints.value" value=data.data.upgradePoints.value size="small" }}
         </div>
       </section>
       <section class="feature-list">
