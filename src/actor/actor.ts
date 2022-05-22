@@ -11,7 +11,7 @@ import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
-import { Attribute, Cell, CoreAlt, ResourceAttribute } from "./actor.interface";
+import { Attribute, Cell, CoreAlt, ResourceAttribute, RiskEvent } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -184,5 +184,22 @@ export class CryptomancerActor extends Actor {
     const newCells = [...this.data.data.cells];
     newCells.splice(index, 1);
     await this.update({ data: { cells: newCells } });
+  }
+
+  async addRiskEvent(eventText: string = ""): Promise<void> {
+    if (this.data.type !== "party") {
+      return;
+    }
+    const newRiskEvents: RiskEvent[] = [...this.data.data.riskEvents, { complete: false, eventText }];
+    await this.update({ data: { riskEvents: newRiskEvents } });
+  }
+
+  async removeRiskEvent(index: number): Promise<void> {
+    if (this.data.type !== "party") {
+      return;
+    }
+    const newRiskEvents = [...this.data.data.riskEvents];
+    newRiskEvents.splice(index, 1);
+    await this.update({ data: { riskEvents: newRiskEvents } });
   }
 }
