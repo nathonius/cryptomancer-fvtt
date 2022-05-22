@@ -283,6 +283,15 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
       this.document.addCell();
     });
 
+    html.find<HTMLButtonElement>("button.risk-event-delete").on("click", (event) => {
+      const index = parseInt($(event.currentTarget).parents(".risk-event").data("index"));
+      this.document.removeRiskEvent(index);
+    });
+
+    html.find<HTMLButtonElement>("button.risk-event-add").on("click", (event) => {
+      this.document.addRiskEvent();
+    });
+
     // Operations skill checks
     html.find(".rollable").on("click", this.onCellRoll.bind(this));
 
