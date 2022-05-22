@@ -49,8 +49,6 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
 
   override activateListeners(html: JQuery<HTMLElement>) {
     super.activateListeners(html);
-    this._activateCharacterListenters(html);
-    this._activatePartyListenters(html);
     tippy("[data-tooltip]", {
       content: (reference) => {
         return (reference as HTMLElement).dataset.tooltip as string;
@@ -60,6 +58,30 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
+
+    this._activateCharacterListenters(html);
+    this._activatePartyListenters(html);
+
+    // Up/down listeners for core inputs
+    html.find<HTMLInputElement>(".crypt-core-input > input").on("keydown", (event) => {
+      if (!["Up", "ArrowUp", "Down", "ArrowDown"].includes(event.key)) {
+        return;
+      }
+      const currentValue = event.target.value ? parseInt(event.target.value) : 0;
+      if (currentValue === NaN) {
+        return;
+      }
+      switch (event.key) {
+        case "Up":
+        case "ArrowUp":
+          event.target.value = `${currentValue + 1}`;
+          break;
+        case "Down":
+        case "ArrowDown":
+          event.target.value = `${currentValue - 1}`;
+          break;
+      }
+    });
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -78,6 +100,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
    */
   private augmentContext(context: AugmentedData): AugmentedData {
     this.prepareCharacterData(context);
+    this.preparePartyData(context);
     return context;
   }
 
@@ -124,7 +147,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
         if (attr.skills) {
           Object.values(attr.skills).forEach((skill) => {
             skill.label = l(skill.label);
-            context.skills.push({
+            context.skills!.push({
               ...skill,
               core: core.key,
               attributeValue: attr.value,
@@ -144,6 +167,27 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
       if (selectedParty) {
         context.selectedParty = selectedParty.data.data as Party;
       }
+    }
+  }
+
+  private preparePartyData(context: AugmentedData) {
+    if (context.data.type !== "party") {
+      return;
+    }
+    /**
+     * Risk Thresholds:
+     * 1-10: Green
+     * 11-30: Blue
+     * 31-49: Orange
+     * 50-100: Red
+     */
+    context.riskColor = "success";
+    if (context.data.data.risk.value >= 50) {
+      context.riskColor = "danger";
+    } else if (context.data.data.risk.value >= 31) {
+      context.riskColor = "secondary";
+    } else if (context.data.data.risk.value >= 11) {
+      context.riskColor = "primary";
     }
   }
 
@@ -209,7 +253,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     });
 
     // Difficulty selector
-    html.find(".difficulty-selector").on("change", this.onDifficultySelect.bind(this));
+    html.find(".difficulty-selector input").on("change", this.onDifficultySelect.bind(this));
   }
 
   private _activatePartyListenters(html: JQuery<HTMLElement>): void {
@@ -317,14 +361,15 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
 
   private onDifficultySelect(event: JQuery.ChangeEvent) {
     event.preventDefault();
-    switch (event.target.id as string) {
-      case "difficulty-trivial":
+    const difficulty = $(event.currentTarget).parents(".difficulty").data("difficulty");
+    switch (difficulty) {
+      case "trivial":
         this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
         break;
-      case "difficulty-challenging":
+      case "challenging":
         this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
         break;
-      case "difficulty-tough":
+      case "tough":
         this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
         break;
     }
@@ -359,7 +404,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    const index = dataset.index as "1" | "2" | "3";
+    const index = parseInt(dataset.index);
 
     this.document.rollCellOperations(this.actor.data.data.cells[index]);
   }
