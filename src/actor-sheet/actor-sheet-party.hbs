@@ -26,8 +26,10 @@
                      id="risk-event-text-{{@index}}-{{../document.id}}"
                      class="risk-event-text risk-event-field"
                      value="{{this.eventText}}"/>
+              <button type="button" class="risk-event-delete">Remove Event</button>
             </div>
           {{/each}}
+          <button type="button" class="risk-event-add">Add Risk Event</button>
         </div>
         <div class="party-cells">
           <h2>{{l "Party.cells"}}</h2>
