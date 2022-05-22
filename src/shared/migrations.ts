@@ -1,13 +1,31 @@
+import { CryptomancerActor } from "../actor/actor";
+import { Cell, RiskEvent } from "../actor/actor.interface";
 import { SCOPE } from "./constants";
 import { getGame } from "./util";
 
-export async function migrateWorld() {
-  const game = getGame();
-  const version = game.system.data.version;
-  ui.notifications?.info(game.i18n.format("MIGRATION.Begin", { version }), { permanent: true });
+export async function migrateWorld(): Promise<void> {
+  const _game = getGame();
+  const version = _game.system.data.version;
+  ui.notifications?.info(_game.i18n.format("MIGRATION.Begin", { version }), { permanent: true });
 
-  // Migrate World Items
-  for (let item of game.items || []) {
+  await migrateWorldItems();
+  await migrateWorldActors();
+
+  // Set the migration as complete
+  _game.settings.set(SCOPE, "systemMigrationVersion", version);
+  ui.notifications?.info(_game.i18n.format("MIGRATION.Complete", { version }), { permanent: true });
+}
+
+async function migrateWorldActors(): Promise<void> {
+  const _game = getGame();
+  for (let actor of _game.actors || []) {
+    await migrateParty(actor);
+  }
+}
+
+async function migrateWorldItems(): Promise<void> {
+  const _game = getGame();
+  for (let item of _game.items || []) {
     const updateData: any = {};
     // Migrate trademark items to equipment
     if (item.data.type === "trademarkItem") {
@@ -44,8 +62,29 @@ export async function migrateWorld() {
       await item.update(updateData, { enforceTypes: false });
     }
   }
+}
 
-  // Set the migration as complete
-  game.settings.set(SCOPE, "systemMigrationVersion", version);
-  ui.notifications?.info(game.i18n.format("MIGRATION.Complete", { version }), { permanent: true });
+async function migrateParty(party: StoredDocument<CryptomancerActor>): Promise<void> {
+  if (party.data.type !== "party") {
+    return;
+  }
+
+  const updateData: any = {};
+
+  // Migrate risk events from number indexed objects to array
+  if (!Array.isArray(party.data.data.riskEvents)) {
+    console.log(`Migrating party ${party.name} risk events.`);
+    updateData["data.riskEvents"] = Object.values(party.data.data.riskEvents) as RiskEvent[];
+  }
+
+  // Migrate cells from number indexed objects to array
+  if (!Array.isArray(party.data.data.cells)) {
+    console.log(`Migrating party ${party.name} cells.`);
+    updateData["data.cells"] = Object.values(party.data.data.cells) as Cell[];
+  }
+
+  // Apply update
+  if (!foundry.utils.isObjectEmpty(updateData)) {
+    await party.update(updateData, { enforceTypes: false });
+  }
 }

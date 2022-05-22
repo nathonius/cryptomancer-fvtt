@@ -1,4 +1,4 @@
-import type { AttributeAlt, CoreAlt, Party } from "../actor/actor.interface";
+import type { AttributeAlt, Cell, CoreAlt, Party, RiskEvent } from "../actor/actor.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { SettingsService } from "../settings/settings.service";
 import { getGame, l } from "../shared/util";
@@ -6,6 +6,7 @@ import { AugmentedData } from "./actor-sheet.interface";
 
 // Remove this when migrating to v10
 import tippy from "tippy.js";
+import { CellTimeIncrement, CellType } from "../actor/actor.enum";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -214,19 +215,84 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
   private _activatePartyListenters(html: JQuery<HTMLElement>): void {
     if (this.actor.data.type !== "party") return;
 
+    // Handle risk event fields
+    html.find<HTMLInputElement>("input.risk-event-field").on("change", (event) => {
+      if (this.document.data.type !== "party") {
+        return;
+      }
+      const index = parseInt($(event.currentTarget).parents(".risk-event").data("index"));
+      const riskEvent: RiskEvent = { ...this.document.data.data.riskEvents[index] };
+      if (event.target.type === "checkbox") {
+        riskEvent.complete = event.target.checked;
+      } else {
+        riskEvent.eventText = event.target.value;
+      }
+      const newEvents = [...this.document.data.data.riskEvents];
+      newEvents.splice(index, 1, riskEvent);
+      this.document.update({
+        data: {
+          riskEvents: newEvents,
+        },
+      });
+    });
+
+    // Handle cell fields
+    html.find<HTMLInputElement>("input.cell-field").on("change", (event) => {
+      if (this.document.data.type !== "party") {
+        return;
+      }
+      const index = parseInt($(event.currentTarget).parents(".crypt-party-cell").data("index"));
+      const field = event.currentTarget.dataset["field"];
+      const cell: Cell = { ...this.document.data.data.cells[index] };
+      switch (field) {
+        case "type":
+          // TODO: Make this a select?
+          cell.type = event.target.value as CellType;
+          break;
+        case "operations":
+          cell.operations = parseInt(event.target.value);
+          break;
+        case "skillPush":
+          cell.skillPush = event.target.checked;
+          break;
+        case "skillBreak":
+          cell.skillBreak = event.target.checked;
+          break;
+        case "time.value":
+          cell.time.value = parseInt(event.target.value);
+          break;
+        case "mission":
+          cell.mission = event.target.value;
+          break;
+      }
+      const newCells = [...this.document.data.data.cells];
+      newCells.splice(index, 1, cell);
+      this.document.update({
+        data: {
+          cells: newCells,
+        },
+      });
+    });
+
     // Operations skill checks
     html.find(".rollable").on("click", this.onCellRoll.bind(this));
 
     // Cell time increment selector
     html.find(".time-increments__increment").on("click", (event) => {
+      if (this.document.data.type !== "party") {
+        return;
+      }
+
       event.preventDefault();
-      const element = event.currentTarget;
-      const dataset = element.dataset;
-      const increment = dataset.increment;
-      const index = dataset.index;
+      const index = parseInt($(event.currentTarget).parents(".crypt-party-cell").data("index"));
+      const increment = event.currentTarget.dataset.increment;
       if (index === undefined) return;
+      const cell: Cell = { ...this.document.data.data.cells[index] };
+      cell.time.increment = increment as CellTimeIncrement;
+      const newCells = [...this.document.data.data.cells];
+      newCells.splice(index, 1, cell);
       this.actor.update({
-        data: { cells: { [index]: { time: { increment } } } },
+        data: { cells: newCells },
       });
     });
   }
