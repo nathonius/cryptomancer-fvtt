@@ -81,6 +81,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
           event.target.value = `${currentValue - 1}`;
           break;
       }
+      this.submit();
     });
 
     // Drag events for macros.
