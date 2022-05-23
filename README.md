@@ -4,6 +4,8 @@ Cryptomancer RPG system for Foundry Virtual Tabletop
 
 > Kill all the Orcs, Hack all the Things
 
+![Downloads badge](https://img.shields.io/github/downloads/OfficerHalf/cryptomancer-fvtt/latest/total?style=flat-square)
+
 ## Prerequisites
 
 A [FoundryVTT](https://foundryvtt.com/) license and a copy of [Cryptomancer](http://cryptorpg.com/).
