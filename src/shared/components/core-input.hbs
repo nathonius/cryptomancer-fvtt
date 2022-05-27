@@ -4,7 +4,8 @@
 @Input name: string;
 @Input size: "small" | "large";
 @Input readonly: boolean;
+@Input color?: "primary" | "secondary" | "success" | "danger";
 }}
-<div class="crypt-core-input {{size}}">
+<div class="crypt-core-input {{size}} {{#if color }}{{color}}{{/if}}">
   <input type="text" value="{{value}}" name="{{name}}" {{disabled readonly}} data-dtype="Number" {{#if id }}id="{{id }}"{{/if }} />
 </div>

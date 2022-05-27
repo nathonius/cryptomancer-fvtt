@@ -1,12 +1,13 @@
-import type { AttributeAlt, Cell, CoreAlt, Party, RiskEvent } from "../actor/actor.interface";
+import type { AttributeAlt, Cell, Party, RiskEvent } from "../actor/actor.interface";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { SettingsService } from "../settings/settings.service";
 import { getGame, l } from "../shared/util";
 import { AugmentedData } from "./actor-sheet.interface";
+import { CellTimeIncrement, CellType } from "../actor/actor.enum";
+import { CellTypes } from "./actor-sheet.constant";
 
 // Remove this when migrating to v10
 import tippy from "tippy.js";
-import { CellTimeIncrement, CellType } from "../actor/actor.enum";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -63,7 +64,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     this._activatePartyListenters(html);
 
     // Up/down listeners for core inputs
-    html.find<HTMLInputElement>(".crypt-core-input > input").on("keydown", (event) => {
+    html.find<HTMLInputElement>(".crypt-core-input > input[name]").on("keydown", (event) => {
       if (!["Up", "ArrowUp", "Down", "ArrowDown"].includes(event.key)) {
         return;
       }
@@ -175,6 +176,8 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     if (context.data.type !== "party") {
       return;
     }
+    context.cellTypes = CellTypes;
+
     /**
      * Risk Thresholds:
      * 1-10: Green
@@ -282,7 +285,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     });
 
     // Handle cell fields
-    html.find<HTMLInputElement>("input.cell-field").on("change", (event) => {
+    html.find<HTMLInputElement>(".cell-field").on("change", (event) => {
       if (this.document.data.type !== "party") {
         return;
       }
@@ -308,6 +311,9 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
           break;
         case "mission":
           cell.mission = event.target.value;
+          break;
+        case "name":
+          cell.name = event.target.value;
           break;
       }
       const newCells = [...this.document.data.data.cells];
@@ -341,7 +347,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     html.find(".rollable").on("click", this.onCellRoll.bind(this));
 
     // Cell time increment selector
-    html.find(".time-increments__increment").on("click", (event) => {
+    html.find(".time-increment").on("click", (event) => {
       if (this.document.data.type !== "party") {
         return;
       }
