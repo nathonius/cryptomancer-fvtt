@@ -1,46 +1,74 @@
 <form class="crypt-actor-sheet party" autocomplete="off">
-  <nav class="crypt-tabs small" data-group="primary">
+  <nav class="crypt-tabs" data-group="primary">
     <a class="crypt-tab" data-tab="party">{{toUpperCase (l "Party.party")}}</a>
     <a class="crypt-tab" data-tab="safehouse">{{toUpperCase (l "Party.safehouse")}}</a>
   </nav>
   <section class="sheet-body">
-    <div class="tab party" data-group="primary" data-tab="party">
-      <div class="party-wrapper">
-        <div class="party-resources">
-          <div class="resource-label">{{l "Party.risk"}}</div>
-          {{> coreInput value=data.data.risk.value name="data.risk.value" size="large"}}
-          <div class="resource-label">{{l "Party.upgradePoints"}}</div>
-          {{> coreInput value=data.data.upgradePoints name="data.upgradePoints" size="large"}}
-          <div class="resource-label">{{l "Party.assets"}}</div>
-          {{> coreInput value=data.data.assets name="data.assets" size="large"}}
+    <div class="tab party" data-tab="party">
+      <section class="left">
+        <div class="avatar">
+          <img src="{{actor.img}}"
+               title="{{actor.name}}"
+               alt="{{actor.name}}"
+               data-edit="img"/>
         </div>
-        <div class="party-risk-events">
-          <h2>{{l "Party.riskEvents"}}</h2>
-          {{#each data.data.riskEvents }}
-            <div class="risk-event" data-index="{{@index}}">
-              <div class="crypt-toggle-box">
-                <input class="visually-hidden risk-event-field" id="risk-event-toggle-{{@index}}-{{../document.id}}" type="checkbox" {{checked this.complete}} data-dtype="Boolean"/>
-                <label for="risk-event-toggle-{{@index}}-{{../document.id}}"></label>
-              </div>
-              <input type="text"
-                     id="risk-event-text-{{@index}}-{{../document.id}}"
-                     class="risk-event-text risk-event-field"
-                     value="{{this.eventText}}"/>
-              <button type="button" class="risk-event-delete">Remove Event</button>
-            </div>
-          {{/each}}
+        <div class="party-resource">
+          <label for="party-risk-{{document.id}}">{{l "Party.risk"}}</label>
+          {{> coreInput id=(concat "party-risk-" document.id) value=data.data.risk.value name="data.risk.value" size="large" color=riskColor}}
+        </div>
+        <div class="party-resource">
+          <label for="party-upgrade-points-{{document.id}}">{{l "Party.upgradePoints"}}</label>
+          {{> coreInput id=(concat "party-upgrade-points-" document.id) value=data.data.upgradePoints name="data.upgradePoints" size="large"}}
+        </div>
+        <div class="party-resource">
+          <label for="party-assets-{{document.id}}">{{l "Party.assets"}}</label>
+          {{> coreInput id=(concat "party-assets-" document.id) value=data.data.assets name="data.assets" size="large"}}
+        </div>
+        {{#if owner }}
+          <button type="button" class="risk-check">Risk Check</button>
           <button type="button" class="risk-event-add">Add Risk Event</button>
+          <button type="button" class="cell-add">{{l "Cell.addCell"}}</button>
+        {{/if}}
+      </section>
+      <section class="main">
+        <div class="crypt-form-field party-name">
+          <label for="party-name-{{document.id}}">Party Name</label>
+          <input id="party-name-{{document.id}}"
+                 type="text"
+                 name="name"
+                 value="{{actor.name}}"/>
         </div>
-        <div class="party-cells">
-          <h2>{{l "Party.cells"}}</h2>
-          {{#each data.data.cells }}
-            {{> cell cell=this index=@index documentId=../document.id }}
-          {{/each}}
-          <button type="button" class="cell-add">Add Cell</button>
-        </div>
-      </div>
+        <h3>{{l "Party.riskEvents"}}</h3>
+        {{#each data.data.riskEvents }}
+          <div class="risk-event" data-index="{{@index}}">
+            <div class="crypt-toggle-box"
+                 data-tooltip="{{l "Party.riskEventCompleted"}}">
+              <input class="visually-hidden risk-event-field" id="risk-event-toggle-{{@index}}-{{../document.id}}" type="checkbox" {{checked this.complete}} data-dtype="Boolean"/>
+              <label for="risk-event-toggle-{{@index}}-{{../document.id}}"></label>
+            </div>
+            <input type="text"
+                   id="risk-event-text-{{@index}}-{{../document.id}}"
+                   class="risk-event-text risk-event-field"
+                   value="{{this.eventText}}"/>
+            {{#if ../owner }}
+              <button type="button" class="risk-event-delete" data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            {{/if}}
+          </div>
+        {{/each}}
+        <h3>{{l "Party.cells"}}</h3>
+        {{#if (is data.data.cells.length 0) }}
+          <p>
+            {{l "Party.noCells"}}
+          </p>
+        {{/if}}
+        {{#each data.data.cells }}
+          {{> cell cell=this index=@index documentId=../document.id cellTypes=../cellTypes owner=../owner }}
+        {{/each}}
+      </section>
     </div>
-    <div class="tab safehouse" data-group="primary" data-tab="safehouse">
+    <div class="tab safehouse" data-tab="safehouse">
       <div class="safehouse-rooms">
         {{> safehouseRoom room=data.data.safehouse.cryptovault}}
         {{> safehouseRoom room=data.data.safehouse.dungeon}}

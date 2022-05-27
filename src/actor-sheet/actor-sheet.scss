@@ -122,63 +122,69 @@
     }
   }
   &.party {
+    // Overrides base form application 8px padding
+    margin: -8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     .sheet-body {
-      .tab.party {
-        .party-wrapper {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          gap: 16px;
-          h2 {
+      padding: 8px;
+      .tab.party.active {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 16px;
+        section.left {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        section.main {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          h3 {
+            font-size: 1.3rem;
             font-family: var(--font-accent);
-            font-size: 1.8em;
-            border: none;
-            margin: 0;
-          }
-
-          .party-resources {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
-            align-items: center;
-            .resource-label {
-              font-family: var(--font-accent);
-              font-size: 1.8em;
-              padding-right: 4px;
-              text-align: right;
-            }
-          }
-          .party-risk-events {
-            display: grid;
-            gap: 8px;
-            .risk-event {
-              display: flex;
-              align-items: center;
-              gap: 4px;
-              input {
-                font-size: 1.3em;
-                background-color: var(--neutral--light-2);
-                border-radius: 0px;
-              }
-            }
-          }
-          .party-cells {
-            grid-column: span 2;
-            display: grid;
-            gap: 16px;
           }
         }
-      }
-    }
-    .tab.safehouse {
-      .safehouse-rooms {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 280px);
-        grid-auto-flow: dense;
-        justify-content: space-around;
-        gap: 16px;
-        .crypt-safehouse-room {
-          &.stable {
-            grid-row: span 2;
+        .avatar {
+          img {
+            max-height: 180px;
+          }
+        }
+        .party-name {
+          input {
+            font-size: 1.3rem;
+            font-family: var(--font-accent);
+          }
+        }
+        .party-resource {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          label {
+            font-size: 1.3rem;
+            font-family: var(--font-accent);
+          }
+        }
+        .risk-event {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: 8px;
+          button.risk-event-delete {
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+            padding-right: 2px;
+            margin: 0;
+            box-shadow: none;
+            color: var(--primary--dark-2);
+            &:hover,
+            &:focus {
+              box-shadow: none;
+              color: var(--primary);
+            }
           }
         }
       }
