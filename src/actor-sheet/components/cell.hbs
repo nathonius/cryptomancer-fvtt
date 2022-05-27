@@ -2,65 +2,84 @@
 @Input cell: Cell;
 @Input index: number;
 @Input documentId: string;
+@Input cellTypes: Record{CellType, string};
+@Input owner: boolean;
 }}
 <div class="crypt-party-cell" data-index="{{index}}">
-  <div class="crypt-party-cell__desc">
-    <input type="text"
-           class="cell-field"
-           value="{{cell.type}}"
-           data-field="type"
-           placeholder="{{l "Cell.cellType"}}"/>
-  </div>
-  <div class="crypt-party-cell__operations">
-    <span class="operations-label rollable" data-index="{{index}}">{{l "Skill.operations"}}</span>
-    <div class="operations-inputs">
-      <div class="crypt-toggle-box">
-        <input class="visually-hidden cell-field" id="cell-operations-break-{{index}}-{{documentId}}" type="checkbox" {{checked cell.skillBreak}} data-dtype="Boolean" data-field="skillBreak"/>
-        <label for="cell-operations-break-{{index}}-{{documentId}}">1</label>
-      </div>
-      <div class="crypt-core-input small">
-        <input class="cell-field"
-               type="text"
-               value="{{cell.operations}}"
-               data-dtype="Number"
-               data-field="operations"/>
-      </div>
-      <div class="crypt-toggle-box">
-        <input class="visually-hidden cell-field" id="cell-operations-push-{{index}}-{{documentId}}" type="checkbox" {{checked cell.skillPush}} data-dtype="Boolean" data-field="skillPush"/>
-        <label for="cell-operations-push-{{index}}-{{documentId}}">10</label>
+  <div class="cell-row">
+    <div class="crypt-form-field cell-type">
+      <label for="cell-type-{{index}}-{{documentId}}">{{l "Cell.cellType"}}</label>
+      <select class="cell-field"
+              id="cell-type-{{index}}-{{documentId}}"
+              data-field="type">
+        {{selectOptions cellTypes selected=cell.type localize=true}}
+      </select>
+    </div>
+    <div class="operations-skill">
+      <a class="operations-label rollable" data-index="{{index}}">{{l "Skill.operations"}}</a>
+      <div class="toggles">
+        <div class="crypt-toggle-box">
+          <input class="visually-hidden cell-field" id="cell-operations-break-{{index}}-{{documentId}}" type="checkbox" {{checked cell.skillBreak}} data-dtype="Boolean" data-field="skillBreak"/>
+          <label for="cell-operations-break-{{index}}-{{documentId}}">1</label>
+        </div>
+        <div class="crypt-toggle-box">
+          <input class="visually-hidden cell-field" id="cell-operations-push-{{index}}-{{documentId}}" type="checkbox" {{checked cell.skillPush}} data-dtype="Boolean" data-field="skillPush"/>
+          <label for="cell-operations-push-{{index}}-{{documentId}}">10</label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="crypt-party-cell__time">
-    <div class="time-increments__increment {{#if (is cell.time.increment "downtime") }}active{{/if }}"
-         data-increment="downtime"
-         data-index="{{index}}">
-      {{l "Cell.TimeIncrement.downtime"}}
+    <div class="crypt-core-input large">
+      <input class="cell-field"
+             type="text"
+             value="{{cell.operations}}"
+             data-dtype="Number"
+             data-field="operations"/>
     </div>
-    <div class="time-increments__increment {{#if (is cell.time.increment "day") }}active{{/if }}"
-         data-increment="day"
-         data-index="{{index}}">
-      {{l "Cell.TimeIncrement.day"}}
-    </div>
-    <div class="time-increments__increment {{#if (is cell.time.increment "week") }}active{{/if }}"
-         data-increment="week"
-         data-index="{{index}}">
-      {{l "Cell.TimeIncrement.week"}}
-    </div>
-    <label for="time-remaining-{{index}}-{{documentId}}">{{l "Cell.TimeIncrement.remaining"}}</label>
-    <input id="time-remaining-{{index}}-{{documentId}}"
-           class="cell-field"
-           type="text"
-           data-dtype="Number"
-           data-field="time.value"
-           value="{{cell.time.value}}"/>
   </div>
-  <div class="crypt-party-cell__mission">
-    <input type="text"
-           class="cell-field"
-           value="{{cell.mission}}"
-           placeholder="{{l "Cell.mission"}}"
-           data-field="mission"/>
+  <div class="cell-row">
+    <div class="crypt-form-field mission">
+      <label for="cell-mission-{{index}}-{{documentId}}">{{l "Cell.mission"}}</label>
+      <input id="cell-mission-{{index}}-{{documentId}}"
+             type="text"
+             class="cell-field"
+             value="{{cell.mission}}"
+             placeholder="{{l "Cell.mission"}}"
+             data-field="mission"/>
+    </div>
   </div>
-  <button type="button" class="cell-delete">Delete Cell</button>
+  <div class="cell-row">
+    <div class="crypt-form-field time-remaining">
+      <label for="time-remaining-{{index}}-{{documentId}}">{{l "Cell.TimeIncrement.remaining"}}</label>
+      <input id="time-remaining-{{index}}-{{documentId}}"
+             class="cell-field"
+             type="text"
+             data-dtype="Number"
+             data-field="time.value"
+             value="{{cell.time.value}}"/>
+    </div>
+    <div class="time-increments">
+      <div class="time-increment {{#if (is cell.time.increment "downtime") }}active{{/if }}"
+           data-increment="downtime"
+           data-index="{{index}}">
+        {{l "Cell.TimeIncrement.downtime"}}
+      </div>
+      <div class="time-increment {{#if (is cell.time.increment "day") }}active{{/if }}"
+           data-increment="day"
+           data-index="{{index}}">
+        {{l "Cell.TimeIncrement.day"}}
+      </div>
+      <div class="time-increment {{#if (is cell.time.increment "week") }}active{{/if }}"
+           data-increment="week"
+           data-index="{{index}}">
+        {{l "Cell.TimeIncrement.week"}}
+      </div>
+    </div>
+    {{#if owner }}
+      <button type="button"
+              class="cell-delete"
+              data-tooltip="{{l "Cell.deleteCell"}}">
+        <span class="fas fa-trash"></span>
+      </button>
+    {{/if}}
+  </div>
 </div>
