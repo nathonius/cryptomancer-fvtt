@@ -12,7 +12,11 @@ A [FoundryVTT](https://foundryvtt.com/) license and a copy of [Cryptomancer](htt
 
 ## Install
 
-### Automatically
+### In Foundry
+
+Search for Cryptomancer in the "Install System" dialog in Foundry.
+
+### Manifest URL
 
 Paste the manifest path into the "Manifest URL" field on the install system dialog in Foundry.
 
@@ -31,7 +35,7 @@ Unzip `system.zip` from the latest release into your Foundry `Data/systems/crypt
 - Stuff (consumables, equipment, outfits, weapons)
 - Talents and Spells
 - Compendia containing all the Talents, Spells, and Stuff included in the core rules as well as Code and Dagger 1
-- Party sheet (it's really ugly)
+- Party and Safehouse sheet
 
 ## Development
 
