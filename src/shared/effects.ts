@@ -3,16 +3,11 @@
  * @param {MouseEvent} event      The left-click event on the effect control
  * @param {Actor|Item} owner      The owning document which manages this effect
  */
-export function onManageActiveEffect(
-  event: JQuery.ClickEvent,
-  owner: Actor | Item
-) {
+export function onManageActiveEffect(event: JQuery.ClickEvent, owner: Actor | Item) {
   event.preventDefault();
   const a = event.currentTarget as HTMLAnchorElement;
   const li = a.closest("li")!;
-  const effect = li.dataset.effectId
-    ? owner.effects.get(li.dataset.effectId)
-    : null;
+  const effect = li.dataset.effectId ? owner.effects.get(li.dataset.effectId) : null;
   switch (a.dataset.action) {
     case "create":
       return owner.createEmbeddedDocuments("ActiveEffect", [
@@ -20,8 +15,7 @@ export function onManageActiveEffect(
           label: "New Effect",
           icon: "icons/svg/aura.svg",
           origin: owner.uuid,
-          "duration.rounds":
-            li.dataset.effectType === "temporary" ? 1 : undefined,
+          "duration.rounds": li.dataset.effectType === "temporary" ? 1 : undefined,
           disabled: li.dataset.effectType === "inactive",
         },
       ]);
@@ -41,10 +35,7 @@ export function onManageActiveEffect(
  */
 export function prepareActiveEffectCategories(effects: ActiveEffect[]) {
   // Define effect header categories
-  const categories: Record<
-    string,
-    { type: string; label: string; effects: ActiveEffect[] }
-  > = {
+  const categories: Record<string, { type: string; label: string; effects: ActiveEffect[] }> = {
     temporary: {
       type: "temporary",
       label: "Temporary Effects",
@@ -64,7 +55,7 @@ export function prepareActiveEffectCategories(effects: ActiveEffect[]) {
 
   // Iterate over active effects, classifying them into categories
   for (let e of effects) {
-    // e._getSourceName(); // Trigger a lookup for the source name
+    // Trigger a lookup for the source name e._getSourceName();
     if (e.data.disabled) categories.inactive.effects.push(e);
     else if (e.isTemporary) categories.temporary.effects.push(e);
     else categories.passive.effects.push(e);

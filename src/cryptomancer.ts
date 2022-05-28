@@ -1,22 +1,19 @@
 // Foundry
 import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
-// Import document classes.
 import { CryptomancerActor } from "./actor/actor";
-// Import sheet classes.
 import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet";
-// Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./shared/templates";
 import { SettingsService } from "./settings/settings.service";
 import { SkillCheckService } from "./skill-check/skill-check.service";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
 import { getGame, l } from "./shared/util";
-import { EquipmentType, SpellType } from "./item/item.enum";
-import "./cryptomancer.scss";
+import { SpellType } from "./item/item.enum";
 import { CoreAlt } from "./actor/actor.interface";
 import { SCOPE } from "./shared/constants";
 import { migrateWorld } from "./shared/migrations";
+import "./cryptomancer.scss";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -24,30 +21,6 @@ import { migrateWorld } from "./shared/migrations";
 
 Hooks.once("init", async function () {
   const settingsService = new SettingsService();
-
-  const _game = game as Game;
-
-  // TODO: Are these actually being used? Remove them if not. This seems hacky.
-  // Add utility classes to the global game object so that they're more easily
-  // accessible in global contexts.
-  (game as any).cryptomancer = {
-    CryptomancerActor,
-    rollItemMacro,
-  };
-
-  // TODO: What would I put in config? I have no idea. Figure out what this is good for.
-  // Add custom constants for configuration.
-  // CONFIG.BOILERPLATE = BOILERPLATE;
-
-  // TODO: Can I just remove this?
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: "1d20 + @abilities.dex.mod",
-    decimals: 2,
-  };
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = CryptomancerActor;
@@ -218,7 +191,7 @@ Handlebars.registerHelper("itemAttrs", (item: CryptomancerItem) => {
 
 Hooks.once("ready", async function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+  Hooks.on("hotbarDrop", (_bar, data, slot) => createItemMacro(data, slot));
 
   // Determine whether a system migration is required and feasible
   const game = getGame();

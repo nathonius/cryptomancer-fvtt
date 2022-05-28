@@ -45,8 +45,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = await super.getData();
-    const augmented = this.augmentContext(context);
-    return augmented;
+    return this.augmentContext(context);
   }
 
   override activateListeners(html: JQuery<HTMLElement>) {
@@ -70,7 +69,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
         return;
       }
       const currentValue = event.target.value ? parseInt(event.target.value) : 0;
-      if (currentValue === NaN) {
+      if (isNaN(currentValue)) {
         return;
       }
       switch (event.key) {
@@ -89,7 +88,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev: DragEvent) => this._onDragStart(ev);
-      html.find("li.item").each((i, li) => {
+      html.find("li.item").each((_, li) => {
         if (li.classList.contains("inventory-header")) return;
         li.setAttribute("draggable", "true");
         li.addEventListener("dragstart", handler, false);
@@ -295,7 +294,6 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
       const cell: Cell = { ...this.document.data.data.cells[index] };
       switch (field) {
         case "type":
-          // TODO: Make this a select?
           cell.type = event.target.value as CellType;
           break;
         case "operations":
@@ -337,7 +335,7 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
       this.document.removeRiskEvent(index);
     });
 
-    html.find<HTMLButtonElement>("button.risk-event-add").on("click", (event) => {
+    html.find<HTMLButtonElement>("button.risk-event-add").on("click", () => {
       this.document.addRiskEvent();
     });
 
