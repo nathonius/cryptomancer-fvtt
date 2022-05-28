@@ -1,0 +1,34 @@
+.crypt-risk-check {
+  .label {
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+  }
+
+  .risk-score,
+  .result {
+    font-size: 1.1rem;
+  }
+
+  .result {
+    color: var(--success);
+    &.failure {
+      color: var(--danger);
+    }
+  }
+}
+
+// Style chat message itself
+body.system-cryptomancer .chat-message {
+  &.risk-check-failure {
+    background-color: var(--neutral-danger--light-1);
+    border-color: var(--danger--dark-1);
+    box-shadow: 0 0 4px var(--danger);
+    color: var(--danger);
+    .message-header {
+      color: var(--danger--dark-1);
+      .message-delete:hover {
+        text-shadow: 0 0 8px var(--danger);
+      }
+    }
+  }
+}

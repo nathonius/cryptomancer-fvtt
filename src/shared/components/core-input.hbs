@@ -5,7 +5,8 @@
 @Input size: "small" | "large";
 @Input readonly: boolean;
 @Input color?: "primary" | "secondary" | "success" | "danger";
+@Input tooltip?: string;
 }}
-<div class="crypt-core-input {{size}} {{#if color }}{{color}}{{/if}}">
+<div class="crypt-core-input {{size}} {{#if color }}{{color }}{{/if}}" {{#if tooltip }}data-tooltip="{{tooltip}}{{/if}}">
   <input type="text" value="{{value}}" name="{{name}}" {{disabled readonly}} data-dtype="Number" {{#if id }}id="{{id }}"{{/if }} />
 </div>
