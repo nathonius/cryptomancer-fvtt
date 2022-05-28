@@ -8,6 +8,7 @@ import { CellTypes } from "./actor-sheet.constant";
 
 // Remove this when migrating to v10
 import tippy from "tippy.js";
+import { SkillCheckService } from "../skill-check/skill-check.service";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -312,9 +313,6 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
         case "mission":
           cell.mission = event.target.value;
           break;
-        case "name":
-          cell.name = event.target.value;
-          break;
       }
       const newCells = [...this.document.data.data.cells];
       newCells.splice(index, 1, cell);
@@ -342,6 +340,8 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     html.find<HTMLButtonElement>("button.risk-event-add").on("click", (event) => {
       this.document.addRiskEvent();
     });
+
+    html.find<HTMLButtonElement>("button.risk-check").on("click", this.onRiskCheck.bind(this));
 
     // Operations skill checks
     html.find(".rollable").on("click", this.onCellRoll.bind(this));
@@ -414,5 +414,10 @@ export class CryptomancerActorSheet extends ActorSheet<DocumentSheetOptions, Aug
     const index = parseInt(dataset.index);
 
     this.document.rollCellOperations(this.actor.data.data.cells[index]);
+  }
+
+  private async onRiskCheck(event: JQuery.ClickEvent) {
+    const riskScore = parseInt(event.currentTarget.dataset.risk);
+    await SkillCheckService.riskCheck(riskScore, this.object);
   }
 }
