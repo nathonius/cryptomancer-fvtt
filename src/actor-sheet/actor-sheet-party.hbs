@@ -25,14 +25,14 @@
           {{> coreInput id=(concat "party-assets-" document.id) value=data.data.assets name="data.assets" size="large"}}
         </div>
         {{#if owner }}
-          <button type="button" class="risk-check" data-risk="{{data.data.risk.value}}">Risk Check</button>
-          <button type="button" class="risk-event-add">Add Risk Event</button>
+          <button type="button" class="risk-check" data-risk="{{data.data.risk.value}}">{{l "Party.riskCheck"}}</button>
+          <button type="button" class="risk-event-add">{{l "Party.addRiskEvent"}}</button>
           <button type="button" class="cell-add">{{l "Cell.addCell"}}</button>
         {{/if}}
       </section>
       <section class="main">
         <div class="crypt-form-field party-name">
-          <label for="party-name-{{document.id}}">Party Name</label>
+          <label for="party-name-{{document.id}}">{{l "Party.partyName"}}</label>
           <input id="party-name-{{document.id}}"
                  type="text"
                  name="name"
