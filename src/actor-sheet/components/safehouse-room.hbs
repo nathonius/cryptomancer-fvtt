@@ -3,10 +3,10 @@
 -->
 <div class="crypt-safehouse-room {{room.type}}">
   <div class="room__header">
-    {{> toggleBox id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned}}
+    {{> toggleBox id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned tooltip=(l "Party.safehouseRoomOwned")}}
     <h3>{{l (concat "SafehouseRoomType." room.type)}}</h3>
     {{#if room.cost }}
-      {{> coreInput size="small" value=room.cost readonly=true}}
+      {{> coreInput size="small" value=room.cost readonly=true tooltip=(l "Equipment.cost")}}
     {{/if}}
   </div>
   <div class="room__desc">

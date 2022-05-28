@@ -1,0 +1,9 @@
+<div class="crypt-risk-check">
+  <h4 class="label">{{l "Party.riskCheck"}}</h4>
+  <p class="risk-score">
+    {{l "Party.risk"}}: <strong>{{riskScore}}</strong>
+  </p>
+  <p class="result {{#if failure }}failure{{/if }}">
+    {{l "Party.riskCheckResult"}}: <strong>{{checkResult}}</strong>
+  </p>
+</div>

@@ -188,6 +188,17 @@
           }
         }
       }
+      .tab.safehouse.active {
+        .safehouse-rooms {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          grid-auto-flow: dense;
+          gap: 16px;
+          .stable {
+            grid-row: span 2;
+          }
+        }
+      }
     }
   }
 }

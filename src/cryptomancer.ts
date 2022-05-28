@@ -247,7 +247,14 @@ Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
  * update the check difficulty.
  */
 Hooks.on("renderChatMessage", (message: ChatMessage, html: JQuery<HTMLElement>) => {
+  // Bind raise/lower difficulty buttons to skill check messages
   SkillCheckService.bindMessage(message, html);
+
+  // Apply a css class to the message if it is configured in a flag
+  const cssClass = message.getFlag("cryptomancer", "cssClass") as string | null;
+  if (cssClass) {
+    html.addClass(cssClass);
+  }
 });
 
 /**
