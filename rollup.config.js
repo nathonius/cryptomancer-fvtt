@@ -23,17 +23,16 @@ if (isDev && process.env.OUT_DIR) {
 
 /**
  * this simple plugin displays which environment we're in when rollup starts
- * @param {string} environment - the environment to display
+ * @param {string} env - the environment to display
  */
-const environment = (environment) => {
+const environment = (env) => {
   /** @type {import('rollup').PluginContext} */
-  const plugin = {
+  return {
     name: "environment",
     buildStart() {
-      console.log("\x1b[32m%s%s\x1b[0m", "Environment: ", environment);
+      console.log("\x1b[32m%s%s\x1b[0m", "Environment: ", env);
     },
   };
-  return plugin;
 };
 
 /** @type {import('rollup').RollupOptions} */
@@ -53,9 +52,7 @@ const config = {
     replace({
       preventAssignment: true,
       values: {
-        "process.env.NODE_ENV": isProd
-          ? JSON.stringify("production")
-          : JSON.stringify("development"),
+        "process.env.NODE_ENV": isProd ? JSON.stringify("production") : JSON.stringify("development"),
       },
     }),
     styles({
