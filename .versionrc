@@ -13,7 +13,7 @@
     },
     {
       "filename": "src/system.json",
-      "type": "json"
+      "updater": "standard-version/manifest-updater.js"
     },
     {
       "filename": "package-lock.json",
