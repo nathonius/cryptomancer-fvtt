@@ -198,7 +198,7 @@ Hooks.once("ready", async function () {
   if (!game.user?.isGM) return;
   const alwaysMigrate = (game.modules.get("_dev-mode") as any | undefined)?.api?.getPackageDebugValue("cryptomancer");
   const currentVersion = game.settings.get(SCOPE, "systemMigrationVersion") as string;
-  const NEEDS_MIGRATION_VERSION = "0.3.0";
+  const NEEDS_MIGRATION_VERSION = "0.5.0";
   const COMPATIBLE_MIGRATION_VERSION = "0.1.0";
   const needsMigration = !currentVersion || isNewerVersion(NEEDS_MIGRATION_VERSION, currentVersion);
   if (!needsMigration && !alwaysMigrate) return;

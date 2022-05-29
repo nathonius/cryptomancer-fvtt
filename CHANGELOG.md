@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.5.0...v0.6.0) (2022-05-29)
+
+
+### Features
+
+* allow adding and removing cells from parties ([d8f4837](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/d8f48372d9d6a4a60f4ce9c06f6ab12d1062a8a0))
+* allow adding and removing risk events from parties ([530018f](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/530018fd7e2294a1113fccb64733b2ef0a7e77fa))
+* core inputs support arrow keys for increment and decrement ([7e81776](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/7e81776e2494490a2f918bc931ff37606907f711))
+* risk checks from party sheet ([aeb919a](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/aeb919a69fd5ad7b2f8bf9e3f46aaa971716d67c))
+* update party cell list for readability ([f6df25a](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/f6df25af397490680e13262aaebe6df4136880b9))
+
+
+### Bug Fixes
+
+* add document specific IDs to party select and character UPs ([e35e46b](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/e35e46b23b6da0614f490793b715e3dcc1850d2a))
+* ensure all strings are localized ([abd4a7c](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/abd4a7cd3a3f17089aa4e521a90ff1a2dd5d595b))
+* restore character sheet difficulty selector ([0b34378](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/0b34378962fd4d2ac82a50e620bd378b00118dfb))
+* risk event text is saved ([def6eb8](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/def6eb8d49a83fdf9c56cef56194c13b54f77d59))
+
 ## [0.5.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.4.0...v0.5.0) (2022-05-16)
 
 
