@@ -4,7 +4,7 @@ Cryptomancer RPG system for Foundry Virtual Tabletop
 
 > Kill all the Orcs, Hack all the Things
 
-![Downloads badge](https://img.shields.io/github/downloads/OfficerHalf/cryptomancer-fvtt/latest/total?style=flat-square)
+![Downloads badge](https://img.shields.io/github/downloads/OfficerHalf/cryptomancer-fvtt/total?color=%2370e6e6) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=OfficerHalf_cryptomancer-fvtt&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=OfficerHalf_cryptomancer-fvtt)
 
 ## Prerequisites
 
