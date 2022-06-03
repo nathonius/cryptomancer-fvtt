@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.6.0...v0.6.1) (2022-06-03)
+
+
+### Bug Fixes
+
+* correct skill break, skill push, and precise melee ([78ed190](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/78ed1909f5eac89547491c67ea4ca02c87a1b25a))
+* correct supported version info ([bc33d97](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/bc33d97d2ac5f310a1e1989bc9d1d41886fed830))
+* update character bio placeholders to be shorter to fit default sheet size ([4b89f5a](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/4b89f5a0d42a5dfe0f94f066bd8e697771b5a627))
+
 ## [0.6.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.5.0...v0.6.0) (2022-05-29)
 
 
