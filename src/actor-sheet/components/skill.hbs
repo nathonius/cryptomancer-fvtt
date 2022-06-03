@@ -2,8 +2,8 @@
 @Input skill: Skill & {core: string, attributeValue: number}
 }}
 <div class="crypt-skill">
-  {{> toggleBox id=(concat "skill-" this.key "-break") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".skillBreak") value=this.skillBreak placeholder="1"}}
-  {{> toggleBox id=(concat "skill-" this.key "-push") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".skillPush") value=this.skillPush placeholder="10"}}
+  {{> toggleBox id=(concat "skill-" this.key "-break") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".break") value=this.break placeholder="1"}}
+  {{> toggleBox id=(concat "skill-" this.key "-push") name=(concat "data.core." this.core ".attributes." this.attribute ".skills." this.key ".push") value=this.push placeholder="10"}}
   <a class="skill-name rollable"
      data-roll-core="{{this.core}}"
      data-roll-attribute="{{this.attribute}}"
