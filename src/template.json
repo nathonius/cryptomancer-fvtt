@@ -213,9 +213,9 @@
                   "break": false,
                   "push": false
                 },
-                "preciseMissile": {
-                  "label": "Skill.preciseMissile",
-                  "key": "preciseMissile",
+                "preciseMelee": {
+                  "label": "Skill.preciseMelee",
+                  "key": "preciseMelee",
                   "attribute": "dexterity",
                   "break": false,
                   "push": false

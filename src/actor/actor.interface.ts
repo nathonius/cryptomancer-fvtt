@@ -53,7 +53,7 @@ export interface Character {
           skills: {
             firedMissile: Skill;
             lockPicking: Skill;
-            preciseMissile: Skill;
+            preciseMelee: Skill;
             sleightOfHand: Skill;
           };
         };
