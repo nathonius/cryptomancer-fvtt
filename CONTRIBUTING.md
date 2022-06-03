@@ -3,7 +3,7 @@
 1. Clone this repo somewhere OTHER than your Foundry data folder
 2. `cd cryptomancer-fvtt`
 3. `npm install`
-4. Update the path in `.env` to match your Foundry installation
+4. Create a copy of `sample.env` named `.env` and update the path in the new `.env` file to match your Foundry data directory
 
 # Build
 
@@ -19,4 +19,4 @@ This will clean the `dist` folder if it exists and build the source to that fold
 
 `npm run watch`
 
-On file changes, will execute a build, then serve the new files to the folder configured in `.env`. To see updates in foundry, return to setup and restart the game world.
+On file changes, will execute a build, then serve the new files to the folder configured in `.env`. To see updates in Foundry, refresh the window (requires devtools to be open if using the electron client) or return to setup and restart the game world.
