@@ -30,9 +30,9 @@
   <div class="difficulty-selector crypt-form-field">
     <label>{{l "CheckDifficulty.difficulty"}}</label>
     <div class="toggles">
-      <span class="difficulty" data-difficulty="trivial">{{> toggleBox id=(concat "difficulty-trivial-" document.id) tooltip=(l "CheckDifficulty.trivial") value=(is data.data.checkDifficulty 4) color="success"}}</span>
-      <span class="difficulty" data-difficulty="challenging">{{> toggleBox id=(concat "difficulty-challenging-" document.id) tooltip=(l "CheckDifficulty.challenging") value=(is data.data.checkDifficulty 6) color="secondary"}}</span>
-      <span class="difficulty" data-difficulty="tough">{{> toggleBox id=(concat "difficulty-tough-" document.id) tooltip=(l "CheckDifficulty.tough") value=(is data.data.checkDifficulty 8) color="danger"}}</span>
+      <span class="difficulty" data-difficulty="trivial">{{> toggleBox id=(concat "difficulty-trivial-" document.id) tooltip=(l "CheckDifficulty.trivial") value=(is checkDifficulty 4) color="success"}}</span>
+      <span class="difficulty" data-difficulty="challenging">{{> toggleBox id=(concat "difficulty-challenging-" document.id) tooltip=(l "CheckDifficulty.challenging") value=(is checkDifficulty 6) color="secondary"}}</span>
+      <span class="difficulty" data-difficulty="tough">{{> toggleBox id=(concat "difficulty-tough-" document.id) tooltip=(l "CheckDifficulty.tough") value=(is checkDifficulty 8) color="danger"}}</span>
     </div>
   </div>
 </div>

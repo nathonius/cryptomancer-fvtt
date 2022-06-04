@@ -210,5 +210,4 @@ export interface PreparedCharacter extends Character {
   weapons: CryptomancerItem[];
   outfits: CryptomancerItem[];
   consumables: CryptomancerItem[];
-  checkDifficulty: CheckDifficulty;
 }
