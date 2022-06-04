@@ -9,6 +9,8 @@ Cryptomancer RPG system for Foundry Virtual Tabletop
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcryptomancer&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=cryptomancer)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=OfficerHalf_cryptomancer-fvtt&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=OfficerHalf_cryptomancer-fvtt)
 
+![System in Action](doc/cryptomancer.png)
+
 ## Prerequisites
 
 A [FoundryVTT](https://foundryvtt.com/) license and a copy of [Cryptomancer](http://cryptorpg.com/).
