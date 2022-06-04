@@ -30,6 +30,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/cryptomancer/skill-check/skill-check.hbs",
     "systems/cryptomancer/skill-check/risk-check.hbs",
     "systems/cryptomancer/item/chat-card.hbs",
+    "systems/cryptomancer/actor-sheet/party/components/safehouse-room-chat-card.hbs",
   ]);
 };
 

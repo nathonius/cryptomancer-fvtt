@@ -156,6 +156,8 @@
   "CRYPTOMANCER.Party.safehouse": "Safehouse",
   "CRYPTOMANCER.Party.partyName": "Party Name",
   "CRYPTOMANCER.Party.safehouseRoomOwned": "Owned",
+  "CRYPTOMANCER.Party.safehouseRoomUnowned": "Unowned",
+  "CRYPTOMANCER.Party.safehouseRoomCost": "Asset Cost",
   "CRYPTOMANCER.Party.risk": "Risk",
   "CRYPTOMANCER.Party.riskCheckResult": "Result",
   "CRYPTOMANCER.Party.riskCheck": "Risk Check",

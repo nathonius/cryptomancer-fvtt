@@ -1,5 +1,7 @@
-import { CellTimeIncrement, CellType } from "../../actor/actor.enum";
-import { Cell, RiskEvent } from "../../actor/actor.interface";
+import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
+import { CellTimeIncrement, CellType, SafehouseRoomType } from "../../actor/actor.enum";
+import { Cell, RiskEvent, SafehouseRoom } from "../../actor/actor.interface";
+import { getGame } from "../../shared/util";
 import { SkillCheckService } from "../../skill-check/skill-check.service";
 import { CryptomancerActorSheet } from "../actor-sheet";
 import { CellTypes } from "../actor-sheet.constant";
@@ -149,6 +151,17 @@ export class PartySheet extends CryptomancerActorSheet<PartySheetData> {
         data: { cells: newCells },
       });
     });
+
+    // Safehouse chat card
+    html.find<HTMLAnchorElement>(".crypt-safehouse-room a.safehouse-name").on("click", (event) => {
+      if (this.document.data.type !== "party") {
+        return;
+      }
+      const type = $(event.currentTarget).parents(".crypt-safehouse-room").data("type") as SafehouseRoomType;
+      if (type) {
+        this.safehouseChatCard(this.document.data.data.safehouse[type]);
+      }
+    });
   }
 
   private onCellRoll(event: JQuery.ClickEvent) {
@@ -165,5 +178,21 @@ export class PartySheet extends CryptomancerActorSheet<PartySheetData> {
   private async onRiskCheck(event: JQuery.ClickEvent) {
     const riskScore = parseInt(event.currentTarget.dataset.risk);
     await SkillCheckService.riskCheck(riskScore, this.object);
+  }
+
+  private async safehouseChatCard(safehouse: SafehouseRoom) {
+    const _game = getGame();
+    const content = await renderTemplate(
+      "systems/cryptomancer/actor-sheet/party/components/safehouse-room-chat-card.hbs",
+      safehouse
+    );
+    const messageData: ChatMessageDataConstructorData = {
+      user: _game.user?.id,
+      speaker: ChatMessage.getSpeaker({ actor: this.object }),
+      type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      content,
+    };
+    ChatMessage.applyRollMode(messageData, _game.settings.get("core", "rollMode"));
+    await ChatMessage.create(messageData);
   }
 }
