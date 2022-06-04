@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.6.1...v0.7.0) (2022-06-04)
+
+
+### Features
+
+* add code and dagger equipment to compendia ([9973a35](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/9973a351154012c221391c718b438a4b63f3f5ec))
+* add safehouse room chat cards ([71603da](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/71603da8c547f10d5642350cc64fbf8df744bf8c))
+* split actor sheet into character and party subclasses ([4eb53d1](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/4eb53d1fa3b141a2ad72468e3a997b08232d8a23))
+
+
+### Bug Fixes
+
+* correct spelling of shardscape in cryptovault description ([e21fbf5](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/e21fbf54c2e232c8368e2035f2f89afb8604243d))
+* set journal link/inline roll background color for readability ([e069db4](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/e069db4869945427f8e744a75f9c1c789c410b58))
+
 ### [0.6.1](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.6.0...v0.6.1) (2022-06-03)
 
 
