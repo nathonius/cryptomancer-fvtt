@@ -110,4 +110,11 @@ body.system-cryptomancer {
     scrollbar-width: thin;
     scrollbar-color: var(--primary--dark-3) #111;
   }
+
+  /* Journal */
+  a.entity-link,
+  a.content-link,
+  a.inline-roll {
+    background-color: var(--neutral);
+  }
 }
