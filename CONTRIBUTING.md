@@ -21,6 +21,12 @@ This will clean the `dist` folder if it exists and build the source to that fold
 
 On file changes, will execute a build, then serve the new files to the folder configured in `.env`. To see updates in Foundry, refresh the window (requires devtools to be open if using the electron client) or return to setup and restart the game world.
 
+# Debugging
+
+## Migrations
+
+Using the [Developer Mode](https://github.com/League-of-Foundry-Developers/foundryvtt-devMode) module, if the Cryptomancer debug flag is enabled, migrations will always run, regardless of the current version.
+
 # Release Process
 
 1. Merge all changes for this release to `next` branch.
