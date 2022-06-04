@@ -1,0 +1,33 @@
+{{!
+@Input context: SafehouseRoom & {
+mounts?: string;
+};
+}}
+<section class="crypt-safehouse-card">
+  <details open>
+    <summary>
+      <h3>{{l (concat "SafehouseRoomType." this.type)}}</h3>
+      &nbsp;
+      <div class="crypt-chip {{#if this.owned }}primary{{/if }}">
+        {{#if this.owned }}
+        {{toLowerCase (l "Party.safehouseRoomOwned")}}{{else}}{{toLowerCase (l "Party.safehouseRoomUnowned")}}{{/if}}
+        </div>
+      </summary>
+      {{#if this.cost }}
+        <p>
+          {{l "Party.safehouseRoomCost"}}: {{this.cost}}
+        </p>
+      {{/if}}
+      <p>
+        {{l (concat "SafehouseRoomDescription." this.type)}} {{this.value}}
+      </p>
+      <p>
+        {{l (concat "SafehouseRoomEffect." this.type)}}
+      </p>
+      {{#if (is this.type "stable") }}
+        <p>
+          {{this.mounts}}
+        </p>
+      {{/if}}
+    </details>
+  </section>

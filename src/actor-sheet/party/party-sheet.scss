@@ -1,0 +1,84 @@
+@import "components/safehouse-room";
+@import "components/safehouse-room-chat-card";
+@import "components/cell";
+
+.crypt-party-sheet {
+  // Overrides base form application 8px padding
+  margin: -8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .sheet-body {
+    padding: 8px;
+    .tab.party.active {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      section.left {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      section.main {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        h3 {
+          font-size: 1.3rem;
+          font-family: var(--font-accent);
+        }
+      }
+      .avatar {
+        img {
+          max-height: 180px;
+        }
+      }
+      .party-name {
+        input {
+          font-size: 1.3rem;
+          font-family: var(--font-accent);
+        }
+      }
+      .party-resource {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        label {
+          font-size: 1.3rem;
+          font-family: var(--font-accent);
+        }
+      }
+      .risk-event {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 8px;
+        button.risk-event-delete {
+          background-color: transparent;
+          border: 0;
+          padding: 0;
+          padding-right: 2px;
+          margin: 0;
+          box-shadow: none;
+          color: var(--primary--dark-2);
+          &:hover,
+          &:focus {
+            box-shadow: none;
+            color: var(--primary);
+          }
+        }
+      }
+    }
+    .tab.safehouse.active {
+      .safehouse-rooms {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-auto-flow: dense;
+        gap: 16px;
+        .stable {
+          grid-row: span 2;
+        }
+      }
+    }
+  }
+}

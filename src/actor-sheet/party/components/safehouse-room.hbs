@@ -1,12 +1,14 @@
-<!--
-  @Input room: SafehouseRoom;
--->
-<div class="crypt-safehouse-room {{room.type}}">
+{{!
+@Input room: SafehouseRoom;
+}}
+<div class="crypt-safehouse-room {{room.type}}" data-type="{{room.type}}">
   <div class="room__header">
     {{> toggleBox id=(concat room.type "-toggle") name=(concat "data.safehouse." room.type ".owned") value=room.owned tooltip=(l "Party.safehouseRoomOwned")}}
-    <h3>{{l (concat "SafehouseRoomType." room.type)}}</h3>
+    <h3>
+      <a class="safehouse-name">{{l (concat "SafehouseRoomType." room.type)}}</a>
+    </h3>
     {{#if room.cost }}
-      {{> coreInput size="small" value=room.cost readonly=true tooltip=(l "Equipment.cost")}}
+      {{> coreInput size="small" value=room.cost readonly=true tooltip=(l "Party.safehouseRoomCost")}}
     {{/if}}
   </div>
   <div class="room__desc">

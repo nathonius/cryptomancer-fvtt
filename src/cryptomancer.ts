@@ -2,7 +2,6 @@
 import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 
 import { CryptomancerActor } from "./actor/actor";
-import { CryptomancerActorSheet } from "./actor-sheet/actor-sheet";
 import { preloadHandlebarsTemplates } from "./shared/templates";
 import { SettingsService } from "./settings/settings.service";
 import { SkillCheckService } from "./skill-check/skill-check.service";
@@ -13,6 +12,8 @@ import { SpellType } from "./item/item.enum";
 import { CoreAlt } from "./actor/actor.interface";
 import { SCOPE } from "./shared/constants";
 import { migrateWorld } from "./shared/migrations";
+import { CharacterSheet } from "./actor-sheet/character/character-sheet";
+import { PartySheet } from "./actor-sheet/party/party-sheet";
 import "./cryptomancer.scss";
 
 /* -------------------------------------------- */
@@ -31,12 +32,12 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SCOPE, CryptomancerActorSheet, {
+  Actors.registerSheet(SCOPE, CharacterSheet, {
     makeDefault: true,
     label: "CRYPTOMANCER.SheetType.character",
     types: ["character"],
   });
-  Actors.registerSheet(SCOPE, CryptomancerActorSheet, {
+  Actors.registerSheet(SCOPE, PartySheet, {
     makeDefault: true,
     label: "CRYPTOMANCER.SheetType.party",
     types: ["party"],
