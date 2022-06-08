@@ -9,12 +9,12 @@ import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
 import { getGame, l } from "./shared/util";
 import { SpellType } from "./item/item.enum";
-import { CoreAlt } from "./actor/actor.interface";
 import { SCOPE } from "./shared/constants";
 import { migrateWorld } from "./shared/migrations";
 import { CharacterSheet } from "./actor-sheet/character/character-sheet";
 import { PartySheet } from "./actor-sheet/party/party-sheet";
 import "./cryptomancer.scss";
+import { AttributeKey, Core, ResourceAttribute } from "./actor/actor.interface";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -150,15 +150,18 @@ Handlebars.registerHelper("chatCardSpellType", (type: SpellType) => {
   return type === SpellType.Cantrip ? l(`SpellType.cantrip`) : l(`SpellType.${type}Spell`);
 });
 
-Handlebars.registerHelper("noSkillAttribute", (core: CoreAlt, options: Handlebars.HelperOptions) => {
-  if (core.key === "resolve") {
-    return options.fn(core.attributes["willpower"]);
-  } else if (core.key === "power") {
-    return options.fn(core.attributes["endurance"]);
-  } else {
-    return;
+Handlebars.registerHelper(
+  "noSkillAttribute",
+  (core: Core & { attributes: Record<AttributeKey, ResourceAttribute> }, options: Handlebars.HelperOptions) => {
+    if (core.key === "resolve") {
+      return options.fn(core.attributes["willpower"]);
+    } else if (core.key === "power") {
+      return options.fn(core.attributes["endurance"]);
+    } else {
+      return;
+    }
   }
-});
+);
 
 /**
  * Lookup and localize the short version of an attribute name

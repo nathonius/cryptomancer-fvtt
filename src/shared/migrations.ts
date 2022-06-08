@@ -1,9 +1,11 @@
 import { CryptomancerActor } from "../actor/actor";
-import { AttributeAlt, Cell, RiskEvent, Skill } from "../actor/actor.interface";
+import { Attribute, Cell, Core, ResourceAttribute, RiskEvent, Skill } from "../actor/actor.interface";
 import { SCOPE } from "./constants";
 import { getGame } from "./util";
 
 type DeprecatedSkill = Skill & { skillBreak?: boolean; skillPush?: boolean };
+type DeprecatedAttribute = ResourceAttribute & { skills: Record<string, DeprecatedSkill> };
+type DeprecatedCore = Core & { attributes: Record<string, DeprecatedAttribute> };
 const deprecatedSkills = ["preciseMissile"];
 
 export async function migrateWorld(): Promise<void> {
@@ -94,71 +96,51 @@ async function migrateParty(party: StoredDocument<CryptomancerActor>): Promise<v
 }
 
 async function migrateCharacter(character: StoredDocument<CryptomancerActor>): Promise<void> {
-  const _character = await migrateCharacterSkillBreakPush(character);
-  if (!_character || _character.data.type !== "character") {
+  if (character.data.type !== "character") {
     return;
   }
 
   const updateData: any = {};
 
-  // Migrate "preciseMissile" to "preciseMelee"
-  if ((_character.data.data.core.speed.attributes.dexterity.skills as any).preciseMissile) {
-    const preciseMissile: DeprecatedSkill = (_character.data.data.core.speed.attributes.dexterity.skills as any)
-      .preciseMissile;
-    // Update precise melee with stored break/push values
-    // These might be deprecated skillBreak and skillPush values
-    updateData["data.core.speed.attributes.dexterity.skills.preciseMelee"] = {
-      ..._character.data.data.core.speed.attributes.dexterity.skills.preciseMelee,
-      break: preciseMissile.skillBreak !== undefined ? preciseMissile.skillBreak : preciseMissile.break,
-      push: preciseMissile.skillPush !== undefined ? preciseMissile.skillPush : preciseMissile.push,
-    };
-    // Remove precise missile
-    updateData["data.core.speed.attributes.dexterity.skills.-=preciseMissile"] = null;
-  }
+  Object.values(character.data.data.core).forEach((core) => {
+    if ((core as DeprecatedCore).attributes) {
+      Object.values((core as DeprecatedCore).attributes).forEach((attr) => {
+        updateData[`data.attributes.${attr.key}.value`] = attr.value;
+        if (attr.break !== undefined) {
+          updateData[`data.attributes.${attr.key}.break`] = attr.break;
+        }
+        if (attr.push !== undefined) {
+          updateData[`data.attributes.${attr.key}.push`] = attr.push;
+        }
+        if (attr.skills) {
+          Object.values(attr.skills).forEach((skill) => {
+            // These might be really old deprecated skills, do those migrations first
+            if ((skill.key as string) === "preciseMissile") {
+              skill.key = "preciseMelee";
+            }
+            updateData[`data.skills.${skill.key}.break`] = skill.break;
+            updateData[`data.skills.${skill.key}.push`] = skill.push;
+
+            // These also might have skillBreak instead of break, skillPush instead of push
+            // Favor those values
+            if (skill.skillBreak !== undefined) {
+              updateData[`data.skills.${skill.key}.break`] = skill.skillBreak;
+            }
+            if (skill.skillPush !== undefined) {
+              updateData[`data.skills.${skill.key}.push`] = skill.skillPush;
+            }
+          });
+        }
+      });
+
+      // Delete the old stuff
+      updateData[`data.core.${core.key}.-=attributes`] = null;
+    }
+  });
 
   // Apply update
   if (!foundry.utils.isObjectEmpty(updateData)) {
     console.log(`Migrating character ${character.name}.`);
-    await _character.update(updateData, { enforceTypes: false });
-  }
-}
-
-async function migrateCharacterSkillBreakPush(
-  character: StoredDocument<CryptomancerActor>
-): Promise<StoredDocument<CryptomancerActor> | undefined> {
-  if (character.data.type !== "character") {
-    return character;
-  }
-
-  const updateData: any = {};
-
-  // Find skills that need migration
-  Object.values(character.data.data.core).forEach((core) => {
-    Object.values(core.attributes).forEach((attr: AttributeAlt) => {
-      if (attr.skills) {
-        Object.values(attr.skills).forEach((skill: DeprecatedSkill) => {
-          if (
-            (skill.skillBreak !== undefined || skill.skillPush !== undefined) &&
-            !deprecatedSkills.includes(skill.key)
-          ) {
-            // Set value of break and push to values of skillBreak and skillPush, falling back to break and push
-            updateData[`data.core.${core.key}.attributes.${attr.key}.skills.${skill.key}.break`] =
-              skill.skillBreak !== undefined ? skill.skillBreak : skill.break;
-            updateData[`data.core.${core.key}.attributes.${attr.key}.skills.${skill.key}.push`] =
-              skill.skillPush !== undefined ? skill.skillPush : skill.push;
-            // Remove skilBreak and skillPush
-            updateData[`data.core.${core.key}.attributes.${attr.key}.skills.${skill.key}.-=skillBreak`] = null;
-            updateData[`data.core.${core.key}.attributes.${attr.key}.skills.${skill.key}.-=skillPush`] = null;
-          }
-        });
-      }
-    });
-  });
-
-  if (!foundry.utils.isObjectEmpty(updateData)) {
-    console.log(`Migrating character ${character.name} skill break and skill push.`);
-    return character.update(updateData, { enforceTypes: false });
-  } else {
-    return character;
+    await character.update(updateData, { enforceTypes: false });
   }
 }
