@@ -1,80 +1,54 @@
 import { CryptomancerItem } from "../item/item";
-import { CheckDifficulty } from "../skill-check/skill-check.enum";
 import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.enum";
 
-export interface Character {
-  core: {
-    wits: Core & {
-      attributes: {
-        knowledge: Attribute & {
-          skills: {
-            alchemy: Skill;
-            craft: Skill;
-            medicine: Skill;
-            query: Skill;
-          };
-        };
-        cunning: Attribute & {
-          skills: {
-            deception: Skill;
-            scrounge: Skill;
-            tracking: Skill;
-            traps: Skill;
-          };
-        };
-      };
-    };
-    resolve: Core & {
-      attributes: {
-        presence: Attribute & {
-          skills: {
-            beastKen: Skill;
-            charm: Skill;
-            menace: Skill;
-            performance: Skill;
-          };
-        };
-        willpower: Attribute & {
-          skills: undefined;
-        };
-      };
-    };
-    speed: Core & {
-      attributes: {
-        agility: Attribute & {
-          skills: {
-            acrobatics: Skill;
-            athletics: Skill;
-            escapeArtistry: Skill;
-            stealth: Skill;
-          };
-        };
-        dexterity: Attribute & {
-          skills: {
-            firedMissile: Skill;
-            lockPicking: Skill;
-            preciseMelee: Skill;
-            sleightOfHand: Skill;
-          };
-        };
-      };
-    };
-    power: Core & {
-      attributes: {
-        strength: Attribute & {
-          skills: {
-            bruteMelee: Skill;
-            featOfStrength: Skill;
-            thrownMissile: Skill;
-            unarmedMelee: Skill;
-          };
-        };
-        endurance: Attribute & {
-          skills: undefined;
-        };
-      };
-    };
+export type CoreKey = "power" | "resolve" | "speed" | "wits";
+export type AttributeKey =
+  | "agility"
+  | "cunning"
+  | "dexterity"
+  | "endurance"
+  | "knowledge"
+  | "presence"
+  | "strength"
+  | "willpower";
+export type SkillKey =
+  | "acrobatics"
+  | "alchemy"
+  | "athletics"
+  | "beastKen"
+  | "bruteMelee"
+  | "charm"
+  | "craft"
+  | "deception"
+  | "escapeArtistry"
+  | "featOfStrength"
+  | "firedMissile"
+  | "lockPicking"
+  | "medicine"
+  | "menace"
+  | "performance"
+  | "preciseMelee"
+  | "query"
+  | "scrounge"
+  | "sleightOfHand"
+  | "stealth"
+  | "thrownMissile"
+  | "tracking"
+  | "traps"
+  | "unarmedMelee";
+
+export interface Character extends ActorCommon {
+  attributes: {
+    agility: Attribute;
+    cunning: Attribute;
+    dexterity: Attribute;
+    endurance: ResourceAttribute;
+    knowledge: Attribute;
+    presence: Attribute;
+    strength: Attribute;
+    willpower: ResourceAttribute;
   };
+  skills: Record<SkillKey, Skill>;
   gear: {
     other: string;
     coin: number;
@@ -93,21 +67,6 @@ export interface Character {
     tendsTo: string;
     usedTo: string;
     background: string;
-  };
-  healthPoints: {
-    label: string;
-    key: string;
-    value: number;
-    max: number;
-    criticalWound: boolean;
-    mortalWound: boolean;
-  };
-  manaPoints: {
-    label: string;
-    key: string;
-    min: number;
-    value: number;
-    max: number;
   };
   upgradePoints: {
     label: string;
@@ -165,22 +124,35 @@ export interface Cell {
   };
 }
 
+export interface ActorCommon {
+  core: Record<CoreKey, Core>;
+  healthPoints: {
+    value: number;
+    max: number;
+    criticalWound: boolean;
+    mortalWound: boolean;
+  };
+  manaPoints: {
+    min: number;
+    value: number;
+    max: number;
+  };
+  damageReduction: {
+    min: number;
+    value: number;
+  };
+}
+
 export interface Core {
-  key: string;
-  label: string;
+  key: CoreKey;
   min: number;
   value: number;
   max: number;
 }
 
-export interface CoreAlt extends Core {
-  attributes: Record<string, AttributeAlt>;
-}
-
 export interface Attribute {
-  key: string;
-  label: string;
-  core: string;
+  key: AttributeKey;
+  core: CoreKey;
   min: number;
   value: number;
   max: number;
@@ -191,14 +163,11 @@ export interface ResourceAttribute extends Attribute {
   push: boolean;
 }
 
-export interface AttributeAlt extends Attribute {
-  skills: Record<string, Skill>;
-}
-
 export interface Skill {
-  key: string;
+  key: SkillKey;
   label: string;
-  attribute: string;
+  core: CoreKey;
+  attribute: AttributeKey;
   break: boolean;
   push: boolean;
 }

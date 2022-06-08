@@ -10,7 +10,7 @@ import { CheckDifficulty } from "../skill-check/skill-check.enum";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
-import { Attribute, Cell, CoreAlt, ResourceAttribute, RiskEvent } from "./actor.interface";
+import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -108,17 +108,15 @@ export class CryptomancerActor extends Actor {
   }
 
   async rollAttribute(
-    coreName: "wits" | "power" | "speed" | "resolve",
-    attributeName: string,
-    skillName = "",
+    attributeName: AttributeKey,
+    skillName: SkillKey | "" = "",
     difficulty = CheckDifficulty.Challenging
   ) {
     if (this.data.type !== "character") {
       return;
     }
-    const core = this.data.data.core[coreName] as CoreAlt;
-    const attribute = core.attributes[attributeName];
-    const skill = skillName ? attribute.skills[skillName] : null;
+    const attribute = this.data.data.attributes[attributeName];
+    const skill = skillName ? this.data.data.skills[skillName] : null;
     if (skill) {
       return SkillCheckService.skillCheck(
         attribute.value,
@@ -134,8 +132,8 @@ export class CryptomancerActor extends Actor {
         attributeName,
         difficulty,
         undefined,
-        Boolean((attribute as Attribute as ResourceAttribute).break),
-        Boolean((attribute as Attribute as ResourceAttribute).push)
+        Boolean((attribute as ResourceAttribute).break),
+        Boolean((attribute as ResourceAttribute).push)
       );
     }
   }

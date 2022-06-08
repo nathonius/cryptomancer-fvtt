@@ -1,4 +1,5 @@
-import { AttributeAlt, Party } from "../../actor/actor.interface";
+import { data } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/module.mjs";
+import { Party } from "../../actor/actor.interface";
 import { getGame, l } from "../../shared/util";
 import { CheckDifficulty } from "../../skill-check/skill-check.enum";
 import { CryptomancerActorSheet } from "../actor-sheet";
@@ -51,21 +52,49 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
       tooltip: "MP",
     };
 
+    // Prep core and attributes for rendering
+    const core = context.data.data.core;
+    const attributes = context.data.data.attributes;
+    context.core = {
+      power: {
+        ...core.power,
+        attributes: {
+          strength: attributes.strength,
+          endurance: attributes.endurance,
+        },
+      },
+      resolve: {
+        ...core.resolve,
+        attributes: {
+          presence: attributes.presence,
+          willpower: attributes.willpower,
+        },
+      },
+      speed: {
+        ...core.speed,
+        attributes: {
+          agility: attributes.agility,
+          dexterity: attributes.dexterity,
+        },
+      },
+      wits: {
+        ...core.wits,
+        attributes: {
+          knowledge: attributes.knowledge,
+          cunning: attributes.cunning,
+        },
+      },
+    };
+
     // Prep skills for rendering
     context.skills = [];
-    Object.values(context.data.data.core).forEach((core) => {
-      Object.values(core.attributes).forEach((attr: AttributeAlt) => {
-        if (attr.skills) {
-          Object.values(attr.skills).forEach((skill) => {
-            skill.label = l(skill.label);
-            context.skills!.push({
-              ...skill,
-              core: core.key,
-              attributeValue: attr.value,
-            });
-          });
-        }
-      });
+    Object.values(context.data.data.skills).forEach((skill) => {
+      if (context.data.type !== "character") {
+        return;
+      }
+      const attribute = context.data.data.attributes[skill.attribute];
+      skill.label = l(skill.label);
+      context.skills.push({ ...skill, attributeValue: attribute.value });
     });
     context.skills.sort((a, b) => (a.label > b.label ? 1 : -1));
 
@@ -176,12 +205,10 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    const rollCore = dataset.rollCore;
     const rollAttribute = dataset.rollAttribute;
     const rollSkill = dataset.rollSkill;
 
     this.document.rollAttribute(
-      rollCore,
       rollAttribute,
       rollSkill,
       (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ?? CheckDifficulty.Challenging
