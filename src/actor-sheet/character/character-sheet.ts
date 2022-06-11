@@ -1,4 +1,3 @@
-import { data } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/module.mjs";
 import { Party } from "../../actor/actor.interface";
 import { getGame, l } from "../../shared/util";
 import { CheckDifficulty } from "../../skill-check/skill-check.enum";
@@ -173,26 +172,6 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
         party.sheet.render(true);
       }
     });
-
-    // Difficulty selector
-    html.find(".difficulty-selector input").on("change", this.onDifficultySelect.bind(this));
-  }
-
-  private onDifficultySelect(event: JQuery.ChangeEvent) {
-    event.preventDefault();
-    const difficulty = $(event.currentTarget).parents(".difficulty").data("difficulty");
-    switch (difficulty) {
-      case "trivial":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
-        break;
-      case "challenging":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
-        break;
-      case "tough":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
-        break;
-    }
-    this.render();
   }
 
   /**
