@@ -9,11 +9,8 @@
       font-size: 1.3rem;
       font-family: var(--font-accent);
     }
-    &:first-child {
-      padding-top: 0;
-    }
   }
-  .difficulty-selector {
+  .toggle-selector {
     align-items: center;
     justify-content: space-between;
     .toggles {
