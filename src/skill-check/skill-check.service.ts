@@ -10,6 +10,7 @@ import {
 import { getGame, l } from "../shared/util";
 import type { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 import { CryptomancerActor } from "../actor/actor";
+import { SettingsService } from "../settings/settings.service";
 
 /**
  * Executes skill checks from character sheets, creates
@@ -17,6 +18,7 @@ import { CryptomancerActor } from "../actor/actor";
  * existing chat cards for previous skill checks.
  */
 export class SkillCheckService {
+  private static settings = new SettingsService();
   /**
    * Do a skill check. Rolls dice, creates a chat card.
    */
@@ -307,6 +309,20 @@ export class SkillCheckService {
           }
         }
       });
+  }
+
+  static setCheckDifficulty(difficulty: "trivial" | "challenging" | "tough"): void {
+    switch (difficulty) {
+      case "trivial":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
+        break;
+      case "challenging":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
+        break;
+      case "tough":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
+        break;
+    }
   }
 
   /**

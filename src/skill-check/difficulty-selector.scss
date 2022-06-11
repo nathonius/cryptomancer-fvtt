@@ -1,0 +1,18 @@
+.crypt-difficulty-selector.toggle-selector {
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 6px;
+  padding-top: 0;
+  flex: 0 0 28px;
+  color: var(--primary);
+  border-bottom: none;
+  .toggles {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &:focus-within {
+      text-shadow: none;
+    }
+  }
+}
