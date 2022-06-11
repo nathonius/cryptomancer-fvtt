@@ -1,20 +1,17 @@
 <div class="crypt-defenses">
   <div class="defense">
-    {{> defense label=(l "Defense.dodge") value=data.data.core.speed.value desc=(l "Defense.vsMeleeMissile") }}
+    {{> defense label=(l "Equipment.DR") value=data.data.damageReduction.value desc=(toLowerCase (l "Equipment.damageReduction")) readonly=false }}
   </div>
   <div class="defense">
-    {{> defense label=(l "Defense.parry") value=data.data.core.power.value desc=(l "Defense.vsMelee") }}
+    {{> defense label=(l "Defense.dodge") value=data.data.core.speed.value desc=(l "Defense.vsMeleeMissile") readonly=true }}
   </div>
   <div class="defense">
-    {{> defense label=(l "Defense.takeCover") value=data.data.core.wits.value desc=(l "Defense.vsMissile") }}
+    {{> defense label=(l "Defense.parry") value=data.data.core.power.value desc=(l "Defense.vsMelee") readonly=true }}
   </div>
   <div class="defense">
-    {{> defense label=(l "Defense.resist") value=data.data.core.resolve.value desc=(l "Defense.vsMagic") }}
+    {{> defense label=(l "Defense.takeCover") value=data.data.core.wits.value desc=(l "Defense.vsMissile") readonly=true }}
   </div>
-  <div class="wounds">
-    <span class="label">{{l "Wound.wounds"}}</span>
-    <div class="flex-spacer"></div>
-    <span class="difficulty">{{> toggleBox id=(concat "wound-critical-" document.id) tooltip=(l "Wound.critical") value=data.data.healthPoints.criticalWound name="data.healthPoints.criticalWound" color="secondary"}}</span>
-    <span class="difficulty">{{> toggleBox id=(concat "wound-mortal-" document.id) tooltip=(l "Wound.mortal") value=data.data.healthPoints.mortalWound name="data.healthPoints.mortalWound" color="danger"}}</span>
+  <div class="defense">
+    {{> defense label=(l "Defense.resist") value=data.data.core.resolve.value desc=(l "Defense.vsMagic") readonly=true }}
   </div>
 </div>

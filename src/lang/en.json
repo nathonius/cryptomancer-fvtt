@@ -152,6 +152,8 @@
   "CRYPTOMANCER.Equipment.masterworkShort": "mwk",
   "CRYPTOMANCER.Equipment.trademark": "Trademark",
   "CRYPTOMANCER.Equipment.trademarkShort": "tmk",
+  "CRYPTOMANCER.Equipment.damageReduction": "Damage Reduction",
+  "CRYPTOMANCER.Equipment.DR": "DR",
   "CRYPTOMANCER.Party.party": "Party",
   "CRYPTOMANCER.Party.safehouse": "Safehouse",
   "CRYPTOMANCER.Party.partyName": "Party Name",

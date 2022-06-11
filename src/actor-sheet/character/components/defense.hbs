@@ -2,9 +2,10 @@
   @Input label: string;
   @Input value: string;
   @Input desc: string;
+  @Input readonly: boolean;
 -->
 <div class="crypt-defense">
   <div class="label">{{ label }}</div>
-  {{> coreInput value=value readonly=true size="small" }}
+  {{> coreInput value=value readonly=readonly size="small" }}
   <div class="desc">{{ desc }}</div>
 </div>
