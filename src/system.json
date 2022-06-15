@@ -6,12 +6,8 @@
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
-  "esmodules": [
-    "cryptomancer.js"
-  ],
-  "styles": [
-    "cryptomancer.css"
-  ],
+  "esmodules": ["cryptomancer.js"],
+  "styles": ["cryptomancer.css"],
   "scripts": [],
   "packs": [
     {
@@ -49,6 +45,24 @@
       "label": "Weapons",
       "path": "packs/weapons.db",
       "type": "Item"
+    },
+    {
+      "name": "outfit-rules",
+      "label": "Outfit Rules",
+      "path": "packs/outfit-rules.db",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "status-effects",
+      "label": "Status Effects",
+      "path": "packs/status-effects.db",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "weapon-rules",
+      "label": "Weapon Rules",
+      "path": "packs/weapon-rules.db",
+      "type": "JournalEntry"
     }
   ],
   "languages": [
