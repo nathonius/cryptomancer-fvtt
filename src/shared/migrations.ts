@@ -1,12 +1,15 @@
 import { CryptomancerActor } from "../actor/actor";
-import { Attribute, Cell, Core, ResourceAttribute, RiskEvent, Skill } from "../actor/actor.interface";
+import { Cell, Core, ResourceAttribute, RiskEvent, Skill } from "../actor/actor.interface";
+import { CryptomancerItem } from "../item/item";
+import { EquipmentRules } from "../item/item.constant";
+import { EquipmentType } from "../item/item.enum";
+import { EquipmentRule } from "../item/item.interface";
 import { SCOPE } from "./constants";
-import { getGame } from "./util";
+import { getEquipmentRuleByName, getGame } from "./util";
 
 type DeprecatedSkill = Skill & { skillBreak?: boolean; skillPush?: boolean };
 type DeprecatedAttribute = ResourceAttribute & { skills: Record<string, DeprecatedSkill> };
 type DeprecatedCore = Core & { attributes: Record<string, DeprecatedAttribute> };
-const deprecatedSkills = ["preciseMissile"];
 
 export async function migrateWorld(): Promise<void> {
   const _game = getGame();
@@ -33,6 +36,7 @@ async function migrateWorldItems(): Promise<void> {
   const _game = getGame();
   for (let item of _game.items || []) {
     const updateData: any = {};
+
     // Migrate trademark items to equipment
     if (item.data.type === "trademarkItem") {
       console.log(`Migrating trademark item ${item.name} to equipment.`);
@@ -40,33 +44,51 @@ async function migrateWorldItems(): Promise<void> {
       updateData["data.trademark"] = true;
     }
 
-    // Migrate equipment qualities and rules to array
-    if (item.data.type === "trademarkItem" || item.data.type === "equipment") {
-      if (!Array.isArray(item.data.data.qualities)) {
-        console.log(`Migrating item ${item.name} qualities.`);
-        // Migrate string data to array if possible
-        if (typeof item.data.data.qualities === "string" && item.data.data.qualities !== "") {
-          updateData["data.qualities"] = (item.data.data.qualities as string).split(",");
-        } else {
-          updateData["data.qualities"] = [];
-        }
-      }
-
-      if (!Array.isArray(item.data.data.rules)) {
-        console.log(`Migrating item ${item.name} rules.`);
-        // Migrate string data to array if possible
-        if (typeof item.data.data.rules === "string" && item.data.data.rules !== "") {
-          updateData["data.rules"] = (item.data.data.rules as string).split(",");
-        } else {
-          updateData["data.rules"] = [];
-        }
-      }
-    }
+    migrateEquipmentQualitiesAndRules(item, updateData);
 
     // Apply update
     if (!foundry.utils.isObjectEmpty(updateData)) {
       await item.update(updateData, { enforceTypes: false });
+      console.log(`Migrated item ${item.name}.`);
     }
+  }
+}
+
+function migrateEquipmentQualitiesAndRules(item: StoredDocument<CryptomancerItem>, updateData: any): void {
+  if (item.data.type !== "trademarkItem" && item.data.type !== "equipment") {
+    return;
+  }
+
+  // Migrate equipment qualities to array
+  if (!Array.isArray(item.data.data.qualities)) {
+    console.log(`Migrating item ${item.name} qualities.`);
+    // Migrate string data to array if possible
+    if (typeof item.data.data.qualities === "string" && item.data.data.qualities !== "") {
+      updateData["data.qualities"] = (item.data.data.qualities as string).split(",");
+    } else {
+      updateData["data.qualities"] = [];
+    }
+  }
+
+  // Migrate equipment rules to EquipmentRules
+  if (Array.isArray(item.data.data.rules) || typeof item.data.data.rules === "string") {
+    console.log(`Migrating item ${item.name} rules.`);
+    const newRules: Record<string, EquipmentRule> = {};
+    let arrayRules: string[] = item.data.data.rules;
+    // First migrate single string to array of rules
+    if (typeof item.data.data.rules === "string") {
+      arrayRules = (item.data.data.rules as string).split(",").map((rule) => rule.trim());
+    }
+
+    // Migrate rules by name
+    arrayRules.forEach((ruleName) => {
+      if (item.data.type !== "equipment" && item.data.type !== "trademarkItem") {
+        return;
+      }
+      const rule = getEquipmentRuleByName(ruleName);
+      newRules[rule.key] = rule;
+    });
+    updateData["data.rules"] = newRules;
   }
 }
 

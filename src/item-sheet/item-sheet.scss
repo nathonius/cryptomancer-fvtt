@@ -1,12 +1,15 @@
 .crypt-item-sheet {
-  &__equipment,
   &__talent,
   &__spell {
     display: grid;
     grid-template-columns: 120px 1fr;
     grid-template-rows: 120px 1fr;
     gap: 16px;
+  }
 
+  &__equipment,
+  &__talent,
+  &__spell {
     section.avatar {
       img {
         display: block;
@@ -59,27 +62,84 @@
   }
 
   &__equipment {
-    .chip-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      .chip-action-button {
-        background-color: transparent;
-        color: var(--neutral);
-        display: none;
-        padding: 0;
-        margin: 0;
-        border: 0;
-        line-height: 1;
-        font-size: 0.7rem;
-        justify-content: center;
-        align-items: center;
+    header,
+    .tab.description.active {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+    }
+    .crypt-tabs {
+      margin: 16px 0;
+    }
+    .tab.description.active {
+      section.config {
+        .rules-list {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          span.title {
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 0.5rem 0.1rem;
+          }
+          .rule-chip {
+            text-align: center;
+            &[data-compendium][data-journal] {
+              cursor: pointer;
+              &:hover {
+                text-shadow: 0 0 8px var(--primary);
+              }
+            }
+          }
+        }
       }
 
-      .crypt-chip {
-        white-space: nowrap;
-        &:hover .chip-action-button {
-          display: inline-flex;
+      .chip-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        .chip-action-button {
+          background-color: transparent;
+          color: var(--neutral);
+          display: none;
+          padding: 0;
+          margin: 0;
+          border: 0;
+          line-height: 1;
+          font-size: 0.7rem;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .crypt-chip {
+          white-space: nowrap;
+          &:hover .chip-action-button {
+            display: inline-flex;
+          }
+        }
+      }
+    }
+    .tab.details.active {
+      section.rules {
+        h3 {
+          padding: 0.5rem 0.1rem;
+          text-transform: uppercase;
+          font-size: 1rem;
+          margin: 0;
+          font-family: var(--font-accent);
+        }
+        .rules-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+          gap: 6px;
+          align-items: center;
+          text-align: center;
+        }
+        .rule-values {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
         }
       }
     }

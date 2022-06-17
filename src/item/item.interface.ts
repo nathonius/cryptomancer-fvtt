@@ -15,7 +15,7 @@ export interface Purchaseable {
 
 export interface Equipment extends CryptItemBase, PhysicalItem {
   type: EquipmentType;
-  rules: string[];
+  rules: Record<string, EquipmentRule>;
   qualities: string[];
   trademark: boolean;
   masterwork: boolean;
@@ -36,4 +36,13 @@ export interface Talent extends CryptItemBase, Purchaseable {
 export interface Spell extends CryptItemBase, Purchaseable {
   castCost: number;
   type: SpellType;
+}
+
+export interface EquipmentRule {
+  key: string;
+  label: string;
+  custom: boolean;
+  compendium?: string;
+  journal?: string;
+  value?: number;
 }
