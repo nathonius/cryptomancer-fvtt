@@ -81,7 +81,7 @@ export function getEquipmentRuleByName(ruleName: string): EquipmentRule {
     const signifierType = ruleName.replace("Station Signifier", "").replace(/[\s\(\)]/g, "");
     const signifierKey = `stationSignifier${signifierType}`;
     if (Object.keys(EquipmentRules).includes(signifierKey)) {
-      return { ...(EquipmentRules as Record<string, EquipmentRule>)[signifierKey] };
+      return { ...EquipmentRules[signifierKey] };
     } else {
       console.warn(`Could not match rule ${ruleName} to a known station signifier rule.`);
       return {
@@ -95,7 +95,7 @@ export function getEquipmentRuleByName(ruleName: string): EquipmentRule {
   else {
     const keyName = `${ruleName.charAt(0).toLowerCase()}${ruleName.substring(1)}`.replace(/[\s-']/g, "");
     if (Object.keys(EquipmentRules).includes(keyName)) {
-      return { ...(EquipmentRules as Record<string, EquipmentRule>)[keyName] };
+      return { ...EquipmentRules[keyName] };
     }
     // Handle custom rules
     else {
