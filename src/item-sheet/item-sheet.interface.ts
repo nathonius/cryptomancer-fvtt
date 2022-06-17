@@ -6,4 +6,5 @@ export type AugmentedData = ItemSheet.Data & {
   equipmentTypes: Record<EquipmentType, string>;
   outfitRules: EquipmentRule[];
   weaponRules: EquipmentRule[];
+  skillRules: EquipmentRule[];
 };

@@ -1,7 +1,7 @@
 import type { AugmentedData } from "./item-sheet.interface";
 import { SpellTypes, EquipmentTypes } from "./item-sheet.constant";
 import { fromCompendium, l } from "../shared/util";
-import { EquipmentRules, OutfitRules, WeaponRules } from "../item/item.constant";
+import { EquipmentRules, OutfitRules, SkillRules, WeaponRules } from "../item/item.constant";
 
 export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, AugmentedData> {
   static override get defaultOptions() {
@@ -29,6 +29,9 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
     context.weaponRules = Object.values(WeaponRules).sort((a, b) => {
       return l(a.label) > l(b.label) ? 1 : -1;
     });
+    context.skillRules = Object.values(SkillRules).sort((a, b) => {
+      return l(a.label) > l(b.label) ? 1 : -1;
+    });
     return context;
   }
 
@@ -43,6 +46,21 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
 
   private activateEquipmentListeners(html: JQuery<HTMLElement>): void {
     if (this.object.data.type !== "equipment") {
+      return;
+    }
+
+    // Handle opening the correct journal entry for equipment rules
+    html.find<HTMLDivElement>("section.config .rule-chip[data-compendium][data-journal]").on("click", async (evt) => {
+      const compendiumName = evt.currentTarget.dataset.compendium;
+      const journalId = evt.currentTarget.dataset.journal;
+      if (!compendiumName || !journalId) {
+        return;
+      }
+      const journal = await fromCompendium<JournalEntry>(compendiumName, journalId);
+      journal?.sheet?.render(true, { width: 510, height: 300 });
+    });
+
+    if (!this.isEditable) {
       return;
     }
 
@@ -73,17 +91,6 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
       const updateData: any = {};
       updateData["data.qualities"] = newValues;
       await this.object.update(updateData);
-    });
-
-    // Handle opening the correct journal entry for equipment rules
-    html.find<HTMLDivElement>("section.config .rule-chip[data-compendium][data-journal]").on("click", async (evt) => {
-      const compendiumName = evt.currentTarget.dataset.compendium;
-      const journalId = evt.currentTarget.dataset.journal;
-      if (!compendiumName || !journalId) {
-        return;
-      }
-      const journal = await fromCompendium<JournalEntry>(compendiumName, journalId);
-      journal?.sheet?.render(true, { width: 510, height: 300 });
     });
 
     html.find<HTMLDivElement>("section.rules .rule-chip").on("click", (evt) => {

@@ -1,3 +1,4 @@
+import { SkillKey } from "../actor/actor.interface";
 import { EquipmentRule } from "./item.interface";
 
 export const OutfitRules: Record<string, EquipmentRule> = {
@@ -238,7 +239,165 @@ export const WeaponRules: Record<string, EquipmentRule> = {
   },
 };
 
+export const SkillRules: Record<SkillKey, EquipmentRule> = {
+  acrobatics: {
+    key: "acrobatics",
+    label: "Skill.acrobatics",
+    custom: false,
+    skill: "acrobatics",
+  },
+  alchemy: {
+    key: "alchemy",
+    label: "Skill.alchemy",
+    custom: false,
+    skill: "alchemy",
+  },
+  athletics: {
+    key: "athletics",
+    label: "Skill.athletics",
+    custom: false,
+    skill: "athletics",
+  },
+  beastKen: {
+    key: "beastKen",
+    label: "Skill.beastKen",
+    custom: false,
+    skill: "beastKen",
+  },
+  bruteMelee: {
+    key: "bruteMelee",
+    label: "Skill.bruteMelee",
+    custom: false,
+    skill: "bruteMelee",
+    compendium: "weapon-rules",
+    journal: "2pJTrWGhCzG81STZ",
+  },
+  charm: {
+    key: "charm",
+    label: "Skill.charm",
+    custom: false,
+    skill: "charm",
+  },
+  craft: {
+    key: "craft",
+    label: "Skill.craft",
+    custom: false,
+    skill: "craft",
+  },
+  deception: {
+    key: "deception",
+    label: "Skill.deception",
+    custom: false,
+    skill: "deception",
+  },
+  escapeArtistry: {
+    key: "escapeArtistry",
+    label: "Skill.escapeArtistry",
+    custom: false,
+    skill: "escapeArtistry",
+  },
+  featOfStrength: {
+    key: "featOfStrength",
+    label: "Skill.featOfStrength",
+    custom: false,
+    skill: "featOfStrength",
+  },
+  firedMissile: {
+    key: "firedMissile",
+    label: "Skill.firedMissile",
+    custom: false,
+    skill: "firedMissile",
+    compendium: "weapon-rules",
+    journal: "5WHCGtOCMv193KLx",
+  },
+  lockPicking: {
+    key: "lockPicking",
+    label: "Skill.lockPicking",
+    custom: false,
+    skill: "lockPicking",
+  },
+  medicine: {
+    key: "medicine",
+    label: "Skill.medicine",
+    custom: false,
+    skill: "medicine",
+  },
+  menace: {
+    key: "menace",
+    label: "Skill.menace",
+    custom: false,
+    skill: "menace",
+  },
+  performance: {
+    key: "performance",
+    label: "Skill.performance",
+    custom: false,
+    skill: "performance",
+  },
+  preciseMelee: {
+    key: "preciseMelee",
+    label: "Skill.preciseMelee",
+    custom: false,
+    skill: "preciseMelee",
+    compendium: "weapon-rules",
+    journal: "7lkCweZ1AFTg6I94",
+  },
+  query: {
+    key: "query",
+    label: "Skill.query",
+    custom: false,
+    skill: "query",
+  },
+  scrounge: {
+    key: "scrounge",
+    label: "Skill.scrounge",
+    custom: false,
+    skill: "scrounge",
+  },
+  sleightOfHand: {
+    key: "sleightOfHand",
+    label: "Skill.sleightOfHand",
+    custom: false,
+    skill: "sleightOfHand",
+  },
+  stealth: {
+    key: "stealth",
+    label: "Skill.stealth",
+    custom: false,
+    skill: "stealth",
+  },
+  thrownMissile: {
+    key: "thrownMissile",
+    label: "Skill.thrownMissile",
+    custom: false,
+    skill: "thrownMissile",
+    compendium: "weapon-rules",
+    journal: "aOkX01lemXNa8sYS",
+  },
+  tracking: {
+    key: "tracking",
+    label: "Skill.tracking",
+    custom: false,
+    skill: "tracking",
+  },
+  traps: {
+    key: "traps",
+    label: "Skill.traps",
+    custom: false,
+    skill: "traps",
+  },
+  unarmedMelee: {
+    key: "unarmedMelee",
+    label: "Skill.unarmedMelee",
+    custom: false,
+    skill: "unarmedMelee",
+    compendium: "weapon-rules",
+    journal: "kzHQncqDG0RSsedf",
+  },
+};
+
 export const EquipmentRules: Record<string, EquipmentRule> = {
   ...OutfitRules,
   ...WeaponRules,
+  ...SkillRules,
 };
