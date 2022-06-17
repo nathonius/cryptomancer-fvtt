@@ -1,25 +1,26 @@
 import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 import tippy from "tippy.js";
 
-import { AttributeKey, Core, ResourceAttribute } from "./actor/actor.interface";
 import { CharacterSheet } from "./actor-sheet/character/character-sheet";
 import { CheckDifficulty } from "./skill-check/skill-check.enum";
 import { CryptomancerActor } from "./actor/actor";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
-import { getGame, l } from "./shared/util";
+import { getGame } from "./shared/util";
 import { migrateWorld } from "./shared/migrations";
 import { PartySheet } from "./actor-sheet/party/party-sheet";
 import { preloadHandlebarsTemplates } from "./shared/templates";
 import { SCOPE } from "./shared/constants";
 import { SettingsService } from "./settings/settings.service";
 import { SkillCheckService } from "./skill-check/skill-check.service";
-import { SpellType } from "./item/item.enum";
 
 import "./cryptomancer.scss";
+import { registerHandlebarsHelpers } from "./shared/handlebars";
 
 const settings = new SettingsService();
 let difficultySelectorContent: string = "";
+
+registerHandlebarsHelpers();
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -67,131 +68,6 @@ Hooks.once("init", async function () {
 
   // Preload Handlebars templates.
   await preloadHandlebarsTemplates();
-});
-
-/* -------------------------------------------- */
-/*  Handlebars Helpers                          */
-/* -------------------------------------------- */
-
-// General Helpers
-Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
-  return source === target;
-});
-
-Handlebars.registerHelper("or", (a: any, b: any, options: Handlebars.HelperOptions) => {
-  if ([a, b].some((value) => Boolean(value))) {
-    return options.fn(true);
-  }
-});
-
-Handlebars.registerHelper("ne", (source: unknown, target: unknown) => {
-  return source !== target;
-});
-
-Handlebars.registerHelper("lt", (a: any, b: any) => {
-  return a < b;
-});
-
-Handlebars.registerHelper("add", (a: number, b: number) => {
-  return a + b;
-});
-
-Handlebars.registerHelper("times", (context: number, options: Handlebars.HelperOptions) => {
-  let ret = "";
-
-  for (let i = 0; i < context; i++) {
-    ret = ret + options.fn(i);
-  }
-
-  return ret;
-});
-
-Handlebars.registerHelper("concat", function () {
-  var outStr = "";
-  for (var arg in arguments) {
-    if (typeof arguments[arg] != "object") {
-      outStr += arguments[arg];
-    }
-  }
-  return outStr;
-});
-
-Handlebars.registerHelper("safe", (arg: string) => {
-  return new Handlebars.SafeString(arg);
-});
-
-Handlebars.registerHelper("toLowerCase", (input: string) => {
-  return input.toLowerCase();
-});
-
-Handlebars.registerHelper("toUpperCase", (input: string) => {
-  return input.toUpperCase();
-});
-
-Handlebars.registerHelper("l", (key: string) => {
-  return l(key);
-});
-
-Handlebars.registerHelper("firstHalf", (array: any[]) => {
-  if (!array || array.length === 0) {
-    return [];
-  }
-  return array.slice(0, Math.floor(array.length / 2));
-});
-
-Handlebars.registerHelper("lastHalf", (array: any[]) => {
-  if (!array || array.length === 0) {
-    return [];
-  }
-  return array.slice(Math.floor(array.length / 2));
-});
-
-// Sheet Specific Helpers
-Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
-  return l(`SpellType.${type}`);
-});
-
-Handlebars.registerHelper("chatCardSpellType", (type: SpellType) => {
-  return type === SpellType.Cantrip ? l(`SpellType.cantrip`) : l(`SpellType.${type}Spell`);
-});
-
-Handlebars.registerHelper(
-  "noSkillAttribute",
-  (core: Core & { attributes: Record<AttributeKey, ResourceAttribute> }, options: Handlebars.HelperOptions) => {
-    if (core.key === "resolve") {
-      return options.fn(core.attributes["willpower"]);
-    } else if (core.key === "power") {
-      return options.fn(core.attributes["endurance"]);
-    } else {
-      return;
-    }
-  }
-);
-
-/**
- * Lookup and localize the short version of an attribute name
- */
-Handlebars.registerHelper("shortAttr", (attribute: string) => {
-  return l(`ShortAttr.${attribute}`);
-});
-
-/**
- * Return a string showing whether an item is masterwork or trademark
- */
-Handlebars.registerHelper("itemAttrs", (item: CryptomancerItem) => {
-  if (item.data.type !== "equipment") {
-    return;
-  }
-  const output: string[] = [];
-  if (item.data.data.masterwork) {
-    output.push(l("Equipment.masterworkShort"));
-  }
-  if (item.data.data.trademark) {
-    output.push(l("Equipment.trademarkShort"));
-  }
-  if (output.length > 0) {
-    return `(${output.join(", ")})`;
-  }
 });
 
 /* -------------------------------------------- */

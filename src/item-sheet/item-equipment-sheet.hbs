@@ -1,96 +1,146 @@
 <form class="crypt-item-sheet__equipment" autocomplete="off">
-  <section class="avatar">
-    <img alt="equipment avatar"
-         class="profile-img"
-         src="{{item.img}}"
-         data-edit="img"
-         title="{{item.name}}"/>
-  </section>
-  <section class="item-info">
-    <div class="crypt-form-field">
-      <label for="item-name-{{item.id}}">{{l "Equipment.name"}}</label>
-      <input id="item-name-{{item.id}}"
-             type="text"
-             name="name"
-             value="{{item.name}}"/>
-    </div>
-    <div class="crypt-form-field">
-      <label for="item-type-select-{{item.id}}">{{l "EquipmentType.itemType"}}</label>
-      <select id="item-type-select-{{item.id}}" name="data.type">
-        {{selectOptions equipmentTypes selected=data.data.type localize=true}}
-      </select>
-    </div>
-  </section>
-  <section class="config">
-    <div class="crypt-form-field">
-      <label for="item-quantity-{{item.id}}">{{l "Equipment.quantity"}}</label>
-      <input id="item-quantity-{{item.id}}"
-             type="text"
-             name="data.quantity"
-             value="{{data.data.quantity}}"
-             data-dtype="Number"/>
-    </div>
-    <div class="crypt-form-field">
-      <label for="item-cost-{{item.id}}">{{l "Equipment.cost"}}</label>
-      <input id="item-cost-{{item.id}}"
-             type="text"
-             name="data.cost"
-             value="{{data.data.cost}}"
-             data-dtype="Number"/>
-    </div>
-    <div class="toggle-field">
-      <span class="toggle-label">{{l "Equipment.masterwork" }}</span>
-      {{> toggleBox id=(concat "masterwork-toggle-" item.id) name="data.masterwork" value=data.data.masterwork}}
-    </div>
-    <div class="toggle-field">
-      <span class="toggle-label">{{l "Equipment.trademark" }}</span>
-      {{> toggleBox id=(concat "trademark-toggle-" item.id) name="data.trademark" value=data.data.trademark}}
-    </div>
-  </section>
-  <section class="sheet-body">
-    <div class="crypt-form-field">
-      <label for="item-rules-{{item.id}}">{{l "Equipment.rules"}}</label>
-      <input id="item-rules-{{item.id}}"
-             class="chip-input rules"
-             type="text"
-             placeholder="{{l "Equipment.rulesPlaceholder"}}"/>
-    </div>
-    <div class="chip-list">
-      {{#each data.data.rules }}
-        <div class="crypt-chip primary"
-             data-index="{{@index}}"
-             data-value-type="rules">
-          {{this}}
-          <button type="button"
-                  class="chip-action-button delete"
-                  data-tooltip="{{l 'Delete'}}">
-            <span class="fas fa-times"></span>
-          </button>
+  <header>
+    <section class="avatar">
+      <img alt="equipment avatar"
+           class="profile-img"
+           src="{{item.img}}"
+           data-edit="img"
+           title="{{item.name}}"/>
+    </section>
+    <section class="item-info">
+      <div class="crypt-form-field">
+        <label for="item-name-{{item.id}}">{{l "Equipment.name"}}</label>
+        <input id="item-name-{{item.id}}"
+               type="text"
+               name="name"
+               value="{{item.name}}"/>
+      </div>
+      <div class="crypt-form-field">
+        <label for="item-type-select-{{item.id}}">{{l "EquipmentType.itemType"}}</label>
+        <select id="item-type-select-{{item.id}}" name="data.type">
+          {{selectOptions equipmentTypes selected=data.data.type localize=true}}
+        </select>
+      </div>
+    </section>
+  </header>
+  <div class="crypt-tabs small" data-group="primary">
+    <a class="crypt-tab" data-tab="description">{{ toUpperCase (l "Description")}}</a>
+    <a class="crypt-tab" data-tab="details">{{ toUpperCase (l "Details")}}</a>
+  </div>
+  <div class="tabs-container">
+    <div class="tab description" data-group="primary" data-tab="description">
+      <section class="config">
+        <div class="crypt-form-field">
+          <label for="item-quantity-{{item.id}}">{{l "Equipment.quantity"}}</label>
+          <input id="item-quantity-{{item.id}}"
+                 type="text"
+                 name="data.quantity"
+                 value="{{data.data.quantity}}"
+                 data-dtype="Number"/>
         </div>
-      {{/each}}
-    </div>
-    <div class="crypt-form-field">
-      <label for="item-qualities-{{item.id}}">{{l "Equipment.qualities"}}</label>
-      <input id="item-qualities-{{item.id}}"
-             class="chip-input qualities"
-             type="text"
-             placeholder="{{l "Equipment.qualitiesPlaceholder"}}"/>
-    </div>
-    <div class="chip-list">
-      {{#each data.data.qualities }}
-        <div class="crypt-chip primary"
-             data-index="{{@index}}"
-             data-value-type="qualities">
-          {{this}}
-          <button type="button"
-                  class="chip-action-button delete"
-                  data-tooltip="{{l 'Delete'}}">
-            <span class="fas fa-times"></span>
-          </button>
+        <div class="crypt-form-field">
+          <label for="item-cost-{{item.id}}">{{l "Equipment.cost"}}</label>
+          <input id="item-cost-{{item.id}}"
+                 type="text"
+                 name="data.cost"
+                 value="{{data.data.cost}}"
+                 data-dtype="Number"/>
         </div>
-      {{/each}}
+        <div class="toggle-field">
+          <span class="toggle-label">{{l "Equipment.masterwork" }}</span>
+          {{> toggleBox id=(concat "masterwork-toggle-" item.id) name="data.masterwork" value=data.data.masterwork}}
+        </div>
+        <div class="toggle-field">
+          <span class="toggle-label">{{l "Equipment.trademark" }}</span>
+          {{> toggleBox id=(concat "trademark-toggle-" item.id) name="data.trademark" value=data.data.trademark}}
+        </div>
+        {{#if (oneOf data.data.type "outfit" "weapon") }}
+          <div class="rules-list">
+            <span class="title">{{l "Equipment.rules"}}</span>
+            {{#each data.data.rules }}
+              <div class="crypt-chip rule-chip" {{#if this.compendium }}data-compendium="{{this.compendium }}"{{/if }} {{#if this.journal }}data-journal="{{this.journal }}"{{/if }}>
+                {{equipmentRuleLabel this}}
+              </div>
+            {{/each}}
+          </div>
+        {{/if }}
+      </section>
+      <section class="sheet-body">
+        <div class="crypt-form-field">
+          <label for="item-qualities-{{item.id}}">{{l "Equipment.qualities"}}</label>
+          <input id="item-qualities-{{item.id}}"
+                 class="quality-input"
+                 type="text"
+                 placeholder="{{l "Equipment.qualitiesPlaceholder"}}"/>
+        </div>
+        <div class="chip-list">
+          {{#each data.data.qualities }}
+            <div class="crypt-chip primary quality" data-index="{{@index}}">
+              {{this}}
+              <button type="button"
+                      class="chip-action-button delete"
+                      data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-times"></span>
+              </button>
+            </div>
+          {{/each}}
+        </div>
+        <h3 class="description-label">{{l "Description"}}</h3>
+        {{editor content=data.data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
+      </section>
     </div>
-    <h3 class="description-label">{{l "Description"}}</h3>
-    {{editor content=data.data.description target="data.description" rollData=rollData button=true owner=owner editable=editable}}
-  </section>
+    <div class="tab details" data-group="primary" data-tab="details">
+      <section class="rules">
+        <h3>{{l "EquipmentRules.outfitRules"}}</h3>
+        <div class="rules-list">
+          {{#each outfitRules }}
+            <div class="crypt-chip rule-chip {{#if (hasRule this ../data.data.rules) }}primary{{/if }}"
+                 data-rule="{{this.key}}">
+              {{l this.label }}
+            </div>
+          {{/each}}
+        </div>
+        <div class="rule-values">
+          {{#if data.data.rules.damageReduction }}
+            <div class="crypt-form-field">
+              <label for="rule-dr-{{item.id}}">{{l "Equipment.damageReduction"}}</label>
+              <input id="rule-dr-{{item.id}}"
+                     type="text"
+                     data-dtype="Number"
+                     name="data.rules.damageReduction.value"
+                     value="{{data.data.rules.damageReduction.value}}"/>
+            </div>
+          {{/if}}
+        </div>
+        <h3>{{l "EquipmentRules.weaponRules"}}</h3>
+        <div class="rules-list">
+          {{#each weaponRules }}
+            <div class="crypt-chip {{#if (hasRule this ../data.data.rules) }}primary{{/if }}">{{l this.label }}</div>
+          {{/each}}
+        </div>
+        <div class="rule-values">
+          {{#if data.data.rules.damage }}
+            <div class="crypt-form-field">
+              <label for="rule-damage-{{item.id}}">{{l "EquipmentRules.damage"}}</label>
+              <input id="rule-damage-{{item.id}}"
+                     type="text"
+                     data-dtype="Number"
+                     name="data.rules.damage.value"
+                     value="{{data.data.rules.damage.value}}"/>
+            </div>
+          {{/if}}
+          {{#if data.data.rules.slowReload }}
+            <div class="crypt-form-field">
+              <label for="rule-slow-reload-{{item.id}}">{{l "EquipmentRules.slowReload"}}</label>
+              <input id="rule-slow-reload-{{item.id}}"
+                     type="text"
+                     data-dtype="Number"
+                     name="data.rules.slowReload.value"
+                     value="{{data.data.rules.slowReload.value}}"/>
+            </div>
+          {{/if}}
+        </div>
+      </section>
+    </div>
+  </div>
 </form>
