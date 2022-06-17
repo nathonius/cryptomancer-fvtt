@@ -1,8 +1,6 @@
 import { CryptomancerActor } from "../actor/actor";
 import { Cell, Core, ResourceAttribute, RiskEvent, Skill } from "../actor/actor.interface";
 import { CryptomancerItem } from "../item/item";
-import { EquipmentRules } from "../item/item.constant";
-import { EquipmentType } from "../item/item.enum";
 import { EquipmentRule } from "../item/item.interface";
 import { SCOPE } from "./constants";
 import { getEquipmentRuleByName, getGame } from "./util";
