@@ -15,7 +15,7 @@ export class CryptomancerItem extends Item {
       description: this.data.data.description,
     };
 
-    if (this.data.type === "equipment" && [EquipmentType.Outfit, EquipmentType.Weapon].includes(this.data.data.type)) {
+    if (this.data.type === "equipment" && !isObjectEmpty(this.data.data.rules)) {
       templateData["rules"] = this.data.data.rules;
     }
 
