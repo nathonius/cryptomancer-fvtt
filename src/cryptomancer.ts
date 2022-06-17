@@ -19,7 +19,6 @@ import { registerHandlebarsHelpers } from "./shared/handlebars";
 import { bindChatActions, hideActionButtons } from "./shared/chat/chat";
 
 const settings = new SettingsService();
-let difficultySelectorContent: string = "";
 
 registerHandlebarsHelpers();
 
@@ -78,11 +77,6 @@ Hooks.once("init", async function () {
 Hooks.once("ready", async function () {
   const _game = getGame();
 
-  // Render difficulty selector
-  difficultySelectorContent = await renderTemplate("systems/cryptomancer/skill-check/difficulty-selector.hbs", {
-    checkDifficulty: settings.getSetting("checkDifficulty") ?? CheckDifficulty.Challenging,
-  });
-
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (_bar, data, slot) => createItemMacro(data, slot));
 
@@ -104,7 +98,17 @@ Hooks.once("ready", async function () {
   migrateWorld();
 });
 
-Hooks.on("renderChatLog", (_: ChatLog, html: JQuery<HTMLElement>) => {
+/**
+ * Chat log render hook.
+ */
+Hooks.on("renderChatLog", async (_: ChatLog, html: JQuery<HTMLElement>) => {
+  bindChatActions(html);
+
+  // Render difficulty selector
+  const difficultySelectorContent = await renderTemplate("systems/cryptomancer/skill-check/difficulty-selector.hbs", {
+    checkDifficulty: settings.getSetting("checkDifficulty") ?? CheckDifficulty.Challenging,
+  });
+
   // Append check selector
   html.find("#chat-controls").before(difficultySelectorContent);
 
@@ -132,18 +136,11 @@ Hooks.on("renderChatLog", (_: ChatLog, html: JQuery<HTMLElement>) => {
 
   // Scroll chatlog down
   const chatLog = html.find("#chat-log");
-  chatLog.scrollTop(chatLog.height() || 0);
+  chatLog.scrollTop(chatLog[0].scrollHeight || 0);
 });
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
   registerPackageDebugFlag("cryptomancer");
-});
-
-/**
- * Chat log render hook.
- */
-Hooks.on("renderChatLog", (_app: unknown, html: JQuery<HTMLElement>, _data: unknown) => {
-  bindChatActions(html);
 });
 
 /**

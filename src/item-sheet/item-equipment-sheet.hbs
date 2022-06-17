@@ -54,7 +54,7 @@
           <span class="toggle-label">{{l "Equipment.trademark" }}</span>
           {{> toggleBox id=(concat "trademark-toggle-" item.id) name="data.trademark" value=data.data.trademark}}
         </div>
-        {{#if (oneOf data.data.type "outfit" "weapon") }}
+        {{#if (oneOf data.data.type "outfit" "weapon" "consumable") }}
           <div class="rules-list">
             <span class="title">{{l "Equipment.rules"}}</span>
             {{#each data.data.rules }}
@@ -115,7 +115,10 @@
         <h3>{{l "EquipmentRules.weaponRules"}}</h3>
         <div class="rules-list">
           {{#each weaponRules }}
-            <div class="crypt-chip {{#if (hasRule this ../data.data.rules) }}primary{{/if }}">{{l this.label }}</div>
+            <div class="crypt-chip rule-chip {{#if (hasRule this ../data.data.rules) }}primary{{/if }}"
+                 data-rule="{{this.key}}">
+              {{l this.label }}
+            </div>
           {{/each}}
         </div>
         <div class="rule-values">

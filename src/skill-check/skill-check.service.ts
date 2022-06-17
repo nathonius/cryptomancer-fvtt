@@ -82,7 +82,7 @@ export class SkillCheckService {
     difficulty: CheckDifficulty,
     skillBreak: boolean,
     skillPush: boolean
-  ): { parsedDice: ParsedRollResult[]; result: CheckResult } {
+  ): { parsedDice: ParsedRollResult[]; result: CheckResult; hit: number } {
     // Separate dice
     const attributeRoll = (roll.terms[0] as PoolTerm).rolls[0];
     const fateRoll = (roll.terms[0] as PoolTerm).rolls[1];
@@ -116,7 +116,7 @@ export class SkillCheckService {
 
     const result = this.calculateCheckResult(hit, botch);
 
-    return { parsedDice, result };
+    return { parsedDice, result, hit: hit - botch };
   }
 
   /**
@@ -268,6 +268,7 @@ export class SkillCheckService {
       rolls: result.parsedDice,
       ...labels,
       difficultyValue: difficulty,
+      hit: result.hit,
     });
 
     const messageData = {

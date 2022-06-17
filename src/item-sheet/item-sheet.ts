@@ -99,7 +99,7 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
       }
       // Add rule
       else {
-        updateData[`data.rules.${ruleKey}`] = { ...EquipmentRules[ruleKey as keyof typeof EquipmentRules] };
+        updateData[`data.rules.${ruleKey}`] = { ...EquipmentRules[ruleKey] };
         this.object.update(updateData);
       }
     });

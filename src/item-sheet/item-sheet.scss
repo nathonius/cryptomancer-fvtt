@@ -135,6 +135,10 @@
           gap: 6px;
           align-items: center;
           text-align: center;
+          .rule-chip:hover {
+            cursor: pointer;
+            text-shadow: 0 0 8px var(--primary);
+          }
         }
         .rule-values {
           display: grid;
