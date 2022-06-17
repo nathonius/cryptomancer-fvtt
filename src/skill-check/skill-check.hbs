@@ -12,9 +12,9 @@
       {{difficulty}}
     </p>
     <div class="flex-spacer"></div>
-    <button type="button" class="difficulty-update-button left" {{disabled (is difficultyValue 4)}}>-
+    <button type="button" class="difficulty-update-button" data-chat-action="lower-difficulty" {{disabled (is difficultyValue 4)}}>-
     </button>
-    <button type="button" class="difficulty-update-button right" {{disabled (is difficultyValue 8)}}>+
+    <button type="button" class="difficulty-update-button" data-chat-action="raise-difficulty" {{disabled (is difficultyValue 8)}}>+
     </button>
   </div>
   <p class="result">

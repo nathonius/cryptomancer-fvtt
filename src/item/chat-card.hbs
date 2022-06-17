@@ -3,7 +3,7 @@
 title: string;
 avatar: string;
 description: SafeString;
-rules?: string[];
+rules?: Record{string, EquipmentRule};
 castCost?: string;
 type?: string;
 }
@@ -19,6 +19,15 @@ type?: string;
         {{#each this.rules }}
           <div class="crypt-chip primary">{{equipmentRuleLabel this}}</div>
         {{/each}}
+        <div class="chat-actions">
+          {{#each (skillRules this.rules) }}
+            <button type="button"
+                    data-chat-action="skill-check"
+                    data-skill="{{this.skill}}">
+              {{l (concat "Skill." this.skill)}}
+            </button>
+          {{/each}}
+        </div>
       </div>
     {{/if}}
     {{#if this.castCost }}

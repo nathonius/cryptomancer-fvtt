@@ -14,5 +14,15 @@
 
   .rules {
     margin-top: 4px;
+    .chat-actions {
+      margin: 8px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      button {
+        width: auto;
+      }
+    }
   }
 }
