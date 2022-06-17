@@ -1,6 +1,6 @@
 import { EquipmentRule } from "./item.interface";
 
-export const OutfitRules = {
+export const OutfitRules: Record<string, EquipmentRule> = {
   alchemicalArmor: {
     key: "alchemicalArmor",
     label: "EquipmentRules.alchemicalArmor",
@@ -81,7 +81,7 @@ export const OutfitRules = {
   },
 };
 
-export const WeaponRules = {
+export const WeaponRules: Record<string, EquipmentRule> = {
   attachment: {
     key: "attachment",
     label: "EquipmentRules.attachment",
@@ -100,6 +100,7 @@ export const WeaponRules = {
     key: "bruteMelee",
     label: "EquipmentRules.bruteMelee",
     custom: false,
+    skill: "bruteMelee",
     compendium: "weapon-rules",
     journal: "2pJTrWGhCzG81STZ",
   },
@@ -136,6 +137,7 @@ export const WeaponRules = {
     key: "firedMissile",
     label: "EquipmentRules.firedMissile",
     custom: false,
+    skill: "firedMissile",
     compendium: "weapon-rules",
     journal: "5WHCGtOCMv193KLx",
   },
@@ -171,6 +173,7 @@ export const WeaponRules = {
     key: "preciseMelee",
     label: "EquipmentRules.preciseMelee",
     custom: false,
+    skill: "preciseMelee",
     compendium: "weapon-rules",
     journal: "7lkCweZ1AFTg6I94",
   },
@@ -214,6 +217,7 @@ export const WeaponRules = {
     key: "thrownMissile",
     label: "EquipmentRules.thrownMissile",
     custom: false,
+    skill: "thrownMissile",
     compendium: "weapon-rules",
     journal: "aOkX01lemXNa8sYS",
   },
@@ -228,12 +232,13 @@ export const WeaponRules = {
     key: "unarmedMelee",
     label: "EquipmentRules.unarmedMelee",
     custom: false,
+    skill: "unarmedMelee",
     compendium: "weapon-rules",
     journal: "kzHQncqDG0RSsedf",
   },
 };
 
-export const EquipmentRules: Record<keyof typeof OutfitRules | keyof typeof WeaponRules, EquipmentRule> = {
+export const EquipmentRules: Record<string, EquipmentRule> = {
   ...OutfitRules,
   ...WeaponRules,
 };

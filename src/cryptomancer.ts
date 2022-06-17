@@ -16,6 +16,7 @@ import { SkillCheckService } from "./skill-check/skill-check.service";
 
 import "./cryptomancer.scss";
 import { registerHandlebarsHelpers } from "./shared/handlebars";
+import { bindChatActions, hideActionButtons } from "./shared/chat/chat";
 
 const settings = new SettingsService();
 let difficultySelectorContent: string = "";
@@ -139,13 +140,17 @@ Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
 });
 
 /**
- * Chat message render hook. Used to bind the
- * buttons in each skill check chat message to
- * update the check difficulty.
+ * Chat log render hook.
+ */
+Hooks.on("renderChatLog", (_app: unknown, html: JQuery<HTMLElement>, _data: unknown) => {
+  bindChatActions(html);
+});
+
+/**
+ * Chat message render hook.
  */
 Hooks.on("renderChatMessage", (message: ChatMessage, html: JQuery<HTMLElement>) => {
-  // Bind raise/lower difficulty buttons to skill check messages
-  SkillCheckService.bindMessage(message, html);
+  hideActionButtons(message, html);
 
   // Apply a css class to the message if it is configured in a flag
   const cssClass = message.getFlag("cryptomancer", "cssClass") as string | null;

@@ -124,7 +124,8 @@ export class CryptomancerActor extends Actor {
         difficulty,
         skillName,
         skill.break,
-        skill.push
+        skill.push,
+        this
       );
     } else {
       return SkillCheckService.skillCheck(
@@ -133,7 +134,8 @@ export class CryptomancerActor extends Actor {
         difficulty,
         undefined,
         Boolean((attribute as ResourceAttribute).break),
-        Boolean((attribute as ResourceAttribute).push)
+        Boolean((attribute as ResourceAttribute).push),
+        this
       );
     }
   }

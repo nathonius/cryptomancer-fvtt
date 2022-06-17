@@ -121,6 +121,10 @@ export function registerHandlebarsHelpers() {
       .includes(typeof rule === "string" ? rule : rule.key);
   });
 
+  Handlebars.registerHelper("skillRules", (rules: Record<AttributeKey, EquipmentRule>) => {
+    return Object.values(rules).filter((r) => Boolean(r.skill));
+  });
+
   /**
    * Lookup and localize the short version of an attribute name
    */

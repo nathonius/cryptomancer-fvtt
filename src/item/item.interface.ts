@@ -1,3 +1,4 @@
+import { SkillKey } from "../actor/actor.interface";
 import { EquipmentType, SpellType, TrademarkItemType } from "./item.enum";
 
 export interface CryptItemBase {
@@ -44,5 +45,6 @@ export interface EquipmentRule {
   custom: boolean;
   compendium?: string;
   journal?: string;
+  skill?: SkillKey;
   value?: number;
 }
