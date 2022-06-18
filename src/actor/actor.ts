@@ -1,12 +1,18 @@
 // Foundry
-import { Context } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
+import {
+  Context,
+  DocumentModificationOptions,
+} from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
 import {
   ActorData,
+  ActorDataBaseProperties,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { PropertiesToSource } from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes";
 import { CryptomancerItem } from "../item/item";
 import { EquipmentType } from "../item/item.enum";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import { fromCompendium } from "../shared/util";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
@@ -19,6 +25,15 @@ import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./ac
 export class CryptomancerActor extends Actor {
   constructor(data?: ActorDataConstructorData, context?: Context<TokenDocument>) {
     super(data, context);
+  }
+
+  override _onCreate(
+    data: PropertiesToSource<ActorDataBaseProperties>,
+    options: DocumentModificationOptions,
+    userId: string
+  ) {
+    super._onCreate(data, options, userId);
+    this.addUnarmedStrike();
   }
 
   override prepareData() {
@@ -177,5 +192,13 @@ export class CryptomancerActor extends Actor {
     const newRiskEvents = [...this.data.data.riskEvents];
     newRiskEvents.splice(index, 1);
     await this.update({ data: { riskEvents: newRiskEvents } });
+  }
+
+  private async addUnarmedStrike(): Promise<void> {
+    const storedUnarmedStrike = await fromCompendium<CryptomancerItem>("weapons", "nATp07dapVa5QDbu");
+    if (!storedUnarmedStrike) {
+      return;
+    }
+    await this.createEmbeddedDocuments("Item", [storedUnarmedStrike.data.toObject()]);
   }
 }
