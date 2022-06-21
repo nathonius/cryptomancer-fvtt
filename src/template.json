@@ -434,7 +434,8 @@
       "rules": {},
       "qualities": [],
       "trademark": false,
-      "masterwork": false
+      "masterwork": false,
+      "equipped": false
     },
     "trademarkItem": {
       "templates": ["base"],

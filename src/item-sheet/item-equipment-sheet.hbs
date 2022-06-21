@@ -46,13 +46,16 @@
                  value="{{data.data.cost}}"
                  data-dtype="Number"/>
         </div>
-        <div class="toggle-field">
-          <span class="toggle-label">{{l "Equipment.masterwork" }}</span>
-          {{> toggleBox id=(concat "masterwork-toggle-" item.id) name="data.masterwork" value=data.data.masterwork}}
-        </div>
-        <div class="toggle-field">
-          <span class="toggle-label">{{l "Equipment.trademark" }}</span>
-          {{> toggleBox id=(concat "trademark-toggle-" item.id) name="data.trademark" value=data.data.trademark}}
+        <div class="status-list">
+          {{#if data.data.masterwork }}
+            <div class="crypt-chip">{{l "Equipment.masterwork"}}</div>
+          {{/if}}
+          {{#if data.data.trademark }}
+            <div class="crypt-chip">{{l "Equipment.trademark"}}</div>
+          {{/if}}
+          {{#if data.data.equipped }}
+            <div class="crypt-chip">{{l "Equipment.equipped"}}</div>
+          {{/if}}
         </div>
         {{#if (oneOf data.data.type "outfit" "weapon" "consumable") }}
           <div class="rules-list">
@@ -90,6 +93,23 @@
       </section>
     </div>
     <div class="tab details" data-group="primary" data-tab="details">
+      <section class="status">
+        <h3>{{l "Equipment.status"}}</h3>
+        <div class="status-list">
+          <div class="crypt-chip status-chip {{#if data.data.masterwork }}primary{{/if }}"
+               data-status="masterwork">
+            {{l "Equipment.masterwork" }}
+          </div>
+          <div class="crypt-chip status-chip {{#if data.data.trademark }}primary{{/if }}"
+               data-status="trademark">
+            {{l "Equipment.trademark" }}
+          </div>
+          <div class="crypt-chip status-chip {{#if data.data.equipped }}primary{{/if }}"
+               data-status="equipped">
+            {{l "Equipment.equipped" }}
+          </div>
+        </div>
+      </section>
       <section class="rules">
         <h3>{{l "EquipmentRules.outfitRules"}}</h3>
         <div class="rules-list">
