@@ -91,6 +91,10 @@ export function getEquipmentRuleByName(ruleName: string): EquipmentRule {
       };
     }
   }
+  // Handle misspelled Kinetic...
+  else if (ruleName === "Kineteic") {
+    return { ...EquipmentRules.Kinetic };
+  }
   // Migrate by name
   else {
     const keyName = `${ruleName.charAt(0).toLowerCase()}${ruleName.substring(1)}`.replace(/[\s-']/g, "");

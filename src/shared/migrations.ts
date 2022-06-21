@@ -25,34 +25,61 @@ export async function migrateWorld(): Promise<void> {
 async function migrateWorldActors(): Promise<void> {
   const _game = getGame();
   for (let actor of _game.actors || []) {
-    await migrateParty(actor);
-    await migrateCharacter(actor);
+    const migrationData: any = {};
+    await migratePartyData(actor, migrationData);
+    await migrateCharacterData(actor, migrationData);
+
+    // Migrate owned items
+    if (actor.items && actor.items.contents.length > 0) {
+      const items = actor.items.reduce((migrated: CryptomancerItem[], item: CryptomancerItem) => {
+        const itemUpdate: any = {};
+        migrateItemData(item, itemUpdate);
+
+        if (!foundry.utils.isObjectEmpty(itemUpdate)) {
+          itemUpdate._id = item.data._id;
+          migrated.push(foundry.utils.expandObject(itemUpdate));
+        }
+
+        return migrated;
+      }, []);
+      if (items.length > 0) {
+        migrationData.items = items;
+      }
+    }
+
+    // Apply update
+    if (!foundry.utils.isObjectEmpty(migrationData)) {
+      console.log(`Migrating actor ${actor.name}.`);
+      await actor.update(migrationData, { enforceTypes: false });
+    }
   }
 }
 
 async function migrateWorldItems(): Promise<void> {
   const _game = getGame();
   for (let item of _game.items || []) {
-    const updateData: any = {};
-
-    // Migrate trademark items to equipment
-    if (item.data.type === "trademarkItem") {
-      console.log(`Migrating trademark item ${item.name} to equipment.`);
-      updateData["type"] = "equipment";
-      updateData["data.trademark"] = true;
-    }
-
-    migrateEquipmentQualitiesAndRules(item, updateData);
-
+    const migrationData: any = {};
+    migrateItemData(item, migrationData);
     // Apply update
-    if (!foundry.utils.isObjectEmpty(updateData)) {
-      await item.update(updateData, { enforceTypes: false });
+    if (!foundry.utils.isObjectEmpty(migrationData)) {
+      await item.update(migrationData, { enforceTypes: false });
       console.log(`Migrated item ${item.name}.`);
     }
   }
 }
 
-function migrateEquipmentQualitiesAndRules(item: StoredDocument<CryptomancerItem>, updateData: any): void {
+function migrateItemData(item: CryptomancerItem, migrationData: any): void {
+  // Migrate trademark items to equipment
+  if (item.data.type === "trademarkItem") {
+    console.log(`Migrating trademark item ${item.name} to equipment.`);
+    migrationData["type"] = "equipment";
+    migrationData["data.trademark"] = true;
+  }
+
+  migrateEquipmentQualitiesAndRules(item, migrationData);
+}
+
+function migrateEquipmentQualitiesAndRules(item: CryptomancerItem, updateData: any): void {
   if (item.data.type !== "trademarkItem" && item.data.type !== "equipment") {
     return;
   }
@@ -90,47 +117,38 @@ function migrateEquipmentQualitiesAndRules(item: StoredDocument<CryptomancerItem
   }
 }
 
-async function migrateParty(party: StoredDocument<CryptomancerActor>): Promise<void> {
+function migratePartyData(party: StoredDocument<CryptomancerActor>, migrationData: any): void {
   if (party.data.type !== "party") {
     return;
   }
 
-  const updateData: any = {};
-
   // Migrate risk events from number indexed objects to array
   if (!Array.isArray(party.data.data.riskEvents)) {
     console.log(`Migrating party ${party.name} risk events.`);
-    updateData["data.riskEvents"] = Object.values(party.data.data.riskEvents) as RiskEvent[];
+    migrationData["data.riskEvents"] = Object.values(party.data.data.riskEvents) as RiskEvent[];
   }
 
   // Migrate cells from number indexed objects to array
   if (!Array.isArray(party.data.data.cells)) {
     console.log(`Migrating party ${party.name} cells.`);
-    updateData["data.cells"] = Object.values(party.data.data.cells) as Cell[];
-  }
-
-  // Apply update
-  if (!foundry.utils.isObjectEmpty(updateData)) {
-    await party.update(updateData, { enforceTypes: false });
+    migrationData["data.cells"] = Object.values(party.data.data.cells) as Cell[];
   }
 }
 
-async function migrateCharacter(character: StoredDocument<CryptomancerActor>): Promise<void> {
+function migrateCharacterData(character: StoredDocument<CryptomancerActor>, migrationData: any): void {
   if (character.data.type !== "character") {
     return;
   }
 
-  const updateData: any = {};
-
   Object.values(character.data.data.core).forEach((core) => {
     if ((core as DeprecatedCore).attributes) {
       Object.values((core as DeprecatedCore).attributes).forEach((attr) => {
-        updateData[`data.attributes.${attr.key}.value`] = attr.value;
+        migrationData[`data.attributes.${attr.key}.value`] = attr.value;
         if (attr.break !== undefined) {
-          updateData[`data.attributes.${attr.key}.break`] = attr.break;
+          migrationData[`data.attributes.${attr.key}.break`] = attr.break;
         }
         if (attr.push !== undefined) {
-          updateData[`data.attributes.${attr.key}.push`] = attr.push;
+          migrationData[`data.attributes.${attr.key}.push`] = attr.push;
         }
         if (attr.skills) {
           Object.values(attr.skills).forEach((skill) => {
@@ -138,29 +156,23 @@ async function migrateCharacter(character: StoredDocument<CryptomancerActor>): P
             if ((skill.key as string) === "preciseMissile") {
               skill.key = "preciseMelee";
             }
-            updateData[`data.skills.${skill.key}.break`] = skill.break;
-            updateData[`data.skills.${skill.key}.push`] = skill.push;
+            migrationData[`data.skills.${skill.key}.break`] = skill.break;
+            migrationData[`data.skills.${skill.key}.push`] = skill.push;
 
             // These also might have skillBreak instead of break, skillPush instead of push
             // Favor those values
             if (skill.skillBreak !== undefined) {
-              updateData[`data.skills.${skill.key}.break`] = skill.skillBreak;
+              migrationData[`data.skills.${skill.key}.break`] = skill.skillBreak;
             }
             if (skill.skillPush !== undefined) {
-              updateData[`data.skills.${skill.key}.push`] = skill.skillPush;
+              migrationData[`data.skills.${skill.key}.push`] = skill.skillPush;
             }
           });
         }
       });
 
       // Delete the old stuff
-      updateData[`data.core.${core.key}.-=attributes`] = null;
+      migrationData[`data.core.${core.key}.-=attributes`] = null;
     }
   });
-
-  // Apply update
-  if (!foundry.utils.isObjectEmpty(updateData)) {
-    console.log(`Migrating character ${character.name}.`);
-    await character.update(updateData, { enforceTypes: false });
-  }
 }
