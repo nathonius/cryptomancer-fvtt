@@ -73,6 +73,14 @@
     }
     .tab.description.active {
       section.config {
+        .status-list {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          .crypt-chip {
+            text-align: center;
+          }
+        }
         .rules-list {
           display: flex;
           flex-direction: column;
@@ -121,7 +129,8 @@
       }
     }
     .tab.details.active {
-      section.rules {
+      section.rules,
+      section.status {
         h3 {
           padding: 0.5rem 0.1rem;
           text-transform: uppercase;
@@ -129,13 +138,14 @@
           margin: 0;
           font-family: var(--font-accent);
         }
-        .rules-list {
+        .rules-list,
+        .status-list {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
           gap: 6px;
           align-items: center;
           text-align: center;
-          .rule-chip:hover {
+          .crypt-chip:hover {
             cursor: pointer;
             text-shadow: 0 0 8px var(--primary);
           }

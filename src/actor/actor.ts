@@ -45,8 +45,39 @@ export class CryptomancerActor extends Actor {
   }
 
   override prepareBaseData() {
+    if (this.data.type !== "character") {
+      return;
+    }
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+    // Find equipped outfits that have DR rules
+    let equippedOutfits = this.data.items.filter(
+      (i) =>
+        i.data.type === "equipment" &&
+        i.data.data.type === EquipmentType.Outfit &&
+        i.data.data.equipped &&
+        Boolean(i.data.data.rules.damageReduction)
+    );
+    if (equippedOutfits.length > 1) {
+      console.warn(`Cryptomancer FVTT | ${this.name} has multiple outfits equipped, only using the highest DR.`);
+      equippedOutfits = [
+        equippedOutfits.reduce((highest, current) => {
+          if (
+            current.data.type !== "equipment" ||
+            highest.data.type !== "equipment" ||
+            current.data.data.rules.damageReduction > highest.data.data.rules.damageReduction
+          ) {
+            return current;
+          }
+          return highest;
+        }),
+      ];
+    }
+    if (equippedOutfits.length > 0 && equippedOutfits[0].data.type === "equipment") {
+      this.data.update({ "data.damageReduction.value": equippedOutfits[0].data.data.rules.damageReduction.value || 0 });
+    } else {
+      this.data.update({ "data.damageReduction.value": 0 });
+    }
   }
 
   /**

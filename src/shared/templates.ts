@@ -19,6 +19,8 @@ const partials: Record<string, string> = {
   skill: "systems/cryptomancer/actor-sheet/character/components/skill.hbs",
 };
 
+const icons: string[] = ["armor", "simpleArmor"];
+
 /**
  * Define a set of template paths to pre-load
  * Pre-loaded templates are compiled and cached for fast access when rendering
@@ -26,6 +28,7 @@ const partials: Record<string, string> = {
  */
 export const preloadHandlebarsTemplates = async function () {
   await cryptLoadTemplates(partials);
+  await cryptLoadIcons(icons);
   return loadTemplates([
     "systems/cryptomancer/skill-check/skill-check.hbs",
     "systems/cryptomancer/skill-check/risk-check.hbs",
@@ -62,7 +65,11 @@ async function cryptGetTemplate(name: string, path: string) {
  * @param {string[]} paths    An array of template file paths to load
  * @return {Promise<Function[]>}
  */
-async function cryptLoadTemplates(partials: Record<string, string>) {
-  const keys = Object.keys(partials);
-  return Promise.all(keys.map((k) => cryptGetTemplate(k, partials[k])));
+async function cryptLoadTemplates(partialMap: Record<string, string>) {
+  const keys = Object.keys(partialMap);
+  return Promise.all(keys.map((k) => cryptGetTemplate(k, partialMap[k])));
+}
+
+async function cryptLoadIcons(iconMap: string[]) {
+  return Promise.all(iconMap.map((i) => cryptGetTemplate(`${i}Icon`, `systems/cryptomancer/icons/${i}.hbs`)));
 }

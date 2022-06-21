@@ -127,18 +127,31 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
       }
     });
 
-    // Add talent event listeners
-    html.find(".crypt-item-table .action-button").on("click", (evt) => {
+    // Add item table event listeners
+    html.find<HTMLButtonElement>(".crypt-item-table .action-button").on("click", (evt) => {
       const button = evt.target;
       const row = $(evt.currentTarget).parents(".item-row");
       const item = this.actor.items.get(row.data("itemId"));
       if (!item || !item.sheet) {
         return;
       }
-      if (button.classList.contains("view") || button.classList.contains("edit")) {
-        item.sheet.render(true);
-      } else if (button.classList.contains("delete")) {
-        item.deleteDialog();
+
+      const action = button.dataset.action;
+      switch (action) {
+        case "view":
+        case "edit":
+          item.sheet.render(true);
+          break;
+        case "delete":
+          item.deleteDialog();
+          break;
+        case "equip":
+          if (item.data.type === "equipment") {
+            item.update({
+              "data.equipped": !item.data.data.equipped,
+            });
+          }
+          break;
       }
     });
 

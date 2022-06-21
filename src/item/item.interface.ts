@@ -20,6 +20,7 @@ export interface Equipment extends CryptItemBase, PhysicalItem {
   qualities: string[];
   trademark: boolean;
   masterwork: boolean;
+  equipped: boolean;
 }
 
 export interface TrademarkItem extends CryptItemBase {

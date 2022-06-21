@@ -93,6 +93,16 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
       await this.object.update(updateData);
     });
 
+    html.find<HTMLDivElement>("section.status .status-chip").on("click", (evt) => {
+      if (this.object.data.type !== "equipment") {
+        return;
+      }
+      const status = evt.currentTarget.dataset.status! as "masterwork" | "trademark" | "equipped";
+      const updateData: any = {};
+      updateData[`data.${status}`] = !this.object.data.data[status];
+      this.object.update(updateData);
+    });
+
     html.find<HTMLDivElement>("section.rules .rule-chip").on("click", (evt) => {
       if (this.object.data.type !== "equipment") {
         return;
