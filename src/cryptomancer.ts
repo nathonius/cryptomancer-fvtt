@@ -1,20 +1,26 @@
-// Foundry
 import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
+import tippy from "tippy.js";
 
+import { CharacterSheet } from "./actor-sheet/character/character-sheet";
+import { CheckDifficulty } from "./skill-check/skill-check.enum";
 import { CryptomancerActor } from "./actor/actor";
-import { preloadHandlebarsTemplates } from "./shared/templates";
-import { SettingsService } from "./settings/settings.service";
-import { SkillCheckService } from "./skill-check/skill-check.service";
 import { CryptomancerItem } from "./item/item";
 import { CryptomancerItemSheet } from "./item-sheet/item-sheet";
-import { getGame, l } from "./shared/util";
-import { SpellType } from "./item/item.enum";
-import { CoreAlt } from "./actor/actor.interface";
-import { SCOPE } from "./shared/constants";
+import { getGame } from "./shared/util";
 import { migrateWorld } from "./shared/migrations";
-import { CharacterSheet } from "./actor-sheet/character/character-sheet";
 import { PartySheet } from "./actor-sheet/party/party-sheet";
+import { preloadHandlebarsTemplates } from "./shared/templates";
+import { SCOPE } from "./shared/constants";
+import { SettingsService } from "./settings/settings.service";
+import { SkillCheckService } from "./skill-check/skill-check.service";
+
 import "./cryptomancer.scss";
+import { registerHandlebarsHelpers } from "./shared/handlebars";
+import { bindChatActions, hideActionButtons } from "./shared/chat/chat";
+
+const settings = new SettingsService();
+
+registerHandlebarsHelpers();
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -61,129 +67,7 @@ Hooks.once("init", async function () {
   });
 
   // Preload Handlebars templates.
-  return preloadHandlebarsTemplates();
-});
-
-/* -------------------------------------------- */
-/*  Handlebars Helpers                          */
-/* -------------------------------------------- */
-
-// General Helpers
-Handlebars.registerHelper("is", (source: unknown, target: unknown) => {
-  return source === target;
-});
-
-Handlebars.registerHelper("or", (a: any, b: any, options: Handlebars.HelperOptions) => {
-  if ([a, b].some((value) => Boolean(value))) {
-    return options.fn(true);
-  }
-});
-
-Handlebars.registerHelper("ne", (source: unknown, target: unknown) => {
-  return source !== target;
-});
-
-Handlebars.registerHelper("lt", (a: any, b: any) => {
-  return a < b;
-});
-
-Handlebars.registerHelper("add", (a: number, b: number) => {
-  return a + b;
-});
-
-Handlebars.registerHelper("times", (context: number, options: Handlebars.HelperOptions) => {
-  let ret = "";
-
-  for (let i = 0; i < context; i++) {
-    ret = ret + options.fn(i);
-  }
-
-  return ret;
-});
-
-Handlebars.registerHelper("concat", function () {
-  var outStr = "";
-  for (var arg in arguments) {
-    if (typeof arguments[arg] != "object") {
-      outStr += arguments[arg];
-    }
-  }
-  return outStr;
-});
-
-Handlebars.registerHelper("safe", (arg: string) => {
-  return new Handlebars.SafeString(arg);
-});
-
-Handlebars.registerHelper("toLowerCase", (input: string) => {
-  return input.toLowerCase();
-});
-
-Handlebars.registerHelper("toUpperCase", (input: string) => {
-  return input.toUpperCase();
-});
-
-Handlebars.registerHelper("l", (key: string) => {
-  return l(key);
-});
-
-Handlebars.registerHelper("firstHalf", (array: any[]) => {
-  if (!array || array.length === 0) {
-    return [];
-  }
-  return array.slice(0, Math.floor(array.length / 2));
-});
-
-Handlebars.registerHelper("lastHalf", (array: any[]) => {
-  if (!array || array.length === 0) {
-    return [];
-  }
-  return array.slice(Math.floor(array.length / 2));
-});
-
-// Sheet Specific Helpers
-Handlebars.registerHelper("localizeSpellType", (type: SpellType) => {
-  return l(`SpellType.${type}`);
-});
-
-Handlebars.registerHelper("chatCardSpellType", (type: SpellType) => {
-  return type === SpellType.Cantrip ? l(`SpellType.cantrip`) : l(`SpellType.${type}Spell`);
-});
-
-Handlebars.registerHelper("noSkillAttribute", (core: CoreAlt, options: Handlebars.HelperOptions) => {
-  if (core.key === "resolve") {
-    return options.fn(core.attributes["willpower"]);
-  } else if (core.key === "power") {
-    return options.fn(core.attributes["endurance"]);
-  } else {
-    return;
-  }
-});
-
-/**
- * Lookup and localize the short version of an attribute name
- */
-Handlebars.registerHelper("shortAttr", (attribute: string) => {
-  return l(`ShortAttr.${attribute}`);
-});
-
-/**
- * Return a string showing whether an item is masterwork or trademark
- */
-Handlebars.registerHelper("itemAttrs", (item: CryptomancerItem) => {
-  if (item.data.type !== "equipment") {
-    return;
-  }
-  const output: string[] = [];
-  if (item.data.data.masterwork) {
-    output.push(l("Equipment.masterworkShort"));
-  }
-  if (item.data.data.trademark) {
-    output.push(l("Equipment.trademarkShort"));
-  }
-  if (output.length > 0) {
-    return `(${output.join(", ")})`;
-  }
+  await preloadHandlebarsTemplates();
 });
 
 /* -------------------------------------------- */
@@ -191,26 +75,68 @@ Handlebars.registerHelper("itemAttrs", (item: CryptomancerItem) => {
 /* -------------------------------------------- */
 
 Hooks.once("ready", async function () {
+  const _game = getGame();
+
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (_bar, data, slot) => createItemMacro(data, slot));
 
   // Determine whether a system migration is required and feasible
-  const game = getGame();
-  if (!game.user?.isGM) return;
-  const alwaysMigrate = (game.modules.get("_dev-mode") as any | undefined)?.api?.getPackageDebugValue("cryptomancer");
-  const currentVersion = game.settings.get(SCOPE, "systemMigrationVersion") as string;
+  if (!_game.user?.isGM) return;
+  const alwaysMigrate = (_game.modules.get("_dev-mode") as any | undefined)?.api?.getPackageDebugValue("cryptomancer");
+  const currentVersion = _game.settings.get(SCOPE, "systemMigrationVersion") as string;
   // Migrate if the last installed version is LESS than this value
   // So when updating this value, it should be set to the NEWEST version
-  const NEEDS_MIGRATION_VERSION = "0.6.1";
+  const NEEDS_MIGRATION_VERSION = "0.8.0";
   const COMPATIBLE_MIGRATION_VERSION = "0.1.0";
   const needsMigration = !currentVersion || isNewerVersion(NEEDS_MIGRATION_VERSION, currentVersion);
   if (!needsMigration && !alwaysMigrate) return;
 
   // Perform the migration
   if (currentVersion && isNewerVersion(COMPATIBLE_MIGRATION_VERSION, currentVersion)) {
-    ui.notifications?.error(game.i18n.localize("MIGRATION.VersionTooOldWarning"), { permanent: true });
+    ui.notifications?.error(_game.i18n.localize("MIGRATION.VersionTooOldWarning"), { permanent: true });
   }
   migrateWorld();
+});
+
+/**
+ * Chat log render hook.
+ */
+Hooks.on("renderChatLog", async (_: ChatLog, html: JQuery<HTMLElement>) => {
+  bindChatActions(html);
+
+  // Render difficulty selector
+  const difficultySelectorContent = await renderTemplate("systems/cryptomancer/skill-check/difficulty-selector.hbs", {
+    checkDifficulty: settings.getSetting("checkDifficulty") ?? CheckDifficulty.Challenging,
+  });
+
+  // Append check selector
+  html.find("#chat-controls").before(difficultySelectorContent);
+
+  // Setup tooltips. Remove this in v10.
+  tippy("[data-tooltip]", {
+    content: (reference) => {
+      return (reference as HTMLElement).dataset.tooltip as string;
+    },
+  });
+
+  // Add event listeners
+  const toggles = html.find<HTMLInputElement>(".crypt-difficulty-selector .toggles input");
+  toggles.on("change", (event) => {
+    event.preventDefault();
+    const difficulty: "trivial" | "challenging" | "tough" = $(event.currentTarget)
+      .parents(".difficulty")
+      .data("difficulty");
+    toggles.each((_index, el) => {
+      if (el !== event.currentTarget) {
+        el.checked = false;
+      }
+    });
+    SkillCheckService.setCheckDifficulty(difficulty);
+  });
+
+  // Scroll chatlog down
+  const chatLog = html.find("#chat-log");
+  chatLog.scrollTop(chatLog[0].scrollHeight || 0);
 });
 
 Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
@@ -218,13 +144,10 @@ Hooks.once("devModeReady", ({ registerPackageDebugFlag }: any) => {
 });
 
 /**
- * Chat message render hook. Used to bind the
- * buttons in each skill check chat message to
- * update the check difficulty.
+ * Chat message render hook.
  */
 Hooks.on("renderChatMessage", (message: ChatMessage, html: JQuery<HTMLElement>) => {
-  // Bind raise/lower difficulty buttons to skill check messages
-  SkillCheckService.bindMessage(message, html);
+  hideActionButtons(message, html);
 
   // Apply a css class to the message if it is configured in a flag
   const cssClass = message.getFlag("cryptomancer", "cssClass") as string | null;
@@ -275,22 +198,4 @@ async function createItemMacro(data: DropData<Macro>, slot: number) {
   }
   (game as any).user.assignHotbarMacro(macro, slot);
   return false;
-}
-
-/**
- * Create a Macro from an Item drop.
- * Get an existing item macro if one exists, otherwise create a new one.
- * @param {string} itemName
- * @return {Promise}
- */
-function rollItemMacro(itemName: string) {
-  const speaker = ChatMessage.getSpeaker();
-  let actor;
-  if (speaker.token) actor = (game as any).actors.tokens[speaker.token];
-  if (!actor) actor = (game as any).actors.get(speaker.actor);
-  const item = actor ? actor.items.find((i: Item) => i.name === itemName) : null;
-  if (!item) return ui?.notifications?.warn(`Your controlled Actor does not have an item named ${itemName}`);
-
-  // Trigger the item roll
-  return item.roll();
 }

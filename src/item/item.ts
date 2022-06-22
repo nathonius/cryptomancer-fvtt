@@ -1,7 +1,6 @@
 import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 import { CryptomancerActor } from "../actor/actor";
 import { getGame } from "../shared/util";
-import { EquipmentType } from "./item.enum";
 
 export class CryptomancerItem extends Item {
   public async showChatMessage(): Promise<void> {
@@ -15,7 +14,7 @@ export class CryptomancerItem extends Item {
       description: this.data.data.description,
     };
 
-    if (this.data.type === "equipment" && [EquipmentType.Outfit, EquipmentType.Weapon].includes(this.data.data.type)) {
+    if (this.data.type === "equipment" && !isObjectEmpty(this.data.data.rules)) {
       templateData["rules"] = this.data.data.rules;
     }
 

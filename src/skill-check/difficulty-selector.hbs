@@ -1,0 +1,8 @@
+<div class="crypt-difficulty-selector toggle-selector crypt-form-field">
+  <label>{{l "CheckDifficulty.difficulty"}}</label>
+  <div class="toggles">
+    <span class="difficulty" data-difficulty="trivial">{{> toggleBox id="difficulty-trivial" tooltip=(l "CheckDifficulty.trivial") value=(is checkDifficulty 4) color="success" placeholder=4}}</span>
+    <span class="difficulty" data-difficulty="challenging">{{> toggleBox id="difficulty-challenging" tooltip=(l "CheckDifficulty.challenging") value=(is checkDifficulty 6) color="secondary" placeholder=6}}</span>
+    <span class="difficulty" data-difficulty="tough">{{> toggleBox id="difficulty-tough" tooltip=(l "CheckDifficulty.tough") value=(is checkDifficulty 8) color="danger" placeholder=8}}</span>
+  </div>
+</div>

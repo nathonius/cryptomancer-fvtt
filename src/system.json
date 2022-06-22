@@ -2,7 +2,7 @@
   "name": "cryptomancer",
   "title": "Cryptomancer",
   "description": "The Cryptomancer system for FoundryVTT!",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
@@ -49,6 +49,24 @@
       "label": "Weapons",
       "path": "packs/weapons.db",
       "type": "Item"
+    },
+    {
+      "name": "outfit-rules",
+      "label": "Outfit Rules",
+      "path": "packs/outfit-rules.db",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "status-effects",
+      "label": "Status Effects",
+      "path": "packs/status-effects.db",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "weapon-rules",
+      "label": "Weapon Rules",
+      "path": "packs/weapon-rules.db",
+      "type": "JournalEntry"
     }
   ],
   "languages": [
@@ -64,6 +82,6 @@
   "secondaryTokenAttribute": "manaPoints",
   "url": "https://github.com/OfficerHalf/cryptomancer-fvtt",
   "manifest": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/latest/download/system.json",
-  "download": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/download/v0.7.0/system.zip",
+  "download": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/download/v0.8.0/system.zip",
   "license": "LICENSE.txt"
 }

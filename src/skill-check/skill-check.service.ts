@@ -10,6 +10,7 @@ import {
 import { getGame, l } from "../shared/util";
 import type { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 import { CryptomancerActor } from "../actor/actor";
+import { SettingsService } from "../settings/settings.service";
 
 /**
  * Executes skill checks from character sheets, creates
@@ -17,6 +18,7 @@ import { CryptomancerActor } from "../actor/actor";
  * existing chat cards for previous skill checks.
  */
 export class SkillCheckService {
+  private static settings = new SettingsService();
   /**
    * Do a skill check. Rolls dice, creates a chat card.
    */
@@ -26,11 +28,12 @@ export class SkillCheckService {
     difficulty = CheckDifficulty.Challenging,
     skillName = "",
     skillBreak = false,
-    skillPush = false
+    skillPush = false,
+    actor?: CryptomancerActor
   ): Promise<void> {
     const r = new Roll(`{${Math.max(attributeDice, 0)}d10, ${Math.max(5 - attributeDice, 0)}d6}`, {});
     await r.evaluate({ async: true });
-    await this.createChatMessage(r, attributeName, skillName, difficulty, skillBreak, skillPush);
+    await this.createChatMessage(r, attributeName, skillName, difficulty, skillBreak, skillPush, actor);
   }
 
   static async riskCheck(riskScore: number, party?: CryptomancerActor): Promise<void> {
@@ -79,7 +82,7 @@ export class SkillCheckService {
     difficulty: CheckDifficulty,
     skillBreak: boolean,
     skillPush: boolean
-  ): { parsedDice: ParsedRollResult[]; result: CheckResult } {
+  ): { parsedDice: ParsedRollResult[]; result: CheckResult; hit: number } {
     // Separate dice
     const attributeRoll = (roll.terms[0] as PoolTerm).rolls[0];
     const fateRoll = (roll.terms[0] as PoolTerm).rolls[1];
@@ -113,7 +116,7 @@ export class SkillCheckService {
 
     const result = this.calculateCheckResult(hit, botch);
 
-    return { parsedDice, result };
+    return { parsedDice, result, hit: hit - botch };
   }
 
   /**
@@ -184,7 +187,8 @@ export class SkillCheckService {
     skill: string,
     difficulty: CheckDifficulty,
     skillBreak: boolean,
-    skillPush: boolean
+    skillPush: boolean,
+    actor?: CryptomancerActor
   ) {
     // Gather message data
     const data = await this.getChatMessageData(roll, attribute, skill, difficulty, skillBreak, skillPush);
@@ -192,7 +196,7 @@ export class SkillCheckService {
     const messageData: ChatMessageDataConstructorData = {
       ...data,
       user: getGame().user?.id,
-      speaker: ChatMessage.getSpeaker(),
+      speaker: ChatMessage.getSpeaker({ actor }),
       roll,
       type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       sound: CONFIG.sounds.dice,
@@ -264,6 +268,7 @@ export class SkillCheckService {
       rolls: result.parsedDice,
       ...labels,
       difficultyValue: difficulty,
+      hit: result.hit,
     });
 
     const messageData = {
@@ -284,35 +289,24 @@ export class SkillCheckService {
     return messageData;
   }
 
-  /**
-   * Add event listeners to buttons on chat card
-   */
-  static bindMessage(message: ChatMessage, html: JQuery<HTMLElement>): void {
-    if (!message.id) {
-      return;
+  static setCheckDifficulty(difficulty: "trivial" | "challenging" | "tough"): void {
+    switch (difficulty) {
+      case "trivial":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
+        break;
+      case "challenging":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
+        break;
+      case "tough":
+        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
+        break;
     }
-
-    const id = message.id;
-
-    html
-      .find(".difficulty-update-button")
-      .off()
-      .on("click", (evt) => {
-        const _message = getGame().messages?.get(id);
-        if (_message) {
-          if (evt.target.classList.contains("left")) {
-            this.lowerDifficulty(_message);
-          } else {
-            this.raiseDifficulty(_message);
-          }
-        }
-      });
   }
 
   /**
    * Lower the difficulty and re-render
    */
-  private static lowerDifficulty(message: ChatMessage): void {
+  static lowerDifficulty(message: ChatMessage): void {
     const config = message.getFlag("cryptomancer", "check-config") as SkillCheckConfigFlag;
     if (!config) {
       return;
@@ -332,7 +326,7 @@ export class SkillCheckService {
   /**
    * Raise the difficulty and re-render
    */
-  private static raiseDifficulty(message: ChatMessage): void {
+  static raiseDifficulty(message: ChatMessage): void {
     const config = message.getFlag("cryptomancer", "check-config") as SkillCheckConfigFlag;
     if (!config) {
       return;

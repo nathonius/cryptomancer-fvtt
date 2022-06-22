@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.7.0...v0.8.0) (2022-06-22)
+
+
+### Features
+
+* add DR to character sheet, remove difficulty selector ([809d1d4](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/809d1d48e45b5cfe304faab3522da270517903a1))
+* add number of hits to skill check chat cards ([9543b96](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/9543b967f3f62ad0460e4a048c9fe6fdd33b0ede))
+* add skill roll buttons to item chat messages ([f32c4aa](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/f32c4aa9816e32ef26783df1dc1a2dce944c03b6))
+* add skill rules ([4117d76](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/4117d7623dd14110bfac2da96249e522dffce853))
+* add unarmed strike when creating a character ([10503bb](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/10503bb5032c39c2d2dfb374f7fa6dde89e4ea23))
+* add weapon rules, outfit rules, and status effect compendia ([5de5cb4](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/5de5cb4bbecf32825c4f2dd3a6a51737c0fbb13a))
+* allow adding/removing equipment rules ([3c84f00](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/3c84f007dc115d51c3a91a0d2c45dc9fa127741b))
+* automatically calculate DR from equipped items ([c7e6447](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/c7e644779aa68dec940fff4145e15f779b42d303))
+* migrate compendium items, add skill rules to consumables ([92d2e01](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/92d2e01a17226495102f21f3abf9c2b1445c4cf5))
+* migrate owned items ([2b29ee2](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/2b29ee220f98a53b21c8745edb0d02b78f516528))
+* move difficulty selector to chat log ([8f0050c](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/8f0050ca39697f80b498d5ec565350e088de0fd3))
+* update migration version ([d52271b](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/d52271b533df629a4d674ed078af413e22414536))
+
 ## [0.7.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.6.1...v0.7.0) (2022-06-04)
 
 

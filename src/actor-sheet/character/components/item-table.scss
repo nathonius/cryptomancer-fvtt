@@ -2,6 +2,9 @@
   td,
   th {
     text-align: left;
+    &[data-dtype="Number"] {
+      text-align: right;
+    }
   }
 
   width: 100%;
@@ -25,20 +28,27 @@
     }
   }
 
+  td.actions-wrapper {
+    width: 130px;
+  }
   .actions {
     display: flex;
     gap: 6px;
     align-items: center;
     justify-content: flex-end;
     padding-right: 2px;
-
     .action-button {
       width: auto;
-      padding: 0px 4px;
+      min-width: 24px;
+      min-height: 24px;
+      padding: 0px 5px;
       margin: 0;
       background-color: transparent;
       border: none;
       color: var(--primary--dark-2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       // Have to do this hack because font awesome is super inconsistent with aspect ratios...
       &.delete {
@@ -51,8 +61,23 @@
         box-shadow: none;
       }
 
-      span {
+      span,
+      img,
+      svg {
         pointer-events: none;
+      }
+
+      svg {
+        height: 1em;
+        width: 1em;
+      }
+
+      &.active {
+        color: var(--success);
+        &:hover,
+        &:focus {
+          color: var(--success--light-1);
+        }
       }
     }
   }
@@ -76,7 +101,7 @@
   &.consumables-table,
   &.equipment-table {
     .item-row .name {
-      width: 54%;
+      width: 50%;
       .item-attrs {
         opacity: 0.5;
       }

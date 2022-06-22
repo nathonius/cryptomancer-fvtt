@@ -1,16 +1,22 @@
 // Foundry
-import { Context } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
+import {
+  Context,
+  DocumentModificationOptions,
+} from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
 import {
   ActorData,
+  ActorDataBaseProperties,
   ActorDataConstructorData,
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
+import { PropertiesToSource } from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes";
 import { CryptomancerItem } from "../item/item";
 import { EquipmentType } from "../item/item.enum";
 import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import { fromCompendium } from "../shared/util";
 
 import { SkillCheckService } from "../skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
-import { Attribute, Cell, CoreAlt, ResourceAttribute, RiskEvent } from "./actor.interface";
+import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -19,6 +25,15 @@ import { Attribute, Cell, CoreAlt, ResourceAttribute, RiskEvent } from "./actor.
 export class CryptomancerActor extends Actor {
   constructor(data?: ActorDataConstructorData, context?: Context<TokenDocument>) {
     super(data, context);
+  }
+
+  override _onCreate(
+    data: PropertiesToSource<ActorDataBaseProperties>,
+    options: DocumentModificationOptions,
+    userId: string
+  ) {
+    super._onCreate(data, options, userId);
+    this.addUnarmedStrike();
   }
 
   override prepareData() {
@@ -30,8 +45,39 @@ export class CryptomancerActor extends Actor {
   }
 
   override prepareBaseData() {
+    if (this.data.type !== "character") {
+      return;
+    }
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+    // Find equipped outfits that have DR rules
+    let equippedOutfits = this.data.items.filter(
+      (i) =>
+        i.data.type === "equipment" &&
+        i.data.data.type === EquipmentType.Outfit &&
+        i.data.data.equipped &&
+        Boolean(i.data.data.rules.damageReduction)
+    );
+    if (equippedOutfits.length > 1) {
+      console.warn(`Cryptomancer FVTT | ${this.name} has multiple outfits equipped, only using the highest DR.`);
+      equippedOutfits = [
+        equippedOutfits.reduce((highest, current) => {
+          if (
+            current.data.type !== "equipment" ||
+            highest.data.type !== "equipment" ||
+            current.data.data.rules.damageReduction > highest.data.data.rules.damageReduction
+          ) {
+            return current;
+          }
+          return highest;
+        }),
+      ];
+    }
+    if (equippedOutfits.length > 0 && equippedOutfits[0].data.type === "equipment") {
+      this.data.update({ "data.damageReduction.value": equippedOutfits[0].data.data.rules.damageReduction.value || 0 });
+    } else {
+      this.data.update({ "data.damageReduction.value": 0 });
+    }
   }
 
   /**
@@ -108,17 +154,15 @@ export class CryptomancerActor extends Actor {
   }
 
   async rollAttribute(
-    coreName: "wits" | "power" | "speed" | "resolve",
-    attributeName: string,
-    skillName = "",
+    attributeName: AttributeKey,
+    skillName: SkillKey | "" = "",
     difficulty = CheckDifficulty.Challenging
   ) {
     if (this.data.type !== "character") {
       return;
     }
-    const core = this.data.data.core[coreName] as CoreAlt;
-    const attribute = core.attributes[attributeName];
-    const skill = skillName ? attribute.skills[skillName] : null;
+    const attribute = this.data.data.attributes[attributeName];
+    const skill = skillName ? this.data.data.skills[skillName] : null;
     if (skill) {
       return SkillCheckService.skillCheck(
         attribute.value,
@@ -126,7 +170,8 @@ export class CryptomancerActor extends Actor {
         difficulty,
         skillName,
         skill.break,
-        skill.push
+        skill.push,
+        this
       );
     } else {
       return SkillCheckService.skillCheck(
@@ -134,8 +179,9 @@ export class CryptomancerActor extends Actor {
         attributeName,
         difficulty,
         undefined,
-        Boolean((attribute as Attribute as ResourceAttribute).break),
-        Boolean((attribute as Attribute as ResourceAttribute).push)
+        Boolean((attribute as ResourceAttribute).break),
+        Boolean((attribute as ResourceAttribute).push),
+        this
       );
     }
   }
@@ -177,5 +223,13 @@ export class CryptomancerActor extends Actor {
     const newRiskEvents = [...this.data.data.riskEvents];
     newRiskEvents.splice(index, 1);
     await this.update({ data: { riskEvents: newRiskEvents } });
+  }
+
+  private async addUnarmedStrike(): Promise<void> {
+    const storedUnarmedStrike = await fromCompendium<CryptomancerItem>("weapons", "nATp07dapVa5QDbu");
+    if (!storedUnarmedStrike) {
+      return;
+    }
+    await this.createEmbeddedDocuments("Item", [storedUnarmedStrike.data.toObject()]);
   }
 }

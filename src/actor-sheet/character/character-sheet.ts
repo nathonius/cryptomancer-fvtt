@@ -1,4 +1,4 @@
-import { AttributeAlt, Party } from "../../actor/actor.interface";
+import { Party } from "../../actor/actor.interface";
 import { getGame, l } from "../../shared/util";
 import { CheckDifficulty } from "../../skill-check/skill-check.enum";
 import { CryptomancerActorSheet } from "../actor-sheet";
@@ -51,21 +51,49 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
       tooltip: "MP",
     };
 
+    // Prep core and attributes for rendering
+    const core = context.data.data.core;
+    const attributes = context.data.data.attributes;
+    context.core = {
+      power: {
+        ...core.power,
+        attributes: {
+          strength: attributes.strength,
+          endurance: attributes.endurance,
+        },
+      },
+      resolve: {
+        ...core.resolve,
+        attributes: {
+          presence: attributes.presence,
+          willpower: attributes.willpower,
+        },
+      },
+      speed: {
+        ...core.speed,
+        attributes: {
+          agility: attributes.agility,
+          dexterity: attributes.dexterity,
+        },
+      },
+      wits: {
+        ...core.wits,
+        attributes: {
+          knowledge: attributes.knowledge,
+          cunning: attributes.cunning,
+        },
+      },
+    };
+
     // Prep skills for rendering
     context.skills = [];
-    Object.values(context.data.data.core).forEach((core) => {
-      Object.values(core.attributes).forEach((attr: AttributeAlt) => {
-        if (attr.skills) {
-          Object.values(attr.skills).forEach((skill) => {
-            skill.label = l(skill.label);
-            context.skills!.push({
-              ...skill,
-              core: core.key,
-              attributeValue: attr.value,
-            });
-          });
-        }
-      });
+    Object.values(context.data.data.skills).forEach((skill) => {
+      if (context.data.type !== "character") {
+        return;
+      }
+      const attribute = context.data.data.attributes[skill.attribute];
+      skill.label = l(skill.label);
+      context.skills.push({ ...skill, attributeValue: attribute.value });
     });
     context.skills.sort((a, b) => (a.label > b.label ? 1 : -1));
 
@@ -99,18 +127,31 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
       }
     });
 
-    // Add talent event listeners
-    html.find(".crypt-item-table .action-button").on("click", (evt) => {
+    // Add item table event listeners
+    html.find<HTMLButtonElement>(".crypt-item-table .action-button").on("click", (evt) => {
       const button = evt.target;
       const row = $(evt.currentTarget).parents(".item-row");
       const item = this.actor.items.get(row.data("itemId"));
       if (!item || !item.sheet) {
         return;
       }
-      if (button.classList.contains("view") || button.classList.contains("edit")) {
-        item.sheet.render(true);
-      } else if (button.classList.contains("delete")) {
-        item.deleteDialog();
+
+      const action = button.dataset.action;
+      switch (action) {
+        case "view":
+        case "edit":
+          item.sheet.render(true);
+          break;
+        case "delete":
+          item.deleteDialog();
+          break;
+        case "equip":
+          if (item.data.type === "equipment") {
+            item.update({
+              "data.equipped": !item.data.data.equipped,
+            });
+          }
+          break;
       }
     });
 
@@ -144,26 +185,6 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
         party.sheet.render(true);
       }
     });
-
-    // Difficulty selector
-    html.find(".difficulty-selector input").on("change", this.onDifficultySelect.bind(this));
-  }
-
-  private onDifficultySelect(event: JQuery.ChangeEvent) {
-    event.preventDefault();
-    const difficulty = $(event.currentTarget).parents(".difficulty").data("difficulty");
-    switch (difficulty) {
-      case "trivial":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
-        break;
-      case "challenging":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
-        break;
-      case "tough":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
-        break;
-    }
-    this.render();
   }
 
   /**
@@ -176,12 +197,10 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
     const element = event.currentTarget;
     const dataset = element.dataset;
 
-    const rollCore = dataset.rollCore;
     const rollAttribute = dataset.rollAttribute;
     const rollSkill = dataset.rollSkill;
 
     this.document.rollAttribute(
-      rollCore,
       rollAttribute,
       rollSkill,
       (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ?? CheckDifficulty.Challenging

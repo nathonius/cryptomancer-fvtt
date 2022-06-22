@@ -13,7 +13,7 @@ const name = "cryptomancer";
 const distDirectory = "dist";
 const srcDirectory = "src";
 
-const staticFiles = `${srcDirectory}/**/*{.md,.json,.html,.hbs,.png,.otf,.db}`;
+const staticFiles = `${srcDirectory}/**/*{.md,.json,.html,.hbs,.png,.svg,.otf,.db}`;
 
 // build to dist and foundry folder during watch
 const outputDirs = [distDirectory];
