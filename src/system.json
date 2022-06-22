@@ -2,12 +2,16 @@
   "name": "cryptomancer",
   "title": "Cryptomancer",
   "description": "The Cryptomancer system for FoundryVTT!",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
-  "esmodules": ["cryptomancer.js"],
-  "styles": ["cryptomancer.css"],
+  "esmodules": [
+    "cryptomancer.js"
+  ],
+  "styles": [
+    "cryptomancer.css"
+  ],
   "scripts": [],
   "packs": [
     {
@@ -78,6 +82,6 @@
   "secondaryTokenAttribute": "manaPoints",
   "url": "https://github.com/OfficerHalf/cryptomancer-fvtt",
   "manifest": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/latest/download/system.json",
-  "download": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/download/v0.7.0/system.zip",
+  "download": "https://github.com/OfficerHalf/cryptomancer-fvtt/releases/download/v0.8.0/system.zip",
   "license": "LICENSE.txt"
 }
