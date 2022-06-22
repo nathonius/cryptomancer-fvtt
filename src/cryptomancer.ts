@@ -86,7 +86,7 @@ Hooks.once("ready", async function () {
   const currentVersion = _game.settings.get(SCOPE, "systemMigrationVersion") as string;
   // Migrate if the last installed version is LESS than this value
   // So when updating this value, it should be set to the NEWEST version
-  const NEEDS_MIGRATION_VERSION = "0.6.1";
+  const NEEDS_MIGRATION_VERSION = "0.8.0";
   const COMPATIBLE_MIGRATION_VERSION = "0.1.0";
   const needsMigration = !currentVersion || isNewerVersion(NEEDS_MIGRATION_VERSION, currentVersion);
   if (!needsMigration && !alwaysMigrate) return;
