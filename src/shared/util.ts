@@ -93,7 +93,7 @@ export function getEquipmentRuleByName(ruleName: string): EquipmentRule {
   }
   // Handle misspelled Kinetic...
   else if (ruleName === "Kineteic") {
-    return { ...EquipmentRules.Kinetic };
+    return { ...EquipmentRules.kinetic };
   }
   // Migrate by name
   else {
