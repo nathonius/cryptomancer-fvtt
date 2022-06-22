@@ -38,9 +38,13 @@ Unzip `system.zip` from the latest release into your Foundry `Data/systems/crypt
 - Player Character sheets
 - Skill checks with skill break/skill push and configurable check difficulty
 - Stuff (consumables, equipment, outfits, weapons)
+  - Item skill checks
+  - Automatic DR tracking
 - Talents and Spells
 - Compendia containing all the Talents, Spells, and Stuff included in the core rules as well as Code and Dagger 1
 - Party and Safehouse sheet
+
+Note that while the system still has a version less than 1.0.0 there will be some inherent instability. Migrations will be performed, please raise an issue if there are problems going between versions.
 
 ## Development
 
