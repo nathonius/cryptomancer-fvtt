@@ -126,7 +126,7 @@ Hooks.on("renderChatLog", async (_: ChatLog, html: JQuery<HTMLElement>) => {
     const difficulty: "trivial" | "challenging" | "tough" = $(event.currentTarget)
       .parents(".difficulty")
       .data("difficulty");
-    toggles.each((_, el) => {
+    toggles.each((_index, el) => {
       if (el !== event.currentTarget) {
         el.checked = false;
       }

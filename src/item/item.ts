@@ -1,7 +1,6 @@
 import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
 import { CryptomancerActor } from "../actor/actor";
 import { getGame } from "../shared/util";
-import { EquipmentType } from "./item.enum";
 
 export class CryptomancerItem extends Item {
   public async showChatMessage(): Promise<void> {
