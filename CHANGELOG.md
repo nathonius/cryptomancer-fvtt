@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.8.0...v0.8.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* correctly migrate misspelled kinetic rule ([d4f9fbe](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/d4f9fbe28b04340ee2b79615965f030b575d0c61))
+* remove leftover console log ([a2b5da0](https://github.com/OfficerHalf/cryptomancer-fvtt/commit/a2b5da0113a11e8f00d8db9c71a376d9b656624b))
+
 ## [0.8.0](https://github.com/OfficerHalf/cryptomancer-fvtt/compare/v0.7.0...v0.8.0) (2022-06-22)
 
 
