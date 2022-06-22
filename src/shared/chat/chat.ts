@@ -11,7 +11,6 @@ export function bindChatActions(html: JQuery<HTMLElement>): void {
 
 export function hideActionButtons(message: ChatMessage, html: JQuery<HTMLElement>): void {
   const actionButtons = html.find<HTMLButtonElement>("button[data-chat-action]");
-  console.log();
   if (actionButtons.length > 0) {
     const _game = getGame();
     const actorId = message.data.speaker.actor;
