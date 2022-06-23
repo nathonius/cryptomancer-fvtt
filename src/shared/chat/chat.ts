@@ -1,9 +1,9 @@
 import { SkillKey } from "../../actor/actor.interface";
-import { SettingsService } from "../../settings/settings.service";
-import { CheckDifficulty } from "../../skill-check/skill-check.enum";
-import { SkillCheckService } from "../../skill-check/skill-check.service";
+import { SettingsService } from "../settings/settings.service";
+import { CheckDifficulty } from "../skill-check/skill-check.constant";
+import { SkillCheckService } from "../skill-check/skill-check.service";
 import { getGame } from "../util";
-import { ChatAction } from "./chat.enum";
+import { ChatAction } from "./chat.constant";
 
 export function bindChatActions(html: JQuery<HTMLElement>): void {
   html.on("click", ".chat-message button[data-chat-action]", handleChatAction);
@@ -57,7 +57,6 @@ async function handleChatAction(evt: JQuery.ClickEvent): Promise<void> {
 
 function handleSkillCheckAction(message: ChatMessage, skill: SkillKey) {
   const _game = getGame();
-  const settings = new SettingsService();
   const actorId = message.data.speaker.actor;
   // If no actor attached, abort
   if (!actorId) {
@@ -68,6 +67,6 @@ function handleSkillCheckAction(message: ChatMessage, skill: SkillKey) {
     return;
   }
   const attribute = actor.data.data.skills[skill].attribute;
-  const difficulty = (settings.getSetting("checkDifficulty") as CheckDifficulty) ?? CheckDifficulty.Challenging;
+  const difficulty = SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging;
   actor.rollAttribute(attribute, skill, difficulty);
 }

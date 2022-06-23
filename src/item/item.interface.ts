@@ -1,5 +1,5 @@
 import { SkillKey } from "../actor/actor.interface";
-import { EquipmentType, SpellType, TrademarkItemType } from "./item.enum";
+import { EquipmentType, SpellType, TrademarkItemType } from "./item.constant";
 
 export interface CryptItemBase {
   description: string;
@@ -49,3 +49,11 @@ export interface EquipmentRule {
   skill?: SkillKey;
   value?: number;
 }
+
+export type AugmentedData = ItemSheet.Data & {
+  spellTypes: Record<SpellType, string>;
+  equipmentTypes: Record<EquipmentType, string>;
+  outfitRules: EquipmentRule[];
+  weaponRules: EquipmentRule[];
+  skillRules: EquipmentRule[];
+};

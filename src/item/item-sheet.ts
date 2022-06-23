@@ -1,7 +1,6 @@
-import type { AugmentedData } from "./item-sheet.interface";
-import { SpellTypes, EquipmentTypes } from "./item-sheet.constant";
+import type { AugmentedData } from "./item.interface";
+import { SpellTypes, EquipmentTypes, EquipmentRules, OutfitRules, SkillRules, WeaponRules } from "./item.constant";
 import { fromCompendium, l } from "../shared/util";
-import { EquipmentRules, OutfitRules, SkillRules, WeaponRules } from "../item/item.constant";
 
 export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, AugmentedData> {
   static override get defaultOptions() {
@@ -36,7 +35,7 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
   }
 
   override get template(): string {
-    return `systems/cryptomancer/item-sheet/item-${this.item.data.type}-sheet.hbs`;
+    return `systems/cryptomancer/item/${this.item.data.type}/item-${this.item.data.type}-sheet.hbs`;
   }
 
   override activateListeners(html: JQuery<HTMLElement>): void {

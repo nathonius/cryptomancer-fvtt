@@ -1,7 +1,9 @@
 import { Metadata } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/document.mjs";
 import { Document } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/module.mjs";
+import { DropData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/foundry.js/clientDocumentMixin";
 import { EquipmentRules } from "../item/item.constant";
 import { EquipmentRule } from "../item/item.interface";
+import { SYSTEM } from "./constants";
 
 export function getGame(): Game {
   if (!(game instanceof Game)) {
@@ -19,13 +21,13 @@ export function l(key: string): string {
 
 export function log(args: any, force = false) {
   try {
-    const isDebugging = (getGame().modules.get("_dev-mode") as any)?.api?.getPackageDebugValue("cryptomancer");
+    const isDebugging = (getGame().modules.get("_dev-mode") as any)?.api?.getPackageDebugValue(SYSTEM);
 
     if (force || isDebugging) {
       if (typeof args === "string") {
-        console.log("cryptomancer", "|", args);
+        console.log(SYSTEM, "|", args);
       } else {
-        console.log("cryptomancer", "|", ...args);
+        console.log(SYSTEM, "|", ...args);
       }
     }
   } catch (e) {}
@@ -111,4 +113,32 @@ export function getEquipmentRuleByName(ruleName: string): EquipmentRule {
       };
     }
   }
+}
+
+/**
+ * Create a Macro from an Item drop.
+ * Get an existing item macro if one exists, otherwise create a new one.
+ * @param {Object} data     The dropped data
+ * @param {number} slot     The hotbar slot to use
+ * @returns {Promise}
+ */
+export async function createItemMacro(data: DropData<Macro>, slot: number) {
+  if ((data as any).type !== "Item") return;
+  if (!("data" in data)) return ui?.notifications?.warn("You can only create macro buttons for owned Items");
+  const item = data.data;
+
+  // Create the macro command
+  const command = `game.cryptomancer.rollItemMacro("${item.name}");`;
+  let macro = (game as any).macros.find((m: any) => m.name === item.name && m.command === command);
+  if (!macro) {
+    macro = await Macro.create({
+      name: item.name,
+      type: "script",
+      img: item.img,
+      command: command,
+      flags: { "cryptomancer.itemMacro": true },
+    });
+  }
+  (game as any).user.assignHotbarMacro(macro, slot);
+  return false;
 }

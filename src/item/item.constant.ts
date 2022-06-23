@@ -1,6 +1,37 @@
 import { SkillKey } from "../actor/actor.interface";
 import { EquipmentRule } from "./item.interface";
 
+export enum SpellType {
+  Cantrip = "cantrip",
+  Basic = "basic",
+  Greater = "greater",
+}
+
+export enum EquipmentType {
+  Consumable = "consumable",
+  Equipment = "equipment",
+  Outfit = "outfit",
+  Weapon = "weapon",
+}
+
+export enum TrademarkItemType {
+  Outfit = "outfit",
+  Weapon = "weapon",
+}
+
+export const SpellTypes: Record<SpellType, string> = {
+  [SpellType.Cantrip]: "CRYPTOMANCER.SpellType.cantrip",
+  [SpellType.Basic]: "CRYPTOMANCER.SpellType.basic",
+  [SpellType.Greater]: "CRYPTOMANCER.SpellType.greater",
+};
+
+export const EquipmentTypes: Record<EquipmentType, string> = {
+  [EquipmentType.Consumable]: "CRYPTOMANCER.EquipmentType.consumable",
+  [EquipmentType.Equipment]: "CRYPTOMANCER.EquipmentType.equipment",
+  [EquipmentType.Outfit]: "CRYPTOMANCER.EquipmentType.outfit",
+  [EquipmentType.Weapon]: "CRYPTOMANCER.EquipmentType.weapon",
+};
+
 export const OutfitRules: Record<string, EquipmentRule> = {
   alchemicalArmor: {
     key: "alchemicalArmor",

@@ -1,16 +1,15 @@
 import { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
-import { CellTimeIncrement, CellType, SafehouseRoomType } from "../../actor/actor.enum";
 import { Cell, RiskEvent, SafehouseRoom } from "../../actor/actor.interface";
 import { getGame } from "../../shared/util";
-import { SkillCheckService } from "../../skill-check/skill-check.service";
+import { SkillCheckService } from "../../shared/skill-check/skill-check.service";
 import { CryptomancerActorSheet } from "../actor-sheet";
-import { CellTypes } from "../actor-sheet.constant";
-import { PartySheetData } from "../actor-sheet.interface";
+import { CellTypes, CellTimeIncrement, CellType, SafehouseRoomType } from "../actor.constant";
+import { PartySheetData } from "../actor.interface";
 
 export class PartySheet extends CryptomancerActorSheet<PartySheetData> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/cryptomancer/actor-sheet/party/party-sheet.hbs",
+      template: "systems/cryptomancer/actor/party/party-sheet.hbs",
       width: 680,
       height: 840,
       tabs: [

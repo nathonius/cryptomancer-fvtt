@@ -1,4 +1,4 @@
-import { CheckDifficulty, CheckDifficultyLabel } from "../skill-check/skill-check.enum";
+import { CheckDifficulty, CheckDifficultyLabel } from "../skill-check/skill-check.constant";
 
 export type SettingsKeys = "checkDifficulty" | "systemMigrationVersion";
 

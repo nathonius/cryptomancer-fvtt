@@ -1,5 +1,3 @@
-import { SettingsService } from "../settings/settings.service";
-
 // Remove this when migrating to v10
 import tippy from "tippy.js";
 
@@ -8,8 +6,6 @@ import tippy from "tippy.js";
  * @extends {ActorSheet}
  */
 export abstract class CryptomancerActorSheet<T extends object> extends ActorSheet<DocumentSheetOptions, T> {
-  protected readonly settings = new SettingsService();
-
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cryptomancer", "sheet", "actor"],

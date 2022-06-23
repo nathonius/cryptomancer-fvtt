@@ -2,21 +2,21 @@ import { getGame } from "./util";
 
 const partials: Record<string, string> = {
   attributeBar: "systems/cryptomancer/shared/components/attribute-bar.hbs",
-  basicInfo: "systems/cryptomancer/actor-sheet/character/components/basic-info.hbs",
-  defenses: "systems/cryptomancer/actor-sheet/character/components/defenses.hbs",
-  miniTriad: "systems/cryptomancer/actor-sheet/character/components/mini-triad.hbs",
-  skillList: "systems/cryptomancer/actor-sheet/character/components/skill-list.hbs",
-  defense: "systems/cryptomancer/actor-sheet/character/components/defense.hbs",
-  features: "systems/cryptomancer/actor-sheet/character/components/features.hbs",
-  bio: "systems/cryptomancer/actor-sheet/character/components/bio.hbs",
-  equipment: "systems/cryptomancer/actor-sheet/character/components/equipment.hbs",
-  safehouseRoom: "systems/cryptomancer/actor-sheet/party/components/safehouse-room.hbs",
-  cell: "systems/cryptomancer/actor-sheet/party/components/cell.hbs",
+  basicInfo: "systems/cryptomancer/actor/character/components/basic-info.hbs",
+  defenses: "systems/cryptomancer/actor/character/components/defenses.hbs",
+  miniTriad: "systems/cryptomancer/actor/character/components/mini-triad.hbs",
+  skillList: "systems/cryptomancer/actor/character/components/skill-list.hbs",
+  defense: "systems/cryptomancer/actor/character/components/defense.hbs",
+  features: "systems/cryptomancer/actor/character/components/features.hbs",
+  bio: "systems/cryptomancer/actor/character/components/bio.hbs",
+  equipment: "systems/cryptomancer/actor/character/components/equipment.hbs",
+  safehouseRoom: "systems/cryptomancer/actor/party/components/safehouse-room.hbs",
+  cell: "systems/cryptomancer/actor/party/components/cell.hbs",
   formField: "systems/cryptomancer/shared/components/form-field.hbs",
   coreInput: "systems/cryptomancer/shared/components/core-input.hbs",
   toggle: "systems/cryptomancer/shared/components/toggle.hbs",
   toggleBox: "systems/cryptomancer/shared/components/toggle-box.hbs",
-  skill: "systems/cryptomancer/actor-sheet/character/components/skill.hbs",
+  skill: "systems/cryptomancer/actor/character/components/skill.hbs",
 };
 
 const icons: string[] = ["armor", "simpleArmor"];
@@ -30,10 +30,10 @@ export const preloadHandlebarsTemplates = async function () {
   await cryptLoadTemplates(partials);
   await cryptLoadIcons(icons);
   return loadTemplates([
-    "systems/cryptomancer/skill-check/skill-check.hbs",
-    "systems/cryptomancer/skill-check/risk-check.hbs",
+    "systems/cryptomancer/shared/skill-check/skill-check.hbs",
+    "systems/cryptomancer/shared/skill-check/risk-check.hbs",
     "systems/cryptomancer/item/chat-card.hbs",
-    "systems/cryptomancer/actor-sheet/party/components/safehouse-room-chat-card.hbs",
+    "systems/cryptomancer/actor/party/components/safehouse-room-chat-card.hbs",
   ]);
 };
 
@@ -71,5 +71,5 @@ async function cryptLoadTemplates(partialMap: Record<string, string>) {
 }
 
 async function cryptLoadIcons(iconMap: string[]) {
-  return Promise.all(iconMap.map((i) => cryptGetTemplate(`${i}Icon`, `systems/cryptomancer/icons/${i}.hbs`)));
+  return Promise.all(iconMap.map((i) => cryptGetTemplate(`${i}Icon`, `systems/cryptomancer/shared/icons/${i}.hbs`)));
 }

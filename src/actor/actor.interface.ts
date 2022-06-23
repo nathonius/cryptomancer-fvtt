@@ -1,5 +1,8 @@
 import { CryptomancerItem } from "../item/item";
-import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.enum";
+import { AttributeBarContext } from "../shared/components/components.interface";
+import { CheckDifficulty } from "../shared/skill-check/skill-check.constant";
+import { CryptomancerActor } from "./actor";
+import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.constant";
 
 export type CoreKey = "power" | "resolve" | "speed" | "wits";
 export type AttributeKey =
@@ -180,3 +183,19 @@ export interface PreparedCharacter extends Character {
   outfits: CryptomancerItem[];
   consumables: CryptomancerItem[];
 }
+
+export type CharacterSheetData = ActorSheet.Data & {
+  checkDifficulty: CheckDifficulty;
+  hpAttributeBar: AttributeBarContext;
+  manaAttributeBar: AttributeBarContext;
+  skills: Array<Skill & { attributeValue: number }>;
+  partyOptions: StoredDocument<CryptomancerActor>[];
+  selectedParty: Party | null;
+  upgradePointsUsed: number;
+  core: Record<CoreKey, Core & { attributes: Record<string, Attribute | ResourceAttribute> }>;
+};
+
+export type PartySheetData = ActorSheet.Data & {
+  riskColor: string;
+  cellTypes: Record<CellType, string>;
+};

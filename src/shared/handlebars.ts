@@ -1,8 +1,8 @@
 import { AttributeKey, Core, ResourceAttribute } from "../actor/actor.interface";
 import { CryptomancerItem } from "../item/item";
-import { SpellType } from "../item/item.enum";
 import { EquipmentRule } from "../item/item.interface";
 import { l } from "./util";
+import { SpellType } from "../item/item.constant";
 
 // General Helpers
 export function registerHandlebarsHelpers() {

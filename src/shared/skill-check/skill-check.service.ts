@@ -6,11 +6,12 @@ import {
   CheckResultLabel,
   DieResult,
   DieType,
-} from "./skill-check.enum";
-import { getGame, l } from "../shared/util";
+} from "./skill-check.constant";
+import { getGame, l } from "../util";
 import type { ChatMessageDataConstructorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/chatMessageData";
-import { CryptomancerActor } from "../actor/actor";
+import { CryptomancerActor } from "../../actor/actor";
 import { SettingsService } from "../settings/settings.service";
+import { SYSTEM } from "../constants";
 
 /**
  * Executes skill checks from character sheets, creates
@@ -18,7 +19,6 @@ import { SettingsService } from "../settings/settings.service";
  * existing chat cards for previous skill checks.
  */
 export class SkillCheckService {
-  private static settings = new SettingsService();
   /**
    * Do a skill check. Rolls dice, creates a chat card.
    */
@@ -219,7 +219,7 @@ export class SkillCheckService {
    */
   static async updateChatMessage(message: ChatMessage, overrideConfig: Partial<SkillCheckConfigFlag>) {
     // Get config
-    const config = message.getFlag("cryptomancer", "check-config") as SkillCheckConfigFlag;
+    const config = message.getFlag(SYSTEM, "check-config") as SkillCheckConfigFlag;
     if (!config || !message.roll) {
       return;
     }
@@ -292,13 +292,13 @@ export class SkillCheckService {
   static setCheckDifficulty(difficulty: "trivial" | "challenging" | "tough"): void {
     switch (difficulty) {
       case "trivial":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
+        SettingsService.updateSetting("checkDifficulty", CheckDifficulty.Trivial);
         break;
       case "challenging":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
+        SettingsService.updateSetting("checkDifficulty", CheckDifficulty.Challenging);
         break;
       case "tough":
-        this.settings.updateSetting("checkDifficulty", CheckDifficulty.Tough);
+        SettingsService.updateSetting("checkDifficulty", CheckDifficulty.Tough);
         break;
     }
   }
@@ -307,7 +307,7 @@ export class SkillCheckService {
    * Lower the difficulty and re-render
    */
   static lowerDifficulty(message: ChatMessage): void {
-    const config = message.getFlag("cryptomancer", "check-config") as SkillCheckConfigFlag;
+    const config = message.getFlag(SYSTEM, "check-config") as SkillCheckConfigFlag;
     if (!config) {
       return;
     }
@@ -327,7 +327,7 @@ export class SkillCheckService {
    * Raise the difficulty and re-render
    */
   static raiseDifficulty(message: ChatMessage): void {
-    const config = message.getFlag("cryptomancer", "check-config") as SkillCheckConfigFlag;
+    const config = message.getFlag(SYSTEM, "check-config") as SkillCheckConfigFlag;
     if (!config) {
       return;
     }

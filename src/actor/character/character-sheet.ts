@@ -1,13 +1,14 @@
 import { Party } from "../../actor/actor.interface";
+import { SettingsService } from "../../shared/settings/settings.service";
 import { getGame, l } from "../../shared/util";
-import { CheckDifficulty } from "../../skill-check/skill-check.enum";
+import { CheckDifficulty } from "../../shared/skill-check/skill-check.constant";
 import { CryptomancerActorSheet } from "../actor-sheet";
-import { CharacterSheetData } from "../actor-sheet.interface";
+import { CharacterSheetData } from "../actor.interface";
 
 export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/cryptomancer/actor-sheet/character/character-sheet.hbs",
+      template: "systems/cryptomancer/actor/character/character-sheet.hbs",
       width: 680,
       height: 840,
       tabs: [
@@ -25,7 +26,8 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
     if (context.data.type !== "character") return context;
 
     // Get configured check difficulty
-    context.checkDifficulty = this.settings.getSetting("checkDifficulty") ?? CheckDifficulty.Challenging;
+    context.checkDifficulty =
+      SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging;
 
     // Prep data for rendering
     context.hpAttributeBar = {
@@ -203,7 +205,7 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
     this.document.rollAttribute(
       rollAttribute,
       rollSkill,
-      (this.settings.getSetting("checkDifficulty") as CheckDifficulty) ?? CheckDifficulty.Challenging
+      SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging
     );
   }
 }

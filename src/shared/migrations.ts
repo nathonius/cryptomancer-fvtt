@@ -1,9 +1,9 @@
-import { CryptomancerActor } from "../actor/actor";
 import { Cell, Core, ResourceAttribute, RiskEvent, Skill } from "../actor/actor.interface";
+import { CryptomancerActor } from "../actor/actor";
 import { CryptomancerItem } from "../item/item";
 import { EquipmentRule } from "../item/item.interface";
-import { SCOPE } from "./constants";
 import { getEquipmentRuleByName, getGame } from "./util";
+import { SettingsService } from "./settings/settings.service";
 
 type DeprecatedSkill = Skill & { skillBreak?: boolean; skillPush?: boolean };
 type DeprecatedAttribute = ResourceAttribute & { skills: Record<string, DeprecatedSkill> };
@@ -18,7 +18,7 @@ export async function migrateWorld(): Promise<void> {
   await migrateWorldActors();
 
   // Set the migration as complete
-  _game.settings.set(SCOPE, "systemMigrationVersion", version);
+  SettingsService.updateSetting("systemMigrationVersion", version);
   ui.notifications?.info(_game.i18n.format("MIGRATION.Complete", { version }), { permanent: true });
 }
 

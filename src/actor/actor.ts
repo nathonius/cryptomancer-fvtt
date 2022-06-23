@@ -10,11 +10,11 @@ import {
 } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/actorData";
 import { PropertiesToSource } from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes";
 import { CryptomancerItem } from "../item/item";
-import { EquipmentType } from "../item/item.enum";
-import { CheckDifficulty } from "../skill-check/skill-check.enum";
+import { EquipmentType } from "../item/item.constant";
+import { CheckDifficulty } from "../shared/skill-check/skill-check.constant";
 import { fromCompendium } from "../shared/util";
 
-import { SkillCheckService } from "../skill-check/skill-check.service";
+import { SkillCheckService } from "../shared/skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
 import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
 
