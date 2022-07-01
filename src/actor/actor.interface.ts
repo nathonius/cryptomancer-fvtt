@@ -4,6 +4,7 @@ import { CheckDifficulty } from "../shared/skill-check/skill-check.constant";
 import { CryptomancerActor } from "./actor";
 import { CellTimeIncrement, CellType, SafehouseRoomType } from "./actor.constant";
 
+/* Typed Keys */
 export type CoreKey = "power" | "resolve" | "speed" | "wits";
 export type AttributeKey =
   | "agility"
@@ -40,7 +41,12 @@ export type SkillKey =
   | "traps"
   | "unarmedMelee";
 
-export interface Character extends ActorCommon {
+/* Actor Shared Templates */
+export interface ActorTemplateCore {
+  core: Record<CoreKey, Core>;
+}
+
+export interface ActorTemplateAttributes {
   attributes: {
     agility: Attribute;
     cunning: Attribute;
@@ -51,7 +57,44 @@ export interface Character extends ActorCommon {
     strength: Attribute;
     willpower: ResourceAttribute;
   };
+}
+
+export interface ActorTemplateSkills {
   skills: Record<SkillKey, Skill>;
+}
+
+export interface ActorTemplateHealthPoints {
+  healthPoints: {
+    value: number;
+    max: number;
+    criticalWound: boolean;
+    mortalWound: boolean;
+  };
+}
+
+export interface ActorTemplateManaPoints {
+  manaPoints: {
+    min: number;
+    value: number;
+    max: number;
+  };
+}
+
+export interface ActorTemplateDamageReduction {
+  damageReduction: {
+    min: number;
+    value: number;
+  };
+}
+
+/* Actor Types */
+export interface Character
+  extends ActorTemplateCore,
+    ActorTemplateAttributes,
+    ActorTemplateSkills,
+    ActorTemplateHealthPoints,
+    ActorTemplateManaPoints,
+    ActorTemplateDamageReduction {
   gear: {
     other: string;
     coin: number;
@@ -103,6 +146,7 @@ export interface Party {
   cells: Cell[];
 }
 
+/* Actor Member Types */
 export interface RiskEvent {
   eventText: string;
   complete: boolean;
@@ -123,25 +167,6 @@ export interface Cell {
   operations: number | null;
   time: {
     increment: CellTimeIncrement;
-    value: number;
-  };
-}
-
-export interface ActorCommon {
-  core: Record<CoreKey, Core>;
-  healthPoints: {
-    value: number;
-    max: number;
-    criticalWound: boolean;
-    mortalWound: boolean;
-  };
-  manaPoints: {
-    min: number;
-    value: number;
-    max: number;
-  };
-  damageReduction: {
-    min: number;
     value: number;
   };
 }
@@ -175,6 +200,7 @@ export interface Skill {
   push: boolean;
 }
 
+/* Prepared/Sheet Data */
 export interface PreparedCharacter extends Character {
   talents: CryptomancerItem[];
   spells: CryptomancerItem[];

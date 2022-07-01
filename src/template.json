@@ -2,7 +2,7 @@
   "Actor": {
     "types": ["character", "party"],
     "templates": {
-      "common": {
+      "core": {
         "core": {
           "power": {
             "key": "power",
@@ -28,18 +28,284 @@
             "value": 6,
             "max": 8
           }
-        },
+        }
+      },
+      "attributes": {
+        "attributes": {
+          "agility": {
+            "key": "agility",
+            "core": "speed",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "cunning": {
+            "key": "cunning",
+            "core": "wits",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "dexterity": {
+            "key": "dexterity",
+            "core": "speed",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "endurance": {
+            "key": "endurance",
+            "core": "power",
+            "min": 1,
+            "value": 1,
+            "max": 5,
+            "break": false,
+            "push": false
+          },
+          "knowledge": {
+            "key": "knowledge",
+            "core": "wits",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "presence": {
+            "key": "presence",
+            "core": "resolve",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "strength": {
+            "key": "strength",
+            "core": "power",
+            "min": 1,
+            "value": 1,
+            "max": 5
+          },
+          "willpower": {
+            "key": "willpower",
+            "core": "resolve",
+            "min": 1,
+            "value": 1,
+            "max": 5,
+            "break": false,
+            "push": false
+          }
+        }
+      },
+      "skills": {
+        "skills": {
+          "acrobatics": {
+            "key": "acrobatics",
+            "label": "Skill.acrobatics",
+            "core": "speed",
+            "attribute": "agility",
+            "break": false,
+            "push": false
+          },
+          "alchemy": {
+            "key": "alchemy",
+            "label": "Skill.alchemy",
+            "core": "wits",
+            "attribute": "knowledge",
+            "break": false,
+            "push": false
+          },
+          "athletics": {
+            "key": "athletics",
+            "label": "Skill.athletics",
+            "core": "speed",
+            "attribute": "agility",
+            "break": false,
+            "push": false
+          },
+          "beastKen": {
+            "key": "beastKen",
+            "label": "Skill.beastKen",
+            "core": "resolve",
+            "attribute": "presence",
+            "break": false,
+            "push": false
+          },
+          "bruteMelee": {
+            "key": "bruteMelee",
+            "label": "Skill.bruteMelee",
+            "core": "power",
+            "attribute": "strength",
+            "break": false,
+            "push": false
+          },
+          "charm": {
+            "key": "charm",
+            "label": "Skill.charm",
+            "core": "resolve",
+            "attribute": "presence",
+            "break": false,
+            "push": false
+          },
+          "craft": {
+            "key": "craft",
+            "label": "Skill.craft",
+            "core": "wits",
+            "attribute": "knowledge",
+            "break": false,
+            "push": false
+          },
+          "deception": {
+            "key": "deception",
+            "label": "Skill.deception",
+            "core": "wits",
+            "attribute": "cunning",
+            "break": false,
+            "push": false
+          },
+          "escapeArtistry": {
+            "key": "escapeArtistry",
+            "label": "Skill.escapeArtistry",
+            "core": "speed",
+            "attribute": "agility",
+            "break": false,
+            "push": false
+          },
+          "featOfStrength": {
+            "key": "featOfStrength",
+            "label": "Skill.featOfStrength",
+            "core": "power",
+            "attribute": "strength",
+            "break": false,
+            "push": false
+          },
+          "firedMissile": {
+            "key": "firedMissile",
+            "label": "Skill.firedMissile",
+            "core": "speed",
+            "attribute": "dexterity",
+            "break": false,
+            "push": false
+          },
+          "lockPicking": {
+            "key": "lockPicking",
+            "label": "Skill.lockPicking",
+            "core": "speed",
+            "attribute": "dexterity",
+            "break": false,
+            "push": false
+          },
+          "medicine": {
+            "key": "medicine",
+            "label": "Skill.medicine",
+            "core": "wits",
+            "attribute": "knowledge",
+            "break": false,
+            "push": false
+          },
+          "menace": {
+            "key": "menace",
+            "label": "Skill.menace",
+            "core": "resolve",
+            "attribute": "presence",
+            "break": false,
+            "push": false
+          },
+          "performance": {
+            "key": "performance",
+            "label": "Skill.performance",
+            "core": "resolve",
+            "attribute": "presence",
+            "break": false,
+            "push": false
+          },
+          "preciseMelee": {
+            "key": "preciseMelee",
+            "label": "Skill.preciseMelee",
+            "core": "speed",
+            "attribute": "dexterity",
+            "break": false,
+            "push": false
+          },
+          "query": {
+            "key": "query",
+            "label": "Skill.query",
+            "core": "wits",
+            "attribute": "knowledge",
+            "break": false,
+            "push": false
+          },
+          "scrounge": {
+            "key": "scrounge",
+            "label": "Skill.scrounge",
+            "core": "wits",
+            "attribute": "cunning",
+            "break": false,
+            "push": false
+          },
+          "sleightOfHand": {
+            "key": "sleightOfHand",
+            "label": "Skill.sleightOfHand",
+            "core": "speed",
+            "attribute": "dexterity",
+            "break": false,
+            "push": false
+          },
+          "stealth": {
+            "key": "stealth",
+            "label": "Skill.stealth",
+            "core": "speed",
+            "attribute": "agility",
+            "break": false,
+            "push": false
+          },
+          "thrownMissile": {
+            "key": "thrownMissile",
+            "label": "Skill.thrownMissile",
+            "core": "power",
+            "attribute": "strength",
+            "break": false,
+            "push": false
+          },
+          "tracking": {
+            "key": "tracking",
+            "label": "Skill.tracking",
+            "core": "wits",
+            "attribute": "cunning",
+            "break": false,
+            "push": false
+          },
+          "traps": {
+            "key": "traps",
+            "label": "Skill.traps",
+            "core": "wits",
+            "attribute": "cunning",
+            "break": false,
+            "push": false
+          },
+          "unarmedMelee": {
+            "key": "unarmedMelee",
+            "label": "Skill.unarmedMelee",
+            "core": "power",
+            "attribute": "strength",
+            "break": false,
+            "push": false
+          }
+        }
+      },
+      "healthPoints": {
         "healthPoints": {
           "value": 10,
           "max": 10,
           "criticalWound": false,
           "mortalWound": false
-        },
+        }
+      },
+      "manaPoints": {
         "manaPoints": {
           "min": 0,
           "value": 10,
           "max": 10
-        },
+        }
+      },
+      "damageReduction": {
         "damageReduction": {
           "min": 0,
           "value": 0
@@ -47,263 +313,7 @@
       }
     },
     "character": {
-      "templates": ["common"],
-      "attributes": {
-        "agility": {
-          "key": "agility",
-          "core": "speed",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "cunning": {
-          "key": "cunning",
-          "core": "wits",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "dexterity": {
-          "key": "dexterity",
-          "core": "speed",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "endurance": {
-          "key": "endurance",
-          "core": "power",
-          "min": 1,
-          "value": 1,
-          "max": 5,
-          "break": false,
-          "push": false
-        },
-        "knowledge": {
-          "key": "knowledge",
-          "core": "wits",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "presence": {
-          "key": "presence",
-          "core": "resolve",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "strength": {
-          "key": "strength",
-          "core": "power",
-          "min": 1,
-          "value": 1,
-          "max": 5
-        },
-        "willpower": {
-          "key": "willpower",
-          "core": "resolve",
-          "min": 1,
-          "value": 1,
-          "max": 5,
-          "break": false,
-          "push": false
-        }
-      },
-      "skills": {
-        "acrobatics": {
-          "key": "acrobatics",
-          "label": "Skill.acrobatics",
-          "core": "speed",
-          "attribute": "agility",
-          "break": false,
-          "push": false
-        },
-        "alchemy": {
-          "key": "alchemy",
-          "label": "Skill.alchemy",
-          "core": "wits",
-          "attribute": "knowledge",
-          "break": false,
-          "push": false
-        },
-        "athletics": {
-          "key": "athletics",
-          "label": "Skill.athletics",
-          "core": "speed",
-          "attribute": "agility",
-          "break": false,
-          "push": false
-        },
-        "beastKen": {
-          "key": "beastKen",
-          "label": "Skill.beastKen",
-          "core": "resolve",
-          "attribute": "presence",
-          "break": false,
-          "push": false
-        },
-        "bruteMelee": {
-          "key": "bruteMelee",
-          "label": "Skill.bruteMelee",
-          "core": "power",
-          "attribute": "strength",
-          "break": false,
-          "push": false
-        },
-        "charm": {
-          "key": "charm",
-          "label": "Skill.charm",
-          "core": "resolve",
-          "attribute": "presence",
-          "break": false,
-          "push": false
-        },
-        "craft": {
-          "key": "craft",
-          "label": "Skill.craft",
-          "core": "wits",
-          "attribute": "knowledge",
-          "break": false,
-          "push": false
-        },
-        "deception": {
-          "key": "deception",
-          "label": "Skill.deception",
-          "core": "wits",
-          "attribute": "cunning",
-          "break": false,
-          "push": false
-        },
-        "escapeArtistry": {
-          "key": "escapeArtistry",
-          "label": "Skill.escapeArtistry",
-          "core": "speed",
-          "attribute": "agility",
-          "break": false,
-          "push": false
-        },
-        "featOfStrength": {
-          "key": "featOfStrength",
-          "label": "Skill.featOfStrength",
-          "core": "power",
-          "attribute": "strength",
-          "break": false,
-          "push": false
-        },
-        "firedMissile": {
-          "key": "firedMissile",
-          "label": "Skill.firedMissile",
-          "core": "speed",
-          "attribute": "dexterity",
-          "break": false,
-          "push": false
-        },
-        "lockPicking": {
-          "key": "lockPicking",
-          "label": "Skill.lockPicking",
-          "core": "speed",
-          "attribute": "dexterity",
-          "break": false,
-          "push": false
-        },
-        "medicine": {
-          "key": "medicine",
-          "label": "Skill.medicine",
-          "core": "wits",
-          "attribute": "knowledge",
-          "break": false,
-          "push": false
-        },
-        "menace": {
-          "key": "menace",
-          "label": "Skill.menace",
-          "core": "resolve",
-          "attribute": "presence",
-          "break": false,
-          "push": false
-        },
-        "performance": {
-          "key": "performance",
-          "label": "Skill.performance",
-          "core": "resolve",
-          "attribute": "presence",
-          "break": false,
-          "push": false
-        },
-        "preciseMelee": {
-          "key": "preciseMelee",
-          "label": "Skill.preciseMelee",
-          "core": "speed",
-          "attribute": "dexterity",
-          "break": false,
-          "push": false
-        },
-        "query": {
-          "key": "query",
-          "label": "Skill.query",
-          "core": "wits",
-          "attribute": "knowledge",
-          "break": false,
-          "push": false
-        },
-        "scrounge": {
-          "key": "scrounge",
-          "label": "Skill.scrounge",
-          "core": "wits",
-          "attribute": "cunning",
-          "break": false,
-          "push": false
-        },
-        "sleightOfHand": {
-          "key": "sleightOfHand",
-          "label": "Skill.sleightOfHand",
-          "core": "speed",
-          "attribute": "dexterity",
-          "break": false,
-          "push": false
-        },
-        "stealth": {
-          "key": "stealth",
-          "label": "Skill.stealth",
-          "core": "speed",
-          "attribute": "agility",
-          "break": false,
-          "push": false
-        },
-        "thrownMissile": {
-          "key": "thrownMissile",
-          "label": "Skill.thrownMissile",
-          "core": "power",
-          "attribute": "strength",
-          "break": false,
-          "push": false
-        },
-        "tracking": {
-          "key": "tracking",
-          "label": "Skill.tracking",
-          "core": "wits",
-          "attribute": "cunning",
-          "break": false,
-          "push": false
-        },
-        "traps": {
-          "key": "traps",
-          "label": "Skill.traps",
-          "core": "wits",
-          "attribute": "cunning",
-          "break": false,
-          "push": false
-        },
-        "unarmedMelee": {
-          "key": "unarmedMelee",
-          "label": "Skill.unarmedMelee",
-          "core": "power",
-          "attribute": "strength",
-          "break": false,
-          "push": false
-        }
-      },
+      "templates": ["core", "healthPoints", "manaPoints", "damageReduction", "attributes", "skills"],
       "gear": {
         "coin": 0,
         "other": ""
