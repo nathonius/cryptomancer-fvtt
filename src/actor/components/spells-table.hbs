@@ -4,7 +4,7 @@
     <th>{{l "SpellType.spellType"}}</th>
     <th>{{l "Spell.castCost"}}</th>
   </tr>
-  {{#each spells }}
+  {{#each data.data.spells }}
     <tr class="item-row" data-item-id="{{this.id}}">
       <td class="spell avatar">
         <button class="avatar-wrapper" data-tooltip="{{l "ToChat"}}">
