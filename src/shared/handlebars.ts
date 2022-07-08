@@ -121,6 +121,19 @@ export function registerHandlebarsHelpers() {
       .includes(typeof rule === "string" ? rule : rule.key);
   });
 
+  /**
+   * The same as 'hasRule', but there might be NO item at all
+   */
+  Handlebars.registerHelper("itemHasRule", (equipment: CryptomancerItem | undefined, rule: EquipmentRule | string) => {
+    if (!equipment || equipment.data.type !== "equipment") {
+      return false;
+    }
+
+    return Object.values(equipment.data.data.rules)
+      .map((r) => r.key)
+      .includes(typeof rule === "string" ? rule : rule.key);
+  });
+
   Handlebars.registerHelper("skillRules", (rules: Record<AttributeKey, EquipmentRule>) => {
     return Object.values(rules).filter((r) => Boolean(r.skill));
   });

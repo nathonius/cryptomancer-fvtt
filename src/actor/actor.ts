@@ -45,7 +45,7 @@ export class CryptomancerActor extends Actor {
   }
 
   override prepareBaseData() {
-    if (this.data.type !== "character") {
+    if (this.data.type !== "character" && this.data.type !== "threat") {
       return;
     }
     // Data modifications in this step occur before processing embedded
@@ -98,7 +98,7 @@ export class CryptomancerActor extends Actor {
    * Prepare Character type specific data
    */
   private prepareCharacterData(actorData: ActorData) {
-    if (actorData.type !== "character") return;
+    if (actorData.type !== "character" && actorData.type !== "threat") return;
     actorData.data.talents = [];
     actorData.data.spells = [];
     actorData.data.consumables = [];
@@ -158,7 +158,7 @@ export class CryptomancerActor extends Actor {
     skillName: SkillKey | "" = "",
     difficulty = CheckDifficulty.Challenging
   ) {
-    if (this.data.type !== "character") {
+    if (this.data.type !== "character" && this.data.type !== "threat") {
       return;
     }
     const attribute = this.data.data.attributes[attributeName];

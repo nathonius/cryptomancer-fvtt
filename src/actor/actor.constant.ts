@@ -1,4 +1,22 @@
-import { Cell } from "./actor.interface";
+import { AttributeKey, Cell, CoreKey, SkillKey } from "./actor.interface";
+
+export const AttributesByCore: Record<CoreKey, [AttributeKey, AttributeKey]> = {
+  power: ["strength", "endurance"],
+  resolve: ["presence", "willpower"],
+  speed: ["agility", "dexterity"],
+  wits: ["knowledge", "cunning"],
+};
+
+export const SkillsByAttribute: Record<AttributeKey, SkillKey[]> = {
+  agility: ["acrobatics", "athletics", "escapeArtistry", "stealth"],
+  cunning: ["deception", "scrounge", "tracking", "traps"],
+  dexterity: ["firedMissile", "lockPicking", "preciseMelee", "sleightOfHand"],
+  endurance: [],
+  knowledge: ["alchemy", "craft", "medicine", "query"],
+  presence: ["beastKen", "charm", "menace", "performance"],
+  strength: ["bruteMelee", "featOfStrength", "thrownMissile", "unarmedMelee"],
+  willpower: [],
+};
 
 export enum SafehouseRoomType {
   Cryptovault = "cryptovault",

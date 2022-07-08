@@ -1,0 +1,24 @@
+@import "components/threat-core";
+@import "components/threat-equipment";
+
+.crypt-threat-sheet {
+  .name input {
+    text-align: left;
+    font-size: 1.4rem;
+    font-family: var(--font-accent);
+    height: auto;
+  }
+  .core-and-defenses {
+    display: flex;
+    .column-cores {
+      flex-grow: 1;
+      .cores {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    .column-defenses {
+      width: 180px;
+    }
+  }
+}

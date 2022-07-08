@@ -69,6 +69,11 @@ export const OutfitRules: Record<string, EquipmentRule> = {
     compendium: "outfit-rules",
     journal: "G7VQ3b3wtONDVtcG",
   },
+  natural: {
+    key: "natural",
+    label: "EquipmentRules.natural",
+    custom: false,
+  },
   restricting: {
     key: "restricting",
     label: "EquipmentRules.restricting",

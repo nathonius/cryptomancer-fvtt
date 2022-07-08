@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "party"],
+    "types": ["character", "party", "threat"],
     "templates": {
       "core": {
         "core": {
@@ -422,6 +422,10 @@
           "time": { "increment": "", "value": 0 }
         }
       ]
+    },
+    "threat": {
+      "templates": ["core", "attributes", "skills", "healthPoints", "manaPoints", "damageReduction"],
+      "notes": ""
     }
   },
   "Item": {

@@ -63,7 +63,7 @@ function handleSkillCheckAction(message: ChatMessage, skill: SkillKey) {
     return;
   }
   const actor = _game.actors!.get(actorId);
-  if (!actor || actor.data.type !== "character") {
+  if (!actor || (actor.data.type !== "character" && actor.data.type !== "threat")) {
     return;
   }
   const attribute = actor.data.data.skills[skill].attribute;

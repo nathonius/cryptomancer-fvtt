@@ -146,6 +146,16 @@ export interface Party {
   cells: Cell[];
 }
 
+export interface Threat
+  extends ActorTemplateCore,
+    ActorTemplateAttributes,
+    ActorTemplateSkills,
+    ActorTemplateHealthPoints,
+    ActorTemplateManaPoints,
+    ActorTemplateDamageReduction {
+  notes: string;
+}
+
 /* Actor Member Types */
 export interface RiskEvent {
   eventText: string;
@@ -210,6 +220,15 @@ export interface PreparedCharacter extends Character {
   consumables: CryptomancerItem[];
 }
 
+export interface PreparedThreat extends Threat {
+  talents: CryptomancerItem[];
+  spells: CryptomancerItem[];
+  equipment: CryptomancerItem[];
+  weapons: CryptomancerItem[];
+  outfits: CryptomancerItem[];
+  consumables: CryptomancerItem[];
+}
+
 export type CharacterSheetData = ActorSheet.Data & {
   checkDifficulty: CheckDifficulty;
   hpAttributeBar: AttributeBarContext;
@@ -224,4 +243,11 @@ export type CharacterSheetData = ActorSheet.Data & {
 export type PartySheetData = ActorSheet.Data & {
   riskColor: string;
   cellTypes: Record<CellType, string>;
+};
+
+export type ThreatSheetData = ActorSheet.Data & {
+  core: Record<CoreKey, { core: CoreKey; value: number; attributeValue: number; break: boolean; push: boolean }>;
+  hpAttributeBar: AttributeBarContext;
+  manaAttributeBar: AttributeBarContext;
+  equippedOutfit: CryptomancerItem | null;
 };

@@ -1,5 +1,5 @@
 import { ActorData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs";
-import { Character, Party, PreparedCharacter } from "./actor/actor.interface";
+import { Character, Party, PreparedCharacter, PreparedThreat, Threat } from "./actor/actor.interface";
 import { TrademarkItem, Spell, Talent, Equipment } from "./item/item.interface";
 import { CryptomancerActor } from "./actor/actor";
 import { CryptomancerItem } from "./item/item";
@@ -24,6 +24,16 @@ interface PartyDataPrepared {
   data: Party;
 }
 
+interface ThreatDataSource {
+  type: "threat";
+  data: Threat;
+}
+
+interface ThreatDataPrepared {
+  type: "threat";
+  data: PreparedThreat;
+}
+
 interface TrademarkItemDataSource {
   type: "trademarkItem";
   data: TrademarkItem;
@@ -44,8 +54,8 @@ interface TalentDataSource {
   data: Talent;
 }
 
-type CryptomancerActorDataSource = CharacterDataSource | PartyDataSource;
-type CryptomancerActorDataPrepared = CharacterDataPrepared | PartyDataPrepared;
+type CryptomancerActorDataSource = CharacterDataSource | PartyDataSource | ThreatDataSource;
+type CryptomancerActorDataPrepared = CharacterDataPrepared | PartyDataPrepared | ThreatDataPrepared;
 type CryptomancerItemDataSource = EquipmentDataSource | TrademarkItemDataSource | SpellDataSource | TalentDataSource;
 type CryptomancerItemDataPrepared = EquipmentDataSource | TrademarkItemDataSource | SpellDataSource | TalentDataSource;
 

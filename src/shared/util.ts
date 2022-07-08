@@ -142,3 +142,15 @@ export async function createItemMacro(data: DropData<Macro>, slot: number) {
   (game as any).user.assignHotbarMacro(macro, slot);
   return false;
 }
+
+/**
+ * Returns a number given a string. If something goes wrong
+ * will fall back to a given default.
+ */
+export function asNumber(value: string, defaultValue = 0): number {
+  if (!value) {
+    return defaultValue;
+  }
+  const converted = Number(value);
+  return isNaN(converted) ? defaultValue : converted;
+}

@@ -3,6 +3,7 @@ import { CryptomancerActor } from "../../actor/actor";
 import { CryptomancerItem } from "../../item/item";
 import { CryptomancerItemSheet } from "../../item/item-sheet";
 import { PartySheet } from "../../actor/party/party-sheet";
+import { ThreatSheet } from "../../actor/threat/threat-sheet";
 import { preloadHandlebarsTemplates } from "../templates";
 import { SettingsService } from "../settings/settings.service";
 import { SYSTEM } from "../constants";
@@ -26,6 +27,11 @@ export async function init(): Promise<void> {
     makeDefault: true,
     label: "CRYPTOMANCER.SheetType.party",
     types: ["party"],
+  });
+  Actors.registerSheet(SYSTEM, ThreatSheet, {
+    makeDefault: true,
+    label: "CRYPTOMANCER.SheetType.threat",
+    types: ["threat"],
   });
 
   Items.unregisterSheet("core", ItemSheet);
