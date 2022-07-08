@@ -1,0 +1,45 @@
+    <table class="crypt-item-table outfits-table">
+      <tr>
+        <th colspan="2">{{l "Equipment.outfits"}}</th>
+        <th data-dtype="Number">{{l "EquipmentRules.damageReduction"}}</th>
+        <th data-dtype="Number">{{l "Equipment.quantity"}}</th>
+        <th data-dtype="Number">{{l "Equipment.cost"}}</th>
+      </tr>
+      {{#each data.data.outfits }}
+        <tr class="item-row" data-item-id="{{this.id}}">
+          <td class="outfit avatar">
+            <button class="avatar-wrapper" data-tooltip="{{l "ToChat"}}">
+              <img src="{{this.img}}" alt="{{this.name}}"/>
+            </button>
+          </td>
+          <td class="outfit name">
+            <a>{{this.name}}</a> <span class="item-attrs">{{itemAttrs this}}</span>
+          </td>
+          <td class="outfit dr" data-dtype="Number">{{#if this.data.data.rules.damageReduction}}{{this.data.data.rules.damageReduction.value}}{{/if}}</td>
+          <td class="outfit quantity" data-dtype="Number">{{this.data.data.quantity}}</td>
+          <td class="outfit cost" data-dtype="Number">{{this.data.data.cost}}</td>
+          <td class="outfit actions-wrapper">
+            <div class="actions">
+              <button type="button"
+                      class="action-button {{#if this.data.data.equipped}}active{{/if}}"
+                      data-action="equip"
+                      data-tooltip="{{#if this.data.data.equipped}}{{l "Equipment.equipped"}}{{else}}{{l "Equipment.equip"}}{{/if}}">
+                {{> armorIcon}}
+              </button>
+              <button type="button" class="action-button" data-action="view" data-tooltip="{{l 'View'}}">
+                <span class="fas fa-eye"></span>
+              </button>
+              <button type="button" class="action-button" data-action="edit" data-tooltip="{{l 'Edit'}}">
+                <span class="fas fa-edit"></span>
+              </button>
+              <button type="button"
+                      class="action-button"
+                      data-action="delete"
+                      data-tooltip="{{l 'Delete'}}">
+                <span class="fas fa-trash"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
