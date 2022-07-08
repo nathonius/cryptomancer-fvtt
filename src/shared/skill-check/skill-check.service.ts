@@ -41,7 +41,7 @@ export class SkillCheckService {
     const failure = roll.total <= riskScore;
 
     // Render template
-    const resultTemplate = await renderTemplate("systems/cryptomancer/skill-check/risk-check.hbs", {
+    const resultTemplate = await renderTemplate("systems/cryptomancer/shared/skill-check/risk-check.hbs", {
       riskScore,
       failure,
       checkResult: roll.total,
@@ -264,7 +264,7 @@ export class SkillCheckService {
     };
 
     // Render template
-    const resultTemplate = await renderTemplate("systems/cryptomancer/skill-check/skill-check.hbs", {
+    const resultTemplate = await renderTemplate("systems/cryptomancer/shared/skill-check/skill-check.hbs", {
       rolls: result.parsedDice,
       ...labels,
       difficultyValue: difficulty,
