@@ -9,6 +9,7 @@ export interface ParsedRollResult {
 }
 
 export interface SkillCheckConfigFlag {
+  core: string;
   attribute: string;
   skill: string;
   difficulty: CheckDifficulty;

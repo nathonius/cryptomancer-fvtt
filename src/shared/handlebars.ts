@@ -91,6 +91,17 @@ export function registerHandlebarsHelpers() {
     return l(`SpellType.${type}`);
   });
 
+  Handlebars.registerHelper("skillCheckTitle", (coreName?: string, attributeName?: string, skillName?: string) => {
+    if (skillName) {
+      return skillName;
+    } else if (attributeName) {
+      return attributeName;
+    } else if (coreName) {
+      return coreName;
+    }
+    return "";
+  });
+
   Handlebars.registerHelper("chatCardSpellType", (type: SpellType) => {
     return type === SpellType.Cantrip ? l(`SpellType.cantrip`) : l(`SpellType.${type}Spell`);
   });

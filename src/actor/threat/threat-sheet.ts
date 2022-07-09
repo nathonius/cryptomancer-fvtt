@@ -1,4 +1,6 @@
 import { EquipmentType } from "../../item/item.constant";
+import { SettingsService } from "../../shared/settings/settings.service";
+import { CheckDifficulty } from "../../shared/skill-check/skill-check.constant";
 import { asNumber } from "../../shared/util";
 import { CryptomancerActorSheet } from "../actor-sheet";
 import { AttributesByCore, SkillsByAttribute } from "../actor.constant";
@@ -96,6 +98,9 @@ export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
     if (this.actor.data.type !== "threat") return;
     super.activateListeners(html);
 
+    // Rollable abilities.
+    html.find(".rollable").on("click", this.onRoll.bind(this));
+
     // Attribute value
     html.find<HTMLInputElement>(".crypt-threat-core .attr-input input").on("change", (evt) => {
       const coreKey = $(evt.currentTarget).parents(".crypt-threat-core").data("core") as CoreKey;
@@ -180,6 +185,30 @@ export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
     if (this.object.data.type !== "threat") return 0;
     const keys = AttributesByCore[core];
     return Math.min(this.object.data.data.attributes[keys[0]].value, this.object.data.data.attributes[keys[1]].value);
+  }
+
+  /**
+   * Handle clickable rolls.
+   */
+  private onRoll(event: JQuery.ClickEvent) {
+    event.preventDefault();
+    const element = event.currentTarget as HTMLAnchorElement;
+    const dataset = element.dataset;
+
+    const rollCore = dataset.rollCore as CoreKey;
+    const rollAttribute = dataset.rollAttribute as AttributeKey;
+    const difficulty = SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging;
+
+    if (element.classList.contains("core")) {
+      this.document.rollCore(
+        rollCore,
+        difficulty,
+        this.getBreakPush(rollCore, "break"),
+        this.getBreakPush(rollCore, "push")
+      );
+    } else {
+      this.document.rollAttribute(rollAttribute, undefined, difficulty);
+    }
   }
 
   /**

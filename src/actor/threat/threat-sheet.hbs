@@ -9,7 +9,15 @@
                value="{{actor.name}}"/>
       </div>
       <div class="cores">
-        <h2>{{l "Core.speed"}}</h2>
+        <div class="core-attributes">
+          <h2 class="core-label">
+            <a class="rollable core" data-roll-core="speed">{{l "Core.speed"}}</a>
+          </h2>
+          <small>(
+            <a class="rollable" data-roll-core="speed" data-roll-attribute="agility">{{l "Attr.agility"}}</a>,
+            <a class="rollable" data-roll-core="speed" data-roll-attribute="dexterity">{{l "Attr.dexterity"}}</a>
+          )</small>
+        </div>
         <div class="description">
           <p>
             {{l "Defense.dodge"}}
@@ -17,7 +25,15 @@
           <small>{{l "Defense.vsMeleeMissile"}}</small>
         </div>
         {{> threatCore core.speed}}
-        <h2>{{l "Core.power"}}</h2>
+        <div class="core-attributes">
+          <h2 class="core-label">
+            <a class="rollable core" data-roll-core="power">{{l "Core.power"}}</a>
+          </h2>
+          <small>(
+            <a class="rollable" data-roll-core="power" data-roll-attribute="strength">{{l "Attr.strength"}}</a>,
+            <a class="rollable" data-roll-core="power" data-roll-attribute="endurance">{{l "Attr.endurance"}}</a>
+          )</small>
+        </div>
         <div class="description">
           <p>
             {{l "Defense.parry"}}
@@ -25,7 +41,15 @@
           <small>{{l "Defense.vsMelee"}}</small>
         </div>
         {{> threatCore core.power}}
-        <h2>{{l "Core.wits"}}</h2>
+        <div class="core-attributes">
+          <h2 class="core-label">
+            <a class="rollable core" data-roll-core="wits">{{l "Core.wits"}}</a>
+          </h2>
+          <small>(
+            <a class="rollable" data-roll-core="wits" data-roll-attribute="knowledge">{{l "Attr.knowledge"}}</a>,
+            <a class="rollable" data-roll-core="wits" data-roll-attribute="cunning">{{l "Attr.cunning"}}</a>
+          )</small>
+        </div>
         <div class="description">
           <p>
             {{l "Defense.takeCover"}}
@@ -33,7 +57,15 @@
           <small>{{l "Defense.vsMissile"}}</small>
         </div>
         {{> threatCore core.wits}}
-        <h2>{{l "Core.resolve"}}</h2>
+        <div class="core-attributes">
+          <h2 class="core-label">
+            <a class="rollable core" data-roll-core="resolve">{{l "Core.resolve"}}</a>
+          </h2>
+          <small>(
+            <a class="rollable" data-roll-core="resolve" data-roll-attribute="presence">{{l "Attr.presence"}}</a>,
+            <a class="rollable" data-roll-core="resolve" data-roll-attribute="willpower">{{l "Attr.willpower"}}</a>
+          )</small>
+        </div>
         <div class="description">
           <p>
             {{l "Defense.resist"}}
@@ -75,6 +107,8 @@
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core"></div>
     <div class="tab features" data-group="primary" data-tab="features">{{> threatFeatures}}</div>
-    <div class="tab equipment" data-group="primary" data-tab="equipment">{{> threatEquipment}}</div>
+    <div class="tab equipment" data-group="primary" data-tab="equipment">
+      {{> threatEquipment}}
+    </div>
   </section>
 </form>

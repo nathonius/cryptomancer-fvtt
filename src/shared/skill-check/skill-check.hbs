@@ -1,20 +1,26 @@
 <div class="crypt-skill-check">
   <h4 class="skill">
-    {{#if skillName }}
-      {{skillName}}
-    {{else}}
-      {{attributeName}}
-    {{/if}}
+    {{skillCheckTitle coreName attributeName skillName}}
   </h4>
   <div class="difficulty">
     <p>
-      <span class="difficulty-label">{{l "CheckDifficulty.difficulty" }}:</span>
+      <span class="difficulty-label">{{l "CheckDifficulty.difficulty"}}:</span>
       {{difficulty}}
     </p>
     <div class="flex-spacer"></div>
-    <button type="button" class="difficulty-update-button" data-chat-action="lower-difficulty" {{disabled (is difficultyValue 4)}}>-
+    <button
+      type="button"
+      class="difficulty-update-button"
+      data-chat-action="lower-difficulty"
+      {{disabled (is difficultyValue 4)}}
+    >-
     </button>
-    <button type="button" class="difficulty-update-button" data-chat-action="raise-difficulty" {{disabled (is difficultyValue 8)}}>+
+    <button
+      type="button"
+      class="difficulty-update-button"
+      data-chat-action="raise-difficulty"
+      {{disabled (is difficultyValue 8)}}
+    >+
     </button>
   </div>
   <p class="result">
@@ -22,12 +28,14 @@
     {{resultDescription}}
   </p>
   <ol class="dice">
-    {{#each rolls }}
-      <li class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
-          title="{{this.value}}"
-          data-tooltip="{{this.value}}">
+    {{#each rolls}}
+      <li
+        class="crypto-die {{this.type}} result-{{this.value}} {{result}}"
+        title="{{this.value}}"
+        data-tooltip="{{this.value}}"
+      >
       </li>
     {{/each}}
   </ol>
-  <div class="result-details">{{l "SkillCheck.hits"}}: {{hit}}</div>
+  <div class="result-details">{{l "SkillCheck.hits"}}: {{hits}}</div>
 </div>

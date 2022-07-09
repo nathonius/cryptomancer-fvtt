@@ -15,8 +15,8 @@ import { CheckDifficulty } from "../shared/skill-check/skill-check.constant";
 import { fromCompendium } from "../shared/util";
 
 import { SkillCheckService } from "../shared/skill-check/skill-check.service";
-import { DEFAULT_CELL } from "./actor.constant";
-import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
+import { AttributesByCore, DEFAULT_CELL } from "./actor.constant";
+import { AttributeKey, Cell, CoreKey, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
 import { BaseUser } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs";
 
 /**
@@ -154,43 +154,58 @@ export class CryptomancerActor extends Actor {
     if (cell.operations === null) return;
     return SkillCheckService.skillCheck(
       cell.operations,
-      "operations",
       CheckDifficulty.Challenging,
-      "",
       cell.skillBreak,
-      cell.skillPush
+      cell.skillPush,
+      this,
+      undefined,
+      undefined,
+      "operations" as SkillKey
     );
   }
 
-  async rollAttribute(
+  rollCore(coreKey: CoreKey, difficulty = CheckDifficulty.Challenging, skillBreak = false, skillPush = false): void {
+    if (this.data.type !== "character" && this.data.type !== "threat") {
+      return;
+    }
+    const attributeKeys = AttributesByCore[coreKey];
+    const highestValue = [
+      this.data.data.attributes[attributeKeys[0]].value,
+      this.data.data.attributes[attributeKeys[1]].value,
+    ].reduce((prev, current) => Math.max(prev, current), 0);
+    SkillCheckService.skillCheck(highestValue, difficulty, skillBreak, skillPush, this, coreKey);
+  }
+
+  rollAttribute(
     attributeName: AttributeKey,
     skillName: SkillKey | "" = "",
     difficulty = CheckDifficulty.Challenging
-  ) {
+  ): void {
     if (this.data.type !== "character" && this.data.type !== "threat") {
       return;
     }
     const attribute = this.data.data.attributes[attributeName];
     const skill = skillName ? this.data.data.skills[skillName] : null;
     if (skill) {
-      return SkillCheckService.skillCheck(
+      SkillCheckService.skillCheck(
         attribute.value,
-        attributeName,
         difficulty,
-        skillName,
         skill.break,
         skill.push,
-        this
+        this,
+        undefined,
+        attributeName,
+        skill.key
       );
     } else {
-      return SkillCheckService.skillCheck(
+      SkillCheckService.skillCheck(
         attribute.value,
-        attributeName,
         difficulty,
-        undefined,
         Boolean((attribute as ResourceAttribute).break),
         Boolean((attribute as ResourceAttribute).push),
-        this
+        this,
+        undefined,
+        attributeName
       );
     }
   }

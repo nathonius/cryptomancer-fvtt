@@ -191,8 +191,6 @@ export class CharacterSheet extends CryptomancerActorSheet<CharacterSheetData> {
 
   /**
    * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
    */
   private onRoll(event: JQuery.ClickEvent) {
     event.preventDefault();
