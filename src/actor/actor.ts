@@ -17,6 +17,7 @@ import { fromCompendium } from "../shared/util";
 import { SkillCheckService } from "../shared/skill-check/skill-check.service";
 import { DEFAULT_CELL } from "./actor.constant";
 import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
+import { BaseUser } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -25,6 +26,14 @@ import { AttributeKey, Cell, ResourceAttribute, RiskEvent, SkillKey } from "./ac
 export class CryptomancerActor extends Actor {
   constructor(data?: ActorDataConstructorData, context?: Context<TokenDocument>) {
     super(data, context);
+  }
+
+  override async _preCreate(data: ActorDataConstructorData, options: DocumentModificationOptions, user: BaseUser) {
+    await super._preCreate(data, options, user);
+
+    if (this.data.type === "character" || this.data.type === "party") {
+      this.data.token.update({ vision: true, actorLink: true, disposition: 1 });
+    }
   }
 
   override _onCreate(
