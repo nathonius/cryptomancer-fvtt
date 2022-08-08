@@ -229,15 +229,18 @@ export interface PreparedThreat extends Threat {
   consumables: CryptomancerItem[];
 }
 
-export type CharacterSheetData = ActorSheet.Data & {
-  checkDifficulty: CheckDifficulty;
+export type CharacterThreatSheetData = ActorSheet.Data & {
   hpAttributeBar: AttributeBarContext;
   manaAttributeBar: AttributeBarContext;
+  core: Record<CoreKey, Core & { attributes: Record<string, Attribute | ResourceAttribute> }>;
   skills: Array<Skill & { attributeValue: number }>;
+};
+
+export type CharacterSheetData = CharacterThreatSheetData & {
+  checkDifficulty: CheckDifficulty;
   partyOptions: StoredDocument<CryptomancerActor>[];
   selectedParty: Party | null;
   upgradePointsUsed: number;
-  core: Record<CoreKey, Core & { attributes: Record<string, Attribute | ResourceAttribute> }>;
 };
 
 export type PartySheetData = ActorSheet.Data & {
@@ -245,9 +248,6 @@ export type PartySheetData = ActorSheet.Data & {
   cellTypes: Record<CellType, string>;
 };
 
-export type ThreatSheetData = ActorSheet.Data & {
-  core: Record<CoreKey, { core: CoreKey; value: number; attributeValue: number; break: boolean; push: boolean }>;
-  hpAttributeBar: AttributeBarContext;
-  manaAttributeBar: AttributeBarContext;
+export type ThreatSheetData = CharacterThreatSheetData & {
   equippedOutfit: CryptomancerItem | null;
 };

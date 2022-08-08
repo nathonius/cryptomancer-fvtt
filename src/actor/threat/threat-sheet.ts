@@ -1,12 +1,9 @@
 import { EquipmentType } from "../../item/item.constant";
-import { SettingsService } from "../../shared/settings/settings.service";
-import { CheckDifficulty } from "../../shared/skill-check/skill-check.constant";
-import { asNumber } from "../../shared/util";
-import { CryptomancerActorSheet } from "../actor-sheet";
-import { AttributesByCore, SkillsByAttribute } from "../actor.constant";
-import { AttributeKey, Core, CoreKey, ThreatSheetData } from "../actor.interface";
+import { AttributesByCore } from "../actor.constant";
+import { CoreKey, ThreatSheetData } from "../actor.interface";
+import { CharacterThreatSheet } from "../character-threat-sheet";
 
-export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
+export class ThreatSheet extends CharacterThreatSheet<ThreatSheetData> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/cryptomancer/actor/threat/threat-sheet.hbs",
@@ -25,46 +22,6 @@ export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
   override async getData(): Promise<ThreatSheetData> {
     const context = await super.getData();
     if (context.data.type !== "threat") return context;
-
-    // Prep data for rendering
-    const core = context.data.data.core;
-    const cores: CoreKey[] = ["power", "resolve", "speed", "wits"];
-    context.core = {} as Record<
-      CoreKey,
-      { core: CoreKey; value: number; attributeValue: number; break: boolean; push: boolean }
-    >;
-    cores.forEach((key) => {
-      context.core[key] = {
-        core: key,
-        value: core[key].value,
-        attributeValue: this.getAttributeValue(key),
-        break: this.getBreakPush(key, "break"),
-        push: this.getBreakPush(key, "push"),
-      };
-    });
-
-    context.hpAttributeBar = {
-      color: "success",
-      max: context.data.data.healthPoints.max,
-      maxName: "data.healthPoints.max",
-      maxPlaceholder: "Max HP",
-      value: context.data.data.healthPoints.value,
-      valueName: "data.healthPoints.value",
-      valuePlaceholder: "HP",
-      class: "hp",
-      tooltip: "HP",
-    };
-    context.manaAttributeBar = {
-      color: "primary",
-      max: context.data.data.manaPoints.max,
-      maxName: "data.manaPoints.max",
-      maxPlaceholder: "Max Mana",
-      value: context.data.data.manaPoints.value,
-      valueName: "data.manaPoints.value",
-      valuePlaceholder: "MP",
-      class: "mp",
-      tooltip: "MP",
-    };
 
     // Find the equipped outfit
     let equippedOutfits = context.data.data.outfits.filter(
@@ -98,83 +55,34 @@ export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
     if (this.actor.data.type !== "threat") return;
     super.activateListeners(html);
 
-    // Rollable abilities.
-    html.find(".rollable").on("click", this.onRoll.bind(this));
+    // // Attribute value
+    // html.find<HTMLInputElement>(".crypt-threat-core .attr-input input").on("change", (evt) => {
+    //   const coreKey = $(evt.currentTarget).parents(".crypt-threat-core").data("core") as CoreKey;
+    //   const attributeKeys = AttributesByCore[coreKey];
+    //   const updateData: any = {};
+    //   updateData[`data.attributes.${attributeKeys[0]}.value`] = asNumber(evt.target.value);
+    //   updateData[`data.attributes.${attributeKeys[1]}.value`] = asNumber(evt.target.value);
+    //   this.object.update(updateData);
+    // });
 
-    // Attribute value
-    html.find<HTMLInputElement>(".crypt-threat-core .attr-input input").on("change", (evt) => {
-      const coreKey = $(evt.currentTarget).parents(".crypt-threat-core").data("core") as CoreKey;
-      const attributeKeys = AttributesByCore[coreKey];
-      const updateData: any = {};
-      updateData[`data.attributes.${attributeKeys[0]}.value`] = asNumber(evt.target.value);
-      updateData[`data.attributes.${attributeKeys[1]}.value`] = asNumber(evt.target.value);
-      this.object.update(updateData);
-    });
-
-    // Break / push
-    html.find<HTMLInputElement>(".crypt-threat-core .break-push input").on("change", (evt) => {
-      const coreKey = $(evt.currentTarget).parents(".crypt-threat-core").data("core") as CoreKey;
-      const valueType = $(evt.currentTarget).parents(".toggle").data("value") as "break" | "push";
-      const attributeKeys = AttributesByCore[coreKey];
-      const skillKeys = [...SkillsByAttribute[attributeKeys[0]], ...SkillsByAttribute[attributeKeys[1]]];
-      const updateData: any = {};
-      skillKeys.forEach((key) => {
-        updateData[`data.skills.${key}.${valueType}`] = evt.target.checked;
-      });
-      // Handle endurance
-      if (coreKey === "power") {
-        updateData[`data.attributes.endurance.${valueType}`] = evt.target.checked;
-      } else if (coreKey === "resolve") {
-        updateData[`data.attributes.willpower.${valueType}`] = evt.target.checked;
-      }
-      this.object.update(updateData);
-    });
-
-    // Add item table event listeners
-    html.find<HTMLButtonElement>(".crypt-item-table .action-button").on("click", (evt) => {
-      const button = evt.target;
-      const row = $(evt.currentTarget).parents(".item-row");
-      const item = this.actor.items.get(row.data("itemId"));
-      if (!item || !item.sheet) {
-        return;
-      }
-
-      const action = button.dataset.action;
-      switch (action) {
-        case "view":
-        case "edit":
-          item.sheet.render(true);
-          break;
-        case "delete":
-          item.deleteDialog();
-          break;
-        case "equip":
-          if (item.data.type === "equipment") {
-            item.update({
-              "data.equipped": !item.data.data.equipped,
-            });
-          }
-          break;
-      }
-    });
-
-    html.find(".crypt-item-table .avatar-wrapper").on("click", (evt) => {
-      const row = $(evt.currentTarget).parents(".item-row");
-      const item = this.actor.items.get(row.data("itemId"));
-      if (!item) {
-        return;
-      }
-      item.showChatMessage();
-    });
-
-    html.find(".crypt-item-table .name a").on("click", (evt) => {
-      const row = $(evt.currentTarget).parents(".item-row");
-      const item = this.actor.items.get(row.data("itemId"));
-      if (!item || !item.sheet) {
-        return;
-      }
-      item.sheet.render(true);
-    });
+    // // Break / push
+    // html.find<HTMLInputElement>(".crypt-threat-core .break-push input").on("change", (evt) => {
+    //   const coreKey = $(evt.currentTarget).parents(".crypt-threat-core").data("core") as CoreKey;
+    //   const valueType = $(evt.currentTarget).parents(".toggle").data("value") as "break" | "push";
+    //   const attributeKeys = AttributesByCore[coreKey];
+    //   const skillKeys = [...SkillsByAttribute[attributeKeys[0]], ...SkillsByAttribute[attributeKeys[1]]];
+    //   const updateData: any = {};
+    //   skillKeys.forEach((key) => {
+    //     updateData[`data.skills.${key}.${valueType}`] = evt.target.checked;
+    //   });
+    //   // Handle endurance
+    //   if (coreKey === "power") {
+    //     updateData[`data.attributes.endurance.${valueType}`] = evt.target.checked;
+    //   } else if (coreKey === "resolve") {
+    //     updateData[`data.attributes.willpower.${valueType}`] = evt.target.checked;
+    //   }
+    //   this.object.update(updateData);
+    // });
   }
 
   /**
@@ -187,29 +95,29 @@ export class ThreatSheet extends CryptomancerActorSheet<ThreatSheetData> {
     return Math.min(this.object.data.data.attributes[keys[0]].value, this.object.data.data.attributes[keys[1]].value);
   }
 
-  /**
-   * Handle clickable rolls.
-   */
-  private onRoll(event: JQuery.ClickEvent) {
-    event.preventDefault();
-    const element = event.currentTarget as HTMLAnchorElement;
-    const dataset = element.dataset;
+  // /**
+  //  * Handle clickable rolls.
+  //  */
+  // private onRoll(event: JQuery.ClickEvent) {
+  //   event.preventDefault();
+  //   const element = event.currentTarget as HTMLAnchorElement;
+  //   const dataset = element.dataset;
 
-    const rollCore = dataset.rollCore as CoreKey;
-    const rollAttribute = dataset.rollAttribute as AttributeKey;
-    const difficulty = SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging;
+  //   const rollCore = dataset.rollCore as CoreKey;
+  //   const rollAttribute = dataset.rollAttribute as AttributeKey;
+  //   const difficulty = SettingsService.getSetting<CheckDifficulty>("checkDifficulty") ?? CheckDifficulty.Challenging;
 
-    if (element.classList.contains("core")) {
-      this.document.rollCore(
-        rollCore,
-        difficulty,
-        this.getBreakPush(rollCore, "break"),
-        this.getBreakPush(rollCore, "push")
-      );
-    } else {
-      this.document.rollAttribute(rollAttribute, undefined, difficulty);
-    }
-  }
+  //   if (element.classList.contains("core")) {
+  //     this.document.rollCore(
+  //       rollCore,
+  //       difficulty,
+  //       this.getBreakPush(rollCore, "break"),
+  //       this.getBreakPush(rollCore, "push")
+  //     );
+  //   } else {
+  //     this.document.rollAttribute(rollAttribute, undefined, difficulty);
+  //   }
+  // }
 
   /**
    * If any attribute or skill of the given core has a true break/push

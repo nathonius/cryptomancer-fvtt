@@ -5,6 +5,6 @@
   },
   "cSpell.words": ["cryptomancer"],
   "[handlebars]": {
-    "editor.defaultFormatter": "monosans.djlint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -1,114 +1,47 @@
-<form class="crypt-threat-sheet" autocomplete="off">
-  <div class="core-and-defenses">
-    <div class="column-cores">
-      <div class="crypt-form-field name">
-        <input id="name-{{document.id}}"
-               type="text"
-               placeholder="{{l "Bio.threatNamePlaceholder"}}"
-               name="name"
-               value="{{actor.name}}"/>
-      </div>
-      <div class="cores">
-        <div class="core-attributes">
-          <h2 class="core-label">
-            <a class="rollable core" data-roll-core="speed">{{l "Core.speed"}}</a>
-          </h2>
-          <small>(
-            <a class="rollable" data-roll-core="speed" data-roll-attribute="agility">{{l "Attr.agility"}}</a>,
-            <a class="rollable" data-roll-core="speed" data-roll-attribute="dexterity">{{l "Attr.dexterity"}}</a>
-          )</small>
-        </div>
-        <div class="description">
-          <p>
-            {{l "Defense.dodge"}}
-          </p>
-          <small>{{l "Defense.vsMeleeMissile"}}</small>
-        </div>
-        {{> threatCore core.speed}}
-        <div class="core-attributes">
-          <h2 class="core-label">
-            <a class="rollable core" data-roll-core="power">{{l "Core.power"}}</a>
-          </h2>
-          <small>(
-            <a class="rollable" data-roll-core="power" data-roll-attribute="strength">{{l "Attr.strength"}}</a>,
-            <a class="rollable" data-roll-core="power" data-roll-attribute="endurance">{{l "Attr.endurance"}}</a>
-          )</small>
-        </div>
-        <div class="description">
-          <p>
-            {{l "Defense.parry"}}
-          </p>
-          <small>{{l "Defense.vsMelee"}}</small>
-        </div>
-        {{> threatCore core.power}}
-        <div class="core-attributes">
-          <h2 class="core-label">
-            <a class="rollable core" data-roll-core="wits">{{l "Core.wits"}}</a>
-          </h2>
-          <small>(
-            <a class="rollable" data-roll-core="wits" data-roll-attribute="knowledge">{{l "Attr.knowledge"}}</a>,
-            <a class="rollable" data-roll-core="wits" data-roll-attribute="cunning">{{l "Attr.cunning"}}</a>
-          )</small>
-        </div>
-        <div class="description">
-          <p>
-            {{l "Defense.takeCover"}}
-          </p>
-          <small>{{l "Defense.vsMissile"}}</small>
-        </div>
-        {{> threatCore core.wits}}
-        <div class="core-attributes">
-          <h2 class="core-label">
-            <a class="rollable core" data-roll-core="resolve">{{l "Core.resolve"}}</a>
-          </h2>
-          <small>(
-            <a class="rollable" data-roll-core="resolve" data-roll-attribute="presence">{{l "Attr.presence"}}</a>,
-            <a class="rollable" data-roll-core="resolve" data-roll-attribute="willpower">{{l "Attr.willpower"}}</a>
-          )</small>
-        </div>
-        <div class="description">
-          <p>
-            {{l "Defense.resist"}}
-          </p>
-          <small>{{l "Defense.vsMagic"}}</small>
-        </div>
-        {{> threatCore core.resolve}}
-      </div>
-    </div>
-    <div class="column-defenses">
-      <div class="avatar">
-        <img alt="threat avatar"
-             src="{{ actor.img }}"
-             data-edit="img"
-             title="{{ actor.name }}"/>
-      </div>
+<form class="crypt-character-sheet" autocomplete="off">
+  <header>
+    <div class="avatar">
+      <img alt="character avatar"
+           src="{{ actor.img }}"
+           data-edit="img"
+           title="{{ actor.name }}"/>
       {{> attributeBar hpAttributeBar }}
       {{> attributeBar manaAttributeBar }}
-      <div class="defenses">
-        {{#if equippedOutfit }}
-          <div class="threat-defense">
-            <span class="label">{{l "Equipment.armor"}}</span>
-            <span class="value">{{equippedOutfit.name}}</span>
-          </div>
-        {{/if}}
-        <div class="threat-defense">
-          <span class="label">{{l "Equipment.damageReduction"}}</span>
-          <span class="value">{{> coreInput value=data.data.damageReduction.value readonly=true size="small" }}</span>
-        </div>
-      </div>
     </div>
-  </div>
+    <div class="bio-defense">
+      {{> basicInfo }}
+      {{> defenses }}
+    </div>
+  </header>
+  {{!-- Sheet Tab Navigation --}}
   <nav class="crypt-tabs small" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="crypt-tab" data-tab="core">{{ toUpperCase (l "Core.core")}}</a>
     <a class="crypt-tab" data-tab="features">{{ toUpperCase (l "Features")}}</a>
     <a class="crypt-tab" data-tab="equipment">{{ toUpperCase (l "Equipment.equipment")}}</a>
     <a class="crypt-tab" data-tab="bio">{{ toUpperCase (l "Bio.bio")}}</a>
   </nav>
   <section class="sheet-body">
-    <div class="tab core" data-group="primary" data-tab="core"></div>
-    <div class="tab features" data-group="primary" data-tab="features">{{> threatFeatures}}</div>
-    <div class="tab equipment" data-group="primary" data-tab="equipment">
-      {{> threatEquipment}}
+    <div class="tab core" data-group="primary" data-tab="core">
+      <div class="cores">
+        {{> miniTriad core.speed }}
+        {{> miniTriad core.power }}
+        {{> miniTriad core.wits }}
+        {{> miniTriad core.resolve }}
+      </div>
+      <div class="skills">
+        <h3 class="skills-label">{{ l "Skill.skills" }}</h3>
+        <div class="skill-lists">
+          {{> skillList (firstHalf skills) }}
+          {{> skillList (lastHalf skills) }}
+        </div>
+      </div>
     </div>
+    <div class="tab features" data-group="primary" data-tab="features">
+      <section class="feature-list">
+        {{> features }}
+      </section>
+    </div>
+    <div class="tab equipment" data-group="primary" data-tab="equipment">{{> equipment }}</div>
   </section>
 </form>
