@@ -1,13 +1,23 @@
 import { EquipmentType } from "../../item/item.constant";
-import { AttributesByCore } from "../actor.constant";
-import { CoreKey, ThreatSheetData } from "../actor.interface";
+import { SYSTEM } from "../../shared/constants";
+import { AttributesByCore, THREAT_LINK_FLAG } from "../actor.constant";
+import { AttributeKey, CoreKey, SkillKey, ThreatSheetData } from "../actor.interface";
 import { CharacterThreatSheet } from "../character-threat-sheet";
+import { ThreatSheetFormData } from "./threat-sheet.interface";
 
 export class ThreatSheet extends CharacterThreatSheet<ThreatSheetData> {
+  get linkEnabled(): boolean {
+    return this.actor.getFlag(SYSTEM, THREAT_LINK_FLAG) as boolean;
+  }
+
+  set linkEnabled(value: boolean) {
+    this.actor.setFlag(SYSTEM, THREAT_LINK_FLAG, value);
+  }
+
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/cryptomancer/actor/threat/threat-sheet.hbs",
-      width: 680,
+      width: 690,
       height: 840,
       tabs: [
         {
@@ -19,9 +29,115 @@ export class ThreatSheet extends CharacterThreatSheet<ThreatSheetData> {
     });
   }
 
+  protected override _updateObject(event: Event, formData: ThreatSheetFormData): Promise<unknown> {
+    if (this.linkEnabled) {
+      const targetName = (event.target as HTMLInputElement)?.name;
+      if (targetName) {
+        const nameParts = targetName.split(".");
+
+        // An attribute is changing, so the linked attribute should change
+        if (targetName.startsWith("data.attributes") && targetName.endsWith(".value")) {
+          switch (nameParts[2] as AttributeKey) {
+            case "agility":
+              formData["data.attributes.dexterity.value"] = formData["data.attributes.agility.value"];
+              break;
+            case "cunning":
+              formData["data.attributes.knowledge.value"] = formData["data.attributes.cunning.value"];
+              break;
+            case "dexterity":
+              formData["data.attributes.agility.value"] = formData["data.attributes.dexterity.value"];
+              break;
+            case "endurance":
+              formData["data.attributes.strength.value"] = formData["data.attributes.endurance.value"];
+              break;
+            case "knowledge":
+              formData["data.attributes.cunning.value"] = formData["data.attributes.knowledge.value"];
+              break;
+            case "presence":
+              formData["data.attributes.willpower.value"] = formData["data.attributes.presence.value"];
+              break;
+            case "strength":
+              formData["data.attributes.endurance.value"] = formData["data.attributes.strength.value"];
+              break;
+            case "willpower":
+              formData["data.attributes.presence.value"] = formData["data.attributes.willpower.value"];
+              break;
+          }
+        }
+
+        // Attribute break/push is changing so the linked skills should change
+        if (targetName.startsWith("data.skills") && (targetName.endsWith(".break") || targetName.endsWith(".push"))) {
+          // Break or push
+          const skillName = nameParts[2] as SkillKey;
+          const toggleType = nameParts[3] as "break" | "push";
+          switch (skillName) {
+            case "acrobatics":
+            case "athletics":
+            case "escapeArtistry":
+            case "stealth":
+              formData[`data.skills.acrobatics.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.athletics.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.escapeArtistry.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.stealth.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+            case "deception":
+            case "scrounge":
+            case "tracking":
+            case "traps":
+              formData[`data.skills.deception.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.scrounge.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.tracking.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.traps.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+            case "firedMissile":
+            case "lockPicking":
+            case "preciseMelee":
+            case "sleightOfHand":
+              formData[`data.skills.firedMissile.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.lockPicking.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.preciseMelee.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.sleightOfHand.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+            case "alchemy":
+            case "craft":
+            case "medicine":
+            case "query":
+              formData[`data.skills.alchemy.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.craft.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.medicine.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.query.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+            case "beastKen":
+            case "charm":
+            case "menace":
+            case "performance":
+              formData[`data.skills.beastKen.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.charm.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.menace.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.performance.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+            case "bruteMelee":
+            case "featOfStrength":
+            case "thrownMissile":
+            case "unarmedMelee":
+              formData[`data.skills.bruteMelee.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.featOfStrength.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.thrownMissile.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              formData[`data.skills.unarmedMelee.${toggleType}`] = formData[`data.skills.${skillName}.${toggleType}`];
+              break;
+          }
+        }
+      }
+    }
+    return super._updateObject(event, formData);
+  }
+
   override async getData(): Promise<ThreatSheetData> {
     const context = await super.getData();
     if (context.data.type !== "threat") return context;
+
+    // Store the link status for rendering
+    context.linked = this.linkEnabled;
 
     // Find the equipped outfit
     let equippedOutfits = context.data.data.outfits.filter(
@@ -54,6 +170,10 @@ export class ThreatSheet extends CharacterThreatSheet<ThreatSheetData> {
   override activateListeners(html: JQuery<HTMLElement>): void {
     if (this.actor.data.type !== "threat") return;
     super.activateListeners(html);
+
+    html.find<HTMLButtonElement>("button.link-toggle").on("click", () => {
+      this.linkToggle();
+    });
 
     // // Attribute value
     // html.find<HTMLInputElement>(".crypt-threat-core .attr-input input").on("change", (evt) => {
@@ -165,5 +285,9 @@ export class ThreatSheet extends CharacterThreatSheet<ThreatSheetData> {
           this.object.data.data.skills.traps[value],
         ].some((v) => v);
     }
+  }
+
+  private linkToggle(): void {
+    this.linkEnabled = !this.linkEnabled;
   }
 }

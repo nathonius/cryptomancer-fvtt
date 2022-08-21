@@ -16,7 +16,7 @@ tooltip: string;
 <div class="crypt-attribute-bar {{this.color}} {{this.class}}"
      data-tooltip="{{this.tooltip}}">
   <progress value={{this.value}} max={{this.max}}></progress>
-  <input class="attribute-value left" type="text" value="{{this.value}}" placeholder="{{this.valuePlaceholder}}" name="{{this.valueName}}" {{#if valueReadonly }}disabled{{/if}}/>
+  <input class="attribute-value left" type="text" value="{{this.value}}" placeholder="{{this.valuePlaceholder}}" name="{{this.valueName}}" {{#if valueReadonly }}disabled{{/if}} data-dtype="Number"/>
   <span class="slash">/</span>
-  <input class="attribute-value right" type="text" value="{{this.max}}" placeholder="{{this.maxPlaceholder}}" name="{{this.maxName}}" {{#if maxReadonly }}disabled{{/if}}/>
+  <input class="attribute-value right" type="text" value="{{this.max}}" placeholder="{{this.maxPlaceholder}}" name="{{this.maxName}}" {{#if maxReadonly }}disabled{{/if}} data-dtype="Number"/>
 </div>

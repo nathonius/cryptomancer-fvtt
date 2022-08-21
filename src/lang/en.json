@@ -12,6 +12,8 @@
   "CRYPTOMANCER.SheetType.equipment": "Equipment",
   "CRYPTOMANCER.SheetType.talent": "Talent",
   "CRYPTOMANCER.SheetType.spell": "Spell",
+  "CRYPTOMANCER.Threat.linked": "Linked",
+  "CRYPTOMANCER.Threat.unlinked": "Unlinked",
   "CRYPTOMANCER.Core.core": "Core",
   "CRYPTOMANCER.Core.wits": "Wits",
   "CRYPTOMANCER.Core.resolve": "Resolve",

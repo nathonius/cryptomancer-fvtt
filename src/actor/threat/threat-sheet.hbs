@@ -1,4 +1,4 @@
-<form class="crypt-character-sheet" autocomplete="off">
+<form class="crypt-character-sheet crypt-threat-sheet" autocomplete="off">
   <header>
     <div class="avatar">
       <img alt="character avatar"
@@ -23,6 +23,7 @@
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
+      
       <div class="cores">
         {{> miniTriad core.speed }}
         {{> miniTriad core.power }}
@@ -30,7 +31,12 @@
         {{> miniTriad core.resolve }}
       </div>
       <div class="skills">
-        <h3 class="skills-label">{{ l "Skill.skills" }}</h3>
+        <div class="skills-label-wrapper">
+          <h3 class="skills-label">{{ l "Skill.skills" }}</h3>
+          <button type="button" class="link-toggle{{#if linked}} linked{{/if}}">
+            {{#if linked}}{{l "Threat.linked"}}{{else}}{{l "Threat.unlinked"}}{{/if}} <i class="fas fa-link"></i>
+          </button>
+        </div>
         <div class="skill-lists">
           {{> skillList (firstHalf skills) }}
           {{> skillList (lastHalf skills) }}

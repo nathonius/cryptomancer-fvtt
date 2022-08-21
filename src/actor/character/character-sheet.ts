@@ -9,7 +9,7 @@ export class CharacterSheet extends CharacterThreatSheet<CharacterSheetData> {
   static override get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/cryptomancer/actor/character/character-sheet.hbs",
-      width: 680,
+      width: 690,
       height: 840,
       tabs: [
         {

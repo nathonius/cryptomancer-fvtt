@@ -250,4 +250,5 @@ export type PartySheetData = ActorSheet.Data & {
 
 export type ThreatSheetData = CharacterThreatSheetData & {
   equippedOutfit: CryptomancerItem | null;
+  linked: boolean;
 };

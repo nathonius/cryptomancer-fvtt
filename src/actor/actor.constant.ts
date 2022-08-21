@@ -1,5 +1,7 @@
 import { AttributeKey, Cell, CoreKey, SkillKey } from "./actor.interface";
 
+export const THREAT_LINK_FLAG = "ThreatLink";
+
 export const AttributesByCore: Record<CoreKey, [AttributeKey, AttributeKey]> = {
   power: ["strength", "endurance"],
   resolve: ["presence", "willpower"],

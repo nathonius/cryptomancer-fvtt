@@ -15,9 +15,10 @@ import { CheckDifficulty } from "../shared/skill-check/skill-check.constant";
 import { fromCompendium } from "../shared/util";
 
 import { SkillCheckService } from "../shared/skill-check/skill-check.service";
-import { AttributesByCore, DEFAULT_CELL } from "./actor.constant";
+import { AttributesByCore, DEFAULT_CELL, THREAT_LINK_FLAG } from "./actor.constant";
 import { AttributeKey, Cell, CoreKey, ResourceAttribute, RiskEvent, SkillKey } from "./actor.interface";
 import { BaseUser } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents.mjs";
+import { SYSTEM } from "../shared/constants";
 
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
@@ -43,6 +44,10 @@ export class CryptomancerActor extends Actor {
   ) {
     super._onCreate(data, options, userId);
     this.addUnarmedStrike();
+
+    if (this.data.type === "threat") {
+      this.setFlag(SYSTEM, THREAT_LINK_FLAG, true);
+    }
   }
 
   override prepareData() {
@@ -250,6 +255,9 @@ export class CryptomancerActor extends Actor {
   }
 
   private async addUnarmedStrike(): Promise<void> {
+    if (this.data.type !== "character") {
+      return;
+    }
     const storedUnarmedStrike = await fromCompendium<CryptomancerItem>("weapons", "nATp07dapVa5QDbu");
     if (!storedUnarmedStrike) {
       return;
