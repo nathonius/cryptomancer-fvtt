@@ -15,4 +15,18 @@
       }
     }
   }
+  .tab.notes {
+    &.active {
+      display: flex;
+      flex-direction: column;
+    }
+    .notes-title {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      font-family: var(--font-accent);
+    }
+    .editor {
+      flex-grow: 1;
+    }
+  }
 }

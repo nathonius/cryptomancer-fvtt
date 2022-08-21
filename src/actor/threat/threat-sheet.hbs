@@ -19,7 +19,7 @@
     <a class="crypt-tab" data-tab="core">{{ toUpperCase (l "Core.core")}}</a>
     <a class="crypt-tab" data-tab="features">{{ toUpperCase (l "Features")}}</a>
     <a class="crypt-tab" data-tab="equipment">{{ toUpperCase (l "Equipment.equipment")}}</a>
-    <a class="crypt-tab" data-tab="bio">{{ toUpperCase (l "Bio.bio")}}</a>
+    <a class="crypt-tab" data-tab="notes">{{ toUpperCase (l "Notes")}}</a>
   </nav>
   <section class="sheet-body">
     <div class="tab core" data-group="primary" data-tab="core">
@@ -49,5 +49,9 @@
       </section>
     </div>
     <div class="tab equipment" data-group="primary" data-tab="equipment">{{> equipment }}</div>
+    <div class="tab notes" data-group="primary" data-tab="notes">
+      <h3 class="notes-title">{{l "Notes"}}</h3>
+      {{editor content=data.data.notes target="data.notes" button=true owner=owner editable=editable }}
+    </div>
   </section>
 </form>
