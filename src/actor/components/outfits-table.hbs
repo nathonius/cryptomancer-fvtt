@@ -1,4 +1,4 @@
-    <table class="crypt-item-table outfits-table">
+    <table class="crypt-item-table outfits-table item-list">
       <tr>
         <th colspan="2">{{l "Equipment.outfits"}}</th>
         <th data-dtype="Number">{{l "EquipmentRules.damageReduction"}}</th>
@@ -6,7 +6,7 @@
         <th data-dtype="Number">{{l "Equipment.cost"}}</th>
       </tr>
       {{#each data.data.outfits }}
-        <tr class="item-row" data-item-id="{{this.id}}">
+        <tr class="item-row item" data-item-id="{{this.id}}" draggable="true">
           <td class="outfit avatar">
             <button class="avatar-wrapper" data-tooltip="{{l "ToChat"}}">
               <img src="{{this.img}}" alt="{{this.name}}"/>
