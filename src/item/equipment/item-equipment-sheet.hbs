@@ -163,6 +163,15 @@
             </div>
           {{/if}}
         </div>
+        <h3>{{l "EquipmentRules.magicRules"}}</h3>
+        <div class="rules-list">
+          {{#each magicRules }}
+            <div class="crypt-chip rule-chip {{#if (hasRule this ../data.data.rules) }}primary{{/if }}"
+                 data-rule="{{this.key}}">
+              {{l this.label }}
+            </div>
+          {{/each}}
+        </div>
         <h3>{{l "EquipmentRules.skillRules"}}</h3>
         <div class="rules-list">
           {{#each skillRules }}

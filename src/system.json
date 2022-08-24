@@ -6,12 +6,8 @@
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "OfficerHalf",
-  "esmodules": [
-    "cryptomancer.js"
-  ],
-  "styles": [
-    "cryptomancer.css"
-  ],
+  "esmodules": ["cryptomancer.js"],
+  "styles": ["cryptomancer.css"],
   "scripts": [],
   "packs": [
     {
@@ -49,6 +45,12 @@
       "label": "Weapons",
       "path": "packs/weapons.db",
       "type": "Item"
+    },
+    {
+      "name": "magic-rules",
+      "label": "Magic Rules",
+      "path": "packs/magic-rules.db",
+      "type": "JournalEntry"
     },
     {
       "name": "outfit-rules",

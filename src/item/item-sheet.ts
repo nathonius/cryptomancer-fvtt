@@ -1,5 +1,13 @@
 import type { AugmentedData } from "./item.interface";
-import { SpellTypes, EquipmentTypes, EquipmentRules, OutfitRules, SkillRules, WeaponRules } from "./item.constant";
+import {
+  SpellTypes,
+  EquipmentTypes,
+  EquipmentRules,
+  OutfitRules,
+  SkillRules,
+  WeaponRules,
+  MagicRules,
+} from "./item.constant";
 import { fromCompendium, l } from "../shared/util";
 
 export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, AugmentedData> {
@@ -26,6 +34,9 @@ export class CryptomancerItemSheet extends ItemSheet<DocumentSheetOptions, Augme
       return l(a.label) > l(b.label) ? 1 : -1;
     });
     context.weaponRules = Object.values(WeaponRules).sort((a, b) => {
+      return l(a.label) > l(b.label) ? 1 : -1;
+    });
+    context.magicRules = Object.values(MagicRules).sort((a, b) => {
       return l(a.label) > l(b.label) ? 1 : -1;
     });
     context.skillRules = Object.values(SkillRules).sort((a, b) => {
